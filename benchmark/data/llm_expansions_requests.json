@@ -1,0 +1,1882 @@
+{
+  "repo": "requests",
+  "created_at": "2026-06-25T08:14:56.105029",
+  "llm_url": "http://localhost:11434/v1",
+  "num_samples": 15,
+  "expansions": {
+    "4fcd55ee": {
+      "title": "chardet 6 triggers RequestsDependencyWarning on stderr",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"__init__\",\n    \"check_compatibility\"\n  ],\n  \"classes\": [\n    \"Session\",\n    \"Response\"\n  ],\n  \"files\": [\n    \"requests/__init__.py\",\n    \"requests/utils.py\"\n  ],\n  \"imports\": [\n    \"import chardet\",\n    \"from urllib3.exceptions import DependencyWarning\"\n  ],\n  \"keywords\": [\n    \"chardet\",\n    \"urllib3\",\n    \"charset_normalizer\",\n    \"RequestsDependencyWarning\",\n    \"version_check\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__init__",
+          "check_compatibility"
+        ],
+        "classes": [
+          "Session",
+          "Response"
+        ],
+        "files": [
+          "requests/__init__.py",
+          "requests/utils.py"
+        ],
+        "imports": [
+          "import chardet",
+          "from urllib3.exceptions import DependencyWarning"
+        ],
+        "keywords": [
+          "chardet",
+          "urllib3",
+          "charset_normalizer",
+          "RequestsDependencyWarning",
+          "version_check"
+        ]
+      },
+      "flat_terms": "__init__ check_compatibility Session Response requests/__init__.py requests/utils.py import chardet from urllib3.exceptions import DependencyWarning chardet urllib3 charset_normalizer RequestsDependencyWarning version_check",
+      "combined_query": "chardet 6 triggers RequestsDependencyWarning on stderr __init__ check_compatibility Session Response requests/__init__.py requests/utils.py import chardet from urllib3.exceptions import DependencyWarning chardet urllib3 charset_normalizer RequestsDependencyWarning version_check",
+      "expansion_time_s": 19.1
+    },
+    "fba48acb": {
+      "title": "Timeout in session chunked requests lead to subsequent request timeout",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"send\", \"request\", \"_do_open\", \"_build_response_from_http_response\"],\n  \"classes\": [\"Session\", \"Response\", \"Connection\"],\n  \"files\": [\"requests/sessions.py\", \"requests/adapters.py\", \"urllib3/connectionpool.py\"],\n  \"imports\": [\"from requests.adapters import HTTPAdapter\", \"import urllib3.util.retry\"],\n  \"keywords\": [\"timeout\", \"chunked\", \"session\", \"request\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "send",
+          "request",
+          "_do_open",
+          "_build_response_from_http_response"
+        ],
+        "classes": [
+          "Session",
+          "Response",
+          "Connection"
+        ],
+        "files": [
+          "requests/sessions.py",
+          "requests/adapters.py",
+          "urllib3/connectionpool.py"
+        ],
+        "imports": [
+          "from requests.adapters import HTTPAdapter",
+          "import urllib3.util.retry"
+        ],
+        "keywords": [
+          "timeout",
+          "chunked",
+          "session",
+          "request"
+        ]
+      },
+      "flat_terms": "send request _do_open _build_response_from_http_response Session Response Connection requests/sessions.py requests/adapters.py urllib3/connectionpool.py from requests.adapters import HTTPAdapter import urllib3.util.retry timeout chunked session request",
+      "combined_query": "Timeout in session chunked requests lead to subsequent request timeout send request _do_open _build_response_from_http_response Session Response Connection requests/sessions.py requests/adapters.py urllib3/connectionpool.py from requests.adapters import HTTPAdapter import urllib3.util.retry timeout chunked session request",
+      "expansion_time_s": 12.3
+    },
+    "b18f2c18": {
+      "title": "Multiple concurrent client certs broken with v2.32.3",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"Session.request\",\n    \"Session.send\",\n    \"urllib3.util.ssl_.create_urllib3_context\",\n    \"ThreadPoolExecutor.submit\"\n  ],\n  \"classes\": [\n    \"Session\",\n    \"ThreadPoolExecutor\"\n  ],\n  \"files\": [\n    \"requests/sessions.py\",\n    \"urllib3/util/ssl_.py\",\n    \"concurrent/futures/thread.py\"\n  ],\n  \"imports\": [\n    \"from requests import Session\",\n    \"from concurrent.futures import ThreadPoolExecutor\",\n    \"import urllib3.util.ssl_\"\n  ],\n  \"keywords\": [\n    \"client_cert\",\n    \"SSLContext\",\n    \"ThreadPoolExecutor\",\n    \"Session.request\",\n    \"urllib3_context\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Session.request",
+          "Session.send",
+          "urllib3.util.ssl_.create_urllib3_context",
+          "ThreadPoolExecutor.submit"
+        ],
+        "classes": [
+          "Session",
+          "ThreadPoolExecutor"
+        ],
+        "files": [
+          "requests/sessions.py",
+          "urllib3/util/ssl_.py",
+          "concurrent/futures/thread.py"
+        ],
+        "imports": [
+          "from requests import Session",
+          "from concurrent.futures import ThreadPoolExecutor",
+          "import urllib3.util.ssl_"
+        ],
+        "keywords": [
+          "client_cert",
+          "SSLContext",
+          "ThreadPoolExecutor",
+          "Session.request",
+          "urllib3_context"
+        ]
+      },
+      "flat_terms": "Session.request Session.send urllib3.util.ssl_.create_urllib3_context ThreadPoolExecutor.submit Session ThreadPoolExecutor requests/sessions.py urllib3/util/ssl_.py concurrent/futures/thread.py from requests import Session from concurrent.futures import ThreadPoolExecutor import urllib3.util.ssl_ client_cert SSLContext ThreadPoolExecutor Session.request urllib3_context",
+      "combined_query": "Multiple concurrent client certs broken with v2.32.3 Session.request Session.send urllib3.util.ssl_.create_urllib3_context ThreadPoolExecutor.submit Session ThreadPoolExecutor requests/sessions.py urllib3/util/ssl_.py concurrent/futures/thread.py from requests import Session from concurrent.futures import ThreadPoolExecutor import urllib3.util.ssl_ client_cert SSLContext ThreadPoolExecutor Session.request urllib3_context",
+      "expansion_time_s": 22.1
+    },
+    "d521a302": {
+      "title": "Documentation: Session docstring for verify attribute should note that it supports a string value.",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"request\"],\n  \"classes\": [\"Session\"],\n  \"files\": [\"src/requests/sessions.py\"],\n  \"imports\": [],\n  \"keywords\": [\"verify\", \"bool\", \"string\", \"session.request\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "request"
+        ],
+        "classes": [
+          "Session"
+        ],
+        "files": [
+          "src/requests/sessions.py"
+        ],
+        "imports": [],
+        "keywords": [
+          "verify",
+          "bool",
+          "string",
+          "session.request"
+        ]
+      },
+      "flat_terms": "request Session src/requests/sessions.py verify bool string session.request",
+      "combined_query": "Documentation: Session docstring for verify attribute should note that it supports a string value. request Session src/requests/sessions.py verify bool string session.request",
+      "expansion_time_s": 10.2
+    },
+    "7d5aaaea": {
+      "title": "Document threading contract for Session class",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"__init__\", \"request\", \"send\"],\n  \"classes\": [\"Session\"],\n  \"files\": [\"session.py\"],\n  \"imports\": [\"from .structures import CaseInsensitiveDict\"],\n  \"keywords\": [\"threadsafe\", \"redir\", \"lock\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__init__",
+          "request",
+          "send"
+        ],
+        "classes": [
+          "Session"
+        ],
+        "files": [
+          "session.py"
+        ],
+        "imports": [
+          "from .structures import CaseInsensitiveDict"
+        ],
+        "keywords": [
+          "threadsafe",
+          "redir",
+          "lock"
+        ]
+      },
+      "flat_terms": "__init__ request send Session session.py from .structures import CaseInsensitiveDict threadsafe redir lock",
+      "combined_query": "Document threading contract for Session class __init__ request send Session session.py from .structures import CaseInsensitiveDict threadsafe redir lock",
+      "expansion_time_s": 9.5
+    },
+    "a282bd96": {
+      "title": "Wrong CA Certificates used in requests.Session.send",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"merge_environment_settings\", \"send\"],\n  \"classes\": [\"Session\"],\n  \"files\": [\"src/requests/sessions.py\"],\n  \"imports\": [\n    \"from requests.adapters import HTTPAdapter\",\n    \"import urllib3.util.ssl_\"\n  ],\n  \"keywords\": [\"certifi\", \"SSLContext\", \"verify\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "merge_environment_settings",
+          "send"
+        ],
+        "classes": [
+          "Session"
+        ],
+        "files": [
+          "src/requests/sessions.py"
+        ],
+        "imports": [
+          "from requests.adapters import HTTPAdapter",
+          "import urllib3.util.ssl_"
+        ],
+        "keywords": [
+          "certifi",
+          "SSLContext",
+          "verify"
+        ]
+      },
+      "flat_terms": "merge_environment_settings send Session src/requests/sessions.py from requests.adapters import HTTPAdapter import urllib3.util.ssl_ certifi SSLContext verify",
+      "combined_query": "Wrong CA Certificates used in requests.Session.send merge_environment_settings send Session src/requests/sessions.py from requests.adapters import HTTPAdapter import urllib3.util.ssl_ certifi SSLContext verify",
+      "expansion_time_s": 14.4
+    },
+    "0824816f": {
+      "title": "Certificate loading regression with HTTPAdapters in 2.32.3",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"load_default_certs\",\n    \"mount\",\n    \"send\"\n  ],\n  \"classes\": [\n    \"HTTPAdapter\",\n    \"Session\"\n  ],\n  \"files\": [\n    \"adapters.py\",\n    \"sessions.py\",\n    \"models.py\"\n  ],\n  \"imports\": [\n    \"from urllib3.util.ssl_ import load_default_certs\",\n    \"from requests.adapters import HTTPAdapter\"\n  ],\n  \"keywords\": [\n    \"SSLContext\",\n    \"certifi\",\n    \"default_certs\",\n    \"mount_point\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "load_default_certs",
+          "mount",
+          "send"
+        ],
+        "classes": [
+          "HTTPAdapter",
+          "Session"
+        ],
+        "files": [
+          "adapters.py",
+          "sessions.py",
+          "models.py"
+        ],
+        "imports": [
+          "from urllib3.util.ssl_ import load_default_certs",
+          "from requests.adapters import HTTPAdapter"
+        ],
+        "keywords": [
+          "SSLContext",
+          "certifi",
+          "default_certs",
+          "mount_point"
+        ]
+      },
+      "flat_terms": "load_default_certs mount send HTTPAdapter Session adapters.py sessions.py models.py from urllib3.util.ssl_ import load_default_certs from requests.adapters import HTTPAdapter SSLContext certifi default_certs mount_point",
+      "combined_query": "Certificate loading regression with HTTPAdapters in 2.32.3 load_default_certs mount send HTTPAdapter Session adapters.py sessions.py models.py from urllib3.util.ssl_ import load_default_certs from requests.adapters import HTTPAdapter SSLContext certifi default_certs mount_point",
+      "expansion_time_s": 21.9
+    },
+    "d73b61c0": {
+      "title": "Requests v2.32.0 caused the error `Segmentation fault` when including the `cert` parameter",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"ssl_wrap_socket\",\n    \"connect\"\n  ],\n  \"classes\": [\n    \"SSLContext\",\n    \"Connection\"\n  ],\n  \"files\": [\n    \"urllib3/util/ssl_.py\",\n    \"urllib3/connection.py\"\n  ],\n  \"imports\": [\n    \"import ssl\",\n    \"from urllib3.util.ssl_ import create_urllib3_context\"\n  ],\n  \"keywords\": [\n    \"SSLContext\",\n    \"cert\",\n    \"wrap_socket\",\n    \"Segmentation fault\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "ssl_wrap_socket",
+          "connect"
+        ],
+        "classes": [
+          "SSLContext",
+          "Connection"
+        ],
+        "files": [
+          "urllib3/util/ssl_.py",
+          "urllib3/connection.py"
+        ],
+        "imports": [
+          "import ssl",
+          "from urllib3.util.ssl_ import create_urllib3_context"
+        ],
+        "keywords": [
+          "SSLContext",
+          "cert",
+          "wrap_socket",
+          "Segmentation fault"
+        ]
+      },
+      "flat_terms": "ssl_wrap_socket connect SSLContext Connection urllib3/util/ssl_.py urllib3/connection.py import ssl from urllib3.util.ssl_ import create_urllib3_context SSLContext cert wrap_socket Segmentation fault",
+      "combined_query": "Requests v2.32.0 caused the error `Segmentation fault` when including the `cert` parameter ssl_wrap_socket connect SSLContext Connection urllib3/util/ssl_.py urllib3/connection.py import ssl from urllib3.util.ssl_ import create_urllib3_context SSLContext cert wrap_socket Segmentation fault",
+      "expansion_time_s": 17.9
+    },
+    "d235fbd7": {
+      "title": "`Session.request` documentation does not specify what unit of time the `timeout` argument uses",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"request\", \"send\"],\n  \"classes\": [\"Session\"],\n  \"files\": [\"session.py\", \"adapters.py\"],\n  \"imports\": [\"import socket\", \"from urllib3.util.retry import Retry\"],\n  \"keywords\": [\"timeout\", \"seconds\", \"tuple\", \"connect\", \"read\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "request",
+          "send"
+        ],
+        "classes": [
+          "Session"
+        ],
+        "files": [
+          "session.py",
+          "adapters.py"
+        ],
+        "imports": [
+          "import socket",
+          "from urllib3.util.retry import Retry"
+        ],
+        "keywords": [
+          "timeout",
+          "seconds",
+          "tuple",
+          "connect",
+          "read"
+        ]
+      },
+      "flat_terms": "request send Session session.py adapters.py import socket from urllib3.util.retry import Retry timeout seconds tuple connect read",
+      "combined_query": "`Session.request` documentation does not specify what unit of time the `timeout` argument uses request send Session session.py adapters.py import socket from urllib3.util.retry import Retry timeout seconds tuple connect read",
+      "expansion_time_s": 11.5
+    },
+    "3bbabd0f": {
+      "title": "CVE-2024-47081: Netrc credential leak in PSF requests library",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"parse_netrc\", \"get_netrc_auth\"],\n  \"classes\": [\"Session\", \"Request\"],\n  \"files\": [\"requests/sessions.py\", \"requests/utils.py\"],\n  \"imports\": [\n    \"import netrc\",\n    \"from urllib.parse import urlparse\"\n  ],\n  \"keywords\": [\"netrc\", \"credentials\", \"URL processing\", \"third parties\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "parse_netrc",
+          "get_netrc_auth"
+        ],
+        "classes": [
+          "Session",
+          "Request"
+        ],
+        "files": [
+          "requests/sessions.py",
+          "requests/utils.py"
+        ],
+        "imports": [
+          "import netrc",
+          "from urllib.parse import urlparse"
+        ],
+        "keywords": [
+          "netrc",
+          "credentials",
+          "URL processing",
+          "third parties"
+        ]
+      },
+      "flat_terms": "parse_netrc get_netrc_auth Session Request requests/sessions.py requests/utils.py import netrc from urllib.parse import urlparse netrc credentials URL processing third parties",
+      "combined_query": "CVE-2024-47081: Netrc credential leak in PSF requests library parse_netrc get_netrc_auth Session Request requests/sessions.py requests/utils.py import netrc from urllib.parse import urlparse netrc credentials URL processing third parties",
+      "expansion_time_s": 13.7
+    },
+    "79fa20c1": {
+      "title": "Requests 2.32.0 Not supported URL scheme http+docker",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"_get_connection\",\n    \"send\"\n  ],\n  \"classes\": [\n    \"HTTPAdapter\"\n  ],\n  \"files\": [\n    \"requests/adapters.py\"\n  ],\n  \"imports\": [\n    \"from requests.adapters import HTTPAdapter\"\n  ],\n  \"keywords\": [\n    \"http+docker\",\n    \"URL scheme\",\n    \"connection\",\n    \"send request\",\n    \"proxies\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_get_connection",
+          "send"
+        ],
+        "classes": [
+          "HTTPAdapter"
+        ],
+        "files": [
+          "requests/adapters.py"
+        ],
+        "imports": [
+          "from requests.adapters import HTTPAdapter"
+        ],
+        "keywords": [
+          "http+docker",
+          "URL scheme",
+          "connection",
+          "send request",
+          "proxies"
+        ]
+      },
+      "flat_terms": "_get_connection send HTTPAdapter requests/adapters.py from requests.adapters import HTTPAdapter http+docker URL scheme connection send request proxies",
+      "combined_query": "Requests 2.32.0 Not supported URL scheme http+docker _get_connection send HTTPAdapter requests/adapters.py from requests.adapters import HTTPAdapter http+docker URL scheme connection send request proxies",
+      "expansion_time_s": 14.0
+    },
+    "7833b1ca": {
+      "title": "2.32.0 sdist is missing `tests/certs`",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"sdist\",\n    \"add_files_to_sdist\"\n  ],\n  \"classes\": [\n    \"SdistCommand\"\n  ],\n  \"files\": [\n    \"setup.py\",\n    \"MANIFEST.in\"\n  ],\n  \"imports\": [\n    \"from setuptools import setup, find_packages\",\n    \"from distutils.command.sdist import sdist as _sdist\"\n  ],\n  \"keywords\": [\n    \"sdist\",\n    \"tests\",\n    \"certs\",\n    \"MANIFEST.in\",\n    \"setup.py\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "sdist",
+          "add_files_to_sdist"
+        ],
+        "classes": [
+          "SdistCommand"
+        ],
+        "files": [
+          "setup.py",
+          "MANIFEST.in"
+        ],
+        "imports": [
+          "from setuptools import setup, find_packages",
+          "from distutils.command.sdist import sdist as _sdist"
+        ],
+        "keywords": [
+          "sdist",
+          "tests",
+          "certs",
+          "MANIFEST.in",
+          "setup.py"
+        ]
+      },
+      "flat_terms": "sdist add_files_to_sdist SdistCommand setup.py MANIFEST.in from setuptools import setup, find_packages from distutils.command.sdist import sdist as _sdist sdist tests certs MANIFEST.in setup.py",
+      "combined_query": "2.32.0 sdist is missing `tests/certs` sdist add_files_to_sdist SdistCommand setup.py MANIFEST.in from setuptools import setup, find_packages from distutils.command.sdist import sdist as _sdist sdist tests certs MANIFEST.in setup.py",
+      "expansion_time_s": 18.1
+    },
+    "d894b424": {
+      "title": "Connection timeout doesn't work for chunk-encoded requests",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"send\", \"read_chunked\", \"connect\"],\n  \"classes\": [\"Session\", \"Response\", \"ConnectionError\"],\n  \"files\": [\"adapters.py\", \"models.py\", \"exceptions.py\"],\n  \"imports\": [\"from urllib3.util.retry import Retry\", \"import socket\"],\n  \"keywords\": [\"timeout\", \"chunk-encoded\", \"HTTPAdapter\", \"SocketTimeout\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "send",
+          "read_chunked",
+          "connect"
+        ],
+        "classes": [
+          "Session",
+          "Response",
+          "ConnectionError"
+        ],
+        "files": [
+          "adapters.py",
+          "models.py",
+          "exceptions.py"
+        ],
+        "imports": [
+          "from urllib3.util.retry import Retry",
+          "import socket"
+        ],
+        "keywords": [
+          "timeout",
+          "chunk-encoded",
+          "HTTPAdapter",
+          "SocketTimeout"
+        ]
+      },
+      "flat_terms": "send read_chunked connect Session Response ConnectionError adapters.py models.py exceptions.py from urllib3.util.retry import Retry import socket timeout chunk-encoded HTTPAdapter SocketTimeout",
+      "combined_query": "Connection timeout doesn't work for chunk-encoded requests send read_chunked connect Session Response ConnectionError adapters.py models.py exceptions.py from urllib3.util.retry import Retry import socket timeout chunk-encoded HTTPAdapter SocketTimeout",
+      "expansion_time_s": 13.0
+    },
+    "4f588068": {
+      "title": "[BUG] JSONDecodeError can't be deserialized - invalid JSON raises a BrokenProcessPool and crashes the entire process pool",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"requests.get\", \"requests.post\", \"_parse_json\"],\n  \"classes\": [\"Response\"],\n  \"files\": [\"requests/models.py\", \"requests/utils.py\"],\n  \"imports\": [\"import json\", \"from requests.exceptions import JSONDecodeError\"],\n  \"keywords\": [\"JSONDecodeError\", \"BrokenProcessPool\", \"process pool\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "requests.get",
+          "requests.post",
+          "_parse_json"
+        ],
+        "classes": [
+          "Response"
+        ],
+        "files": [
+          "requests/models.py",
+          "requests/utils.py"
+        ],
+        "imports": [
+          "import json",
+          "from requests.exceptions import JSONDecodeError"
+        ],
+        "keywords": [
+          "JSONDecodeError",
+          "BrokenProcessPool",
+          "process pool"
+        ]
+      },
+      "flat_terms": "requests.get requests.post _parse_json Response requests/models.py requests/utils.py import json from requests.exceptions import JSONDecodeError JSONDecodeError BrokenProcessPool process pool",
+      "combined_query": "[BUG] JSONDecodeError can't be deserialized - invalid JSON raises a BrokenProcessPool and crashes the entire process pool requests.get requests.post _parse_json Response requests/models.py requests/utils.py import json from requests.exceptions import JSONDecodeError JSONDecodeError BrokenProcessPool process pool",
+      "expansion_time_s": 12.3
+    },
+    "7c5bb3f5": {
+      "title": "requests.package.chardet* references not assigned correctly?",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"assign_module\", \"load_package\"],\n  \"classes\": [],\n  \"files\": [\"requests/packages.py\"],\n  \"imports\": [\n    \"import sys\",\n    \"from requests.packages import chardet\"\n  ],\n  \"keywords\": [\"sys.modules\", \"chardet.__name__\", \"target\", \"mod.startswith\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "assign_module",
+          "load_package"
+        ],
+        "classes": [],
+        "files": [
+          "requests/packages.py"
+        ],
+        "imports": [
+          "import sys",
+          "from requests.packages import chardet"
+        ],
+        "keywords": [
+          "sys.modules",
+          "chardet.__name__",
+          "target",
+          "mod.startswith"
+        ]
+      },
+      "flat_terms": "assign_module load_package requests/packages.py import sys from requests.packages import chardet sys.modules chardet.__name__ target mod.startswith",
+      "combined_query": "requests.package.chardet* references not assigned correctly? assign_module load_package requests/packages.py import sys from requests.packages import chardet sys.modules chardet.__name__ target mod.startswith",
+      "expansion_time_s": 12.0
+    },
+    "66b0c3a2": {
+      "title": "mypy warns about invalid types for headers",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"post\"],\n  \"classes\": [],\n  \"files\": [\"requests/api.py\"],\n  \"imports\": [\"from typing import MutableMapping\"],\n  \"keywords\": [\"headers\", \"MutableMapping\", \"bytes\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "post"
+        ],
+        "classes": [],
+        "files": [
+          "requests/api.py"
+        ],
+        "imports": [
+          "from typing import MutableMapping"
+        ],
+        "keywords": [
+          "headers",
+          "MutableMapping",
+          "bytes"
+        ]
+      },
+      "flat_terms": "post requests/api.py from typing import MutableMapping headers MutableMapping bytes",
+      "combined_query": "mypy warns about invalid types for headers post requests/api.py from typing import MutableMapping headers MutableMapping bytes",
+      "expansion_time_s": 8.0
+    },
+    "406382b9": {
+      "title": "Inline annotations in 2.34.0 cause mypy error for Request json payloads",
+      "raw_llm_output": "{\n  \"functions\": [\"_build_request\"],\n  \"classes\": [\"Request\"],\n  \"files\": [\"requests/api.py\", \"requests/models.py\"],\n  \"imports\": [\"from typing import Any, Dict\"],\n  \"keywords\": [\"mypy\", \"type annotations\", \"json payloads\"]\n}",
+      "parsed": {
+        "functions": [
+          "_build_request"
+        ],
+        "classes": [
+          "Request"
+        ],
+        "files": [
+          "requests/api.py",
+          "requests/models.py"
+        ],
+        "imports": [
+          "from typing import Any, Dict"
+        ],
+        "keywords": [
+          "mypy",
+          "type annotations",
+          "json payloads"
+        ]
+      },
+      "flat_terms": "_build_request Request requests/api.py requests/models.py from typing import Any, Dict mypy type annotations json payloads",
+      "combined_query": "Inline annotations in 2.34.0 cause mypy error for Request json payloads _build_request Request requests/api.py requests/models.py from typing import Any, Dict mypy type annotations json payloads",
+      "expansion_time_s": 4.0
+    },
+    "0057673f": {
+      "title": "`prepare_body` stream detection regression",
+      "raw_llm_output": "```json\n{\n    \"functions\": [\"prepare_body\", \"_get_body_position\"],\n    \"classes\": [\"PreparedRequest\"],\n    \"files\": [\"requests/models.py\"],\n    \"imports\": [\"from collections.abc import Iterable\"],\n    \"keywords\": [\"stream detection\", \"redirects\", \"body position\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "prepare_body",
+          "_get_body_position"
+        ],
+        "classes": [
+          "PreparedRequest"
+        ],
+        "files": [
+          "requests/models.py"
+        ],
+        "imports": [
+          "from collections.abc import Iterable"
+        ],
+        "keywords": [
+          "stream detection",
+          "redirects",
+          "body position"
+        ]
+      },
+      "flat_terms": "prepare_body _get_body_position PreparedRequest requests/models.py from collections.abc import Iterable stream detection redirects body position",
+      "combined_query": "`prepare_body` stream detection regression prepare_body _get_body_position PreparedRequest requests/models.py from collections.abc import Iterable stream detection redirects body position",
+      "expansion_time_s": 4.2
+    },
+    "7c26c6bb": {
+      "title": "`no_proxy` implementation is too greedy",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_should_bypass\"],\n  \"classes\": [],\n  \"files\": [\"requests/packages/urllib3/util/url.py\"],\n  \"imports\": [\"from urllib.parse import urlparse\"],\n  \"keywords\": [\"no_proxy\", \"hostnames\", \"subdomains\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_should_bypass"
+        ],
+        "classes": [],
+        "files": [
+          "requests/packages/urllib3/util/url.py"
+        ],
+        "imports": [
+          "from urllib.parse import urlparse"
+        ],
+        "keywords": [
+          "no_proxy",
+          "hostnames",
+          "subdomains"
+        ]
+      },
+      "flat_terms": "_should_bypass requests/packages/urllib3/util/url.py from urllib.parse import urlparse no_proxy hostnames subdomains",
+      "combined_query": "`no_proxy` implementation is too greedy _should_bypass requests/packages/urllib3/util/url.py from urllib.parse import urlparse no_proxy hostnames subdomains",
+      "expansion_time_s": 4.0
+    },
+    "baeaedc9": {
+      "title": "Leading slash in uri followed by column fails",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"parse_url\"],\n  \"classes\": [],\n  \"files\": [\"urllib3/util/url.py\"],\n  \"imports\": [\"import re\"],\n  \"keywords\": [\"URL parsing\", \"host port extraction\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "parse_url"
+        ],
+        "classes": [],
+        "files": [
+          "urllib3/util/url.py"
+        ],
+        "imports": [
+          "import re"
+        ],
+        "keywords": [
+          "URL parsing",
+          "host port extraction"
+        ]
+      },
+      "flat_terms": "parse_url urllib3/util/url.py import re URL parsing host port extraction",
+      "combined_query": "Leading slash in uri followed by column fails parse_url urllib3/util/url.py import re URL parsing host port extraction",
+      "expansion_time_s": 3.6
+    },
+    "5b89808a": {
+      "title": "Tweak urllib3 version checker",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_check_dependency_version\"],\n  \"classes\": [],\n  \"files\": [\"src/requests/__init__.py\"],\n  \"imports\": [\"import urllib3\"],\n  \"keywords\": [\"version checker\", \"urllib3\", \"dependency version\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_check_dependency_version"
+        ],
+        "classes": [],
+        "files": [
+          "src/requests/__init__.py"
+        ],
+        "imports": [
+          "import urllib3"
+        ],
+        "keywords": [
+          "version checker",
+          "urllib3",
+          "dependency version"
+        ]
+      },
+      "flat_terms": "_check_dependency_version src/requests/__init__.py import urllib3 version checker urllib3 dependency version",
+      "combined_query": "Tweak urllib3 version checker _check_dependency_version src/requests/__init__.py import urllib3 version checker urllib3 dependency version",
+      "expansion_time_s": 4.0
+    },
+    "deb91854": {
+      "title": "Change auth.py to be used in a FIPS system",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"md5_utf8\"\n  ],\n  \"classes\": [],\n  \"files\": [\n    \"auth.py\"\n  ],\n  \"imports\": [\n    \"import hashlib\"\n  ],\n  \"keywords\": [\n    \"FIPS\",\n    \"MD5\",\n    \"digital envelope routines\",\n    \"EVP_DigestInit_ex\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "md5_utf8"
+        ],
+        "classes": [],
+        "files": [
+          "auth.py"
+        ],
+        "imports": [
+          "import hashlib"
+        ],
+        "keywords": [
+          "FIPS",
+          "MD5",
+          "digital envelope routines",
+          "EVP_DigestInit_ex"
+        ]
+      },
+      "flat_terms": "md5_utf8 auth.py import hashlib FIPS MD5 digital envelope routines EVP_DigestInit_ex",
+      "combined_query": "Change auth.py to be used in a FIPS system md5_utf8 auth.py import hashlib FIPS MD5 digital envelope routines EVP_DigestInit_ex",
+      "expansion_time_s": 4.9
+    },
+    "ca376e00": {
+      "title": "SSLV3_ALERT_HANDSHAKE_FAILURE after upgrade from 2.31.0 to 2.32.2",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"CustomSSLAdapter.__init__\", \"CustomSSLAdapter.init_poolmanager\"],\n  \"classes\": [\"CustomSSLAdapter\"],\n  \"files\": [\"requests.adapters.py\"],\n  \"imports\": [\n    \"import ssl\",\n    \"from requests.adapters import HTTPAdapter\"\n  ],\n  \"keywords\": [\"SSLAdapter\", \"ssl.create_default_context\", \"load_cert_chain\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "CustomSSLAdapter.__init__",
+          "CustomSSLAdapter.init_poolmanager"
+        ],
+        "classes": [
+          "CustomSSLAdapter"
+        ],
+        "files": [
+          "requests.adapters.py"
+        ],
+        "imports": [
+          "import ssl",
+          "from requests.adapters import HTTPAdapter"
+        ],
+        "keywords": [
+          "SSLAdapter",
+          "ssl.create_default_context",
+          "load_cert_chain"
+        ]
+      },
+      "flat_terms": "CustomSSLAdapter.__init__ CustomSSLAdapter.init_poolmanager CustomSSLAdapter requests.adapters.py import ssl from requests.adapters import HTTPAdapter SSLAdapter ssl.create_default_context load_cert_chain",
+      "combined_query": "SSLV3_ALERT_HANDSHAKE_FAILURE after upgrade from 2.31.0 to 2.32.2 CustomSSLAdapter.__init__ CustomSSLAdapter.init_poolmanager CustomSSLAdapter requests.adapters.py import ssl from requests.adapters import HTTPAdapter SSLAdapter ssl.create_default_context load_cert_chain",
+      "expansion_time_s": 5.1
+    },
+    "923eaa45": {
+      "title": "Breaking change in 2.28.0 when using string enums as Headers (working in v2.27.1)",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_validate_header\"],\n  \"classes\": [\"RequestsSession\", \"Response\"],\n  \"files\": [\"requests/api.py\", \"requests/sessions.py\"],\n  \"imports\": [\"from requests.exceptions import InvalidHeader\"],\n  \"keywords\": [\"header validation\", \"string enums\", \"HTTP headers\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_validate_header"
+        ],
+        "classes": [
+          "RequestsSession",
+          "Response"
+        ],
+        "files": [
+          "requests/api.py",
+          "requests/sessions.py"
+        ],
+        "imports": [
+          "from requests.exceptions import InvalidHeader"
+        ],
+        "keywords": [
+          "header validation",
+          "string enums",
+          "HTTP headers"
+        ]
+      },
+      "flat_terms": "_validate_header RequestsSession Response requests/api.py requests/sessions.py from requests.exceptions import InvalidHeader header validation string enums HTTP headers",
+      "combined_query": "Breaking change in 2.28.0 when using string enums as Headers (working in v2.27.1) _validate_header RequestsSession Response requests/api.py requests/sessions.py from requests.exceptions import InvalidHeader header validation string enums HTTP headers",
+      "expansion_time_s": 4.4
+    },
+    "bb9c3b8f": {
+      "title": "CURL_CA_BUNDLE= disables certificate verification",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"_verify\",\n    \"Session.request\"\n  ],\n  \"classes\": [\n    \"Session\"\n  ],\n  \"files\": [\n    \"requests/sessions.py\"\n  ],\n  \"imports\": [\n    \"import os\",\n    \"from requests.adapters import HTTPAdapter\"\n  ],\n  \"keywords\": [\n    \"SSL\",\n    \"certifi\",\n    \"verify\",\n    \"CURL_CA_BUNDLE\",\n    \"default system verification\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_verify",
+          "Session.request"
+        ],
+        "classes": [
+          "Session"
+        ],
+        "files": [
+          "requests/sessions.py"
+        ],
+        "imports": [
+          "import os",
+          "from requests.adapters import HTTPAdapter"
+        ],
+        "keywords": [
+          "SSL",
+          "certifi",
+          "verify",
+          "CURL_CA_BUNDLE",
+          "default system verification"
+        ]
+      },
+      "flat_terms": "_verify Session.request Session requests/sessions.py import os from requests.adapters import HTTPAdapter SSL certifi verify CURL_CA_BUNDLE default system verification",
+      "combined_query": "CURL_CA_BUNDLE= disables certificate verification _verify Session.request Session requests/sessions.py import os from requests.adapters import HTTPAdapter SSL certifi verify CURL_CA_BUNDLE default system verification",
+      "expansion_time_s": 6.0
+    },
+    "09edbbbb": {
+      "title": "Proxy authentication bug",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"requests.adapters.HTTPAdapter.send\", \"requests.sessions.Session.request\"],\n  \"classes\": [\"requests.adapters.HTTPAdapter\", \"requests.sessions.Session\"],\n  \"files\": [\"requests/adapters.py\", \"requests/sessions.py\"],\n  \"imports\": [\"from requests.adapters import HTTPAdapter\"],\n  \"keywords\": [\"proxy\", \"authentication\", \"HTTPAdapter\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "requests.adapters.HTTPAdapter.send",
+          "requests.sessions.Session.request"
+        ],
+        "classes": [
+          "requests.adapters.HTTPAdapter",
+          "requests.sessions.Session"
+        ],
+        "files": [
+          "requests/adapters.py",
+          "requests/sessions.py"
+        ],
+        "imports": [
+          "from requests.adapters import HTTPAdapter"
+        ],
+        "keywords": [
+          "proxy",
+          "authentication",
+          "HTTPAdapter"
+        ]
+      },
+      "flat_terms": "requests.adapters.HTTPAdapter.send requests.sessions.Session.request requests.adapters.HTTPAdapter requests.sessions.Session requests/adapters.py requests/sessions.py from requests.adapters import HTTPAdapter proxy authentication HTTPAdapter",
+      "combined_query": "Proxy authentication bug requests.adapters.HTTPAdapter.send requests.sessions.Session.request requests.adapters.HTTPAdapter requests.sessions.Session requests/adapters.py requests/sessions.py from requests.adapters import HTTPAdapter proxy authentication HTTPAdapter",
+      "expansion_time_s": 4.9
+    },
+    "c09ce77b": {
+      "title": "Getting http://.example.com raises UnicodeError",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"parse_url\", \"_get_result\"],\n  \"classes\": [\"Request\"],\n  \"files\": [\"requests/models.py\"],\n  \"imports\": [\"from requests.exceptions import InvalidURL\"],\n  \"keywords\": [\"url parsing\", \"exception handling\", \"HTTP request\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "parse_url",
+          "_get_result"
+        ],
+        "classes": [
+          "Request"
+        ],
+        "files": [
+          "requests/models.py"
+        ],
+        "imports": [
+          "from requests.exceptions import InvalidURL"
+        ],
+        "keywords": [
+          "url parsing",
+          "exception handling",
+          "HTTP request"
+        ]
+      },
+      "flat_terms": "parse_url _get_result Request requests/models.py from requests.exceptions import InvalidURL url parsing exception handling HTTP request",
+      "combined_query": "Getting http://.example.com raises UnicodeError parse_url _get_result Request requests/models.py from requests.exceptions import InvalidURL url parsing exception handling HTTP request",
+      "expansion_time_s": 4.5
+    },
+    "1639c945": {
+      "title": "url \"schema\" should be \"scheme\"",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"parse_url\"],\n  \"classes\": [\"URL\", \"MissingSchema\"],\n  \"files\": [\"requests/models.py\"],\n  \"imports\": [\"from urllib.parse import urlparse\"],\n  \"keywords\": [\"url parsing\", \"schema error\", \"HTTP request\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "parse_url"
+        ],
+        "classes": [
+          "URL",
+          "MissingSchema"
+        ],
+        "files": [
+          "requests/models.py"
+        ],
+        "imports": [
+          "from urllib.parse import urlparse"
+        ],
+        "keywords": [
+          "url parsing",
+          "schema error",
+          "HTTP request"
+        ]
+      },
+      "flat_terms": "parse_url URL MissingSchema requests/models.py from urllib.parse import urlparse url parsing schema error HTTP request",
+      "combined_query": "url \"schema\" should be \"scheme\" parse_url URL MissingSchema requests/models.py from urllib.parse import urlparse url parsing schema error HTTP request",
+      "expansion_time_s": 4.2
+    },
+    "97bc9598": {
+      "title": "Two Host header are being sent when doing chunk transfer with Session",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"Session.send\", \"Request.prepare\"],\n  \"classes\": [\"Session\", \"Request\"],\n  \"files\": [\"requests/sessions.py\", \"requests/models.py\"],\n  \"imports\": [\"from urllib3.exceptions import HTTPError\"],\n  \"keywords\": [\"chunked\", \"Host header\", \"transfer encoding\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Session.send",
+          "Request.prepare"
+        ],
+        "classes": [
+          "Session",
+          "Request"
+        ],
+        "files": [
+          "requests/sessions.py",
+          "requests/models.py"
+        ],
+        "imports": [
+          "from urllib3.exceptions import HTTPError"
+        ],
+        "keywords": [
+          "chunked",
+          "Host header",
+          "transfer encoding"
+        ]
+      },
+      "flat_terms": "Session.send Request.prepare Session Request requests/sessions.py requests/models.py from urllib3.exceptions import HTTPError chunked Host header transfer encoding",
+      "combined_query": "Two Host header are being sent when doing chunk transfer with Session Session.send Request.prepare Session Request requests/sessions.py requests/models.py from urllib3.exceptions import HTTPError chunked Host header transfer encoding",
+      "expansion_time_s": 5.9
+    },
+    "0e820ba0": {
+      "title": "requests.utils.super_len() can't cope with tarfile members",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"super_len\"],\n  \"classes\": [],\n  \"files\": [\"requests/utils.py\"],\n  \"imports\": [\"import tarfile\"],\n  \"keywords\": [\"Content-Length\", \"Transfer-Encoding\", \"tarfile\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "super_len"
+        ],
+        "classes": [],
+        "files": [
+          "requests/utils.py"
+        ],
+        "imports": [
+          "import tarfile"
+        ],
+        "keywords": [
+          "Content-Length",
+          "Transfer-Encoding",
+          "tarfile"
+        ]
+      },
+      "flat_terms": "super_len requests/utils.py import tarfile Content-Length Transfer-Encoding tarfile",
+      "combined_query": "requests.utils.super_len() can't cope with tarfile members super_len requests/utils.py import tarfile Content-Length Transfer-Encoding tarfile",
+      "expansion_time_s": 4.0
+    },
+    "c31064ca": {
+      "title": "Infinite loop when verify is invalid UNC path",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"extract_zipped_paths\", \"verify_certificate\"],\n  \"classes\": [],\n  \"files\": [\"requests/utils.py\"],\n  \"imports\": [\"from urllib3.exceptions import SSLError\"],\n  \"keywords\": [\"certifi\", \"SSLContext\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "extract_zipped_paths",
+          "verify_certificate"
+        ],
+        "classes": [],
+        "files": [
+          "requests/utils.py"
+        ],
+        "imports": [
+          "from urllib3.exceptions import SSLError"
+        ],
+        "keywords": [
+          "certifi",
+          "SSLContext"
+        ]
+      },
+      "flat_terms": "extract_zipped_paths verify_certificate requests/utils.py from urllib3.exceptions import SSLError certifi SSLContext",
+      "combined_query": "Infinite loop when verify is invalid UNC path extract_zipped_paths verify_certificate requests/utils.py from urllib3.exceptions import SSLError certifi SSLContext",
+      "expansion_time_s": 4.9
+    },
+    "92ec6764": {
+      "title": "response.json() raises inconsistent exception type",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"response.json\"],\n  \"classes\": [\"Response\"],\n  \"files\": [\"requests/models.py\"],\n  \"imports\": [\"import json\", \"try...except ImportError as e\"],\n  \"keywords\": [\"JSONDecodeError\", \"simplejson\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "response.json"
+        ],
+        "classes": [
+          "Response"
+        ],
+        "files": [
+          "requests/models.py"
+        ],
+        "imports": [
+          "import json",
+          "try...except ImportError as e"
+        ],
+        "keywords": [
+          "JSONDecodeError",
+          "simplejson"
+        ]
+      },
+      "flat_terms": "response.json Response requests/models.py import json try...except ImportError as e JSONDecodeError simplejson",
+      "combined_query": "response.json() raises inconsistent exception type response.json Response requests/models.py import json try...except ImportError as e JSONDecodeError simplejson",
+      "expansion_time_s": 5.5
+    },
+    "fe5aa94f": {
+      "title": "Running requests in parallel from a zip archive can create race condition when unpacking the cacerts.pem file",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"get\", \"request\"],\n  \"classes\": [],\n  \"files\": [\"api.py\"],\n  \"imports\": [\"import requests\"],\n  \"keywords\": [\"race condition\", \"parallel\", \"cacerts.pem\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "get",
+          "request"
+        ],
+        "classes": [],
+        "files": [
+          "api.py"
+        ],
+        "imports": [
+          "import requests"
+        ],
+        "keywords": [
+          "race condition",
+          "parallel",
+          "cacerts.pem"
+        ]
+      },
+      "flat_terms": "get request api.py import requests race condition parallel cacerts.pem",
+      "combined_query": "Running requests in parallel from a zip archive can create race condition when unpacking the cacerts.pem file get request api.py import requests race condition parallel cacerts.pem",
+      "expansion_time_s": 5.1
+    },
+    "e0f2a342": {
+      "title": "requests.auth has an orphaned reference to ._oauth",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"__init__\"],\n  \"classes\": [\"Client\"],\n  \"files\": [\"requests/auth.py\"],\n  \"imports\": [\"from requests_oauthlib import OAuth1Session\"],\n  \"keywords\": [\"auth\", \"oauth\", \"client\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__init__"
+        ],
+        "classes": [
+          "Client"
+        ],
+        "files": [
+          "requests/auth.py"
+        ],
+        "imports": [
+          "from requests_oauthlib import OAuth1Session"
+        ],
+        "keywords": [
+          "auth",
+          "oauth",
+          "client"
+        ]
+      },
+      "flat_terms": "__init__ Client requests/auth.py from requests_oauthlib import OAuth1Session auth oauth client",
+      "combined_query": "requests.auth has an orphaned reference to ._oauth __init__ Client requests/auth.py from requests_oauthlib import OAuth1Session auth oauth client",
+      "expansion_time_s": 4.3
+    },
+    "63b978e2": {
+      "title": "Requests 1.0.2 doesn't appear to set session cookies on POST requests",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"Session.request\", \"Response.raise_for_status\"],\n  \"classes\": [\"Session\"],\n  \"files\": [\"requests/sessions.py\"],\n  \"imports\": [\"from requests.sessions import Session\"],\n  \"keywords\": [\"session cookies\", \"POST request\", \"response cookies\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Session.request",
+          "Response.raise_for_status"
+        ],
+        "classes": [
+          "Session"
+        ],
+        "files": [
+          "requests/sessions.py"
+        ],
+        "imports": [
+          "from requests.sessions import Session"
+        ],
+        "keywords": [
+          "session cookies",
+          "POST request",
+          "response cookies"
+        ]
+      },
+      "flat_terms": "Session.request Response.raise_for_status Session requests/sessions.py from requests.sessions import Session session cookies POST request response cookies",
+      "combined_query": "Requests 1.0.2 doesn't appear to set session cookies on POST requests Session.request Response.raise_for_status Session requests/sessions.py from requests.sessions import Session session cookies POST request response cookies",
+      "expansion_time_s": 4.4
+    },
+    "100989c8": {
+      "title": "requests.get is ALWAYS sending content length",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_add_headers\", \"_merge_headers\"],\n  \"classes\": [\"Request\"],\n  \"files\": [\"requests/api.py\", \"requests/models.py\"],\n  \"imports\": [\"from requests.models import Request\"],\n  \"keywords\": [\"headers\", \"GET\", \"content-length\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_add_headers",
+          "_merge_headers"
+        ],
+        "classes": [
+          "Request"
+        ],
+        "files": [
+          "requests/api.py",
+          "requests/models.py"
+        ],
+        "imports": [
+          "from requests.models import Request"
+        ],
+        "keywords": [
+          "headers",
+          "GET",
+          "content-length"
+        ]
+      },
+      "flat_terms": "_add_headers _merge_headers Request requests/api.py requests/models.py from requests.models import Request headers GET content-length",
+      "combined_query": "requests.get is ALWAYS sending content length _add_headers _merge_headers Request requests/api.py requests/models.py from requests.models import Request headers GET content-length",
+      "expansion_time_s": 4.1
+    },
+    "712be0af": {
+      "title": "Pluggable Request objects?",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"Session.request\", \"_merge_hooks\"],\n  \"classes\": [\"Session\"],\n  \"files\": [\"requests/sessions.py\"],\n  \"imports\": [\"from requests.models import Request\"],\n  \"keywords\": [\"pluggable\", \"custom\", \"Request\", \"Session\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Session.request",
+          "_merge_hooks"
+        ],
+        "classes": [
+          "Session"
+        ],
+        "files": [
+          "requests/sessions.py"
+        ],
+        "imports": [
+          "from requests.models import Request"
+        ],
+        "keywords": [
+          "pluggable",
+          "custom",
+          "Request",
+          "Session"
+        ]
+      },
+      "flat_terms": "Session.request _merge_hooks Session requests/sessions.py from requests.models import Request pluggable custom Request Session",
+      "combined_query": "Pluggable Request objects? Session.request _merge_hooks Session requests/sessions.py from requests.models import Request pluggable custom Request Session",
+      "expansion_time_s": 4.2
+    },
+    "bcf4af88": {
+      "title": "No means of authenticating redirects",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"Session.send\", \"RedirectMixin.handle_redirect\"],\n  \"classes\": [\"Session\", \"RedirectMixin\"],\n  \"files\": [\"requests/sessions.py\", \"requests/redirects.py\"],\n  \"imports\": [\"from requests.adapters import HTTPAdapter\"],\n  \"keywords\": [\"mutual authentication\", \"GSSAPI\", \"redirects\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Session.send",
+          "RedirectMixin.handle_redirect"
+        ],
+        "classes": [
+          "Session",
+          "RedirectMixin"
+        ],
+        "files": [
+          "requests/sessions.py",
+          "requests/redirects.py"
+        ],
+        "imports": [
+          "from requests.adapters import HTTPAdapter"
+        ],
+        "keywords": [
+          "mutual authentication",
+          "GSSAPI",
+          "redirects"
+        ]
+      },
+      "flat_terms": "Session.send RedirectMixin.handle_redirect Session RedirectMixin requests/sessions.py requests/redirects.py from requests.adapters import HTTPAdapter mutual authentication GSSAPI redirects",
+      "combined_query": "No means of authenticating redirects Session.send RedirectMixin.handle_redirect Session RedirectMixin requests/sessions.py requests/redirects.py from requests.adapters import HTTPAdapter mutual authentication GSSAPI redirects",
+      "expansion_time_s": 5.9
+    },
+    "0e81d1b6": {
+      "title": "URL-encoding not handled for proxy username and password",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"requests.adapters.HTTPAdapter\", \"requests.sessions.Session\"],\n  \"classes\": [\"HTTPAdapter\", \"Session\"],\n  \"files\": [\"requests/adapters.py\", \"requests/sessions.py\"],\n  \"imports\": [\"from requests.adapters import HTTPAdapter\", \"from requests.sessions import Session\"],\n  \"keywords\": [\"proxy\", \"authentication\", \"URL-encoding\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "requests.adapters.HTTPAdapter",
+          "requests.sessions.Session"
+        ],
+        "classes": [
+          "HTTPAdapter",
+          "Session"
+        ],
+        "files": [
+          "requests/adapters.py",
+          "requests/sessions.py"
+        ],
+        "imports": [
+          "from requests.adapters import HTTPAdapter",
+          "from requests.sessions import Session"
+        ],
+        "keywords": [
+          "proxy",
+          "authentication",
+          "URL-encoding"
+        ]
+      },
+      "flat_terms": "requests.adapters.HTTPAdapter requests.sessions.Session HTTPAdapter Session requests/adapters.py requests/sessions.py from requests.adapters import HTTPAdapter from requests.sessions import Session proxy authentication URL-encoding",
+      "combined_query": "URL-encoding not handled for proxy username and password requests.adapters.HTTPAdapter requests.sessions.Session HTTPAdapter Session requests/adapters.py requests/sessions.py from requests.adapters import HTTPAdapter from requests.sessions import Session proxy authentication URL-encoding",
+      "expansion_time_s": 5.8
+    },
+    "5ea9a954": {
+      "title": "CaseInsensitiveDict __setitem__ faulty for differing-case keys",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"__setitem__\"],\n  \"classes\": [\"CaseInsensitiveDict\"],\n  \"files\": [\"requests/structures.py\"],\n  \"imports\": [\"from requests.structures import CaseInsensitiveDict\"],\n  \"keywords\": [\"case-insensitive\", \"headers\", \"dictionary\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__setitem__"
+        ],
+        "classes": [
+          "CaseInsensitiveDict"
+        ],
+        "files": [
+          "requests/structures.py"
+        ],
+        "imports": [
+          "from requests.structures import CaseInsensitiveDict"
+        ],
+        "keywords": [
+          "case-insensitive",
+          "headers",
+          "dictionary"
+        ]
+      },
+      "flat_terms": "__setitem__ CaseInsensitiveDict requests/structures.py from requests.structures import CaseInsensitiveDict case-insensitive headers dictionary",
+      "combined_query": "CaseInsensitiveDict __setitem__ faulty for differing-case keys __setitem__ CaseInsensitiveDict requests/structures.py from requests.structures import CaseInsensitiveDict case-insensitive headers dictionary",
+      "expansion_time_s": 4.5
+    },
+    "8bfcdd40": {
+      "title": "Problem with 301-redirect",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"Session.send\", \"Request.__init__\"],\n  \"classes\": [\"Session\", \"Request\"],\n  \"files\": [\"requests/sessions.py\", \"requests/models.py\"],\n  \"imports\": [\"from requests.sessions import Session\"],\n  \"keywords\": [\"redirect\", \"301\", \"HTTP\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Session.send",
+          "Request.__init__"
+        ],
+        "classes": [
+          "Session",
+          "Request"
+        ],
+        "files": [
+          "requests/sessions.py",
+          "requests/models.py"
+        ],
+        "imports": [
+          "from requests.sessions import Session"
+        ],
+        "keywords": [
+          "redirect",
+          "301",
+          "HTTP"
+        ]
+      },
+      "flat_terms": "Session.send Request.__init__ Session Request requests/sessions.py requests/models.py from requests.sessions import Session redirect 301 HTTP",
+      "combined_query": "Problem with 301-redirect Session.send Request.__init__ Session Request requests/sessions.py requests/models.py from requests.sessions import Session redirect 301 HTTP",
+      "expansion_time_s": 5.8
+    },
+    "878107f0": {
+      "title": "Python 3 encoded form parameters in post request with files",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"encode_multipart_formdata\", \"post\"],\n  \"classes\": [],\n  \"files\": [\"requests/sessions.py\", \"tests/test_requests.py\"],\n  \"imports\": [\"from requests.sessions import Session\"],\n  \"keywords\": [\"multipart/form-data\", \"POST request\", \"form parameters\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "encode_multipart_formdata",
+          "post"
+        ],
+        "classes": [],
+        "files": [
+          "requests/sessions.py",
+          "tests/test_requests.py"
+        ],
+        "imports": [
+          "from requests.sessions import Session"
+        ],
+        "keywords": [
+          "multipart/form-data",
+          "POST request",
+          "form parameters"
+        ]
+      },
+      "flat_terms": "encode_multipart_formdata post requests/sessions.py tests/test_requests.py from requests.sessions import Session multipart/form-data POST request form parameters",
+      "combined_query": "Python 3 encoded form parameters in post request with files encode_multipart_formdata post requests/sessions.py tests/test_requests.py from requests.sessions import Session multipart/form-data POST request form parameters",
+      "expansion_time_s": 5.8
+    },
+    "dc25b767": {
+      "title": "Session.request doesn't have parameter return_response, contrary to what the docs say.",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"request\"],\n  \"classes\": [],\n  \"files\": [\"requests/sessions.py\"],\n  \"imports\": [],\n  \"keywords\": [\"Session\", \"request\", \"Response\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "request"
+        ],
+        "classes": [],
+        "files": [
+          "requests/sessions.py"
+        ],
+        "imports": [],
+        "keywords": [
+          "Session",
+          "request",
+          "Response"
+        ]
+      },
+      "flat_terms": "request requests/sessions.py Session request Response",
+      "combined_query": "Session.request doesn't have parameter return_response, contrary to what the docs say. request requests/sessions.py Session request Response",
+      "expansion_time_s": 3.7
+    },
+    "ddf20640": {
+      "title": "Cannot fetch \"http://www.google.com/\"?",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"request\"],\n  \"classes\": [\"Session\"],\n  \"files\": [\"requests/api.py\", \"requests/sessions.py\"],\n  \"imports\": [\"from requests.sessions import Session\"],\n  \"keywords\": [\"HTTP GET\", \"URL\", \"RequestException\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "request"
+        ],
+        "classes": [
+          "Session"
+        ],
+        "files": [
+          "requests/api.py",
+          "requests/sessions.py"
+        ],
+        "imports": [
+          "from requests.sessions import Session"
+        ],
+        "keywords": [
+          "HTTP GET",
+          "URL",
+          "RequestException"
+        ]
+      },
+      "flat_terms": "request Session requests/api.py requests/sessions.py from requests.sessions import Session HTTP GET URL RequestException",
+      "combined_query": "Cannot fetch \"http://www.google.com/\"? request Session requests/api.py requests/sessions.py from requests.sessions import Session HTTP GET URL RequestException",
+      "expansion_time_s": 5.4
+    },
+    "fdbfcb6d": {
+      "title": "Reset hooks after registering them?",
+      "raw_llm_output": "```json\n{\n    \"functions\": [\"register_hook\", \"_reset_hooks\"],\n    \"classes\": [\"Session\"],\n    \"files\": [\"models.py\"],\n    \"imports\": [\"from requests.models import Session\"],\n    \"keywords\": [\"hooks\", \"register\", \"reset\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "register_hook",
+          "_reset_hooks"
+        ],
+        "classes": [
+          "Session"
+        ],
+        "files": [
+          "models.py"
+        ],
+        "imports": [
+          "from requests.models import Session"
+        ],
+        "keywords": [
+          "hooks",
+          "register",
+          "reset"
+        ]
+      },
+      "flat_terms": "register_hook _reset_hooks Session models.py from requests.models import Session hooks register reset",
+      "combined_query": "Reset hooks after registering them? register_hook _reset_hooks Session models.py from requests.models import Session hooks register reset",
+      "expansion_time_s": 6.0
+    },
+    "c1be22b1": {
+      "title": "AttributeError: 'MockRequest' object has no attribute 'host'",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"get_host\"],\n  \"classes\": [\"MockRequest\", \"CookieJar\"],\n  \"files\": [\"requests/cookies.py\", \"requests/cookiejar.py\"],\n  \"imports\": [\"from requests.cookies import MockRequest, CookieJar\"],\n  \"keywords\": [\"host\", \"port\", \"mock\", \"attribute\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "get_host"
+        ],
+        "classes": [
+          "MockRequest",
+          "CookieJar"
+        ],
+        "files": [
+          "requests/cookies.py",
+          "requests/cookiejar.py"
+        ],
+        "imports": [
+          "from requests.cookies import MockRequest, CookieJar"
+        ],
+        "keywords": [
+          "host",
+          "port",
+          "mock",
+          "attribute"
+        ]
+      },
+      "flat_terms": "get_host MockRequest CookieJar requests/cookies.py requests/cookiejar.py from requests.cookies import MockRequest, CookieJar host port mock attribute",
+      "combined_query": "AttributeError: 'MockRequest' object has no attribute 'host' get_host MockRequest CookieJar requests/cookies.py requests/cookiejar.py from requests.cookies import MockRequest, CookieJar host port mock attribute",
+      "expansion_time_s": 5.8
+    },
+    "3939be52": {
+      "title": "Requests v0.14.2 - requests.session() fails on post() with KeyError exception",
+      "raw_llm_output": "```json\n{\n    \"functions\": [\"post\", \"session\"],\n    \"classes\": [\"Session\"],\n    \"files\": [\"requests/sessions.py\"],\n    \"imports\": [\"from requests.sessions import Session\"],\n    \"keywords\": [\"session\", \"post\", \"KeyError\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "post",
+          "session"
+        ],
+        "classes": [
+          "Session"
+        ],
+        "files": [
+          "requests/sessions.py"
+        ],
+        "imports": [
+          "from requests.sessions import Session"
+        ],
+        "keywords": [
+          "session",
+          "post",
+          "KeyError"
+        ]
+      },
+      "flat_terms": "post session Session requests/sessions.py from requests.sessions import Session session post KeyError",
+      "combined_query": "Requests v0.14.2 - requests.session() fails on post() with KeyError exception post session Session requests/sessions.py from requests.sessions import Session session post KeyError",
+      "expansion_time_s": 6.1
+    },
+    "b5093864": {
+      "title": "Move off of charade to erikrose/chardet",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"detect\"],\n  \"classes\": [],\n  \"files\": [\"requests/utils.py\"],\n  \"imports\": [\"from requests.utils import get_encoding_from_headers, guess_json_utf8\"],\n  \"keywords\": [\"chardet\", \"encoding\", \"utf-8\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "detect"
+        ],
+        "classes": [],
+        "files": [
+          "requests/utils.py"
+        ],
+        "imports": [
+          "from requests.utils import get_encoding_from_headers, guess_json_utf8"
+        ],
+        "keywords": [
+          "chardet",
+          "encoding",
+          "utf-8"
+        ]
+      },
+      "flat_terms": "detect requests/utils.py from requests.utils import get_encoding_from_headers, guess_json_utf8 chardet encoding utf-8",
+      "combined_query": "Move off of charade to erikrose/chardet detect requests/utils.py from requests.utils import get_encoding_from_headers, guess_json_utf8 chardet encoding utf-8",
+      "expansion_time_s": 6.4
+    },
+    "f4c3c368": {
+      "title": "The documentation does not tell you what units timeout is specified in",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"timeout\"],\n  \"classes\": [],\n  \"files\": [\"requests/packages/urllib3/util.py\"],\n  \"imports\": [\"from requests.adapters import HTTPAdapter\"],\n  \"keywords\": [\"timeout\", \"units\", \"HTTPAdapter\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "timeout"
+        ],
+        "classes": [],
+        "files": [
+          "requests/packages/urllib3/util.py"
+        ],
+        "imports": [
+          "from requests.adapters import HTTPAdapter"
+        ],
+        "keywords": [
+          "timeout",
+          "units",
+          "HTTPAdapter"
+        ]
+      },
+      "flat_terms": "timeout requests/packages/urllib3/util.py from requests.adapters import HTTPAdapter timeout units HTTPAdapter",
+      "combined_query": "The documentation does not tell you what units timeout is specified in timeout requests/packages/urllib3/util.py from requests.adapters import HTTPAdapter timeout units HTTPAdapter",
+      "expansion_time_s": 6.0
+    },
+    "9ae2b799": {
+      "title": "stream_decompress corrupts output in case of decompress error",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_decompress\", \"stream_decompress\"],\n  \"classes\": [\"Decompress\"],\n  \"files\": [\"urllib3/response.py\", \"requests/packages/urllib3/response.py\"],\n  \"imports\": [\"import zlib\"],\n  \"keywords\": [\"zlib.error\", \"deflate compression\", \"stream decompression\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_decompress",
+          "stream_decompress"
+        ],
+        "classes": [
+          "Decompress"
+        ],
+        "files": [
+          "urllib3/response.py",
+          "requests/packages/urllib3/response.py"
+        ],
+        "imports": [
+          "import zlib"
+        ],
+        "keywords": [
+          "zlib.error",
+          "deflate compression",
+          "stream decompression"
+        ]
+      },
+      "flat_terms": "_decompress stream_decompress Decompress urllib3/response.py requests/packages/urllib3/response.py import zlib zlib.error deflate compression stream decompression",
+      "combined_query": "stream_decompress corrupts output in case of decompress error _decompress stream_decompress Decompress urllib3/response.py requests/packages/urllib3/response.py import zlib zlib.error deflate compression stream decompression",
+      "expansion_time_s": 6.6
+    },
+    "cdbb4e29": {
+      "title": "PreparedRequest.copy fails if headers or _cookies are None",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"copy\"],\n  \"classes\": [\"PreparedRequest\"],\n  \"files\": [\"requests/models.py\"],\n  \"imports\": [\"from requests.models import PreparedRequest\"],\n  \"keywords\": [\"prepared_request\", \"headers\", \"cookies\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "copy"
+        ],
+        "classes": [
+          "PreparedRequest"
+        ],
+        "files": [
+          "requests/models.py"
+        ],
+        "imports": [
+          "from requests.models import PreparedRequest"
+        ],
+        "keywords": [
+          "prepared_request",
+          "headers",
+          "cookies"
+        ]
+      },
+      "flat_terms": "copy PreparedRequest requests/models.py from requests.models import PreparedRequest prepared_request headers cookies",
+      "combined_query": "PreparedRequest.copy fails if headers or _cookies are None copy PreparedRequest requests/models.py from requests.models import PreparedRequest prepared_request headers cookies",
+      "expansion_time_s": 6.6
+    },
+    "e1fd0309": {
+      "title": "Brittle test",
+      "raw_llm_output": "```json\n{\n    \"functions\": [\"parse_cookie\"],\n    \"classes\": [\"Morsel\", \"Cookie\"],\n    \"files\": [\"requests/cookies.py\"],\n    \"imports\": [\"from requests.cookies import parse_cookie\"],\n    \"keywords\": [\"cookie\", \"expires\", \"HTTP\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "parse_cookie"
+        ],
+        "classes": [
+          "Morsel",
+          "Cookie"
+        ],
+        "files": [
+          "requests/cookies.py"
+        ],
+        "imports": [
+          "from requests.cookies import parse_cookie"
+        ],
+        "keywords": [
+          "cookie",
+          "expires",
+          "HTTP"
+        ]
+      },
+      "flat_terms": "parse_cookie Morsel Cookie requests/cookies.py from requests.cookies import parse_cookie cookie expires HTTP",
+      "combined_query": "Brittle test parse_cookie Morsel Cookie requests/cookies.py from requests.cookies import parse_cookie cookie expires HTTP",
+      "expansion_time_s": 5.2
+    },
+    "b75c0e28": {
+      "title": "301 redirect broken with latest pyopenssl/SNI",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_get_redirect_location\", \"resolve_redirects\"],\n  \"classes\": [\"HTTPAdapter\"],\n  \"files\": [\"requests/adapters.py\", \"requests/sessions.py\"],\n  \"imports\": [\n    \"from urllib3.exceptions import LocationParseError\",\n    \"from requests.packages.urllib3.util.retry import Retry\"\n  ],\n  \"keywords\": [\"redirect\", \"URL\", \"Unicode\", \"pyopenssl\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_get_redirect_location",
+          "resolve_redirects"
+        ],
+        "classes": [
+          "HTTPAdapter"
+        ],
+        "files": [
+          "requests/adapters.py",
+          "requests/sessions.py"
+        ],
+        "imports": [
+          "from urllib3.exceptions import LocationParseError",
+          "from requests.packages.urllib3.util.retry import Retry"
+        ],
+        "keywords": [
+          "redirect",
+          "URL",
+          "Unicode",
+          "pyopenssl"
+        ]
+      },
+      "flat_terms": "_get_redirect_location resolve_redirects HTTPAdapter requests/adapters.py requests/sessions.py from urllib3.exceptions import LocationParseError from requests.packages.urllib3.util.retry import Retry redirect URL Unicode pyopenssl",
+      "combined_query": "301 redirect broken with latest pyopenssl/SNI _get_redirect_location resolve_redirects HTTPAdapter requests/adapters.py requests/sessions.py from urllib3.exceptions import LocationParseError from requests.packages.urllib3.util.retry import Retry redirect URL Unicode pyopenssl",
+      "expansion_time_s": 8.5
+    },
+    "90e31c5f": {
+      "title": "Endless loop in sessions.py",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"send\", \"resolve_redirects\"],\n  \"classes\": [\"Session\", \"PreparedRequest\"],\n  \"files\": [\"requests/sessions.py\"],\n  \"imports\": [\"from requests.models import PreparedRequest\"],\n  \"keywords\": [\"redirect_cache\", \"allow_redirects\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "send",
+          "resolve_redirects"
+        ],
+        "classes": [
+          "Session",
+          "PreparedRequest"
+        ],
+        "files": [
+          "requests/sessions.py"
+        ],
+        "imports": [
+          "from requests.models import PreparedRequest"
+        ],
+        "keywords": [
+          "redirect_cache",
+          "allow_redirects"
+        ]
+      },
+      "flat_terms": "send resolve_redirects Session PreparedRequest requests/sessions.py from requests.models import PreparedRequest redirect_cache allow_redirects",
+      "combined_query": "Endless loop in sessions.py send resolve_redirects Session PreparedRequest requests/sessions.py from requests.models import PreparedRequest redirect_cache allow_redirects",
+      "expansion_time_s": 5.6
+    },
+    "20530a1e": {
+      "title": "method = builtin_str(method) problem",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"safe_encode_list\"],\n  \"classes\": [],\n  \"files\": [\"requests/sessions.py\", \"neutronclient/v2_0/utils.py\"],\n  \"imports\": [\"from requests.sessions import Session\"],\n  \"keywords\": [\"binary string\", \"HTTP method\", \"404 Not Found\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "safe_encode_list"
+        ],
+        "classes": [],
+        "files": [
+          "requests/sessions.py",
+          "neutronclient/v2_0/utils.py"
+        ],
+        "imports": [
+          "from requests.sessions import Session"
+        ],
+        "keywords": [
+          "binary string",
+          "HTTP method",
+          "404 Not Found"
+        ]
+      },
+      "flat_terms": "safe_encode_list requests/sessions.py neutronclient/v2_0/utils.py from requests.sessions import Session binary string HTTP method 404 Not Found",
+      "combined_query": "method = builtin_str(method) problem safe_encode_list requests/sessions.py neutronclient/v2_0/utils.py from requests.sessions import Session binary string HTTP method 404 Not Found",
+      "expansion_time_s": 5.5
+    },
+    "132d9b5d": {
+      "title": "Wrong digest header creation when server has qop=\"auth,auth-int\"",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"build_digest_header\"],\n  \"classes\": [\"HTTPDigestAuth\"],\n  \"files\": [\"auth.py\"],\n  \"imports\": [],\n  \"keywords\": [\"digest\", \"qop\", \"nonce\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "build_digest_header"
+        ],
+        "classes": [
+          "HTTPDigestAuth"
+        ],
+        "files": [
+          "auth.py"
+        ],
+        "imports": [],
+        "keywords": [
+          "digest",
+          "qop",
+          "nonce"
+        ]
+      },
+      "flat_terms": "build_digest_header HTTPDigestAuth auth.py digest qop nonce",
+      "combined_query": "Wrong digest header creation when server has qop=\"auth,auth-int\" build_digest_header HTTPDigestAuth auth.py digest qop nonce",
+      "expansion_time_s": 4.7
+    },
+    "2df46c7b": {
+      "title": "Closing streams before complete read leaks connections",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"Session.get\", \"HTTPAdapter.__init__\", \"Response.close\"],\n  \"classes\": [\"Session\", \"HTTPAdapter\", \"Response\"],\n  \"files\": [\"requests/sessions.py\", \"requests/adapters.py\", \"requests/models.py\"],\n  \"imports\": [\"from requests.sessions import Session\", \"from requests.adapters import HTTPAdapter\"],\n  \"keywords\": [\"session\", \"adapter\", \"response\", \"close\", \"connection pool\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Session.get",
+          "HTTPAdapter.__init__",
+          "Response.close"
+        ],
+        "classes": [
+          "Session",
+          "HTTPAdapter",
+          "Response"
+        ],
+        "files": [
+          "requests/sessions.py",
+          "requests/adapters.py",
+          "requests/models.py"
+        ],
+        "imports": [
+          "from requests.sessions import Session",
+          "from requests.adapters import HTTPAdapter"
+        ],
+        "keywords": [
+          "session",
+          "adapter",
+          "response",
+          "close",
+          "connection pool"
+        ]
+      },
+      "flat_terms": "Session.get HTTPAdapter.__init__ Response.close Session HTTPAdapter Response requests/sessions.py requests/adapters.py requests/models.py from requests.sessions import Session from requests.adapters import HTTPAdapter session adapter response close connection pool",
+      "combined_query": "Closing streams before complete read leaks connections Session.get HTTPAdapter.__init__ Response.close Session HTTPAdapter Response requests/sessions.py requests/adapters.py requests/models.py from requests.sessions import Session from requests.adapters import HTTPAdapter session adapter response close connection pool",
+      "expansion_time_s": 8.4
+    },
+    "d3372f41": {
+      "title": "URL proxy auth with empty passwords doesn't emit auth header.",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"HTTPProxyAuth.get_auth_header\", \"Session.send\"],\n  \"classes\": [\"HTTPProxyAuth\", \"Session\"],\n  \"files\": [\"auth.py\", \"sessions.py\"],\n  \"imports\": [\"from requests.auth import HTTPProxyAuth\", \"from requests.sessions import Session\"],\n  \"keywords\": [\"proxy auth\", \"302 redirect\", \"Location header\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "HTTPProxyAuth.get_auth_header",
+          "Session.send"
+        ],
+        "classes": [
+          "HTTPProxyAuth",
+          "Session"
+        ],
+        "files": [
+          "auth.py",
+          "sessions.py"
+        ],
+        "imports": [
+          "from requests.auth import HTTPProxyAuth",
+          "from requests.sessions import Session"
+        ],
+        "keywords": [
+          "proxy auth",
+          "302 redirect",
+          "Location header"
+        ]
+      },
+      "flat_terms": "HTTPProxyAuth.get_auth_header Session.send HTTPProxyAuth Session auth.py sessions.py from requests.auth import HTTPProxyAuth from requests.sessions import Session proxy auth 302 redirect Location header",
+      "combined_query": "URL proxy auth with empty passwords doesn't emit auth header. HTTPProxyAuth.get_auth_header Session.send HTTPProxyAuth Session auth.py sessions.py from requests.auth import HTTPProxyAuth from requests.sessions import Session proxy auth 302 redirect Location header",
+      "expansion_time_s": 8.2
+    },
+    "6f7a28c6": {
+      "title": "AttributeError: 'NoneType' object has no attribute 'read'",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"send\", \"get\"],\n  \"classes\": [\"Response\"],\n  \"files\": [\"requests/api.py\", \"requests/models.py\"],\n  \"imports\": [\"from requests.api import request\"],\n  \"keywords\": [\"response\", \"NoneType\", \"read\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "send",
+          "get"
+        ],
+        "classes": [
+          "Response"
+        ],
+        "files": [
+          "requests/api.py",
+          "requests/models.py"
+        ],
+        "imports": [
+          "from requests.api import request"
+        ],
+        "keywords": [
+          "response",
+          "NoneType",
+          "read"
+        ]
+      },
+      "flat_terms": "send get Response requests/api.py requests/models.py from requests.api import request response NoneType read",
+      "combined_query": "AttributeError: 'NoneType' object has no attribute 'read' send get Response requests/api.py requests/models.py from requests.api import request response NoneType read",
+      "expansion_time_s": 5.9
+    },
+    "57c01e6f": {
+      "title": "Requests tries to resolve `user:pass@host` on OS X",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"proxy_bypass\", \"urldefragauth\"],\n  \"classes\": [],\n  \"files\": [\"requests/utils.py\"],\n  \"imports\": [],\n  \"keywords\": [\"proxy\", \"bypass\", \"URL\", \"credentials\", \"OS X\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "proxy_bypass",
+          "urldefragauth"
+        ],
+        "classes": [],
+        "files": [
+          "requests/utils.py"
+        ],
+        "imports": [],
+        "keywords": [
+          "proxy",
+          "bypass",
+          "URL",
+          "credentials",
+          "OS X"
+        ]
+      },
+      "flat_terms": "proxy_bypass urldefragauth requests/utils.py proxy bypass URL credentials OS X",
+      "combined_query": "Requests tries to resolve `user:pass@host` on OS X proxy_bypass urldefragauth requests/utils.py proxy bypass URL credentials OS X",
+      "expansion_time_s": 6.0
+    },
+    "be77c320": {
+      "title": "Making requests to URLs with username and password does not respect no_proxy evironment settings",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_should_bypass_proxy\", \"_get_netloc\"],\n  \"classes\": [\"Session\"],\n  \"files\": [\"requests/sessions.py\"],\n  \"imports\": [\"from urllib.parse import urlparse\"],\n  \"keywords\": [\"proxy\", \"no_proxy\", \"netloc\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_should_bypass_proxy",
+          "_get_netloc"
+        ],
+        "classes": [
+          "Session"
+        ],
+        "files": [
+          "requests/sessions.py"
+        ],
+        "imports": [
+          "from urllib.parse import urlparse"
+        ],
+        "keywords": [
+          "proxy",
+          "no_proxy",
+          "netloc"
+        ]
+      },
+      "flat_terms": "_should_bypass_proxy _get_netloc Session requests/sessions.py from urllib.parse import urlparse proxy no_proxy netloc",
+      "combined_query": "Making requests to URLs with username and password does not respect no_proxy evironment settings _should_bypass_proxy _get_netloc Session requests/sessions.py from urllib.parse import urlparse proxy no_proxy netloc",
+      "expansion_time_s": 6.2
+    },
+    "5e51665a": {
+      "title": "ResourceWarning in python 3.2+",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"requests.Session.send\", \"requests.adapters.HTTPAdapter.send\"],\n  \"classes\": [\"requests.Response\", \"requests.sessions.Session\"],\n  \"files\": [\"requests/sessions.py\", \"requests/adapters.py\"],\n  \"imports\": [\"import socket\"],\n  \"keywords\": [\"ResourceWarning\", \"garbage collection\", \"socket closure\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "requests.Session.send",
+          "requests.adapters.HTTPAdapter.send"
+        ],
+        "classes": [
+          "requests.Response",
+          "requests.sessions.Session"
+        ],
+        "files": [
+          "requests/sessions.py",
+          "requests/adapters.py"
+        ],
+        "imports": [
+          "import socket"
+        ],
+        "keywords": [
+          "ResourceWarning",
+          "garbage collection",
+          "socket closure"
+        ]
+      },
+      "flat_terms": "requests.Session.send requests.adapters.HTTPAdapter.send requests.Response requests.sessions.Session requests/sessions.py requests/adapters.py import socket ResourceWarning garbage collection socket closure",
+      "combined_query": "ResourceWarning in python 3.2+ requests.Session.send requests.adapters.HTTPAdapter.send requests.Response requests.sessions.Session requests/sessions.py requests/adapters.py import socket ResourceWarning garbage collection socket closure",
+      "expansion_time_s": 6.3
+    },
+    "a00a0136": {
+      "title": "Possible Memory Leak",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"requests.get\"],\n  \"classes\": [],\n  \"files\": [\"requests/api.py\"],\n  \"imports\": [\"from requests.api import get\"],\n  \"keywords\": [\"memory leak\", \"periodic request\", \"working set growth\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "requests.get"
+        ],
+        "classes": [],
+        "files": [
+          "requests/api.py"
+        ],
+        "imports": [
+          "from requests.api import get"
+        ],
+        "keywords": [
+          "memory leak",
+          "periodic request",
+          "working set growth"
+        ]
+      },
+      "flat_terms": "requests.get requests/api.py from requests.api import get memory leak periodic request working set growth",
+      "combined_query": "Possible Memory Leak requests.get requests/api.py from requests.api import get memory leak periodic request working set growth",
+      "expansion_time_s": 5.9
+    },
+    "5eedc1e8": {
+      "title": "URL in readme (https://2.python-requests.org/) is http only",
+      "raw_llm_output": "```json\n{\n  \"functions\": [],\n  \"classes\": [],\n  \"files\": [\"docs/conf.py\"],\n  \"imports\": [\"import re\"],\n  \"keywords\": [\"readme\", \"URL\", \"https\"]\n}\n```",
+      "parsed": {
+        "functions": [],
+        "classes": [],
+        "files": [
+          "docs/conf.py"
+        ],
+        "imports": [
+          "import re"
+        ],
+        "keywords": [
+          "readme",
+          "URL",
+          "https"
+        ]
+      },
+      "flat_terms": "docs/conf.py import re readme URL https",
+      "combined_query": "URL in readme (https://2.python-requests.org/) is http only docs/conf.py import re readme URL https",
+      "expansion_time_s": 3.9
+    },
+    "cebe83f6": {
+      "title": "Preparing a request body without headers throws a TypeError",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"prepare_body\"],\n  \"classes\": [\"PreparedRequest\"],\n  \"files\": [\"requests/models.py\"],\n  \"imports\": [\"from requests.models import PreparedRequest\"],\n  \"keywords\": [\"Content-Length\", \"headers\", \"None\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "prepare_body"
+        ],
+        "classes": [
+          "PreparedRequest"
+        ],
+        "files": [
+          "requests/models.py"
+        ],
+        "imports": [
+          "from requests.models import PreparedRequest"
+        ],
+        "keywords": [
+          "Content-Length",
+          "headers",
+          "None"
+        ]
+      },
+      "flat_terms": "prepare_body PreparedRequest requests/models.py from requests.models import PreparedRequest Content-Length headers None",
+      "combined_query": "Preparing a request body without headers throws a TypeError prepare_body PreparedRequest requests/models.py from requests.models import PreparedRequest Content-Length headers None",
+      "expansion_time_s": 6.2
+    },
+    "d319a777": {
+      "title": "netrc reading does not respect NETRC environment variable",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_read_netrc\"],\n  \"classes\": [\"Session\"],\n  \"files\": [\"requests/sessions.py\"],\n  \"imports\": [\"import os\", \"import netrc\"],\n  \"keywords\": [\"NETRC\", \".netrc\", \"home directory\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_read_netrc"
+        ],
+        "classes": [
+          "Session"
+        ],
+        "files": [
+          "requests/sessions.py"
+        ],
+        "imports": [
+          "import os",
+          "import netrc"
+        ],
+        "keywords": [
+          "NETRC",
+          ".netrc",
+          "home directory"
+        ]
+      },
+      "flat_terms": "_read_netrc Session requests/sessions.py import os import netrc NETRC .netrc home directory",
+      "combined_query": "netrc reading does not respect NETRC environment variable _read_netrc Session requests/sessions.py import os import netrc NETRC .netrc home directory",
+      "expansion_time_s": 6.8
+    },
+    "0293ad6c": {
+      "title": "r.text and r.json() return different results *in some cases*",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_content\", \"_get_content\"],\n  \"classes\": [\"Response\"],\n  \"files\": [\"requests/models.py\"],\n  \"imports\": [\"import chardet\"],\n  \"keywords\": [\"utf-8\", \"content-type\", \"json\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_content",
+          "_get_content"
+        ],
+        "classes": [
+          "Response"
+        ],
+        "files": [
+          "requests/models.py"
+        ],
+        "imports": [
+          "import chardet"
+        ],
+        "keywords": [
+          "utf-8",
+          "content-type",
+          "json"
+        ]
+      },
+      "flat_terms": "_content _get_content Response requests/models.py import chardet utf-8 content-type json",
+      "combined_query": "r.text and r.json() return different results *in some cases* _content _get_content Response requests/models.py import chardet utf-8 content-type json",
+      "expansion_time_s": 5.9
+    },
+    "e6f4939d": {
+      "title": "Invalid JSON serialization of data with NaNs when using `json` request argument",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_encode_json\"],\n  \"classes\": [],\n  \"files\": [\"requests/models.py\"],\n  \"imports\": [\"import json\", \"from requests.compat import is_py3k\"],\n  \"keywords\": [\"NaN\", \"float('nan')\", \"JSON serialization\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_encode_json"
+        ],
+        "classes": [],
+        "files": [
+          "requests/models.py"
+        ],
+        "imports": [
+          "import json",
+          "from requests.compat import is_py3k"
+        ],
+        "keywords": [
+          "NaN",
+          "float('nan')",
+          "JSON serialization"
+        ]
+      },
+      "flat_terms": "_encode_json requests/models.py import json from requests.compat import is_py3k NaN float(nan) JSON serialization",
+      "combined_query": "Invalid JSON serialization of data with NaNs when using `json` request argument _encode_json requests/models.py import json from requests.compat import is_py3k NaN float(nan) JSON serialization",
+      "expansion_time_s": 7.3
+    }
+  },
+  "last_updated": "2026-07-09T09:50:21.726574"
+}

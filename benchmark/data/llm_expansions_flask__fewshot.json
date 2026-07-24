@@ -1,0 +1,778 @@
+{
+  "repo": "flask",
+  "prompt_variant": "fewshot",
+  "created_at": "2026-07-08T22:37:58.504074",
+  "llm_url": "http://localhost:11434/v1",
+  "num_samples": 28,
+  "expansions": {
+    "2a89b3ca": {
+      "title": "`provide_automatic_options` is weird",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"provide_automatic_options\", \"add_url_rule\"],\n  \"classes\": [\"Flask\", \"Rule\"],\n  \"files\": [\"src/flask/app.py\", \"src/flask/views.py\"],\n  \"imports\": [\"from werkzeug.routing import Rule\"],\n  \"keywords\": [\"OPTIONS\", \"PROVIDE_AUTOMATIC_OPTIONS\", \"duplicate_routes\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "provide_automatic_options",
+          "add_url_rule"
+        ],
+        "classes": [
+          "Flask",
+          "Rule"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/flask/views.py"
+        ],
+        "imports": [
+          "from werkzeug.routing import Rule"
+        ],
+        "keywords": [
+          "OPTIONS",
+          "PROVIDE_AUTOMATIC_OPTIONS",
+          "duplicate_routes"
+        ]
+      },
+      "flat_terms": "provide_automatic_options add_url_rule Flask Rule src/flask/app.py src/flask/views.py from werkzeug.routing import Rule OPTIONS PROVIDE_AUTOMATIC_OPTIONS duplicate_routes",
+      "combined_query": "`provide_automatic_options` is weird provide_automatic_options add_url_rule Flask Rule src/flask/app.py src/flask/views.py from werkzeug.routing import Rule OPTIONS PROVIDE_AUTOMATIC_OPTIONS duplicate_routes",
+      "expansion_time_s": 37.3
+    },
+    "08df6dd3": {
+      "title": "change default redirect code to 303",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"redirect\"],\n  \"classes\": [],\n  \"files\": [\"src/flask/helpers.py\"],\n  \"imports\": [],\n  \"keywords\": [\"default_redirect_code\", \"302\", \"307\", \"303\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "redirect"
+        ],
+        "classes": [],
+        "files": [
+          "src/flask/helpers.py"
+        ],
+        "imports": [],
+        "keywords": [
+          "default_redirect_code",
+          "302",
+          "307",
+          "303"
+        ]
+      },
+      "flat_terms": "redirect src/flask/helpers.py default_redirect_code 302 307 303",
+      "combined_query": "change default redirect code to 303 redirect src/flask/helpers.py default_redirect_code 302 307 303",
+      "expansion_time_s": 10.2
+    },
+    "047215c0": {
+      "title": "deprecate `should_ignore_error`",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"should_ignore_error\"],\n  \"classes\": [],\n  \"files\": [\"src/flask/app.py\", \"src/flask/ctx.py\"],\n  \"imports\": [\"from werkzeug.local import LocalProxy\"],\n  \"keywords\": [\"error handling\", \"debugger context\", \"teardown handlers\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "should_ignore_error"
+        ],
+        "classes": [],
+        "files": [
+          "src/flask/app.py",
+          "src/flask/ctx.py"
+        ],
+        "imports": [
+          "from werkzeug.local import LocalProxy"
+        ],
+        "keywords": [
+          "error handling",
+          "debugger context",
+          "teardown handlers"
+        ]
+      },
+      "flat_terms": "should_ignore_error src/flask/app.py src/flask/ctx.py from werkzeug.local import LocalProxy error handling debugger context teardown handlers",
+      "combined_query": "deprecate `should_ignore_error` should_ignore_error src/flask/app.py src/flask/ctx.py from werkzeug.local import LocalProxy error handling debugger context teardown handlers",
+      "expansion_time_s": 24.0
+    },
+    "18d82e5d": {
+      "title": "pass context internally instead of using contextvars",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"dispatch_request\", \"get_flashed_messages\", \"request\"],\n  \"classes\": [\"Flask\", \"AppContext\"],\n  \"files\": [\"src/flask/app.py\", \"src/flask/ctx.py\"],\n  \"imports\": [\"from flask.ctx import AppContext\"],\n  \"keywords\": [\"contextvars\", \"app_context\", \"request_context\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "dispatch_request",
+          "get_flashed_messages",
+          "request"
+        ],
+        "classes": [
+          "Flask",
+          "AppContext"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/flask/ctx.py"
+        ],
+        "imports": [
+          "from flask.ctx import AppContext"
+        ],
+        "keywords": [
+          "contextvars",
+          "app_context",
+          "request_context"
+        ]
+      },
+      "flat_terms": "dispatch_request get_flashed_messages request Flask AppContext src/flask/app.py src/flask/ctx.py from flask.ctx import AppContext contextvars app_context request_context",
+      "combined_query": "pass context internally instead of using contextvars dispatch_request get_flashed_messages request Flask AppContext src/flask/app.py src/flask/ctx.py from flask.ctx import AppContext contextvars app_context request_context",
+      "expansion_time_s": 27.7
+    },
+    "ef0fadd4": {
+      "title": "merge app and request contexts into a single context",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"push_app_context\", \"pop_app_context\", \"push_request_context\", \"pop_request_context\"],\n  \"classes\": [\"AppContext\", \"RequestContext\"],\n  \"files\": [\"src/flask/app.py\", \"src/flask/context.py\"],\n  \"imports\": [\"from werkzeug.local import LocalStack\"],\n  \"keywords\": [\"app_context\", \"request_context\", \"context_stack\", \"push\", \"pop\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "push_app_context",
+          "pop_app_context",
+          "push_request_context",
+          "pop_request_context"
+        ],
+        "classes": [
+          "AppContext",
+          "RequestContext"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/flask/context.py"
+        ],
+        "imports": [
+          "from werkzeug.local import LocalStack"
+        ],
+        "keywords": [
+          "app_context",
+          "request_context",
+          "context_stack",
+          "push",
+          "pop"
+        ]
+      },
+      "flat_terms": "push_app_context pop_app_context push_request_context pop_request_context AppContext RequestContext src/flask/app.py src/flask/context.py from werkzeug.local import LocalStack app_context request_context context_stack push pop",
+      "combined_query": "merge app and request contexts into a single context push_app_context pop_app_context push_request_context pop_request_context AppContext RequestContext src/flask/app.py src/flask/context.py from werkzeug.local import LocalStack app_context request_context context_stack push pop",
+      "expansion_time_s": 14.6
+    },
+    "4247c1a2": {
+      "title": "`stream_with_context` does not work with async routes",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"stream_with_context\", \"get_async_view_functions\"],\n  \"classes\": [\"Flask\", \"AsyncRequestHandler\"],\n  \"files\": [\"src/flask/app.py\", \"src/flask/views.py\"],\n  \"imports\": [\"from werkzeug.wrappers import ResponseWrapper\"],\n  \"keywords\": [\"async\", \"context\", \"stream\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "stream_with_context",
+          "get_async_view_functions"
+        ],
+        "classes": [
+          "Flask",
+          "AsyncRequestHandler"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/flask/views.py"
+        ],
+        "imports": [
+          "from werkzeug.wrappers import ResponseWrapper"
+        ],
+        "keywords": [
+          "async",
+          "context",
+          "stream"
+        ]
+      },
+      "flat_terms": "stream_with_context get_async_view_functions Flask AsyncRequestHandler src/flask/app.py src/flask/views.py from werkzeug.wrappers import ResponseWrapper async context stream",
+      "combined_query": "`stream_with_context` does not work with async routes stream_with_context get_async_view_functions Flask AsyncRequestHandler src/flask/app.py src/flask/views.py from werkzeug.wrappers import ResponseWrapper async context stream",
+      "expansion_time_s": 22.5
+    },
+    "1fbd248c": {
+      "title": "The `template_filter` decorator doesn't work if you don't pass an argument",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"template_filter\", \"register_template_filter\"],\n  \"classes\": [\"Flask\"],\n  \"files\": [\"src/flask/app.py\", \"src/flask/helpers.py\"],\n  \"imports\": [\"from flask import template_filter\"],\n  \"keywords\": [\"decorator\", \"filter_registration\", \"empty_parentheses\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "template_filter",
+          "register_template_filter"
+        ],
+        "classes": [
+          "Flask"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/flask/helpers.py"
+        ],
+        "imports": [
+          "from flask import template_filter"
+        ],
+        "keywords": [
+          "decorator",
+          "filter_registration",
+          "empty_parentheses"
+        ]
+      },
+      "flat_terms": "template_filter register_template_filter Flask src/flask/app.py src/flask/helpers.py from flask import template_filter decorator filter_registration empty_parentheses",
+      "combined_query": "The `template_filter` decorator doesn't work if you don't pass an argument template_filter register_template_filter Flask src/flask/app.py src/flask/helpers.py from flask import template_filter decorator filter_registration empty_parentheses",
+      "expansion_time_s": 34.1
+    },
+    "1b0c40df": {
+      "title": "Session is not updated on redirect target endpoint in tests",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"redirect\", \"session\"],\n  \"classes\": [\"Flask\"],\n  \"files\": [\"src/flask/app.py\", \"src/flask/testing.py\"],\n  \"imports\": [\"from werkzeug.wrappers import Response\"],\n  \"keywords\": [\"test_client\", \"follow_redirects\", \"session_cookie\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "redirect",
+          "session"
+        ],
+        "classes": [
+          "Flask"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/flask/testing.py"
+        ],
+        "imports": [
+          "from werkzeug.wrappers import Response"
+        ],
+        "keywords": [
+          "test_client",
+          "follow_redirects",
+          "session_cookie"
+        ]
+      },
+      "flat_terms": "redirect session Flask src/flask/app.py src/flask/testing.py from werkzeug.wrappers import Response test_client follow_redirects session_cookie",
+      "combined_query": "Session is not updated on redirect target endpoint in tests redirect session Flask src/flask/app.py src/flask/testing.py from werkzeug.wrappers import Response test_client follow_redirects session_cookie",
+      "expansion_time_s": 11.8
+    },
+    "527f38e8": {
+      "title": "Looser type annotations for send_file() path_or_file argument",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"send_file\"],\n  \"classes\": [],\n  \"files\": [\"src/flask/helpers.py\"],\n  \"imports\": [\"from werkzeug.utils import send_file as _werkzeug_send_file\"],\n  \"keywords\": [\"path_or_file\", \"t.IO[bytes]\", \"BinaryIO\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "send_file"
+        ],
+        "classes": [],
+        "files": [
+          "src/flask/helpers.py"
+        ],
+        "imports": [
+          "from werkzeug.utils import send_file as _werkzeug_send_file"
+        ],
+        "keywords": [
+          "path_or_file",
+          "t.IO[bytes]",
+          "BinaryIO"
+        ]
+      },
+      "flat_terms": "send_file src/flask/helpers.py from werkzeug.utils import send_file as _werkzeug_send_file path_or_file t.IO[bytes] BinaryIO",
+      "combined_query": "Looser type annotations for send_file() path_or_file argument send_file src/flask/helpers.py from werkzeug.utils import send_file as _werkzeug_send_file path_or_file t.IO[bytes] BinaryIO",
+      "expansion_time_s": 24.3
+    },
+    "0ea7b8b2": {
+      "title": "Custom commands not listed",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"get_cli_commands\", \"load_app\"],\n  \"classes\": [\"Flask\"],\n  \"files\": [\"src/flask/cli.py\", \"src/flask/app.py\"],\n  \"imports\": [\"from flask.cli import get_default_command\"],\n  \"keywords\": [\"FLASK_APP\", \"cli_commands\", \"app_context\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "get_cli_commands",
+          "load_app"
+        ],
+        "classes": [
+          "Flask"
+        ],
+        "files": [
+          "src/flask/cli.py",
+          "src/flask/app.py"
+        ],
+        "imports": [
+          "from flask.cli import get_default_command"
+        ],
+        "keywords": [
+          "FLASK_APP",
+          "cli_commands",
+          "app_context"
+        ]
+      },
+      "flat_terms": "get_cli_commands load_app Flask src/flask/cli.py src/flask/app.py from flask.cli import get_default_command FLASK_APP cli_commands app_context",
+      "combined_query": "Custom commands not listed get_cli_commands load_app Flask src/flask/cli.py src/flask/app.py from flask.cli import get_default_command FLASK_APP cli_commands app_context",
+      "expansion_time_s": 29.3
+    },
+    "de044b37": {
+      "title": "flask.__init__.__getattr__ can hide typing errors",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"__getattr__\"],\n  \"classes\": [\"Flask\"],\n  \"files\": [\"src/flask/__init__.py\"],\n  \"imports\": [],\n  \"keywords\": [\"FlashMessage\", \"__getattr__\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__getattr__"
+        ],
+        "classes": [
+          "Flask"
+        ],
+        "files": [
+          "src/flask/__init__.py"
+        ],
+        "imports": [],
+        "keywords": [
+          "FlashMessage",
+          "__getattr__"
+        ]
+      },
+      "flat_terms": "__getattr__ Flask src/flask/__init__.py FlashMessage __getattr__",
+      "combined_query": "flask.__init__.__getattr__ can hide typing errors __getattr__ Flask src/flask/__init__.py FlashMessage __getattr__",
+      "expansion_time_s": 26.4
+    },
+    "571affc9": {
+      "title": "Rotating secret keys",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"sign\", \"unsign\"],\n  \"classes\": [\"Signer\"],\n  \"files\": [\"src/flask/app.py\", \"src/flask/sessions.py\"],\n  \"imports\": [\"from itsdangerous import Signer\"],\n  \"keywords\": [\"secret_keys\", \"session\", \"rotation\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "sign",
+          "unsign"
+        ],
+        "classes": [
+          "Signer"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/flask/sessions.py"
+        ],
+        "imports": [
+          "from itsdangerous import Signer"
+        ],
+        "keywords": [
+          "secret_keys",
+          "session",
+          "rotation"
+        ]
+      },
+      "flat_terms": "sign unsign Signer src/flask/app.py src/flask/sessions.py from itsdangerous import Signer secret_keys session rotation",
+      "combined_query": "Rotating secret keys sign unsign Signer src/flask/app.py src/flask/sessions.py from itsdangerous import Signer secret_keys session rotation",
+      "expansion_time_s": 20.7
+    },
+    "123374b4": {
+      "title": "Type hint for FlaskCliRunner.invoke is not specific",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"invoke\"],\n  \"classes\": [\"FlaskCliRunner\"],\n  \"files\": [\"src/flask/testing.py\"],\n  \"imports\": [\"from click.testing import Result\"],\n  \"keywords\": [\"type hint\", \"return type\", \"click.testing.Result\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "invoke"
+        ],
+        "classes": [
+          "FlaskCliRunner"
+        ],
+        "files": [
+          "src/flask/testing.py"
+        ],
+        "imports": [
+          "from click.testing import Result"
+        ],
+        "keywords": [
+          "type hint",
+          "return type",
+          "click.testing.Result"
+        ]
+      },
+      "flat_terms": "invoke FlaskCliRunner src/flask/testing.py from click.testing import Result type hint return type click.testing.Result",
+      "combined_query": "Type hint for FlaskCliRunner.invoke is not specific invoke FlaskCliRunner src/flask/testing.py from click.testing import Result type hint return type click.testing.Result",
+      "expansion_time_s": 24.7
+    },
+    "b49595b9": {
+      "title": "Revisit SERVER_NAME's impact on routing and external URL generation",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"url_for\", \"create_url_adapter\"],\n  \"classes\": [\"Flask\"],\n  \"files\": [\"src/flask/app.py\", \"src/flask/helpers.py\"],\n  \"imports\": [\"from werkzeug.routing import Map\"],\n  \"keywords\": [\"SERVER_NAME\", \"url_adapter\", \"subdomain\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "url_for",
+          "create_url_adapter"
+        ],
+        "classes": [
+          "Flask"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/flask/helpers.py"
+        ],
+        "imports": [
+          "from werkzeug.routing import Map"
+        ],
+        "keywords": [
+          "SERVER_NAME",
+          "url_adapter",
+          "subdomain"
+        ]
+      },
+      "flat_terms": "url_for create_url_adapter Flask src/flask/app.py src/flask/helpers.py from werkzeug.routing import Map SERVER_NAME url_adapter subdomain",
+      "combined_query": "Revisit SERVER_NAME's impact on routing and external URL generation url_for create_url_adapter Flask src/flask/app.py src/flask/helpers.py from werkzeug.routing import Map SERVER_NAME url_adapter subdomain",
+      "expansion_time_s": 21.3
+    },
+    "6b92c057": {
+      "title": "Revisit SERVER_NAME's impact on routing and external URL generation",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"url_for\", \"create_url_adapter\"],\n  \"classes\": [\"Flask\"],\n  \"files\": [\"src/flask/app.py\", \"src/flask/helpers.py\"],\n  \"imports\": [\"from werkzeug.routing import Map\"],\n  \"keywords\": [\"SERVER_NAME\", \"url_adapter\", \"subdomain\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "url_for",
+          "create_url_adapter"
+        ],
+        "classes": [
+          "Flask"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/flask/helpers.py"
+        ],
+        "imports": [
+          "from werkzeug.routing import Map"
+        ],
+        "keywords": [
+          "SERVER_NAME",
+          "url_adapter",
+          "subdomain"
+        ]
+      },
+      "flat_terms": "url_for create_url_adapter Flask src/flask/app.py src/flask/helpers.py from werkzeug.routing import Map SERVER_NAME url_adapter subdomain",
+      "combined_query": "Revisit SERVER_NAME's impact on routing and external URL generation url_for create_url_adapter Flask src/flask/app.py src/flask/helpers.py from werkzeug.routing import Map SERVER_NAME url_adapter subdomain",
+      "expansion_time_s": 11.6
+    },
+    "e00d3133": {
+      "title": "dotenv file arg should take precedence over default dotenv files",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"load_dotenv\", \"from_envvar\"],\n  \"classes\": [\"DotEnv\"],\n  \"files\": [\"src/flask/cli.py\", \"src/flask/config.py\"],\n  \"imports\": [\"os\"],\n  \"keywords\": [\"dotenv\", \"environment variables\", \"precedence\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "load_dotenv",
+          "from_envvar"
+        ],
+        "classes": [
+          "DotEnv"
+        ],
+        "files": [
+          "src/flask/cli.py",
+          "src/flask/config.py"
+        ],
+        "imports": [
+          "os"
+        ],
+        "keywords": [
+          "dotenv",
+          "environment variables",
+          "precedence"
+        ]
+      },
+      "flat_terms": "load_dotenv from_envvar DotEnv src/flask/cli.py src/flask/config.py os dotenv environment variables precedence",
+      "combined_query": "dotenv file arg should take precedence over default dotenv files load_dotenv from_envvar DotEnv src/flask/cli.py src/flask/config.py os dotenv environment variables precedence",
+      "expansion_time_s": 19.7
+    },
+    "9ab32b34": {
+      "title": "extend config for Request form memory settings",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"__init__\", \"parse_form_data\"],\n  \"classes\": [\"Request\", \"Flask\"],\n  \"files\": [\"src/flask/app.py\", \"src/werkzeug/wsgi.py\"],\n  \"imports\": [\"from werkzeug.datastructures import ImmutableMultiDict\"],\n  \"keywords\": [\"max_content_length\", \"max_form_memory_size\", \"max_form_parts\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__init__",
+          "parse_form_data"
+        ],
+        "classes": [
+          "Request",
+          "Flask"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/werkzeug/wsgi.py"
+        ],
+        "imports": [
+          "from werkzeug.datastructures import ImmutableMultiDict"
+        ],
+        "keywords": [
+          "max_content_length",
+          "max_form_memory_size",
+          "max_form_parts"
+        ]
+      },
+      "flat_terms": "__init__ parse_form_data Request Flask src/flask/app.py src/werkzeug/wsgi.py from werkzeug.datastructures import ImmutableMultiDict max_content_length max_form_memory_size max_form_parts",
+      "combined_query": "extend config for Request form memory settings __init__ parse_form_data Request Flask src/flask/app.py src/werkzeug/wsgi.py from werkzeug.datastructures import ImmutableMultiDict max_content_length max_form_memory_size max_form_parts",
+      "expansion_time_s": 26.1
+    },
+    "afd630c3": {
+      "title": "Add support for partitioned session cookies",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"make_response\", \"set_cookie\"],\n  \"classes\": [\"Session\", \"Flask\"],\n  \"files\": [\"src/flask/app.py\", \"src/flask/sessions.py\"],\n  \"imports\": [\"from werkzeug.datastructures import ImmutableDict\"],\n  \"keywords\": [\"SESSION_COOKIE_SAMESITE\", \"Partitioned\", \"SAMESITE\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "make_response",
+          "set_cookie"
+        ],
+        "classes": [
+          "Session",
+          "Flask"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/flask/sessions.py"
+        ],
+        "imports": [
+          "from werkzeug.datastructures import ImmutableDict"
+        ],
+        "keywords": [
+          "SESSION_COOKIE_SAMESITE",
+          "Partitioned",
+          "SAMESITE"
+        ]
+      },
+      "flat_terms": "make_response set_cookie Session Flask src/flask/app.py src/flask/sessions.py from werkzeug.datastructures import ImmutableDict SESSION_COOKIE_SAMESITE Partitioned SAMESITE",
+      "combined_query": "Add support for partitioned session cookies make_response set_cookie Session Flask src/flask/app.py src/flask/sessions.py from werkzeug.datastructures import ImmutableDict SESSION_COOKIE_SAMESITE Partitioned SAMESITE",
+      "expansion_time_s": 30.5
+    },
+    "1885a636": {
+      "title": "SERVER_NAME configuration should not implicitly change routing behavior.",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"url_for\", \"create_url_adapter\"],\n  \"classes\": [\"Flask\", \"Blueprint\"],\n  \"files\": [\"src/flask/app.py\", \"src/flask/helpers.py\", \"src/flask/blueprints.py\"],\n  \"imports\": [\"from werkzeug.routing import Map\"],\n  \"keywords\": [\"SERVER_NAME\", \"url_adapter\", \"subdomain\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "url_for",
+          "create_url_adapter"
+        ],
+        "classes": [
+          "Flask",
+          "Blueprint"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/flask/helpers.py",
+          "src/flask/blueprints.py"
+        ],
+        "imports": [
+          "from werkzeug.routing import Map"
+        ],
+        "keywords": [
+          "SERVER_NAME",
+          "url_adapter",
+          "subdomain"
+        ]
+      },
+      "flat_terms": "url_for create_url_adapter Flask Blueprint src/flask/app.py src/flask/helpers.py src/flask/blueprints.py from werkzeug.routing import Map SERVER_NAME url_adapter subdomain",
+      "combined_query": "SERVER_NAME configuration should not implicitly change routing behavior. url_for create_url_adapter Flask Blueprint src/flask/app.py src/flask/helpers.py src/flask/blueprints.py from werkzeug.routing import Map SERVER_NAME url_adapter subdomain",
+      "expansion_time_s": 39.0
+    },
+    "2e87c037": {
+      "title": "allow setting encoding in open_resource()",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"open_resource\"],\n  \"classes\": [\"Flask\"],\n  \"files\": [\"src/flask/helpers.py\"],\n  \"imports\": [\"from flask import current_app\"],\n  \"keywords\": [\"encoding\", \"UTF-8\", \"Windows\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "open_resource"
+        ],
+        "classes": [
+          "Flask"
+        ],
+        "files": [
+          "src/flask/helpers.py"
+        ],
+        "imports": [
+          "from flask import current_app"
+        ],
+        "keywords": [
+          "encoding",
+          "UTF-8",
+          "Windows"
+        ]
+      },
+      "flat_terms": "open_resource Flask src/flask/helpers.py from flask import current_app encoding UTF-8 Windows",
+      "combined_query": "allow setting encoding in open_resource() open_resource Flask src/flask/helpers.py from flask import current_app encoding UTF-8 Windows",
+      "expansion_time_s": 20.1
+    },
+    "e5e77f6c": {
+      "title": "Use of `hashlib.sha1` causes issue in FIPS build",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"generate_key\"],\n  \"classes\": [\"Session\"],\n  \"files\": [\"src/flask/sessions.py\"],\n  \"imports\": [\"from hashlib import sha1\"],\n  \"keywords\": [\"FIPS\", \"SHA1\", \"session\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "generate_key"
+        ],
+        "classes": [
+          "Session"
+        ],
+        "files": [
+          "src/flask/sessions.py"
+        ],
+        "imports": [
+          "from hashlib import sha1"
+        ],
+        "keywords": [
+          "FIPS",
+          "SHA1",
+          "session"
+        ]
+      },
+      "flat_terms": "generate_key Session src/flask/sessions.py from hashlib import sha1 FIPS SHA1 session",
+      "combined_query": "Use of `hashlib.sha1` causes issue in FIPS build generate_key Session src/flask/sessions.py from hashlib import sha1 FIPS SHA1 session",
+      "expansion_time_s": 17.5
+    },
+    "1ad66abe": {
+      "title": "jinja_loader type bug",
+      "raw_llm_output": "```json\n{\n    \"functions\": [\"ChoiceLoader\", \"FileSystemLoader\"],\n    \"classes\": [\"JinjaLoader\"],\n    \"files\": [\"src/flask/app.py\", \"src/flask/template.py\"],\n    \"imports\": [\"from jinja2 import ChoiceLoader, FileSystemLoader\"],\n    \"keywords\": [\"jinja_loader\", \"ChoiceLoader\", \"FileSystemLoader\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "ChoiceLoader",
+          "FileSystemLoader"
+        ],
+        "classes": [
+          "JinjaLoader"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/flask/template.py"
+        ],
+        "imports": [
+          "from jinja2 import ChoiceLoader, FileSystemLoader"
+        ],
+        "keywords": [
+          "jinja_loader",
+          "ChoiceLoader",
+          "FileSystemLoader"
+        ]
+      },
+      "flat_terms": "ChoiceLoader FileSystemLoader JinjaLoader src/flask/app.py src/flask/template.py from jinja2 import ChoiceLoader, FileSystemLoader jinja_loader ChoiceLoader FileSystemLoader",
+      "combined_query": "jinja_loader type bug ChoiceLoader FileSystemLoader JinjaLoader src/flask/app.py src/flask/template.py from jinja2 import ChoiceLoader, FileSystemLoader jinja_loader ChoiceLoader FileSystemLoader",
+      "expansion_time_s": 37.1
+    },
+    "5e2ccf6d": {
+      "title": "Flask 3.0.1 breaks path-separated command line arguments",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"run\", \"parse_command_line_options\"],\n  \"classes\": [\"Flask\"],\n  \"files\": [\"src/flask/cli.py\", \"src/flask/app.py\"],\n  \"imports\": [\"from flask.cli import parse_command_line_options, run\"],\n  \"keywords\": [\"extra-files\", \"SeparatedPathType\", \"TypeError\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "run",
+          "parse_command_line_options"
+        ],
+        "classes": [
+          "Flask"
+        ],
+        "files": [
+          "src/flask/cli.py",
+          "src/flask/app.py"
+        ],
+        "imports": [
+          "from flask.cli import parse_command_line_options, run"
+        ],
+        "keywords": [
+          "extra-files",
+          "SeparatedPathType",
+          "TypeError"
+        ]
+      },
+      "flat_terms": "run parse_command_line_options Flask src/flask/cli.py src/flask/app.py from flask.cli import parse_command_line_options, run extra-files SeparatedPathType TypeError",
+      "combined_query": "Flask 3.0.1 breaks path-separated command line arguments run parse_command_line_options Flask src/flask/cli.py src/flask/app.py from flask.cli import parse_command_line_options, run extra-files SeparatedPathType TypeError",
+      "expansion_time_s": 15.2
+    },
+    "d406753e": {
+      "title": "Session data is not untagged properly when using other JSON providers",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"dumps\", \"loads\"],\n  \"classes\": [\"Session\", \"JSONProvider\"],\n  \"files\": [\"src/flask/session.py\", \"src/flask/json.py\"],\n  \"imports\": [\"from flask.json import dumps, loads\"],\n  \"keywords\": [\"session_data\", \"json_provider\", \"object_hook\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "dumps",
+          "loads"
+        ],
+        "classes": [
+          "Session",
+          "JSONProvider"
+        ],
+        "files": [
+          "src/flask/session.py",
+          "src/flask/json.py"
+        ],
+        "imports": [
+          "from flask.json import dumps, loads"
+        ],
+        "keywords": [
+          "session_data",
+          "json_provider",
+          "object_hook"
+        ]
+      },
+      "flat_terms": "dumps loads Session JSONProvider src/flask/session.py src/flask/json.py from flask.json import dumps, loads session_data json_provider object_hook",
+      "combined_query": "Session data is not untagged properly when using other JSON providers dumps loads Session JSONProvider src/flask/session.py src/flask/json.py from flask.json import dumps, loads session_data json_provider object_hook",
+      "expansion_time_s": 15.4
+    },
+    "8be51d8a": {
+      "title": "flask.send_file() with Pylance in strict mode shows reportUnknownMemberType",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"send_file\"],\n  \"classes\": [],\n  \"files\": [\"src/flask/helpers.py\"],\n  \"imports\": [\"from werkzeug.utils import secure_filename\"],\n  \"keywords\": [\"PathLike\", \"BinaryIO\", \"mimetype\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "send_file"
+        ],
+        "classes": [],
+        "files": [
+          "src/flask/helpers.py"
+        ],
+        "imports": [
+          "from werkzeug.utils import secure_filename"
+        ],
+        "keywords": [
+          "PathLike",
+          "BinaryIO",
+          "mimetype"
+        ]
+      },
+      "flat_terms": "send_file src/flask/helpers.py from werkzeug.utils import secure_filename PathLike BinaryIO mimetype",
+      "combined_query": "flask.send_file() with Pylance in strict mode shows reportUnknownMemberType send_file src/flask/helpers.py from werkzeug.utils import secure_filename PathLike BinaryIO mimetype",
+      "expansion_time_s": 13.1
+    },
+    "321e6322": {
+      "title": "TypeError: Flask.url_for() got multiple values for argument 'self'",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"url_for\"],\n  \"classes\": [\"Flask\"],\n  \"files\": [\"src/flask/app.py\", \"src/flask/helpers.py\"],\n  \"imports\": [\"from werkzeug.routing import Map\"],\n  \"keywords\": [\"self\", \"values\", \"argument\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "url_for"
+        ],
+        "classes": [
+          "Flask"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/flask/helpers.py"
+        ],
+        "imports": [
+          "from werkzeug.routing import Map"
+        ],
+        "keywords": [
+          "self",
+          "values",
+          "argument"
+        ]
+      },
+      "flat_terms": "url_for Flask src/flask/app.py src/flask/helpers.py from werkzeug.routing import Map self values argument",
+      "combined_query": "TypeError: Flask.url_for() got multiple values for argument 'self' url_for Flask src/flask/app.py src/flask/helpers.py from werkzeug.routing import Map self values argument",
+      "expansion_time_s": 29.5
+    },
+    "24338622": {
+      "title": "Issue with Werkzeug bump",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"create_app\", \"login_required\"],\n  \"classes\": [\"Flask\"],\n  \"files\": [\"src/flask/app.py\", \"src/flask_login/login.py\"],\n  \"imports\": [\"from flask import Flask\", \"from flask_login import LoginManager\"],\n  \"keywords\": [\"werkzeug\", \"bump\", \"deployment\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "create_app",
+          "login_required"
+        ],
+        "classes": [
+          "Flask"
+        ],
+        "files": [
+          "src/flask/app.py",
+          "src/flask_login/login.py"
+        ],
+        "imports": [
+          "from flask import Flask",
+          "from flask_login import LoginManager"
+        ],
+        "keywords": [
+          "werkzeug",
+          "bump",
+          "deployment"
+        ]
+      },
+      "flat_terms": "create_app login_required Flask src/flask/app.py src/flask_login/login.py from flask import Flask from flask_login import LoginManager werkzeug bump deployment",
+      "combined_query": "Issue with Werkzeug bump create_app login_required Flask src/flask/app.py src/flask_login/login.py from flask import Flask from flask_login import LoginManager werkzeug bump deployment",
+      "expansion_time_s": 17.2
+    },
+    "efc3fbcd": {
+      "title": "deprecate `__version__`",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"__version__\"],\n  \"classes\": [],\n  \"files\": [\"src/flask/__init__.py\", \"setup.py\"],\n  \"imports\": [\"import importlib.metadata\"],\n  \"keywords\": [\"feature detection\", \"runtime version\", \"importlib.metadata\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__version__"
+        ],
+        "classes": [],
+        "files": [
+          "src/flask/__init__.py",
+          "setup.py"
+        ],
+        "imports": [
+          "import importlib.metadata"
+        ],
+        "keywords": [
+          "feature detection",
+          "runtime version",
+          "importlib.metadata"
+        ]
+      },
+      "flat_terms": "__version__ src/flask/__init__.py setup.py import importlib.metadata feature detection runtime version importlib.metadata",
+      "combined_query": "deprecate `__version__` __version__ src/flask/__init__.py setup.py import importlib.metadata feature detection runtime version importlib.metadata",
+      "expansion_time_s": 21.9
+    }
+  },
+  "last_updated": "2026-07-08T22:49:08.945509"
+}

@@ -1,0 +1,100 @@
+name: Benchmark – flask
+
+on:
+  workflow_dispatch:
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    # GH free-tier hard cap is 360 min; pick 350 with cushion for upload.
+    timeout-minutes: 350
+
+    services:
+      elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.13.0
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: "false"
+          cluster.routing.allocation.disk.threshold_enabled: "false"
+          ES_JAVA_OPTS: >-
+            -Xms2g -Xmx2g
+            -XX:+ExitOnOutOfMemoryError
+            -XX:+HeapDumpOnOutOfMemoryError
+            -XX:HeapDumpPath=/tmp
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl -sf http://localhost:9200/_cluster/health"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 40
+          --health-start-period 30s
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: requirements_benchmark.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements_benchmark.txt
+
+      - name: Wait for Elasticsearch
+        run: |
+          echo "Waiting for ES..."
+          for i in $(seq 1 60); do
+            if curl -sf http://localhost:9200/_cluster/health >/dev/null; then
+              echo "ES is up after ${i} attempts"
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::Elasticsearch did not become ready in time"
+          exit 1
+
+      - name: Verify ES heap & free RAM
+        run: |
+          echo "## Runner memory:"
+          free -h
+          echo "## ES JVM stats:"
+          curl -s "http://localhost:9200/_nodes/stats/jvm?pretty" \
+            | grep -E '"heap_used_percent"|"heap_max_in_bytes"|"used_percent"' || true
+
+      - name: Run benchmark – flask
+        # No more 50/80-min step caps — only the job cap (350m) gates this.
+        timeout-minutes: 330
+        env:
+          ES_URL: http://localhost:9200
+          BENCHMARK_FAIL_FAST_AFTER: "2"
+          HF_HUB_DISABLE_TELEMETRY: "1"
+          TOKENIZERS_PARALLELISM: "false"
+          # Pin CPU threads to avoid the over-threading thrash that made
+          # gte-large embedding batches take 8+ min on benchmark_all.
+          OMP_NUM_THREADS: "2"
+          MKL_NUM_THREADS: "2"
+          OPENBLAS_NUM_THREADS: "2"
+          NUMEXPR_NUM_THREADS: "2"
+          TORCH_NUM_THREADS: "2"
+        run: python -m benchmark.runner --repos flask
+
+      - name: Dump ES logs on failure
+        if: failure()
+        run: |
+          echo "## Last 200 lines of ES container logs:"
+          docker ps -a --format '{{.ID}} {{.Image}}' \
+            | awk '/elasticsearch/{print $1}' \
+            | head -1 \
+            | xargs -r docker logs --tail 200 2>&1 || echo "(no ES container)"
+
+      - name: Upload results as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results-flask-${{ github.run_number }}
+          path: benchmark/results/
+          if-no-files-found: warn

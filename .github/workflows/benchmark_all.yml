@@ -1,0 +1,158 @@
+name: Benchmark – All Repos (matrix)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  benchmark:
+    # Matrix split: one job per repo, all 5 run in parallel.
+    # Wall-clock time goes from ~5h sequential to ~max(per-repo time);
+    # CI-minutes consumed are the same as before. fail-fast=false so a
+    # blow-up on pandas doesn't cancel the cheap repos.
+    name: ${{ matrix.repo }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+
+    strategy:
+      fail-fast: false
+      matrix:
+        repo: [requests, flask, click, fastapi, pandas]
+
+    services:
+      elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.13.0
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: "false"
+          # Small CI disks (~14 GB free) trip the default 85% read-only
+          # threshold after a few hundred MB of dense_vector data.
+          cluster.routing.allocation.disk.threshold_enabled: "false"
+          # 512m heap caused JVM OOM after V5; 2g fits the 7 GB runner
+          # comfortably alongside Python + embedding model.
+          ES_JAVA_OPTS: >-
+            -Xms2g -Xmx2g
+            -XX:+ExitOnOutOfMemoryError
+            -XX:+HeapDumpOnOutOfMemoryError
+            -XX:HeapDumpPath=/tmp
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl -sf http://localhost:9200/_cluster/health"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 40
+          --health-start-period 30s
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: requirements_benchmark.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements_benchmark.txt
+
+      - name: Wait for Elasticsearch
+        run: |
+          echo "Waiting for ES..."
+          for i in $(seq 1 60); do
+            if curl -sf http://localhost:9200/_cluster/health >/dev/null; then
+              echo "ES is up after ${i} attempts"
+              curl -s http://localhost:9200 | head -20
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::Elasticsearch did not become ready in time"
+          exit 1
+
+      - name: Verify ES heap & free RAM
+        run: |
+          echo "## Runner memory:"
+          free -h
+          echo "## ES JVM stats:"
+          curl -s "http://localhost:9200/_nodes/stats/jvm?pretty" \
+            | grep -E '"heap_used_percent"|"heap_max_in_bytes"|"used_percent"' || true
+
+      - name: Run benchmark – ${{ matrix.repo }}
+        timeout-minutes: 330
+        env:
+          ES_URL: http://localhost:9200
+          BENCHMARK_FAIL_FAST_AFTER: "2"
+          HF_HUB_DISABLE_TELEMETRY: "1"
+          TRANSFORMERS_OFFLINE: "0"
+          TOKENIZERS_PARALLELISM: "false"
+          OMP_NUM_THREADS: "2"
+          MKL_NUM_THREADS: "2"
+          OPENBLAS_NUM_THREADS: "2"
+          NUMEXPR_NUM_THREADS: "2"
+          TORCH_NUM_THREADS: "2"
+        run: python -m benchmark.runner --repos ${{ matrix.repo }}
+
+      - name: Dump ES logs on failure
+        if: failure()
+        run: |
+          echo "## Last 200 lines of ES container logs:"
+          docker ps -a --format '{{.ID}} {{.Image}}' \
+            | awk '/elasticsearch/{print $1}' \
+            | head -1 \
+            | xargs -r docker logs --tail 200 2>&1 || echo "(no ES container)"
+
+      - name: Upload results as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results-${{ matrix.repo }}-${{ github.run_number }}
+          path: benchmark/results/
+          if-no-files-found: warn
+
+  # Aggregator: pulls all 5 repo artifacts back together and re-generates
+  # the cross-repo Macro/Micro report. Runs after every matrix leg, even
+  # if one failed (we still want partial reports for the legs that did
+  # complete).
+  aggregate:
+    name: aggregate-report
+    needs: benchmark
+    if: always()
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: requirements_benchmark.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements_benchmark.txt
+
+      - name: Download all matrix artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          pattern: benchmark-results-*-${{ github.run_number }}
+
+      - name: Merge per-repo results into one report
+        run: |
+          python -m benchmark.aggregate \
+            --inputs artifacts \
+            --output-dir benchmark/results/aggregated
+
+      - name: Upload aggregated report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-aggregated-${{ github.run_number }}
+          path: benchmark/results/aggregated/
+          if-no-files-found: warn

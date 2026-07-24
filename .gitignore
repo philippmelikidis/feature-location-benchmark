@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.env
+.venv
+.DS_Store
+
+# Benchmark runtime artifacts
+benchmark/repos/
+benchmark/results/*.json
+benchmark/results/*.md
+benchmark/results/**/*.json
+benchmark/results/**/*.md
+
+# Overnight / run logs
+*.log
+
+# Test/IDE
+.pytest_cache/
+.vscode/
+.idea/
+.superpowers/
+.ruff_cache/
+.~lock.*#
+!benchmark/results/benchmark_report_latest.md

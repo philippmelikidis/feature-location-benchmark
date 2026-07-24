@@ -1,0 +1,2526 @@
+{
+  "repo": "pandas",
+  "prompt_variant": "strict-functions",
+  "created_at": "2026-07-08T23:29:50.105158",
+  "llm_url": "http://localhost:11434/v1",
+  "num_samples": 95,
+  "expansions": {
+    "347db9b1": {
+      "title": "PERF: DataFrame.describe() calls Series.reindex() N times instead of once",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"describe\", \"reindex\"],\n  \"classes\": [\"DataFrame\", \"Series\"],\n  \"files\": [\"core/frame.py\", \"core/series.py\"],\n  \"imports\": [\"pandas as pd\"],\n  \"keywords\": [\"performance\", \"optimization\", \"groupby\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "describe",
+          "reindex"
+        ],
+        "classes": [
+          "DataFrame",
+          "Series"
+        ],
+        "files": [
+          "core/frame.py",
+          "core/series.py"
+        ],
+        "imports": [
+          "pandas as pd"
+        ],
+        "keywords": [
+          "performance",
+          "optimization",
+          "groupby"
+        ]
+      },
+      "flat_terms": "describe reindex DataFrame Series core/frame.py core/series.py pandas as pd performance optimization groupby",
+      "combined_query": "PERF: DataFrame.describe() calls Series.reindex() N times instead of once describe reindex DataFrame Series core/frame.py core/series.py pandas as pd performance optimization groupby",
+      "expansion_time_s": 32.0
+    },
+    "1de16abb": {
+      "title": "API: always treat tuples as object-dtype-scalars for arithmetic?",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"__add__\", \"__sub__\", \"__mul__\", \"__truediv__\"],\n  \"classes\": [\"Series\", \"DataFrame\"],\n  \"files\": [\"core/ops/array_ops.py\", \"core/ops/arith_ops.py\"],\n  \"imports\": [\"numpy as np\"],\n  \"keywords\": [\"arithmetic\", \"dtype\", \"scalar\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__add__",
+          "__sub__",
+          "__mul__",
+          "__truediv__"
+        ],
+        "classes": [
+          "Series",
+          "DataFrame"
+        ],
+        "files": [
+          "core/ops/array_ops.py",
+          "core/ops/arith_ops.py"
+        ],
+        "imports": [
+          "numpy as np"
+        ],
+        "keywords": [
+          "arithmetic",
+          "dtype",
+          "scalar"
+        ]
+      },
+      "flat_terms": "__add__ __sub__ __mul__ __truediv__ Series DataFrame core/ops/array_ops.py core/ops/arith_ops.py numpy as np arithmetic dtype scalar",
+      "combined_query": "API: always treat tuples as object-dtype-scalars for arithmetic? __add__ __sub__ __mul__ __truediv__ Series DataFrame core/ops/array_ops.py core/ops/arith_ops.py numpy as np arithmetic dtype scalar",
+      "expansion_time_s": 35.2
+    },
+    "48e07a47": {
+      "title": "BUG: time deltas are always inferred as pd.Timedelta",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"to_pytimedelta\"],\n  \"classes\": [\"Timedelta\", \"Series\"],\n  \"files\": [\"pandas/core/timedeltas.py\", \"pandas/core/series.py\"],\n  \"imports\": [\"pd.Timedelta\"],\n  \"keywords\": [\"time deltas\", \"inference\", \"conversion\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "to_pytimedelta"
+        ],
+        "classes": [
+          "Timedelta",
+          "Series"
+        ],
+        "files": [
+          "pandas/core/timedeltas.py",
+          "pandas/core/series.py"
+        ],
+        "imports": [
+          "pd.Timedelta"
+        ],
+        "keywords": [
+          "time deltas",
+          "inference",
+          "conversion"
+        ]
+      },
+      "flat_terms": "to_pytimedelta Timedelta Series pandas/core/timedeltas.py pandas/core/series.py pd.Timedelta time deltas inference conversion",
+      "combined_query": "BUG: time deltas are always inferred as pd.Timedelta to_pytimedelta Timedelta Series pandas/core/timedeltas.py pandas/core/series.py pd.Timedelta time deltas inference conversion",
+      "expansion_time_s": 29.1
+    },
+    "98fd75c7": {
+      "title": "DOC: \"list\" is not a keyword - .query()",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"query\"],\n  \"classes\": [],\n  \"files\": [\"pandas/core/frame.py\"],\n  \"imports\": [\"pandas as pd\"],\n  \"keywords\": [\"DataFrame\", \"query\", \"column names\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "query"
+        ],
+        "classes": [],
+        "files": [
+          "pandas/core/frame.py"
+        ],
+        "imports": [
+          "pandas as pd"
+        ],
+        "keywords": [
+          "DataFrame",
+          "query",
+          "column names"
+        ]
+      },
+      "flat_terms": "query pandas/core/frame.py pandas as pd DataFrame query column names",
+      "combined_query": "DOC: \"list\" is not a keyword - .query() query pandas/core/frame.py pandas as pd DataFrame query column names",
+      "expansion_time_s": 18.1
+    },
+    "ec3d9908": {
+      "title": "DOC: `name` in `Index.to_frame` is claimed to default to `index.name`",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"to_frame\"],\n  \"classes\": [],\n  \"files\": [\"core/indexes/base.py\"],\n  \"imports\": [\"lib.no_default\"],\n  \"keywords\": [\"documentation\", \"default value\", \"Index.to_frame\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "to_frame"
+        ],
+        "classes": [],
+        "files": [
+          "core/indexes/base.py"
+        ],
+        "imports": [
+          "lib.no_default"
+        ],
+        "keywords": [
+          "documentation",
+          "default value",
+          "Index.to_frame"
+        ]
+      },
+      "flat_terms": "to_frame core/indexes/base.py lib.no_default documentation default value Index.to_frame",
+      "combined_query": "DOC: `name` in `Index.to_frame` is claimed to default to `index.name` to_frame core/indexes/base.py lib.no_default documentation default value Index.to_frame",
+      "expansion_time_s": 28.8
+    },
+    "b9f6a244": {
+      "title": "DOC: v2.3 source link goes to main branch",
+      "raw_llm_output": "```json\n{\n    \"functions\": [],\n    \"classes\": [\"DataFrameGroupBy\"],\n    \"files\": [\"pandas/core/groupby/groupby.py\"],\n    \"imports\": [\"pandas as pd\"],\n    \"keywords\": [\"source link\", \"version check\", \"main branch\"]\n}\n```",
+      "parsed": {
+        "functions": [],
+        "classes": [
+          "DataFrameGroupBy"
+        ],
+        "files": [
+          "pandas/core/groupby/groupby.py"
+        ],
+        "imports": [
+          "pandas as pd"
+        ],
+        "keywords": [
+          "source link",
+          "version check",
+          "main branch"
+        ]
+      },
+      "flat_terms": "DataFrameGroupBy pandas/core/groupby/groupby.py pandas as pd source link version check main branch",
+      "combined_query": "DOC: v2.3 source link goes to main branch DataFrameGroupBy pandas/core/groupby/groupby.py pandas as pd source link version check main branch",
+      "expansion_time_s": 19.9
+    },
+    "53789d19": {
+      "title": "ENH: Allow `np.ndarray` in `check_result_array` for certain `dtype`",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"check_result_array\"],\n  \"classes\": [],\n  \"files\": [\"core/groupby/groupby.py\", \"core/internals.py\"],\n  \"imports\": [\"numpy as np\"],\n  \"keywords\": [\"aggregations\", \"dtype\", \"groupby\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "check_result_array"
+        ],
+        "classes": [],
+        "files": [
+          "core/groupby/groupby.py",
+          "core/internals.py"
+        ],
+        "imports": [
+          "numpy as np"
+        ],
+        "keywords": [
+          "aggregations",
+          "dtype",
+          "groupby"
+        ]
+      },
+      "flat_terms": "check_result_array core/groupby/groupby.py core/internals.py numpy as np aggregations dtype groupby",
+      "combined_query": "ENH: Allow `np.ndarray` in `check_result_array` for certain `dtype` check_result_array core/groupby/groupby.py core/internals.py numpy as np aggregations dtype groupby",
+      "expansion_time_s": 28.6
+    },
+    "350c9815": {
+      "title": "PERF: Avoid drop_duplicates(keep=False) in DataFrame.__getitem__ for single-column access",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"drop_duplicates\", \"__getitem__\"],\n  \"classes\": [\"DataFrame\"],\n  \"files\": [\"core/frame.py\", \"core/groupby/groupby.py\"],\n  \"imports\": [\"pandas as pd\"],\n  \"keywords\": [\"performance\", \"duplicate removal\", \"column access\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "drop_duplicates",
+          "__getitem__"
+        ],
+        "classes": [
+          "DataFrame"
+        ],
+        "files": [
+          "core/frame.py",
+          "core/groupby/groupby.py"
+        ],
+        "imports": [
+          "pandas as pd"
+        ],
+        "keywords": [
+          "performance",
+          "duplicate removal",
+          "column access"
+        ]
+      },
+      "flat_terms": "drop_duplicates __getitem__ DataFrame core/frame.py core/groupby/groupby.py pandas as pd performance duplicate removal column access",
+      "combined_query": "PERF: Avoid drop_duplicates(keep=False) in DataFrame.__getitem__ for single-column access drop_duplicates __getitem__ DataFrame core/frame.py core/groupby/groupby.py pandas as pd performance duplicate removal column access",
+      "expansion_time_s": 28.8
+    },
+    "ef079d41": {
+      "title": "BUG: loc __setitem__ uses empty byte values for column unknowns when both rows and columns are added/DataFrame is enlarged",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"__setitem__\"],\n  \"classes\": [\"DataFrame\", \"Index\"],\n  \"files\": [\"core/frame.py\"],\n  \"imports\": [\"pandas as pd\"],\n  \"keywords\": [\"loc\", \"column unknowns\", \"enlarged\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__setitem__"
+        ],
+        "classes": [
+          "DataFrame",
+          "Index"
+        ],
+        "files": [
+          "core/frame.py"
+        ],
+        "imports": [
+          "pandas as pd"
+        ],
+        "keywords": [
+          "loc",
+          "column unknowns",
+          "enlarged"
+        ]
+      },
+      "flat_terms": "__setitem__ DataFrame Index core/frame.py pandas as pd loc column unknowns enlarged",
+      "combined_query": "BUG: loc __setitem__ uses empty byte values for column unknowns when both rows and columns are added/DataFrame is enlarged __setitem__ DataFrame Index core/frame.py pandas as pd loc column unknowns enlarged",
+      "expansion_time_s": 26.5
+    },
+    "2f53d8ec": {
+      "title": "BUG: loc __setitem__ uses empty byte values for column unknowns when both rows and columns are added/DataFrame is enlarged",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"__setitem__\", \"DataFrame\"],\n  \"classes\": [\"DataFrame\"],\n  \"files\": [\"core/frame.py\"],\n  \"imports\": [\"pandas as pd\"],\n  \"keywords\": [\"loc\", \"enlargement\", \"byte values\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__setitem__",
+          "DataFrame"
+        ],
+        "classes": [
+          "DataFrame"
+        ],
+        "files": [
+          "core/frame.py"
+        ],
+        "imports": [
+          "pandas as pd"
+        ],
+        "keywords": [
+          "loc",
+          "enlargement",
+          "byte values"
+        ]
+      },
+      "flat_terms": "__setitem__ DataFrame DataFrame core/frame.py pandas as pd loc enlargement byte values",
+      "combined_query": "BUG: loc __setitem__ uses empty byte values for column unknowns when both rows and columns are added/DataFrame is enlarged __setitem__ DataFrame DataFrame core/frame.py pandas as pd loc enlargement byte values",
+      "expansion_time_s": 23.1
+    },
+    "5bd99e69": {
+      "title": "Groupby with multiple aggregations doesn't pass through positional or keyword arguments.",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"agg\"],\n  \"classes\": [\"GroupBy\"],\n  \"files\": [\"core/groupby/groupby.py\"],\n  \"imports\": [\"pandas as pd\"],\n  \"keywords\": [\"groupby\", \"aggregation\", \"arguments\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "agg"
+        ],
+        "classes": [
+          "GroupBy"
+        ],
+        "files": [
+          "core/groupby/groupby.py"
+        ],
+        "imports": [
+          "pandas as pd"
+        ],
+        "keywords": [
+          "groupby",
+          "aggregation",
+          "arguments"
+        ]
+      },
+      "flat_terms": "agg GroupBy core/groupby/groupby.py pandas as pd groupby aggregation arguments",
+      "combined_query": "Groupby with multiple aggregations doesn't pass through positional or keyword arguments. agg GroupBy core/groupby/groupby.py pandas as pd groupby aggregation arguments",
+      "expansion_time_s": 25.0
+    },
+    "744e2616": {
+      "title": "REF: Paths through DataFrameGroupBy.agg",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_python_agg_general\"],\n  \"classes\": [\"GroupBy\", \"DataFrame\"],\n  \"files\": [\"core/groupby/groupby.py\"],\n  \"imports\": [\"pandas.core.groupby.generic.GroupBy\", \"pandas.core.frame.DataFrame\"],\n  \"keywords\": [\"groupby\", \"agg\", \"branching\", \"deprecation\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_python_agg_general"
+        ],
+        "classes": [
+          "GroupBy",
+          "DataFrame"
+        ],
+        "files": [
+          "core/groupby/groupby.py"
+        ],
+        "imports": [
+          "pandas.core.groupby.generic.GroupBy",
+          "pandas.core.frame.DataFrame"
+        ],
+        "keywords": [
+          "groupby",
+          "agg",
+          "branching",
+          "deprecation"
+        ]
+      },
+      "flat_terms": "_python_agg_general GroupBy DataFrame core/groupby/groupby.py pandas.core.groupby.generic.GroupBy pandas.core.frame.DataFrame groupby agg branching deprecation",
+      "combined_query": "REF: Paths through DataFrameGroupBy.agg _python_agg_general GroupBy DataFrame core/groupby/groupby.py pandas.core.groupby.generic.GroupBy pandas.core.frame.DataFrame groupby agg branching deprecation",
+      "expansion_time_s": 29.7
+    },
+    "beba5df1": {
+      "title": "DOC: Replace `@Appender`, `@Substitution`, `@doc` with inlined docstrings",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"doc\", \"Appender\", \"Substitution\"],\n  \"classes\": [],\n  \"files\": [\"core/internals.py\", \"core/groupby/groupby.py\"],\n  \"imports\": [\"from pandas.core.doc import doc, Appender, Substitution\"],\n  \"keywords\": [\"docstring\", \"indirection\", \"duplication\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "doc",
+          "Appender",
+          "Substitution"
+        ],
+        "classes": [],
+        "files": [
+          "core/internals.py",
+          "core/groupby/groupby.py"
+        ],
+        "imports": [
+          "from pandas.core.doc import doc, Appender, Substitution"
+        ],
+        "keywords": [
+          "docstring",
+          "indirection",
+          "duplication"
+        ]
+      },
+      "flat_terms": "doc Appender Substitution core/internals.py core/groupby/groupby.py from pandas.core.doc import doc, Appender, Substitution docstring indirection duplication",
+      "combined_query": "DOC: Replace `@Appender`, `@Substitution`, `@doc` with inlined docstrings doc Appender Substitution core/internals.py core/groupby/groupby.py from pandas.core.doc import doc, Appender, Substitution docstring indirection duplication",
+      "expansion_time_s": 35.4
+    },
+    "d01d521a": {
+      "title": "DOC: Replace `@Appender`, `@Substitution`, `@doc` with inlined docstrings",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"Appender\", \"Substitution\", \"doc\"],\n  \"classes\": [],\n  \"files\": [\"core/frame.py\", \"core/series.py\"],\n  \"imports\": [\"from pandas._libs.doc import doc, Substitution, Appender\"],\n  \"keywords\": [\"docstring\", \"shared_docs\", \"indirection\", \"hardcoded\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Appender",
+          "Substitution",
+          "doc"
+        ],
+        "classes": [],
+        "files": [
+          "core/frame.py",
+          "core/series.py"
+        ],
+        "imports": [
+          "from pandas._libs.doc import doc, Substitution, Appender"
+        ],
+        "keywords": [
+          "docstring",
+          "shared_docs",
+          "indirection",
+          "hardcoded"
+        ]
+      },
+      "flat_terms": "Appender Substitution doc core/frame.py core/series.py from pandas._libs.doc import doc, Substitution, Appender docstring shared_docs indirection hardcoded",
+      "combined_query": "DOC: Replace `@Appender`, `@Substitution`, `@doc` with inlined docstrings Appender Substitution doc core/frame.py core/series.py from pandas._libs.doc import doc, Substitution, Appender docstring shared_docs indirection hardcoded",
+      "expansion_time_s": 28.9
+    },
+    "873922fc": {
+      "title": "DOC: general discussion of our docstring sharing system",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"Appender\"],\n  \"classes\": [],\n  \"files\": [\"core/groupby/groupby.py\", \"docstring.py\"],\n  \"imports\": [\"from pandas.core.doc import Appender\"],\n  \"keywords\": [\"docstrings\", \"decorators\", \"shared_docs\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Appender"
+        ],
+        "classes": [],
+        "files": [
+          "core/groupby/groupby.py",
+          "docstring.py"
+        ],
+        "imports": [
+          "from pandas.core.doc import Appender"
+        ],
+        "keywords": [
+          "docstrings",
+          "decorators",
+          "shared_docs"
+        ]
+      },
+      "flat_terms": "Appender core/groupby/groupby.py docstring.py from pandas.core.doc import Appender docstrings decorators shared_docs",
+      "combined_query": "DOC: general discussion of our docstring sharing system Appender core/groupby/groupby.py docstring.py from pandas.core.doc import Appender docstrings decorators shared_docs",
+      "expansion_time_s": 27.2
+    },
+    "22e6d786": {
+      "title": "DOC: general discussion of our docstring sharing system",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"Appender\"],\n  \"classes\": [],\n  \"files\": [\"core/groupby/groupby.py\", \"docstring.py\"],\n  \"imports\": [\"from pandas._libs.doc import Appender\"],\n  \"keywords\": [\"docstrings\", \"decorators\", \"shared_docs\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Appender"
+        ],
+        "classes": [],
+        "files": [
+          "core/groupby/groupby.py",
+          "docstring.py"
+        ],
+        "imports": [
+          "from pandas._libs.doc import Appender"
+        ],
+        "keywords": [
+          "docstrings",
+          "decorators",
+          "shared_docs"
+        ]
+      },
+      "flat_terms": "Appender core/groupby/groupby.py docstring.py from pandas._libs.doc import Appender docstrings decorators shared_docs",
+      "combined_query": "DOC: general discussion of our docstring sharing system Appender core/groupby/groupby.py docstring.py from pandas._libs.doc import Appender docstrings decorators shared_docs",
+      "expansion_time_s": 27.4
+    },
+    "221c6469": {
+      "title": "DOC: add py:type reference targets to each entry in pandas.api.typing.aliases",
+      "raw_llm_output": "```json\n{\n  \"functions\": [],\n  \"classes\": [\"aliases\"],\n  \"files\": [\"pandas/api/typing.py\"],\n  \"imports\": [\"sphinx.ext.intersphinx\"],\n  \"keywords\": [\"type aliases\", \"intersphinx\", \"Sphinx\"]\n}\n```",
+      "parsed": {
+        "functions": [],
+        "classes": [
+          "aliases"
+        ],
+        "files": [
+          "pandas/api/typing.py"
+        ],
+        "imports": [
+          "sphinx.ext.intersphinx"
+        ],
+        "keywords": [
+          "type aliases",
+          "intersphinx",
+          "Sphinx"
+        ]
+      },
+      "flat_terms": "aliases pandas/api/typing.py sphinx.ext.intersphinx type aliases intersphinx Sphinx",
+      "combined_query": "DOC: add py:type reference targets to each entry in pandas.api.typing.aliases aliases pandas/api/typing.py sphinx.ext.intersphinx type aliases intersphinx Sphinx",
+      "expansion_time_s": 27.7
+    },
+    "175fc0e0": {
+      "title": "STY: Enforce Ruff rule B905, zip-without-explicit-strict",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"zip\"],\n  \"classes\": [],\n  \"files\": [\n    \"pandas/core/frame.py\",\n    \"pandas/core/series.py\",\n    \"pandas/core/groupby/groupby.py\",\n    \"pandas/io/parsers/readers.py\"\n  ],\n  \"imports\": [\n    \"from itertools import zip_longest\"\n  ],\n  \"keywords\": [\"zip\", \"strict\", \"Ruff\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "zip"
+        ],
+        "classes": [],
+        "files": [
+          "pandas/core/frame.py",
+          "pandas/core/series.py",
+          "pandas/core/groupby/groupby.py",
+          "pandas/io/parsers/readers.py"
+        ],
+        "imports": [
+          "from itertools import zip_longest"
+        ],
+        "keywords": [
+          "zip",
+          "strict",
+          "Ruff"
+        ]
+      },
+      "flat_terms": "zip pandas/core/frame.py pandas/core/series.py pandas/core/groupby/groupby.py pandas/io/parsers/readers.py from itertools import zip_longest zip strict Ruff",
+      "combined_query": "STY: Enforce Ruff rule B905, zip-without-explicit-strict zip pandas/core/frame.py pandas/core/series.py pandas/core/groupby/groupby.py pandas/io/parsers/readers.py from itertools import zip_longest zip strict Ruff",
+      "expansion_time_s": 25.3
+    },
+    "dbc684ee": {
+      "title": "STY: Enforce Ruff rule B905, zip-without-explicit-strict",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"zip\"],\n  \"classes\": [],\n  \"files\": [\n    \"pandas/core/frame.py\",\n    \"pandas/core/series.py\",\n    \"pandas/core/groupby/groupby.py\",\n    \"pandas/core/indexes/base.py\"\n  ],\n  \"imports\": [\"from itertools import zip_longest\"],\n  \"keywords\": [\"zip\", \"strict\", \"Ruff\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "zip"
+        ],
+        "classes": [],
+        "files": [
+          "pandas/core/frame.py",
+          "pandas/core/series.py",
+          "pandas/core/groupby/groupby.py",
+          "pandas/core/indexes/base.py"
+        ],
+        "imports": [
+          "from itertools import zip_longest"
+        ],
+        "keywords": [
+          "zip",
+          "strict",
+          "Ruff"
+        ]
+      },
+      "flat_terms": "zip pandas/core/frame.py pandas/core/series.py pandas/core/groupby/groupby.py pandas/core/indexes/base.py from itertools import zip_longest zip strict Ruff",
+      "combined_query": "STY: Enforce Ruff rule B905, zip-without-explicit-strict zip pandas/core/frame.py pandas/core/series.py pandas/core/groupby/groupby.py pandas/core/indexes/base.py from itertools import zip_longest zip strict Ruff",
+      "expansion_time_s": 32.7
+    },
+    "b7fba158": {
+      "title": "STY: Enforce Ruff rule B905, zip-without-explicit-strict",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"zip\"],\n  \"classes\": [],\n  \"files\": [\n    \"pandas/core/frame.py\",\n    \"pandas/core/series.py\",\n    \"pandas/core/groupby/groupby.py\",\n    \"pandas/io/parsers.py\"\n  ],\n  \"imports\": [\"from itertools import zip_longest\"],\n  \"keywords\": [\"zip\", \"strict\", \"Ruff\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "zip"
+        ],
+        "classes": [],
+        "files": [
+          "pandas/core/frame.py",
+          "pandas/core/series.py",
+          "pandas/core/groupby/groupby.py",
+          "pandas/io/parsers.py"
+        ],
+        "imports": [
+          "from itertools import zip_longest"
+        ],
+        "keywords": [
+          "zip",
+          "strict",
+          "Ruff"
+        ]
+      },
+      "flat_terms": "zip pandas/core/frame.py pandas/core/series.py pandas/core/groupby/groupby.py pandas/io/parsers.py from itertools import zip_longest zip strict Ruff",
+      "combined_query": "STY: Enforce Ruff rule B905, zip-without-explicit-strict zip pandas/core/frame.py pandas/core/series.py pandas/core/groupby/groupby.py pandas/io/parsers.py from itertools import zip_longest zip strict Ruff",
+      "expansion_time_s": 36.3
+    },
+    "55b06c7f": {
+      "title": "STY: Enforce Ruff rule B905, zip-without-explicit-strict",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"zip\"],\n  \"classes\": [],\n  \"files\": [\"pandas/core/frame.py\", \"pandas/core/series.py\", \"pandas/core/groupby/groupby.py\"],\n  \"imports\": [\"from itertools import zip_longest\"],\n  \"keywords\": [\"zip\", \"strict\", \"Ruff\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "zip"
+        ],
+        "classes": [],
+        "files": [
+          "pandas/core/frame.py",
+          "pandas/core/series.py",
+          "pandas/core/groupby/groupby.py"
+        ],
+        "imports": [
+          "from itertools import zip_longest"
+        ],
+        "keywords": [
+          "zip",
+          "strict",
+          "Ruff"
+        ]
+      },
+      "flat_terms": "zip pandas/core/frame.py pandas/core/series.py pandas/core/groupby/groupby.py from itertools import zip_longest zip strict Ruff",
+      "combined_query": "STY: Enforce Ruff rule B905, zip-without-explicit-strict zip pandas/core/frame.py pandas/core/series.py pandas/core/groupby/groupby.py from itertools import zip_longest zip strict Ruff",
+      "expansion_time_s": 32.3
+    },
+    "fc3fcbd4": {
+      "title": "CI: failing timedelta64 test on Linux py37_locale build",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"astype\"],\n  \"classes\": [\"Series\", \"timedelta64\"],\n  \"files\": [\"pandas/core/series.py\"],\n  \"imports\": [\"pandas as pd\", \"numpy as np\"],\n  \"keywords\": [\"dtype\", \"conversion\", \"frequency\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "astype"
+        ],
+        "classes": [
+          "Series",
+          "timedelta64"
+        ],
+        "files": [
+          "pandas/core/series.py"
+        ],
+        "imports": [
+          "pandas as pd",
+          "numpy as np"
+        ],
+        "keywords": [
+          "dtype",
+          "conversion",
+          "frequency"
+        ]
+      },
+      "flat_terms": "astype Series timedelta64 pandas/core/series.py pandas as pd numpy as np dtype conversion frequency",
+      "combined_query": "CI: failing timedelta64 test on Linux py37_locale build astype Series timedelta64 pandas/core/series.py pandas as pd numpy as np dtype conversion frequency",
+      "expansion_time_s": 15.7
+    },
+    "9fd75e14": {
+      "title": "ENH: How about let pprint_thing print Real instance according to display.precision",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"to_string\", \"set_option\"],\n  \"classes\": [\"DataFrame\"],\n  \"files\": [\"core/frame.py\"],\n  \"imports\": [\"pandas as pd\"],\n  \"keywords\": [\"display.precision\", \"pprint\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "to_string",
+          "set_option"
+        ],
+        "classes": [
+          "DataFrame"
+        ],
+        "files": [
+          "core/frame.py"
+        ],
+        "imports": [
+          "pandas as pd"
+        ],
+        "keywords": [
+          "display.precision",
+          "pprint"
+        ]
+      },
+      "flat_terms": "to_string set_option DataFrame core/frame.py pandas as pd display.precision pprint",
+      "combined_query": "ENH: How about let pprint_thing print Real instance according to display.precision to_string set_option DataFrame core/frame.py pandas as pd display.precision pprint",
+      "expansion_time_s": 27.5
+    },
+    "4336d3f4": {
+      "title": "PERF: Improve performance of named aggregations with no relabling",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"agg\", \"GroupBy\"],\n  \"classes\": [\"DataFrame\", \"GroupBy\"],\n  \"files\": [\"core/groupby/groupby.py\"],\n  \"imports\": [\"pandas as pd\"],\n  \"keywords\": [\"performance\", \"named aggregations\", \"relabeling\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "agg",
+          "GroupBy"
+        ],
+        "classes": [
+          "DataFrame",
+          "GroupBy"
+        ],
+        "files": [
+          "core/groupby/groupby.py"
+        ],
+        "imports": [
+          "pandas as pd"
+        ],
+        "keywords": [
+          "performance",
+          "named aggregations",
+          "relabeling"
+        ]
+      },
+      "flat_terms": "agg GroupBy DataFrame GroupBy core/groupby/groupby.py pandas as pd performance named aggregations relabeling",
+      "combined_query": "PERF: Improve performance of named aggregations with no relabling agg GroupBy DataFrame GroupBy core/groupby/groupby.py pandas as pd performance named aggregations relabeling",
+      "expansion_time_s": 23.4
+    },
+    "fae2146d": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas\", \"numpydoc\"],\n  \"keywords\": [\"docstring\", \"validation\", \"Numpy\", \"actions\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas",
+          "numpydoc"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "Numpy",
+          "actions"
+        ]
+      },
+      "flat_terms": "validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas numpydoc docstring validation Numpy actions",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas numpydoc docstring validation Numpy actions",
+      "expansion_time_s": 27.3
+    },
+    "4c476282": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstring\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"numpydoc\"],\n  \"keywords\": [\"docstring\", \"validation\", \"Numpy\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstring"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "numpydoc"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "Numpy"
+        ]
+      },
+      "flat_terms": "validate_docstring ci/code_checks.sh scripts/validate_docstrings.py numpydoc docstring validation Numpy",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstring ci/code_checks.sh scripts/validate_docstrings.py numpydoc docstring validation Numpy",
+      "expansion_time_s": 23.0
+    },
+    "5da95f13": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"validate_docstring\",\n    \"check_numpy_style\"\n  ],\n  \"classes\": [\n    \"Series\"\n  ],\n  \"files\": [\n    \"scripts/validate_docstrings.py\",\n    \"ci/code_checks.sh\"\n  ],\n  \"imports\": [\n    \"numpydoc\",\n    \"pandas.core.series\"\n  ],\n  \"keywords\": [\n    \"docstring\",\n    \"validation\",\n    \"Numpy\",\n    \"script\",\n    \"method\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstring",
+          "check_numpy_style"
+        ],
+        "classes": [
+          "Series"
+        ],
+        "files": [
+          "scripts/validate_docstrings.py",
+          "ci/code_checks.sh"
+        ],
+        "imports": [
+          "numpydoc",
+          "pandas.core.series"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "Numpy",
+          "script",
+          "method"
+        ]
+      },
+      "flat_terms": "validate_docstring check_numpy_style Series scripts/validate_docstrings.py ci/code_checks.sh numpydoc pandas.core.series docstring validation Numpy script method",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstring check_numpy_style Series scripts/validate_docstrings.py ci/code_checks.sh numpydoc pandas.core.series docstring validation Numpy script method",
+      "expansion_time_s": 41.1
+    },
+    "9b0871a9": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstring\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas\", \"numpydoc\"],\n  \"keywords\": [\"docstring\", \"validation\", \"Numpy\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstring"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas",
+          "numpydoc"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "Numpy"
+        ]
+      },
+      "flat_terms": "validate_docstring ci/code_checks.sh scripts/validate_docstrings.py pandas numpydoc docstring validation Numpy",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstring ci/code_checks.sh scripts/validate_docstrings.py pandas numpydoc docstring validation Numpy",
+      "expansion_time_s": 24.1
+    },
+    "fc7fd8ca": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas\"],\n  \"keywords\": [\"docstring\", \"validation\", \"Numpy\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "Numpy"
+        ]
+      },
+      "flat_terms": "validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation Numpy",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation Numpy",
+      "expansion_time_s": 23.1
+    },
+    "44f81819": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy"
+        ]
+      },
+      "flat_terms": "validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation numpy",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation numpy",
+      "expansion_time_s": 24.0
+    },
+    "fe7c45d5": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy"
+        ]
+      },
+      "flat_terms": "validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation numpy",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation numpy",
+      "expansion_time_s": 25.6
+    },
+    "1eca44c7": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstring\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas\"],\n  \"keywords\": [\"docstring\", \"validation\", \"Numpy\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstring"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "Numpy"
+        ]
+      },
+      "flat_terms": "validate_docstring ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation Numpy",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstring ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation Numpy",
+      "expansion_time_s": 20.7
+    },
+    "cbc9f30e": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstring\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas.Series\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\", \"actions\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstring"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas.Series"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy",
+          "actions"
+        ]
+      },
+      "flat_terms": "validate_docstring ci/code_checks.sh scripts/validate_docstrings.py pandas.Series docstring validation numpy actions",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstring ci/code_checks.sh scripts/validate_docstrings.py pandas.Series docstring validation numpy actions",
+      "expansion_time_s": 21.8
+    },
+    "00715a07": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstring\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas\", \"numpydoc\"],\n  \"keywords\": [\"docstring\", \"validation\", \"Numpy\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstring"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas",
+          "numpydoc"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "Numpy"
+        ]
+      },
+      "flat_terms": "validate_docstring ci/code_checks.sh scripts/validate_docstrings.py pandas numpydoc docstring validation Numpy",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstring ci/code_checks.sh scripts/validate_docstrings.py pandas numpydoc docstring validation Numpy",
+      "expansion_time_s": 26.0
+    },
+    "0f4179ab": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy"
+        ]
+      },
+      "flat_terms": "validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation numpy",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation numpy",
+      "expansion_time_s": 24.5
+    },
+    "febcdd63": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy"
+        ]
+      },
+      "flat_terms": "validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation numpy",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation numpy",
+      "expansion_time_s": 25.1
+    },
+    "a2abdd24": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy"
+        ]
+      },
+      "flat_terms": "validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation numpy",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation numpy",
+      "expansion_time_s": 23.9
+    },
+    "4628a651": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstring\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas.Series\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstring"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas.Series"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy"
+        ]
+      },
+      "flat_terms": "validate_docstring ci/code_checks.sh scripts/validate_docstrings.py pandas.Series docstring validation numpy",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstring ci/code_checks.sh scripts/validate_docstrings.py pandas.Series docstring validation numpy",
+      "expansion_time_s": 25.4
+    },
+    "54eb3c7b": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstring\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas\", \"numpydoc\"],\n  \"keywords\": [\"docstring\", \"validation\", \"Numpy\", \"actions\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstring"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas",
+          "numpydoc"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "Numpy",
+          "actions"
+        ]
+      },
+      "flat_terms": "validate_docstring ci/code_checks.sh scripts/validate_docstrings.py pandas numpydoc docstring validation Numpy actions",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstring ci/code_checks.sh scripts/validate_docstrings.py pandas numpydoc docstring validation Numpy actions",
+      "expansion_time_s": 24.4
+    },
+    "574e025a": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\", \"actions\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy",
+          "actions"
+        ]
+      },
+      "flat_terms": "validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation numpy actions",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation numpy actions",
+      "expansion_time_s": 26.0
+    },
+    "2dcb6ca9": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.Series",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\", \"actions\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy",
+          "actions"
+        ]
+      },
+      "flat_terms": "validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation numpy actions",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.Series validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas docstring validation numpy actions",
+      "expansion_time_s": 23.9
+    },
+    "fda016ce": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [\"ExtensionArray\"],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas.api.extensions.ExtensionArray\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\", \"actions\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [
+          "ExtensionArray"
+        ],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas.api.extensions.ExtensionArray"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy",
+          "actions"
+        ]
+      },
+      "flat_terms": "validate_docstrings ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray docstring validation numpy actions",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray validate_docstrings ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray docstring validation numpy actions",
+      "expansion_time_s": 31.2
+    },
+    "8adc7576": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstring\", \"check_numpy_style\"],\n  \"classes\": [\"ExtensionArray\"],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"numpydoc\"],\n  \"keywords\": [\"docstring\", \"validation\", \"Numpy\", \"style\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstring",
+          "check_numpy_style"
+        ],
+        "classes": [
+          "ExtensionArray"
+        ],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "numpydoc"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "Numpy",
+          "style"
+        ]
+      },
+      "flat_terms": "validate_docstring check_numpy_style ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py numpydoc docstring validation Numpy style",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray validate_docstring check_numpy_style ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py numpydoc docstring validation Numpy style",
+      "expansion_time_s": 17.8
+    },
+    "394c5219": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas.api.extensions.ExtensionArray\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\", \"actions\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas.api.extensions.ExtensionArray"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy",
+          "actions"
+        ]
+      },
+      "flat_terms": "validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray docstring validation numpy actions",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray docstring validation numpy actions",
+      "expansion_time_s": 20.3
+    },
+    "8e8fbf55": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas.api.extensions.ExtensionArray\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\", \"actions\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas.api.extensions.ExtensionArray"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy",
+          "actions"
+        ]
+      },
+      "flat_terms": "validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray docstring validation numpy actions",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray validate_docstrings ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray docstring validation numpy actions",
+      "expansion_time_s": 23.3
+    },
+    "dba524f6": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [\"ExtensionArray\"],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas.api.extensions.ExtensionArray\", \"pandas.util.docstring.validate_docstrings\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\", \"actions\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [
+          "ExtensionArray"
+        ],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas.api.extensions.ExtensionArray",
+          "pandas.util.docstring.validate_docstrings"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy",
+          "actions"
+        ]
+      },
+      "flat_terms": "validate_docstrings ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray pandas.util.docstring.validate_docstrings docstring validation numpy actions",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray validate_docstrings ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray pandas.util.docstring.validate_docstrings docstring validation numpy actions",
+      "expansion_time_s": 25.0
+    },
+    "474e91f1": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [\"ExtensionArray\"],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas.api.extensions.ExtensionArray\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\", \"actions\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [
+          "ExtensionArray"
+        ],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas.api.extensions.ExtensionArray"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy",
+          "actions"
+        ]
+      },
+      "flat_terms": "validate_docstrings ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray docstring validation numpy actions",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray validate_docstrings ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray docstring validation numpy actions",
+      "expansion_time_s": 28.1
+    },
+    "dc38c53b": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [\"ExtensionArray\"],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas.api.extensions.ExtensionArray\", \"pandas.util.docstring.validate_docstrings\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\", \"script\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [
+          "ExtensionArray"
+        ],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas.api.extensions.ExtensionArray",
+          "pandas.util.docstring.validate_docstrings"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy",
+          "script"
+        ]
+      },
+      "flat_terms": "validate_docstrings ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray pandas.util.docstring.validate_docstrings docstring validation numpy script",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray validate_docstrings ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray pandas.util.docstring.validate_docstrings docstring validation numpy script",
+      "expansion_time_s": 22.2
+    },
+    "d33e3f2e": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstring\", \"check_numpy_docstring\"],\n  \"classes\": [\"ExtensionArray\"],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"numpydoc\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\", \"extensions\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstring",
+          "check_numpy_docstring"
+        ],
+        "classes": [
+          "ExtensionArray"
+        ],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "numpydoc"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy",
+          "extensions"
+        ]
+      },
+      "flat_terms": "validate_docstring check_numpy_docstring ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py numpydoc docstring validation numpy extensions",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray validate_docstring check_numpy_docstring ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py numpydoc docstring validation numpy extensions",
+      "expansion_time_s": 24.4
+    },
+    "e3948a63": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [\"ExtensionArray\"],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas.api.extensions.ExtensionArray\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\", \"actions\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [
+          "ExtensionArray"
+        ],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas.api.extensions.ExtensionArray"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy",
+          "actions"
+        ]
+      },
+      "flat_terms": "validate_docstrings ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray docstring validation numpy actions",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray validate_docstrings ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray docstring validation numpy actions",
+      "expansion_time_s": 25.4
+    },
+    "385dd080": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstring\", \"check_numpy_style\"],\n  \"classes\": [\"ExtensionArray\"],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"numpydoc\", \"pandas.api.extensions\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy style\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstring",
+          "check_numpy_style"
+        ],
+        "classes": [
+          "ExtensionArray"
+        ],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "numpydoc",
+          "pandas.api.extensions"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy style"
+        ]
+      },
+      "flat_terms": "validate_docstring check_numpy_style ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py numpydoc pandas.api.extensions docstring validation numpy style",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray validate_docstring check_numpy_style ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py numpydoc pandas.api.extensions docstring validation numpy style",
+      "expansion_time_s": 25.8
+    },
+    "767d61bb": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstrings\"],\n  \"classes\": [\"ExtensionArray\"],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas.api.extensions.ExtensionArray\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\", \"actions\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstrings"
+        ],
+        "classes": [
+          "ExtensionArray"
+        ],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas.api.extensions.ExtensionArray"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy",
+          "actions"
+        ]
+      },
+      "flat_terms": "validate_docstrings ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray docstring validation numpy actions",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray validate_docstrings ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray docstring validation numpy actions",
+      "expansion_time_s": 24.1
+    },
+    "70da3505": {
+      "title": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_docstring\"],\n  \"classes\": [\"ExtensionArray\"],\n  \"files\": [\"ci/code_checks.sh\", \"scripts/validate_docstrings.py\"],\n  \"imports\": [\"pandas.api.extensions.ExtensionArray\"],\n  \"keywords\": [\"docstring\", \"validation\", \"numpy\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_docstring"
+        ],
+        "classes": [
+          "ExtensionArray"
+        ],
+        "files": [
+          "ci/code_checks.sh",
+          "scripts/validate_docstrings.py"
+        ],
+        "imports": [
+          "pandas.api.extensions.ExtensionArray"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "numpy"
+        ]
+      },
+      "flat_terms": "validate_docstring ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray docstring validation numpy",
+      "combined_query": "DOC: Enforce Numpy Docstring Validation | pandas.api.extensions.ExtensionArray validate_docstring ExtensionArray ci/code_checks.sh scripts/validate_docstrings.py pandas.api.extensions.ExtensionArray docstring validation numpy",
+      "expansion_time_s": 22.2
+    },
+    "0790c987": {
+      "title": "DOC: Fix docstring validation errors for pandas.core.groupby",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"get_group\"],\n  \"classes\": [\"DataFrameGroupBy\"],\n  \"files\": [\"pandas/core/groupby/groupby.py\"],\n  \"imports\": [\"validate_docstrings.py\"],\n  \"keywords\": [\"docstring\", \"validation\", \"groupby\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "get_group"
+        ],
+        "classes": [
+          "DataFrameGroupBy"
+        ],
+        "files": [
+          "pandas/core/groupby/groupby.py"
+        ],
+        "imports": [
+          "validate_docstrings.py"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "groupby"
+        ]
+      },
+      "flat_terms": "get_group DataFrameGroupBy pandas/core/groupby/groupby.py validate_docstrings.py docstring validation groupby",
+      "combined_query": "DOC: Fix docstring validation errors for pandas.core.groupby get_group DataFrameGroupBy pandas/core/groupby/groupby.py validate_docstrings.py docstring validation groupby",
+      "expansion_time_s": 21.9
+    },
+    "adc228e1": {
+      "title": "DOC: Fix docstring validation errors for pandas.core.groupby",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"get_group\"],\n  \"classes\": [\"DataFrameGroupBy\"],\n  \"files\": [\"pandas/core/groupby/groupby.py\"],\n  \"imports\": [\"validate_docstrings.py\"],\n  \"keywords\": [\"docstring\", \"validation\", \"groupby\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "get_group"
+        ],
+        "classes": [
+          "DataFrameGroupBy"
+        ],
+        "files": [
+          "pandas/core/groupby/groupby.py"
+        ],
+        "imports": [
+          "validate_docstrings.py"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "groupby"
+        ]
+      },
+      "flat_terms": "get_group DataFrameGroupBy pandas/core/groupby/groupby.py validate_docstrings.py docstring validation groupby",
+      "combined_query": "DOC: Fix docstring validation errors for pandas.core.groupby get_group DataFrameGroupBy pandas/core/groupby/groupby.py validate_docstrings.py docstring validation groupby",
+      "expansion_time_s": 24.6
+    },
+    "f849c2ca": {
+      "title": "DOC: Fix docstring validation errors for pandas.core.groupby",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"get_group\"],\n  \"classes\": [\"DataFrameGroupBy\"],\n  \"files\": [\"pandas/core/groupby/groupby.py\"],\n  \"imports\": [\"validate_docstrings.py\"],\n  \"keywords\": [\"docstring\", \"validation\", \"groupby\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "get_group"
+        ],
+        "classes": [
+          "DataFrameGroupBy"
+        ],
+        "files": [
+          "pandas/core/groupby/groupby.py"
+        ],
+        "imports": [
+          "validate_docstrings.py"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "groupby"
+        ]
+      },
+      "flat_terms": "get_group DataFrameGroupBy pandas/core/groupby/groupby.py validate_docstrings.py docstring validation groupby",
+      "combined_query": "DOC: Fix docstring validation errors for pandas.core.groupby get_group DataFrameGroupBy pandas/core/groupby/groupby.py validate_docstrings.py docstring validation groupby",
+      "expansion_time_s": 22.1
+    },
+    "2ae16532": {
+      "title": "DOC: Fix docstring validation errors for pandas.core.groupby",
+      "raw_llm_output": "{\n  \"functions\": [\"get_group\"],\n  \"classes\": [\"DataFrameGroupBy\"],\n  \"files\": [\"pandas/core/groupby/groupby.py\"],\n  \"imports\": [\"validate_docstrings.py\"],\n  \"keywords\": [\"docstring\", \"validation\", \"groupby\"]\n}",
+      "parsed": {
+        "functions": [
+          "get_group"
+        ],
+        "classes": [
+          "DataFrameGroupBy"
+        ],
+        "files": [
+          "pandas/core/groupby/groupby.py"
+        ],
+        "imports": [
+          "validate_docstrings.py"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "groupby"
+        ]
+      },
+      "flat_terms": "get_group DataFrameGroupBy pandas/core/groupby/groupby.py validate_docstrings.py docstring validation groupby",
+      "combined_query": "DOC: Fix docstring validation errors for pandas.core.groupby get_group DataFrameGroupBy pandas/core/groupby/groupby.py validate_docstrings.py docstring validation groupby",
+      "expansion_time_s": 22.2
+    },
+    "8cdc37f2": {
+      "title": "DOC: Fix docstring validation errors for pandas.core.groupby",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"get_group\"],\n  \"classes\": [\"DataFrameGroupBy\"],\n  \"files\": [\"pandas/core/groupby/groupby.py\"],\n  \"imports\": [\"scripts/validate_docstrings.py\"],\n  \"keywords\": [\"docstring\", \"validation\", \"groupby\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "get_group"
+        ],
+        "classes": [
+          "DataFrameGroupBy"
+        ],
+        "files": [
+          "pandas/core/groupby/groupby.py"
+        ],
+        "imports": [
+          "scripts/validate_docstrings.py"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "groupby"
+        ]
+      },
+      "flat_terms": "get_group DataFrameGroupBy pandas/core/groupby/groupby.py scripts/validate_docstrings.py docstring validation groupby",
+      "combined_query": "DOC: Fix docstring validation errors for pandas.core.groupby get_group DataFrameGroupBy pandas/core/groupby/groupby.py scripts/validate_docstrings.py docstring validation groupby",
+      "expansion_time_s": 21.2
+    },
+    "73c16ad6": {
+      "title": "DOC: Fix docstring validation errors for pandas.core.groupby",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"get_group\"],\n  \"classes\": [\"DataFrameGroupBy\"],\n  \"files\": [\"pandas/core/groupby/groupby.py\"],\n  \"imports\": [\"validate_docstrings\"],\n  \"keywords\": [\"docstring\", \"validation\", \"groupby\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "get_group"
+        ],
+        "classes": [
+          "DataFrameGroupBy"
+        ],
+        "files": [
+          "pandas/core/groupby/groupby.py"
+        ],
+        "imports": [
+          "validate_docstrings"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "groupby"
+        ]
+      },
+      "flat_terms": "get_group DataFrameGroupBy pandas/core/groupby/groupby.py validate_docstrings docstring validation groupby",
+      "combined_query": "DOC: Fix docstring validation errors for pandas.core.groupby get_group DataFrameGroupBy pandas/core/groupby/groupby.py validate_docstrings docstring validation groupby",
+      "expansion_time_s": 24.8
+    },
+    "cb822a67": {
+      "title": "DOC: Fix docstring validation errors for pandas.core.groupby",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"get_group\",\n    \"DataFrameGroupBy\"\n  ],\n  \"classes\": [\n    \"DataFrameGroupBy\"\n  ],\n  \"files\": [\n    \"pandas/core/groupby/groupby.py\"\n  ],\n  \"imports\": [\n    \"scripts/validate_docstrings.py\"\n  ],\n  \"keywords\": [\n    \"docstring\",\n    \"validation\",\n    \"groupby\",\n    \"DataFrame\",\n    \"method\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "get_group",
+          "DataFrameGroupBy"
+        ],
+        "classes": [
+          "DataFrameGroupBy"
+        ],
+        "files": [
+          "pandas/core/groupby/groupby.py"
+        ],
+        "imports": [
+          "scripts/validate_docstrings.py"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "groupby",
+          "DataFrame",
+          "method"
+        ]
+      },
+      "flat_terms": "get_group DataFrameGroupBy DataFrameGroupBy pandas/core/groupby/groupby.py scripts/validate_docstrings.py docstring validation groupby DataFrame method",
+      "combined_query": "DOC: Fix docstring validation errors for pandas.core.groupby get_group DataFrameGroupBy DataFrameGroupBy pandas/core/groupby/groupby.py scripts/validate_docstrings.py docstring validation groupby DataFrame method",
+      "expansion_time_s": 31.6
+    },
+    "a36f5d03": {
+      "title": "DOC: Fix docstring validation errors for pandas.core.groupby",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"get_group\", \"DataFrameGroupBy\"],\n  \"classes\": [\"DataFrameGroupBy\"],\n  \"files\": [\"pandas/core/groupby/groupby.py\"],\n  \"imports\": [\"pandas.core.groupby.DataFrameGroupBy\"],\n  \"keywords\": [\"docstring\", \"validation\", \"groupby\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "get_group",
+          "DataFrameGroupBy"
+        ],
+        "classes": [
+          "DataFrameGroupBy"
+        ],
+        "files": [
+          "pandas/core/groupby/groupby.py"
+        ],
+        "imports": [
+          "pandas.core.groupby.DataFrameGroupBy"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "groupby"
+        ]
+      },
+      "flat_terms": "get_group DataFrameGroupBy DataFrameGroupBy pandas/core/groupby/groupby.py pandas.core.groupby.DataFrameGroupBy docstring validation groupby",
+      "combined_query": "DOC: Fix docstring validation errors for pandas.core.groupby get_group DataFrameGroupBy DataFrameGroupBy pandas/core/groupby/groupby.py pandas.core.groupby.DataFrameGroupBy docstring validation groupby",
+      "expansion_time_s": 25.4
+    },
+    "d4b31c55": {
+      "title": "DOC: Fix docstring validation errors for pandas.core.groupby",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"get_group\"],\n  \"classes\": [\"DataFrameGroupBy\"],\n  \"files\": [\"pandas/core/groupby/groupby.py\"],\n  \"imports\": [\"validate_docstrings\"],\n  \"keywords\": [\"docstring\", \"validation\", \"groupby\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "get_group"
+        ],
+        "classes": [
+          "DataFrameGroupBy"
+        ],
+        "files": [
+          "pandas/core/groupby/groupby.py"
+        ],
+        "imports": [
+          "validate_docstrings"
+        ],
+        "keywords": [
+          "docstring",
+          "validation",
+          "groupby"
+        ]
+      },
+      "flat_terms": "get_group DataFrameGroupBy pandas/core/groupby/groupby.py validate_docstrings docstring validation groupby",
+      "combined_query": "DOC: Fix docstring validation errors for pandas.core.groupby get_group DataFrameGroupBy pandas/core/groupby/groupby.py validate_docstrings docstring validation groupby",
+      "expansion_time_s": 22.3
+    },
+    "7c29d7f7": {
+      "title": "BUG: Pandas 2.2 breaks SQLAlchemy 1.4 compatibility",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_check_version\"],\n  \"classes\": [],\n  \"files\": [\"pandas/core/compat.py\"],\n  \"imports\": [\"sqlalchemy.__version__\"],\n  \"keywords\": [\"version\", \"compatibility\", \"SQLAlchemy\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_check_version"
+        ],
+        "classes": [],
+        "files": [
+          "pandas/core/compat.py"
+        ],
+        "imports": [
+          "sqlalchemy.__version__"
+        ],
+        "keywords": [
+          "version",
+          "compatibility",
+          "SQLAlchemy"
+        ]
+      },
+      "flat_terms": "_check_version pandas/core/compat.py sqlalchemy.__version__ version compatibility SQLAlchemy",
+      "combined_query": "BUG: Pandas 2.2 breaks SQLAlchemy 1.4 compatibility _check_version pandas/core/compat.py sqlalchemy.__version__ version compatibility SQLAlchemy",
+      "expansion_time_s": 24.4
+    },
+    "3620932c": {
+      "title": "DOC: 3.0 release notes has an odd contributor issue",
+      "raw_llm_output": "```json\n{\n  \"functions\": [],\n  \"classes\": [],\n  \"files\": [\"docs/source/whatsnew/v3.0.0.rst\"],\n  \"imports\": [],\n  \"keywords\": [\"release notes\", \"contributors\", \"docstring\"]\n}\n```",
+      "parsed": {
+        "functions": [],
+        "classes": [],
+        "files": [
+          "docs/source/whatsnew/v3.0.0.rst"
+        ],
+        "imports": [],
+        "keywords": [
+          "release notes",
+          "contributors",
+          "docstring"
+        ]
+      },
+      "flat_terms": "docs/source/whatsnew/v3.0.0.rst release notes contributors docstring",
+      "combined_query": "DOC: 3.0 release notes has an odd contributor issue docs/source/whatsnew/v3.0.0.rst release notes contributors docstring",
+      "expansion_time_s": 24.5
+    },
+    "d0d2e2da": {
+      "title": "TRACKER: add support for Python 3.14",
+      "raw_llm_output": "```json\n{\n  \"functions\": [],\n  \"classes\": [],\n  \"files\": [\"ci/travis.yml\", \"setup.py\"],\n  \"imports\": [\"sys\"],\n  \"keywords\": [\"Python 3.14\", \"compatibility\", \"CI\", \"packaging\"]\n}\n```",
+      "parsed": {
+        "functions": [],
+        "classes": [],
+        "files": [
+          "ci/travis.yml",
+          "setup.py"
+        ],
+        "imports": [
+          "sys"
+        ],
+        "keywords": [
+          "Python 3.14",
+          "compatibility",
+          "CI",
+          "packaging"
+        ]
+      },
+      "flat_terms": "ci/travis.yml setup.py sys Python 3.14 compatibility CI packaging",
+      "combined_query": "TRACKER: add support for Python 3.14 ci/travis.yml setup.py sys Python 3.14 compatibility CI packaging",
+      "expansion_time_s": 25.5
+    },
+    "02ea9eed": {
+      "title": "TRACKER: add support for Python 3.14",
+      "raw_llm_output": "```json\n{\n  \"functions\": [],\n  \"classes\": [],\n  \"files\": [\"setup.py\", \"ci/travis.yml\"],\n  \"imports\": [\"setuptools\", \"travis-ci\"],\n  \"keywords\": [\"compatibility\", \"CI\", \"packaging\", \"Python 3.14\"]\n}\n```",
+      "parsed": {
+        "functions": [],
+        "classes": [],
+        "files": [
+          "setup.py",
+          "ci/travis.yml"
+        ],
+        "imports": [
+          "setuptools",
+          "travis-ci"
+        ],
+        "keywords": [
+          "compatibility",
+          "CI",
+          "packaging",
+          "Python 3.14"
+        ]
+      },
+      "flat_terms": "setup.py ci/travis.yml setuptools travis-ci compatibility CI packaging Python 3.14",
+      "combined_query": "TRACKER: add support for Python 3.14 setup.py ci/travis.yml setuptools travis-ci compatibility CI packaging Python 3.14",
+      "expansion_time_s": 24.4
+    },
+    "743854b1": {
+      "title": "BUG: string replace results in invalid regular expression: invalid perl operator: (?<=",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"replace\", \"str_replace\"],\n  \"classes\": [\"Series\", \"StringDtype\"],\n  \"files\": [\"core/series.py\", \"dtypes/string.py\"],\n  \"imports\": [\"pandas as pd\", \"pyarrow\"],\n  \"keywords\": [\"regex\", \"invalid\", \"perl operator\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "replace",
+          "str_replace"
+        ],
+        "classes": [
+          "Series",
+          "StringDtype"
+        ],
+        "files": [
+          "core/series.py",
+          "dtypes/string.py"
+        ],
+        "imports": [
+          "pandas as pd",
+          "pyarrow"
+        ],
+        "keywords": [
+          "regex",
+          "invalid",
+          "perl operator"
+        ]
+      },
+      "flat_terms": "replace str_replace Series StringDtype core/series.py dtypes/string.py pandas as pd pyarrow regex invalid perl operator",
+      "combined_query": "BUG: string replace results in invalid regular expression: invalid perl operator: (?<= replace str_replace Series StringDtype core/series.py dtypes/string.py pandas as pd pyarrow regex invalid perl operator",
+      "expansion_time_s": 30.3
+    },
+    "01e11237": {
+      "title": "API: read_json should follow general default of microseconds",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"read_json\", \"to_json\"],\n  \"classes\": [\"DataFrame\"],\n  \"files\": [\"io/json.py\", \"core/frame.py\"],\n  \"imports\": [\"pandas as pd\", \"io.StringIO\"],\n  \"keywords\": [\"datetime64\", \"convert_dates\", \"date_format\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "read_json",
+          "to_json"
+        ],
+        "classes": [
+          "DataFrame"
+        ],
+        "files": [
+          "io/json.py",
+          "core/frame.py"
+        ],
+        "imports": [
+          "pandas as pd",
+          "io.StringIO"
+        ],
+        "keywords": [
+          "datetime64",
+          "convert_dates",
+          "date_format"
+        ]
+      },
+      "flat_terms": "read_json to_json DataFrame io/json.py core/frame.py pandas as pd io.StringIO datetime64 convert_dates date_format",
+      "combined_query": "API: read_json should follow general default of microseconds read_json to_json DataFrame io/json.py core/frame.py pandas as pd io.StringIO datetime64 convert_dates date_format",
+      "expansion_time_s": 21.7
+    },
+    "544bc67e": {
+      "title": "API: read_json should follow general default of microseconds",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"read_json\", \"to_json\"],\n  \"classes\": [\"DataFrame\"],\n  \"files\": [\"io/json.py\", \"core/frame.py\"],\n  \"imports\": [\"pandas as pd\", \"io.StringIO\"],\n  \"keywords\": [\"datetime64\", \"microseconds\", \"nanoseconds\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "read_json",
+          "to_json"
+        ],
+        "classes": [
+          "DataFrame"
+        ],
+        "files": [
+          "io/json.py",
+          "core/frame.py"
+        ],
+        "imports": [
+          "pandas as pd",
+          "io.StringIO"
+        ],
+        "keywords": [
+          "datetime64",
+          "microseconds",
+          "nanoseconds"
+        ]
+      },
+      "flat_terms": "read_json to_json DataFrame io/json.py core/frame.py pandas as pd io.StringIO datetime64 microseconds nanoseconds",
+      "combined_query": "API: read_json should follow general default of microseconds read_json to_json DataFrame io/json.py core/frame.py pandas as pd io.StringIO datetime64 microseconds nanoseconds",
+      "expansion_time_s": 6.8
+    },
+    "0cf3b521": {
+      "title": "API: default to microseconds for Timestamp/Timedelta creation from numeric input",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"to_datetime\", \"date_range\"],\n  \"classes\": [],\n  \"files\": [\"pandas/core/tools/datetimes.py\", \"pandas/core/indexes/datetimes.py\"],\n  \"imports\": [\"numpy as np\"],\n  \"keywords\": [\"datetime64\", \"timestamp\", \"timedelta\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "to_datetime",
+          "date_range"
+        ],
+        "classes": [],
+        "files": [
+          "pandas/core/tools/datetimes.py",
+          "pandas/core/indexes/datetimes.py"
+        ],
+        "imports": [
+          "numpy as np"
+        ],
+        "keywords": [
+          "datetime64",
+          "timestamp",
+          "timedelta"
+        ]
+      },
+      "flat_terms": "to_datetime date_range pandas/core/tools/datetimes.py pandas/core/indexes/datetimes.py numpy as np datetime64 timestamp timedelta",
+      "combined_query": "API: default to microseconds for Timestamp/Timedelta creation from numeric input to_datetime date_range pandas/core/tools/datetimes.py pandas/core/indexes/datetimes.py numpy as np datetime64 timestamp timedelta",
+      "expansion_time_s": 17.3
+    },
+    "943fca35": {
+      "title": "API: default to microseconds for Timestamp/Timedelta creation from numeric input",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"to_datetime\", \"date_range\"],\n  \"classes\": [],\n  \"files\": [\"pandas/core/tools/datetimes.py\", \"pandas/core/indexes/timedeltas.py\"],\n  \"imports\": [\"pandas as pd\", \"numpy as np\"],\n  \"keywords\": [\"datetime64\", \"timestamp\", \"timedelta\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "to_datetime",
+          "date_range"
+        ],
+        "classes": [],
+        "files": [
+          "pandas/core/tools/datetimes.py",
+          "pandas/core/indexes/timedeltas.py"
+        ],
+        "imports": [
+          "pandas as pd",
+          "numpy as np"
+        ],
+        "keywords": [
+          "datetime64",
+          "timestamp",
+          "timedelta"
+        ]
+      },
+      "flat_terms": "to_datetime date_range pandas/core/tools/datetimes.py pandas/core/indexes/timedeltas.py pandas as pd numpy as np datetime64 timestamp timedelta",
+      "combined_query": "API: default to microseconds for Timestamp/Timedelta creation from numeric input to_datetime date_range pandas/core/tools/datetimes.py pandas/core/indexes/timedeltas.py pandas as pd numpy as np datetime64 timestamp timedelta",
+      "expansion_time_s": 24.8
+    },
+    "8e9b2e44": {
+      "title": "BUILD: Cython.Compiler.Errors: 'free_threading_config.pxi' not found",
+      "raw_llm_output": "```json\n{\n  \"functions\": [],\n  \"classes\": [],\n  \"files\": [\"pandas/_libs/src/cython/\"],\n  \"imports\": [\"Cython.Build\", \"numpy\", \"setuptools\"],\n  \"keywords\": [\"Cython\", \"build_ext\", \"internal_error\"]\n}\n```",
+      "parsed": {
+        "functions": [],
+        "classes": [],
+        "files": [
+          "pandas/_libs/src/cython/"
+        ],
+        "imports": [
+          "Cython.Build",
+          "numpy",
+          "setuptools"
+        ],
+        "keywords": [
+          "Cython",
+          "build_ext",
+          "internal_error"
+        ]
+      },
+      "flat_terms": "pandas/_libs/src/cython/ Cython.Build numpy setuptools Cython build_ext internal_error",
+      "combined_query": "BUILD: Cython.Compiler.Errors: 'free_threading_config.pxi' not found pandas/_libs/src/cython/ Cython.Build numpy setuptools Cython build_ext internal_error",
+      "expansion_time_s": 17.6
+    },
+    "75aba9ad": {
+      "title": "BUILD: Cython.Compiler.Errors: 'free_threading_config.pxi' not found",
+      "raw_llm_output": "```json\n{\n    \"functions\": [],\n    \"classes\": [],\n    \"files\": [\"pandas/_libs/src/cython/\"],\n    \"imports\": [\"Cython.Compiler\"],\n    \"keywords\": [\"Cython\", \"build_ext\", \"free_threading_config\"]\n}\n```",
+      "parsed": {
+        "functions": [],
+        "classes": [],
+        "files": [
+          "pandas/_libs/src/cython/"
+        ],
+        "imports": [
+          "Cython.Compiler"
+        ],
+        "keywords": [
+          "Cython",
+          "build_ext",
+          "free_threading_config"
+        ]
+      },
+      "flat_terms": "pandas/_libs/src/cython/ Cython.Compiler Cython build_ext free_threading_config",
+      "combined_query": "BUILD: Cython.Compiler.Errors: 'free_threading_config.pxi' not found pandas/_libs/src/cython/ Cython.Compiler Cython build_ext free_threading_config",
+      "expansion_time_s": 16.2
+    },
+    "c66df28f": {
+      "title": "DOC: update the DataFrame.copy() docstring to current state with CoW",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"copy\"],\n  \"classes\": [\"DataFrame\"],\n  \"files\": [\"core/frame.py\"],\n  \"imports\": [\"deepcopy\"],\n  \"keywords\": [\"copy\", \"deep\", \"indices\", \"data\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "copy"
+        ],
+        "classes": [
+          "DataFrame"
+        ],
+        "files": [
+          "core/frame.py"
+        ],
+        "imports": [
+          "deepcopy"
+        ],
+        "keywords": [
+          "copy",
+          "deep",
+          "indices",
+          "data"
+        ]
+      },
+      "flat_terms": "copy DataFrame core/frame.py deepcopy copy deep indices data",
+      "combined_query": "DOC: update the DataFrame.copy() docstring to current state with CoW copy DataFrame core/frame.py deepcopy copy deep indices data",
+      "expansion_time_s": 25.8
+    },
+    "4d660976": {
+      "title": "DOC: update the DataFrame.copy() docstring to current state with CoW",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"copy\"],\n  \"classes\": [\"DataFrame\"],\n  \"files\": [\"core/frame.py\"],\n  \"imports\": [\"deepcopy\"],\n  \"keywords\": [\"copy\", \"deepcopy\", \"indices\", \"data\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "copy"
+        ],
+        "classes": [
+          "DataFrame"
+        ],
+        "files": [
+          "core/frame.py"
+        ],
+        "imports": [
+          "deepcopy"
+        ],
+        "keywords": [
+          "copy",
+          "deepcopy",
+          "indices",
+          "data"
+        ]
+      },
+      "flat_terms": "copy DataFrame core/frame.py deepcopy copy deepcopy indices data",
+      "combined_query": "DOC: update the DataFrame.copy() docstring to current state with CoW copy DataFrame core/frame.py deepcopy copy deepcopy indices data",
+      "expansion_time_s": 22.4
+    },
+    "6cc63f7d": {
+      "title": "Copy-on-Write (CoW): index labels are still shared mutable state",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"copy\"],\n  \"classes\": [],\n  \"files\": [\"core/frame.py\", \"core/series.py\"],\n  \"imports\": [\"pandas as pd\"],\n  \"keywords\": [\"Copy-on-Write\", \"index labels\", \"mutable state\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "copy"
+        ],
+        "classes": [],
+        "files": [
+          "core/frame.py",
+          "core/series.py"
+        ],
+        "imports": [
+          "pandas as pd"
+        ],
+        "keywords": [
+          "Copy-on-Write",
+          "index labels",
+          "mutable state"
+        ]
+      },
+      "flat_terms": "copy core/frame.py core/series.py pandas as pd Copy-on-Write index labels mutable state",
+      "combined_query": "Copy-on-Write (CoW): index labels are still shared mutable state copy core/frame.py core/series.py pandas as pd Copy-on-Write index labels mutable state",
+      "expansion_time_s": 29.1
+    },
+    "5a816762": {
+      "title": "TRACKER: Getting Started with Meson/Bug Reports",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"setup\", \"build_ext\"],\n  \"classes\": [\"Extension\"],\n  \"files\": [\"setup.py\", \"meson.build\"],\n  \"imports\": [\"setuptools\", \"meson\"],\n  \"keywords\": [\"build system\", \"parallel builds\", \"environment setup\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "setup",
+          "build_ext"
+        ],
+        "classes": [
+          "Extension"
+        ],
+        "files": [
+          "setup.py",
+          "meson.build"
+        ],
+        "imports": [
+          "setuptools",
+          "meson"
+        ],
+        "keywords": [
+          "build system",
+          "parallel builds",
+          "environment setup"
+        ]
+      },
+      "flat_terms": "setup build_ext Extension setup.py meson.build setuptools meson build system parallel builds environment setup",
+      "combined_query": "TRACKER: Getting Started with Meson/Bug Reports setup build_ext Extension setup.py meson.build setuptools meson build system parallel builds environment setup",
+      "expansion_time_s": 12.3
+    },
+    "94652e99": {
+      "title": "BUG: Failing to set list of `pd.NaT` on column of dataframe of type datetime64[us]",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"set\"],\n  \"classes\": [\"DataFrame\"],\n  \"files\": [\"core/frame.py\", \"core/indexes/base.py\"],\n  \"imports\": [\"pandas as pd\"],\n  \"keywords\": [\"datetime64\", \"NaT\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "set"
+        ],
+        "classes": [
+          "DataFrame"
+        ],
+        "files": [
+          "core/frame.py",
+          "core/indexes/base.py"
+        ],
+        "imports": [
+          "pandas as pd"
+        ],
+        "keywords": [
+          "datetime64",
+          "NaT"
+        ]
+      },
+      "flat_terms": "set DataFrame core/frame.py core/indexes/base.py pandas as pd datetime64 NaT",
+      "combined_query": "BUG: Failing to set list of `pd.NaT` on column of dataframe of type datetime64[us] set DataFrame core/frame.py core/indexes/base.py pandas as pd datetime64 NaT",
+      "expansion_time_s": 24.1
+    },
+    "5caa0bdf": {
+      "title": "DOC: Fix SA01 for pandas.StringDtype.na_value",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"na_value\"],\n  \"classes\": [\"StringDtype\"],\n  \"files\": [\"pandas/core/dtypes/common.py\", \"pandas/core/dtypes/base.py\"],\n  \"imports\": [\"from pandas.core.dtypes.common import StringDtype\"],\n  \"keywords\": [\"dtype\", \"NA\", \"string\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "na_value"
+        ],
+        "classes": [
+          "StringDtype"
+        ],
+        "files": [
+          "pandas/core/dtypes/common.py",
+          "pandas/core/dtypes/base.py"
+        ],
+        "imports": [
+          "from pandas.core.dtypes.common import StringDtype"
+        ],
+        "keywords": [
+          "dtype",
+          "NA",
+          "string"
+        ]
+      },
+      "flat_terms": "na_value StringDtype pandas/core/dtypes/common.py pandas/core/dtypes/base.py from pandas.core.dtypes.common import StringDtype dtype NA string",
+      "combined_query": "DOC: Fix SA01 for pandas.StringDtype.na_value na_value StringDtype pandas/core/dtypes/common.py pandas/core/dtypes/base.py from pandas.core.dtypes.common import StringDtype dtype NA string",
+      "expansion_time_s": 30.4
+    },
+    "391493f9": {
+      "title": "DOC: Fix SA01,ES01,PR07 for pandas.util.hash_pandas_object",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"hash_pandas_object\"],\n  \"classes\": [],\n  \"files\": [\"pandas/util/_hashing.py\"],\n  \"imports\": [\"pandas.util._hashing.hash_pandas_object\"],\n  \"keywords\": [\"hash\", \"pandas\", \"object\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "hash_pandas_object"
+        ],
+        "classes": [],
+        "files": [
+          "pandas/util/_hashing.py"
+        ],
+        "imports": [
+          "pandas.util._hashing.hash_pandas_object"
+        ],
+        "keywords": [
+          "hash",
+          "pandas",
+          "object"
+        ]
+      },
+      "flat_terms": "hash_pandas_object pandas/util/_hashing.py pandas.util._hashing.hash_pandas_object hash pandas object",
+      "combined_query": "DOC: Fix SA01,ES01,PR07 for pandas.util.hash_pandas_object hash_pandas_object pandas/util/_hashing.py pandas.util._hashing.hash_pandas_object hash pandas object",
+      "expansion_time_s": 27.4
+    },
+    "d43fe763": {
+      "title": "DOC: Fix SA01,EX01 for pandas.DataFrame.from_arrow",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"from_arrow\"],\n  \"classes\": [\"DataFrame\"],\n  \"files\": [\"pandas/core/frame.py\"],\n  \"imports\": [\"pyarrow\"],\n  \"keywords\": [\"Arrow\", \"conversion\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "from_arrow"
+        ],
+        "classes": [
+          "DataFrame"
+        ],
+        "files": [
+          "pandas/core/frame.py"
+        ],
+        "imports": [
+          "pyarrow"
+        ],
+        "keywords": [
+          "Arrow",
+          "conversion"
+        ]
+      },
+      "flat_terms": "from_arrow DataFrame pandas/core/frame.py pyarrow Arrow conversion",
+      "combined_query": "DOC: Fix SA01,EX01 for pandas.DataFrame.from_arrow from_arrow DataFrame pandas/core/frame.py pyarrow Arrow conversion",
+      "expansion_time_s": 19.5
+    },
+    "69200dc3": {
+      "title": "DOC: `Series.sum()` has examples that don't illustrate the actual results",
+      "raw_llm_output": "```json\n{\n  \"functions\": [],\n  \"classes\": [\"MultiIndex\"],\n  \"files\": [\"core/indexes/multi.py\"],\n  \"imports\": [\"pandas as pd\"],\n  \"keywords\": [\"examples\", \"results\", \"Series.sum\"]\n}\n```",
+      "parsed": {
+        "functions": [],
+        "classes": [
+          "MultiIndex"
+        ],
+        "files": [
+          "core/indexes/multi.py"
+        ],
+        "imports": [
+          "pandas as pd"
+        ],
+        "keywords": [
+          "examples",
+          "results",
+          "Series.sum"
+        ]
+      },
+      "flat_terms": "MultiIndex core/indexes/multi.py pandas as pd examples results Series.sum",
+      "combined_query": "DOC: `Series.sum()` has examples that don't illustrate the actual results MultiIndex core/indexes/multi.py pandas as pd examples results Series.sum",
+      "expansion_time_s": 22.4
+    },
+    "7d66a677": {
+      "title": "DOC: warn about apply with raw=True, if function returns Optional[int]",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"apply\"],\n  \"classes\": [],\n  \"files\": [\"core/frame.py\", \"core/groupby/groupby.py\"],\n  \"imports\": [\"numpy as np\"],\n  \"keywords\": [\"DataFrame\", \"apply\", \"raw\", \"Optional[int]\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "apply"
+        ],
+        "classes": [],
+        "files": [
+          "core/frame.py",
+          "core/groupby/groupby.py"
+        ],
+        "imports": [
+          "numpy as np"
+        ],
+        "keywords": [
+          "DataFrame",
+          "apply",
+          "raw",
+          "Optional[int]"
+        ]
+      },
+      "flat_terms": "apply core/frame.py core/groupby/groupby.py numpy as np DataFrame apply raw Optional[int]",
+      "combined_query": "DOC: warn about apply with raw=True, if function returns Optional[int] apply core/frame.py core/groupby/groupby.py numpy as np DataFrame apply raw Optional[int]",
+      "expansion_time_s": 25.6
+    },
+    "9b680860": {
+      "title": "DOC: \"Show Source\" button on API pages does not link to expected source code",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_get_source_url\"],\n  \"classes\": [\"DataFrame\"],\n  \"files\": [\"pandas/core/frame.py\", \"pandas/docstring.py\"],\n  \"imports\": [\"os.path\"],\n  \"keywords\": [\"documentation\", \"source code\", \"button\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_get_source_url"
+        ],
+        "classes": [
+          "DataFrame"
+        ],
+        "files": [
+          "pandas/core/frame.py",
+          "pandas/docstring.py"
+        ],
+        "imports": [
+          "os.path"
+        ],
+        "keywords": [
+          "documentation",
+          "source code",
+          "button"
+        ]
+      },
+      "flat_terms": "_get_source_url DataFrame pandas/core/frame.py pandas/docstring.py os.path documentation source code button",
+      "combined_query": "DOC: \"Show Source\" button on API pages does not link to expected source code _get_source_url DataFrame pandas/core/frame.py pandas/docstring.py os.path documentation source code button",
+      "expansion_time_s": 23.4
+    },
+    "2ca03af9": {
+      "title": "ENH: Support expressions in `pd.qcut`",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"qcut\"],\n  \"classes\": [],\n  \"files\": [\"pandas/core/tools/times.py\", \"pandas/core/tools/interval.py\"],\n  \"imports\": [\"pandas as pd\", \"numpy as np\"],\n  \"keywords\": [\"quantile\", \"cut\", \"bins\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "qcut"
+        ],
+        "classes": [],
+        "files": [
+          "pandas/core/tools/times.py",
+          "pandas/core/tools/interval.py"
+        ],
+        "imports": [
+          "pandas as pd",
+          "numpy as np"
+        ],
+        "keywords": [
+          "quantile",
+          "cut",
+          "bins"
+        ]
+      },
+      "flat_terms": "qcut pandas/core/tools/times.py pandas/core/tools/interval.py pandas as pd numpy as np quantile cut bins",
+      "combined_query": "ENH: Support expressions in `pd.qcut` qcut pandas/core/tools/times.py pandas/core/tools/interval.py pandas as pd numpy as np quantile cut bins",
+      "expansion_time_s": 27.8
+    },
+    "61b8b3a9": {
+      "title": "DOC: Show source link in documentation appears broken",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"melt\"],\n  \"classes\": [],\n  \"files\": [\"reference/api/pandas.melt.rst\", \"core/frame.py\"],\n  \"imports\": [\"pandas.melt\"],\n  \"keywords\": [\"rst\", \"source link\", \"documentation\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "melt"
+        ],
+        "classes": [],
+        "files": [
+          "reference/api/pandas.melt.rst",
+          "core/frame.py"
+        ],
+        "imports": [
+          "pandas.melt"
+        ],
+        "keywords": [
+          "rst",
+          "source link",
+          "documentation"
+        ]
+      },
+      "flat_terms": "melt reference/api/pandas.melt.rst core/frame.py pandas.melt rst source link documentation",
+      "combined_query": "DOC: Show source link in documentation appears broken melt reference/api/pandas.melt.rst core/frame.py pandas.melt rst source link documentation",
+      "expansion_time_s": 24.6
+    },
+    "a6454e73": {
+      "title": "DOC: the default value of `engine` argument in `eval` should be `None`",
+      "raw_llm_output": "```json\n{\n  \"functions\": [],\n  \"classes\": [\"DataFrame\"],\n  \"files\": [\"core/frame.py\"],\n  \"imports\": [\"pandas as pd\"],\n  \"keywords\": [\"eval\", \"engine\", \"default\"]\n}\n```",
+      "parsed": {
+        "functions": [],
+        "classes": [
+          "DataFrame"
+        ],
+        "files": [
+          "core/frame.py"
+        ],
+        "imports": [
+          "pandas as pd"
+        ],
+        "keywords": [
+          "eval",
+          "engine",
+          "default"
+        ]
+      },
+      "flat_terms": "DataFrame core/frame.py pandas as pd eval engine default",
+      "combined_query": "DOC: the default value of `engine` argument in `eval` should be `None` DataFrame core/frame.py pandas as pd eval engine default",
+      "expansion_time_s": 11.1
+    },
+    "f8815c6f": {
+      "title": "API: copy np.ndarray inputs to Index subclass constructors by default",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_ensure_copy\"],\n  \"classes\": [\"Index\", \"DatetimeIndex\", \"TimedeltaIndex\", \"PeriodIndex\", \"IntervalIndex\"],\n  \"files\": [\n    \"core/indexes/base.py\",\n    \"core/indexes/datetimes.py\",\n    \"core/indexes/timedeltas.py\",\n    \"core/indexes/periods.py\",\n    \"core/indexes/interval.py\"\n  ],\n  \"imports\": [\"numpy as np\", \"pandas.api.types\"],\n  \"keywords\": [\"Index\", \"copy\", \"ndarray\", \"ExtensionArray\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_ensure_copy"
+        ],
+        "classes": [
+          "Index",
+          "DatetimeIndex",
+          "TimedeltaIndex",
+          "PeriodIndex",
+          "IntervalIndex"
+        ],
+        "files": [
+          "core/indexes/base.py",
+          "core/indexes/datetimes.py",
+          "core/indexes/timedeltas.py",
+          "core/indexes/periods.py",
+          "core/indexes/interval.py"
+        ],
+        "imports": [
+          "numpy as np",
+          "pandas.api.types"
+        ],
+        "keywords": [
+          "Index",
+          "copy",
+          "ndarray",
+          "ExtensionArray"
+        ]
+      },
+      "flat_terms": "_ensure_copy Index DatetimeIndex TimedeltaIndex PeriodIndex IntervalIndex core/indexes/base.py core/indexes/datetimes.py core/indexes/timedeltas.py core/indexes/periods.py core/indexes/interval.py numpy as np pandas.api.types Index copy ndarray ExtensionArray",
+      "combined_query": "API: copy np.ndarray inputs to Index subclass constructors by default _ensure_copy Index DatetimeIndex TimedeltaIndex PeriodIndex IntervalIndex core/indexes/base.py core/indexes/datetimes.py core/indexes/timedeltas.py core/indexes/periods.py core/indexes/interval.py numpy as np pandas.api.types Index copy ndarray ExtensionArray",
+      "expansion_time_s": 47.0
+    },
+    "ef014072": {
+      "title": "BUG: regresssion in 3.0rc: cannot save df with MultiIndex to HDF",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"to_hdf\"],\n  \"classes\": [\"MultiIndex\", \"DataFrame\"],\n  \"files\": [\"io/hdf_store.py\", \"core/groupby/groupby.py\"],\n  \"imports\": [\"pandas as pd\"],\n  \"keywords\": [\"HDFStore\", \"MultiIndex\", \"save\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "to_hdf"
+        ],
+        "classes": [
+          "MultiIndex",
+          "DataFrame"
+        ],
+        "files": [
+          "io/hdf_store.py",
+          "core/groupby/groupby.py"
+        ],
+        "imports": [
+          "pandas as pd"
+        ],
+        "keywords": [
+          "HDFStore",
+          "MultiIndex",
+          "save"
+        ]
+      },
+      "flat_terms": "to_hdf MultiIndex DataFrame io/hdf_store.py core/groupby/groupby.py pandas as pd HDFStore MultiIndex save",
+      "combined_query": "BUG: regresssion in 3.0rc: cannot save df with MultiIndex to HDF to_hdf MultiIndex DataFrame io/hdf_store.py core/groupby/groupby.py pandas as pd HDFStore MultiIndex save",
+      "expansion_time_s": 29.5
+    },
+    "c6d01487": {
+      "title": "REGR: RangeIndex __getitem__ filtering with boolean extension array of length 1",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"__getitem__\"],\n  \"classes\": [\"RangeIndex\", \"Series\"],\n  \"files\": [\"pandas/core/indexes/range.py\", \"pandas/core/series.py\"],\n  \"imports\": [\"pd.Series\"],\n  \"keywords\": [\"boolean extension array\", \"filtering\", \"IndexError\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__getitem__"
+        ],
+        "classes": [
+          "RangeIndex",
+          "Series"
+        ],
+        "files": [
+          "pandas/core/indexes/range.py",
+          "pandas/core/series.py"
+        ],
+        "imports": [
+          "pd.Series"
+        ],
+        "keywords": [
+          "boolean extension array",
+          "filtering",
+          "IndexError"
+        ]
+      },
+      "flat_terms": "__getitem__ RangeIndex Series pandas/core/indexes/range.py pandas/core/series.py pd.Series boolean extension array filtering IndexError",
+      "combined_query": "REGR: RangeIndex __getitem__ filtering with boolean extension array of length 1 __getitem__ RangeIndex Series pandas/core/indexes/range.py pandas/core/series.py pd.Series boolean extension array filtering IndexError",
+      "expansion_time_s": 24.3
+    },
+    "a566b485": {
+      "title": "DOC: the type of `name` in `bdate_range` should be `Hashable`",
+      "raw_llm_output": "```json\n{\n  \"functions\": [],\n  \"classes\": [],\n  \"files\": [\"pandas/core/tools/datetimes.py\"],\n  \"imports\": [\"Hashable\"],\n  \"keywords\": [\"bdate_range\", \"docstring\", \"type hint\"]\n}\n```",
+      "parsed": {
+        "functions": [],
+        "classes": [],
+        "files": [
+          "pandas/core/tools/datetimes.py"
+        ],
+        "imports": [
+          "Hashable"
+        ],
+        "keywords": [
+          "bdate_range",
+          "docstring",
+          "type hint"
+        ]
+      },
+      "flat_terms": "pandas/core/tools/datetimes.py Hashable bdate_range docstring type hint",
+      "combined_query": "DOC: the type of `name` in `bdate_range` should be `Hashable` pandas/core/tools/datetimes.py Hashable bdate_range docstring type hint",
+      "expansion_time_s": 22.6
+    },
+    "048eb2a6": {
+      "title": "DOC: the default value of `duplicates` in `cut` should be `\"raise\"`",
+      "raw_llm_output": "```json\n{\n  \"functions\": [],\n  \"classes\": [],\n  \"files\": [\"pandas/core/tools/categorical.py\"],\n  \"imports\": [\"pandas.core.tools.categorical.cut\"],\n  \"keywords\": [\"cut\", \"duplicates\", \"raise\"]\n}\n```",
+      "parsed": {
+        "functions": [],
+        "classes": [],
+        "files": [
+          "pandas/core/tools/categorical.py"
+        ],
+        "imports": [
+          "pandas.core.tools.categorical.cut"
+        ],
+        "keywords": [
+          "cut",
+          "duplicates",
+          "raise"
+        ]
+      },
+      "flat_terms": "pandas/core/tools/categorical.py pandas.core.tools.categorical.cut cut duplicates raise",
+      "combined_query": "DOC: the default value of `duplicates` in `cut` should be `\"raise\"` pandas/core/tools/categorical.py pandas.core.tools.categorical.cut cut duplicates raise",
+      "expansion_time_s": 21.4
+    },
+    "0630829d": {
+      "title": "ENH: Need API support and __repr__ to discover the storage used for strings",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"__repr__\"],\n  \"classes\": [\"DataFrame\", \"Series\"],\n  \"files\": [\"core/frame.py\", \"core/series.py\"],\n  \"imports\": [\"pyarrow\"],\n  \"keywords\": [\"storage\", \"memory footprint\", \"vectorization\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__repr__"
+        ],
+        "classes": [
+          "DataFrame",
+          "Series"
+        ],
+        "files": [
+          "core/frame.py",
+          "core/series.py"
+        ],
+        "imports": [
+          "pyarrow"
+        ],
+        "keywords": [
+          "storage",
+          "memory footprint",
+          "vectorization"
+        ]
+      },
+      "flat_terms": "__repr__ DataFrame Series core/frame.py core/series.py pyarrow storage memory footprint vectorization",
+      "combined_query": "ENH: Need API support and __repr__ to discover the storage used for strings __repr__ DataFrame Series core/frame.py core/series.py pyarrow storage memory footprint vectorization",
+      "expansion_time_s": 25.1
+    },
+    "c2c1a1b0": {
+      "title": "ENH: Need API support and __repr__ to discover the storage used for strings",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"__repr__\"],\n  \"classes\": [\"DataFrame\", \"Series\"],\n  \"files\": [\"core/frame.py\", \"core/series.py\"],\n  \"imports\": [\"pyarrow\"],\n  \"keywords\": [\"storage\", \"memory footprint\", \"vectorization\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__repr__"
+        ],
+        "classes": [
+          "DataFrame",
+          "Series"
+        ],
+        "files": [
+          "core/frame.py",
+          "core/series.py"
+        ],
+        "imports": [
+          "pyarrow"
+        ],
+        "keywords": [
+          "storage",
+          "memory footprint",
+          "vectorization"
+        ]
+      },
+      "flat_terms": "__repr__ DataFrame Series core/frame.py core/series.py pyarrow storage memory footprint vectorization",
+      "combined_query": "ENH: Need API support and __repr__ to discover the storage used for strings __repr__ DataFrame Series core/frame.py core/series.py pyarrow storage memory footprint vectorization",
+      "expansion_time_s": 23.0
+    },
+    "67b24a32": {
+      "title": "ENH: Need API support and __repr__ to discover the storage used for strings",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"__repr__\"],\n  \"classes\": [\"DataFrame\", \"Series\"],\n  \"files\": [\"core/frame.py\", \"core/series.py\"],\n  \"imports\": [\"pyarrow\"],\n  \"keywords\": [\"storage\", \"memory footprint\", \"vectorization\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__repr__"
+        ],
+        "classes": [
+          "DataFrame",
+          "Series"
+        ],
+        "files": [
+          "core/frame.py",
+          "core/series.py"
+        ],
+        "imports": [
+          "pyarrow"
+        ],
+        "keywords": [
+          "storage",
+          "memory footprint",
+          "vectorization"
+        ]
+      },
+      "flat_terms": "__repr__ DataFrame Series core/frame.py core/series.py pyarrow storage memory footprint vectorization",
+      "combined_query": "ENH: Need API support and __repr__ to discover the storage used for strings __repr__ DataFrame Series core/frame.py core/series.py pyarrow storage memory footprint vectorization",
+      "expansion_time_s": 21.8
+    }
+  },
+  "last_updated": "2026-07-09T00:10:59.809101"
+}

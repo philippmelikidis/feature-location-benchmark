@@ -1,0 +1,1068 @@
+{
+  "version": "1.0.0",
+  "created_at": "2026-05-27T19:33:03.296268",
+  "description": "Feature Location Benchmark v1 – 206 samples [era=pre_ai]",
+  "samples": [
+    {
+      "sample_id": "32e06adc",
+      "repo_id": "pallets/click",
+      "commit_hash": "2170eecdfd69bbda55e160ae9212848e1ec33525",
+      "query": "Binary flags vs `default=None`: semantics and issue with prompt\n\nThe current behavior is:\r\n- if `default` is not provided, the option default is set to `False`\r\n- if `default` is set to `None`, default is set to `None`.\r\n\r\nI think this may be accidental behavior but it's not senseless: settings `default=None` you can force the prompt to require an explicit value to be provided (it'll be `[y/n]` rather than `[y/N]`). \r\n\r\nNonetheless, I noticed that if you provide `default=None` to a flag not having a secondary option, the prompt message is broken: it won't inc",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/_utils.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "src/click/core.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "src/click/parser.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 1992,
+        "issue_url": "https://github.com/pallets/click/issues/1992",
+        "pr_number": 3030,
+        "pr_url": "https://github.com/pallets/click/pull/3030",
+        "difficulty": null,
+        "issue_created_at": "2021-07-06T11:40:46Z",
+        "pr_created_at": "2025-08-06T08:33:07Z",
+        "pr_merged_at": "2025-08-24T06:56:13Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "a232d62d",
+      "repo_id": "pallets/click",
+      "commit_hash": "10b77f98f2b2334943cd80b14717a935650cb3d6",
+      "query": "Binary flags vs `default=None`: semantics and issue with prompt\n\nThe current behavior is:\r\n- if `default` is not provided, the option default is set to `False`\r\n- if `default` is set to `None`, default is set to `None`.\r\n\r\nI think this may be accidental behavior but it's not senseless: settings `default=None` you can force the prompt to require an explicit value to be provided (it'll be `[y/n]` rather than `[y/N]`). \r\n\r\nNonetheless, I noticed that if you provide `default=None` to a flag not having a secondary option, the prompt message is broken: it won't inc",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/core.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 1992,
+        "issue_url": "https://github.com/pallets/click/issues/1992",
+        "pr_number": 3049,
+        "pr_url": "https://github.com/pallets/click/pull/3049",
+        "difficulty": null,
+        "issue_created_at": "2021-07-06T11:40:46Z",
+        "pr_created_at": "2025-08-25T03:57:04Z",
+        "pr_merged_at": "2025-08-28T05:45:29Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "f6fcc27b",
+      "repo_id": "pallets/click",
+      "commit_hash": "2170eecdfd69bbda55e160ae9212848e1ec33525",
+      "query": "Support default for arguments with multiple values\n\nI'd like to be able to specify a default for arguments with multiple values.\r\n\r\nA currently failing test case:\r\n```\r\nimport pytest\r\nimport click\r\nfrom click.testing import CliRunner\r\n\r\n@pytest.fixture(scope=\"function\")\r\ndef runner(request):\r\n    return CliRunner()\r\n\r\ndef test_multivalue_args_with_default(runner):\r\n    @click.command()\r\n    @click.argument('files', nargs=-1, default=['arg1'])\r\n    def cmd(files):\r\n        for filename in files:\r\n            click.echo(filename)\r\n\r\n    result = ru",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/_utils.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "src/click/core.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "src/click/parser.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 2164,
+        "issue_url": "https://github.com/pallets/click/issues/2164",
+        "pr_number": 3030,
+        "pr_url": "https://github.com/pallets/click/pull/3030",
+        "difficulty": null,
+        "issue_created_at": "2021-12-31T01:44:27Z",
+        "pr_created_at": "2025-08-06T08:33:07Z",
+        "pr_merged_at": "2025-08-24T06:56:13Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "9e65830a",
+      "repo_id": "pallets/click",
+      "commit_hash": "b131f71de8bba96e367da7c7e9b5fbf721670e28",
+      "query": "version_option doesn't automatically detect version anymore with click 8.0.0\n\nHello, I just came across what seems to be a regression with click 8.0.0\r\n\r\n# Bug\r\n\r\nFor a given click command `click-issue-test` installed with setuptools configured with the `click.version_option()` decorator, running `click-issue-test --version` fails with the following error:\r\n\r\n```\r\nTraceback (most recent call last):\r\n  File \"/Users/florian.veaux/go/src/github.com/DataDog/integrations-core/click-issue-test/click-issue-test/lib/python3.9/site-packages/click/decorators.py\", line 384, in callb",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/decorators.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 1884,
+        "issue_url": "https://github.com/pallets/click/issues/1884",
+        "pr_number": 1912,
+        "pr_url": "https://github.com/pallets/click/pull/1912",
+        "difficulty": null,
+        "issue_created_at": "2021-05-12T10:08:36Z",
+        "pr_created_at": "2021-05-19T02:40:31Z",
+        "pr_merged_at": "2021-05-19T02:49:05Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "92c8a951",
+      "repo_id": "pallets/click",
+      "commit_hash": "01e4dac0b1f855a54eb923380d6af64171c66f22",
+      "query": "mypy raises errors when using `click.prompt()` due to `type` argument having incompatible type\n\nI have a project that uses the latest version of mypy (0.910) and click (8.0.1). I am attempting to use `click.prompt()` and pass in the `type` argument but this is always causing mypy (with default settings) to find errors.\r\n\r\nHere is an example:\r\n```python\r\nimport click\r\nname = click.prompt('What is your name?', type=str)\r\nage = click.prompt('What is your age?', type=int)\r\n```\r\n\r\nWhen I run mypy against this file, I get two errors:\r\n```\r\nmain.py:2: error: Argument \"type\" to \"prompt\" has incomp",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/termui.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 2062,
+        "issue_url": "https://github.com/pallets/click/issues/2062",
+        "pr_number": 2064,
+        "pr_url": "https://github.com/pallets/click/pull/2064",
+        "difficulty": null,
+        "issue_created_at": "2021-09-09T15:23:14Z",
+        "pr_created_at": "2021-09-11T16:48:49Z",
+        "pr_merged_at": "2021-09-26T14:14:51Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "9991876a",
+      "repo_id": "pallets/click",
+      "commit_hash": "69dfb1e5fff0e2f88d3a2c4bc375674a9eae5f68",
+      "query": "Use flake8 4.0.x\n\nAs discussed [here](https://github.com/pallets/click/pull/1896#discussion_r632668344), `flake8` did not properly detect imports of the `typing` module when aliased like `import typing as t`, which is a pattern used in this repository. Detection of `typing` is needed for `flake8` to understand (and ignore with respect to F811) function redefinitions using the `@typing.overload` decorator, so where this decorator is used, `click` imports the module twice:\r\n\r\n```python\r\nimport typing\r\nimport typing",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/core.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "src/click/globals.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "src/click/termui.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 2102,
+        "issue_url": "https://github.com/pallets/click/issues/2102",
+        "pr_number": 2103,
+        "pr_url": "https://github.com/pallets/click/pull/2103",
+        "difficulty": null,
+        "issue_created_at": "2021-10-13T21:51:24Z",
+        "pr_created_at": "2021-10-14T14:39:31Z",
+        "pr_merged_at": "2021-12-26T22:54:16Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "1bcd96b8",
+      "repo_id": "pallets/click",
+      "commit_hash": "e415d3a811fda506c8d7917e615b97ae9dcd1194",
+      "query": "Usage of allow_dash flag for path parameters is not clear\n\nThe `allow_dash` parameter to the `click.Path` type can be misleading.\r\n\r\n```\r\nallow_dash (bool) – If this is set to True, a single dash to indicate standard streams is permitted.\r\n```\r\n\r\nThis seems to imply that there's some special handling of standard streams. I believe describing this parameter and linking to the `open_file` function might be a good idea in this section:\r\n\r\nhttps://click.palletsprojects.com/en/8.0.x/arguments/#file-path-arguments\r\n\r\n<!--\r\nDescribe how to replicate the bug.\r\n",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/_compat.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "src/click/types.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "src/click/utils.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 2105,
+        "issue_url": "https://github.com/pallets/click/issues/2105",
+        "pr_number": 2107,
+        "pr_url": "https://github.com/pallets/click/pull/2107",
+        "difficulty": null,
+        "issue_created_at": "2021-10-25T10:06:27Z",
+        "pr_created_at": "2021-10-25T15:42:28Z",
+        "pr_merged_at": "2021-10-25T15:45:29Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "9b21a087",
+      "repo_id": "pallets/click",
+      "commit_hash": "e48c3916a4585a2455a8ebe8fe379f52671b30ee",
+      "query": "Usage of allow_dash flag for path parameters is not clear\n\nThe `allow_dash` parameter to the `click.Path` type can be misleading.\r\n\r\n```\r\nallow_dash (bool) – If this is set to True, a single dash to indicate standard streams is permitted.\r\n```\r\n\r\nThis seems to imply that there's some special handling of standard streams. I believe describing this parameter and linking to the `open_file` function might be a good idea in this section:\r\n\r\nhttps://click.palletsprojects.com/en/8.0.x/arguments/#file-path-arguments\r\n\r\n<!--\r\nDescribe how to replicate the bug.\r\n",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/types.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 2105,
+        "issue_url": "https://github.com/pallets/click/issues/2105",
+        "pr_number": 2108,
+        "pr_url": "https://github.com/pallets/click/pull/2108",
+        "difficulty": null,
+        "issue_created_at": "2021-10-25T10:06:27Z",
+        "pr_created_at": "2021-10-25T18:43:49Z",
+        "pr_merged_at": "2021-12-27T00:07:35Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "074e4bff",
+      "repo_id": "pallets/click",
+      "commit_hash": "ef11be6e49e19a055fe7e5a89f0f1f4062c68dba",
+      "query": "Shell completion fails for option values that start with symbols\n\nRunning into the same case as #1929, except specific to option values that may start with symbols such as '+', '~', and '!'. Shell completion treats these values as the start of new options, so doesn't complete them.\r\n\r\nReproduction script with the cli command referenced by setuptools:\r\n\r\n```python\r\n@command()\r\n@option(\"-c\", type=Choice([\"+1\", \"+2\", \"!1\", \"!2\"]))\r\ndef cli(c):\r\n    echo(f\"Value is {c}\")\r\n```\r\n\r\nWith shell completion enabled:\r\n\r\n```sh\r\n$ click-bug -c <TAB><TAB>\r\n+1 +2  !1 !2\r\n$ cl",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/core.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "src/click/shell_completion.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC2",
+        "issue_number": 2040,
+        "issue_url": "https://github.com/pallets/click/issues/2040",
+        "pr_number": 2041,
+        "pr_url": "https://github.com/pallets/click/pull/2041",
+        "difficulty": null,
+        "issue_created_at": "2021-08-09T16:36:08Z",
+        "pr_created_at": "2021-08-09T20:40:27Z",
+        "pr_merged_at": "2022-03-28T15:08:28Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "5d894b04",
+      "repo_id": "pallets/click",
+      "commit_hash": "d8763b93021c416549b5f8b4b5497234619410db",
+      "query": "Not specifying a group's command exits with code 0\n\nWhen a group is created with multiple commands, but the script is called without any commands, the exit code is 0. It looks like [this line](https://github.com/pallets/click/blob/466d0add86f48502db9c02c32e30287d39ab866b/click/core.py#L1028) just needs to be changed to have an exit code. But it's not clear if `ctx.fail()` should be used instead.\r\n\r\n### Example Code\r\n\r\n```python\r\nimport click\r\n\r\n@click.group()\r\ndef cli():\r\n    print(\"in group\")\r\n\r\n@cli.command()\r\ndef foo():\r\n    print(\"foo\")\r\n\r\n@c",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/core.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "src/click/exceptions.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 1486,
+        "issue_url": "https://github.com/pallets/click/issues/1486",
+        "pr_number": 1489,
+        "pr_url": "https://github.com/pallets/click/pull/1489",
+        "difficulty": null,
+        "issue_created_at": "2020-03-05T16:51:47Z",
+        "pr_created_at": "2020-03-06T22:34:03Z",
+        "pr_merged_at": "2024-11-03T19:56:42Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "b2f6a0e1",
+      "repo_id": "pallets/click",
+      "commit_hash": "d8763b93021c416549b5f8b4b5497234619410db",
+      "query": "Command w/o args displaying usage should return non-zero\n\nTry running `git`, and you will see its usage. You will also receive a non-zero return code, indicating failure. This can be vital in case arguments got truncated.\r\n\r\nCurrent behavior of showing usage instructions (`help_text`) is great!\r\n\r\nBut it should also error out with a code `1`.\r\n\r\nExample:\r\n\r\n```\r\n➜  git\r\nusage: git [--version] [--help] [-C <path>] [-c <name>=<value>]\r\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\r\n           [-p | --paginate | --no-pager] [-",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/core.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "src/click/exceptions.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 1394,
+        "issue_url": "https://github.com/pallets/click/issues/1394",
+        "pr_number": 1489,
+        "pr_url": "https://github.com/pallets/click/pull/1489",
+        "difficulty": null,
+        "issue_created_at": "2019-09-13T13:03:13Z",
+        "pr_created_at": "2020-03-06T22:34:03Z",
+        "pr_merged_at": "2024-11-03T19:56:42Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "aa9f9b62",
+      "repo_id": "pallets/click",
+      "commit_hash": "0d69b6ce8b25fe31ea580c608adb8e45df3805bb",
+      "query": "Support for editing multiple files using `click.edit`\n\nHello,\r\n\r\nMost of the editors(like nano, vim, vi, vscode etc) have support for multiple tabs. The only editor that I can recall that don't support multiple tabs is notepad. Something like this could be really helpful and also could be easily implemented into click:\r\n```py\r\nimport click\r\nclick.edit(filenames = {'path/to/file1', 'path/to/file2'})\r\n```\r\nInstead of calling editor using single file as argument it provides multiple files as arguments [here](https://github.com/pallets/click/blob/74d1b0",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/_termui_impl.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "src/click/termui.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC2",
+        "issue_number": 2067,
+        "issue_url": "https://github.com/pallets/click/issues/2067",
+        "pr_number": 2068,
+        "pr_url": "https://github.com/pallets/click/pull/2068",
+        "difficulty": null,
+        "issue_created_at": "2021-09-14T15:43:28Z",
+        "pr_created_at": "2021-09-15T19:41:05Z",
+        "pr_merged_at": "2024-11-07T22:42:59Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "d6cd2d2a",
+      "repo_id": "pallets/click",
+      "commit_hash": "37d897069f58f7f2a016c14b0620c6d387430b4b",
+      "query": "Use subprocess instead of os.system\n\nThere are various places, mostly in `_termui_impl`, that use `os.system`. Python has recommended using `subprocess` (`call`, `Popen`) instead for quite some time. Replace all occurrences of `os.system` with `subprocess.call` or `Popen`, passing a list of args (not a string command). This will require a bit of care since there's a few places that write command strings that can't be directly translated to args lists, and we should ensure the expected commands continue to work on Windows, Mac, and ",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "click/_compat.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "click/_termui_impl.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 1476,
+        "issue_url": "https://github.com/pallets/click/issues/1476",
+        "pr_number": 1470,
+        "pr_url": "https://github.com/pallets/click/pull/1470",
+        "difficulty": null,
+        "issue_created_at": "2020-02-22T17:27:31Z",
+        "pr_created_at": "2020-02-15T20:40:43Z",
+        "pr_merged_at": "2020-02-24T03:11:38Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "1f0ee3c6",
+      "repo_id": "pallets/click",
+      "commit_hash": "299efb82e1a3d34d870129dc0c677c6efb42d811",
+      "query": "Use subprocess instead of os.system\n\nThere are various places, mostly in `_termui_impl`, that use `os.system`. Python has recommended using `subprocess` (`call`, `Popen`) instead for quite some time. Replace all occurrences of `os.system` with `subprocess.call` or `Popen`, passing a list of args (not a string command). This will require a bit of care since there's a few places that write command strings that can't be directly translated to args lists, and we should ensure the expected commands continue to work on Windows, Mac, and ",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/_termui_impl.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 1476,
+        "issue_url": "https://github.com/pallets/click/issues/1476",
+        "pr_number": 1477,
+        "pr_url": "https://github.com/pallets/click/pull/1477",
+        "difficulty": null,
+        "issue_created_at": "2020-02-22T17:27:31Z",
+        "pr_created_at": "2020-02-22T19:36:57Z",
+        "pr_merged_at": "2024-11-30T19:23:12Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "345b00e7",
+      "repo_id": "pallets/click",
+      "commit_hash": "25a3cb272e0afacb5458fffb20c430a863154827",
+      "query": "Use subprocess instead of os.system\n\nThere are various places, mostly in `_termui_impl`, that use `os.system`. Python has recommended using `subprocess` (`call`, `Popen`) instead for quite some time. Replace all occurrences of `os.system` with `subprocess.call` or `Popen`, passing a list of args (not a string command). This will require a bit of care since there's a few places that write command strings that can't be directly translated to args lists, and we should ensure the expected commands continue to work on Windows, Mac, and ",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/_compat.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "src/click/_termui_impl.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 1476,
+        "issue_url": "https://github.com/pallets/click/issues/1476",
+        "pr_number": 1543,
+        "pr_url": "https://github.com/pallets/click/pull/1543",
+        "difficulty": null,
+        "issue_created_at": "2020-02-22T17:27:31Z",
+        "pr_created_at": "2020-04-27T19:32:20Z",
+        "pr_merged_at": "2020-04-27T19:51:48Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "1f1799c9",
+      "repo_id": "pallets/click",
+      "commit_hash": "2fc486c880eda9fdb746ed8baa49416acab9ea6d",
+      "query": "Use subprocess instead of os.system\n\nThere are various places, mostly in `_termui_impl`, that use `os.system`. Python has recommended using `subprocess` (`call`, `Popen`) instead for quite some time. Replace all occurrences of `os.system` with `subprocess.call` or `Popen`, passing a list of args (not a string command). This will require a bit of care since there's a few places that write command strings that can't be directly translated to args lists, and we should ensure the expected commands continue to work on Windows, Mac, and ",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "src/click/_termui_impl.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 1476,
+        "issue_url": "https://github.com/pallets/click/issues/1476",
+        "pr_number": 1754,
+        "pr_url": "https://github.com/pallets/click/pull/1754",
+        "difficulty": null,
+        "issue_created_at": "2020-02-22T17:27:31Z",
+        "pr_created_at": "2021-01-14T11:24:46Z",
+        "pr_merged_at": "2021-01-14T16:00:01Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "8e3cd9a3",
+      "repo_id": "fastapi/fastapi",
+      "commit_hash": "4bcc41510a11ad5398024f39628a8ac2028fca2a",
+      "query": "Execute dependencies in parallel instead of sequentially awaiting them\n\n**Is your feature request related to a problem? Please describe.**\r\nFastAPI's Dependency injection system, while extremely useful, tends to run into a problem when several long-running dependencies are needed for a single route, such as with the example below.\r\n\r\n```py\r\nfrom fastapi import Depends, FastAPI\r\nfrom asyncio import sleep as async_sleep\r\n\r\napp = FastAPI()\r\n\r\nasync def get_big_data():\r\n    await async_sleep(5)\r\n    return \"𝐃𝐀𝐓𝐀\"\r\n\r\nasync def compute_pi():\r\n    await async_sleep(5)\r\n   ",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "fastapi/__init__.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "fastapi/applications.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "fastapi/exceptions.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 639,
+        "issue_url": "https://github.com/fastapi/fastapi/issues/639",
+        "pr_number": 35,
+        "pr_url": "https://github.com/adriangb/xpresso/pull/35",
+        "difficulty": null,
+        "issue_created_at": "2019-10-22T15:54:42Z",
+        "pr_created_at": "2019-02-16T12:58:25Z",
+        "pr_merged_at": "2019-02-16T13:01:30Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "0b1f3e95",
+      "repo_id": "fastapi/fastapi",
+      "commit_hash": "d4d5b21b2e70cdd7e36aedc2e41d7c29b430492b",
+      "query": "Add section to docs about configuration\n\nIt would be useful if you could add a section to the (already excellent) docs on the recommended way to add app configuration. Would you recommend something based on Pydantic's BaseSettings, or on Starlette's Config?\r\nBoth would work I think, but your opinion on the optimal integration in FastAPI would be useful.\r\nTIA",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "docs_src/metadata/tutorial001.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "docs_src/metadata/tutorial002.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "docs_src/metadata/tutorial003.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC3",
+        "issue_number": 190,
+        "issue_url": "https://github.com/fastapi/fastapi/issues/190",
+        "pr_number": 1118,
+        "pr_url": "https://github.com/fastapi/fastapi/pull/1118",
+        "difficulty": null,
+        "issue_created_at": "2019-04-29T05:54:02Z",
+        "pr_created_at": "2020-03-15T19:59:20Z",
+        "pr_merged_at": "2020-04-02T04:55:21Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "92789a99",
+      "repo_id": "fastapi/fastapi",
+      "commit_hash": "2fd28434dd506fbdd8d85c17b98e9065042dc7ad",
+      "query": "Use TestClient in an async fashion\n\n### Is your feature request related to a problem\n\nUnfortunately, test client runs it's own event loop. This causes an issue when attempting to do other async operations in the background.\nRunning it inside an executor will cause it to run in a different threat, which in turn causes issues with other async libraries a they're calling coroutines from a different thread.\n\n### The solution you would like\n\nMake a TestClient that doesn't create it's own loop. Just have it async. \n\n### Describe alterna",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "docs_src/async_tests/__init__.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "docs_src/async_tests/main.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 1273,
+        "issue_url": "https://github.com/fastapi/fastapi/issues/1273",
+        "pr_number": 1619,
+        "pr_url": "https://github.com/fastapi/fastapi/pull/1619",
+        "difficulty": null,
+        "issue_created_at": "2020-04-16T00:15:11Z",
+        "pr_created_at": "2020-06-24T15:07:32Z",
+        "pr_merged_at": "2020-08-08T18:01:19Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "9d13bf17",
+      "repo_id": "fastapi/fastapi",
+      "commit_hash": "11c755bee34ffa9cd0b28e9e04b944c3c8fd1125",
+      "query": "tags at APIRouter level\n\n**Is your feature request related to a problem? Please describe.**\r\nI have a certain number of APIRouter, with for each of those a certain number of routes.\r\nI want all routes that belong to a given APIRouter to have the same tag, and currently I'm achieving this by adding `tags=['Tag1']`  to each and every route.\r\n\r\n**Describe the solution you'd like**\r\nI got the feeling that I should be able to add the tags keyword directly to APIRouter and that all routes belonging to it inherit the tag.\r\n\r\nN",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "fastapi/applications.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "fastapi/routing.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC2",
+        "issue_number": 54,
+        "issue_url": "https://github.com/fastapi/fastapi/issues/54",
+        "pr_number": 55,
+        "pr_url": "https://github.com/fastapi/fastapi/pull/55",
+        "difficulty": null,
+        "issue_created_at": "2019-02-24T18:33:02Z",
+        "pr_created_at": "2019-02-25T08:54:51Z",
+        "pr_merged_at": "2019-03-16T17:15:08Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "d86a5bfc",
+      "repo_id": "fastapi/fastapi",
+      "commit_hash": "921642dc7b4c82735c9691d2c0cace25dc3e34d8",
+      "query": "Update JWT docs with python-jose\n\n### First check\r\n\r\n* [x] I added a very descriptive title to this issue.\r\n* [x] I used the GitHub search to find a similar issue and didn't find it.\r\n* [x] I searched the FastAPI documentation, with the integrated search.\r\n* [x] I already searched in Google \"How to X in FastAPI\" and didn't find any information.\r\n* [x] I already read and followed all the tutorial in the docs and didn't find an answer.\r\n* [x] I already checked if it is not related to FastAPI but to [Pydantic](https://github.com/sa",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "docs_src/security/tutorial004.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "docs_src/security/tutorial005.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 1598,
+        "issue_url": "https://github.com/fastapi/fastapi/issues/1598",
+        "pr_number": 1610,
+        "pr_url": "https://github.com/fastapi/fastapi/pull/1610",
+        "difficulty": null,
+        "issue_created_at": "2020-06-19T17:18:02Z",
+        "pr_created_at": "2020-06-22T09:08:51Z",
+        "pr_merged_at": "2020-07-10T18:24:38Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "2d6a3202",
+      "repo_id": "fastapi/fastapi",
+      "commit_hash": "687065509b047a642acd1d281d6d68c6698509b1",
+      "query": "OpenAPI fails when forcing query params to be body and multiple params in each\n\n**Describe the bug**\r\n\r\nThe OpenAPI spec for my app breaks with the following error (shown in my web browser).\r\n\r\n```\r\nFetch error\r\nInternal Server Error /openapi.json\r\n```\r\n\r\nThis only happens when I have endpoints defined in two separate files, each of which force all their arguments to be body parameters via annotating each parameter with `Body(...)` to force them to be body parameters, as opposed to query parameters.\r\n\r\nCheck this out!\r\n\r\n- If the endpoints are defined in the same file, then",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "fastapi/openapi/utils.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "fastapi/routing.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "fastapi/utils.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 284,
+        "issue_url": "https://github.com/fastapi/fastapi/issues/284",
+        "pr_number": 347,
+        "pr_url": "https://github.com/fastapi/fastapi/pull/347",
+        "difficulty": null,
+        "issue_created_at": "2019-06-03T01:29:10Z",
+        "pr_created_at": "2019-06-28T17:31:21Z",
+        "pr_merged_at": "2019-06-28T17:35:17Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "77e841d2",
+      "repo_id": "fastapi/fastapi",
+      "commit_hash": "b591de2ace297c1da537e50f64b4066f96553247",
+      "query": "I need a way to specify servers in the openapi spec\n\n### Is your feature request related to a problem\r\n\r\nI want to be able to use the generated openapi.json doc as it is and hook it up with a document publishing flow, but i'm not able to because I have to add in information about `servers` manually.\r\n\r\n### The solution you would like\r\n\r\nSomeway to specify at a global level what the base server url should be.\r\n\r\n### Describe alternatives you've considered\r\n\r\nCurrently I'm doing this manually in the generated openapi.json by adding in something like",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "fastapi/applications.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "fastapi/openapi/models.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "fastapi/openapi/utils.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC2",
+        "issue_number": 872,
+        "issue_url": "https://github.com/fastapi/fastapi/issues/872",
+        "pr_number": 1547,
+        "pr_url": "https://github.com/fastapi/fastapi/pull/1547",
+        "difficulty": null,
+        "issue_created_at": "2020-01-16T07:08:21Z",
+        "pr_created_at": "2020-06-10T19:32:26Z",
+        "pr_merged_at": "2020-06-14T13:38:30Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "00afdc3f",
+      "repo_id": "fastapi/fastapi",
+      "commit_hash": "cc9a73c3f83fab4f1d9fcb19dfe5b562869d932c",
+      "query": "Support starlette \"lifespan\" context for application\n\n### First check\r\n\r\n* [x] I added a very descriptive title to this issue.\r\n* [x] I used the GitHub search to find a similar issue and didn't find it.\r\n* [x] I searched the FastAPI documentation, with the integrated search.\r\n* [x] I already searched in Google \"How to X in FastAPI\" and didn't find any information.\r\n* [x] I already read and followed all the tutorial in the docs and didn't find an answer.\r\n* [x] I already checked if it is not related to FastAPI but to [Pydantic](https://github.com/sa",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "docs_src/events/tutorial003.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "fastapi/applications.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "fastapi/routing.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 2943,
+        "issue_url": "https://github.com/fastapi/fastapi/issues/2943",
+        "pr_number": 2944,
+        "pr_url": "https://github.com/fastapi/fastapi/pull/2944",
+        "difficulty": null,
+        "issue_created_at": "2021-03-12T23:34:33Z",
+        "pr_created_at": "2021-03-13T05:08:38Z",
+        "pr_merged_at": "2023-03-07T15:46:00Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "1885a636",
+      "repo_id": "pallets/flask",
+      "commit_hash": "f808c20139649b747f604492bc33b61a7dd3e13a",
+      "query": "SERVER_NAME configuration should not implicitly change routing behavior.\n\nWhen `Flask.config['SERVER_NAME']` is set to a domain (_thedomain.com:8080_) it alters the route matching behavior. Requests on \"subdomained\" urls (_sub1.thedomain.com:8080/some/route_) then only resolve to subdomained Blueprints (Blueprints with their 'subdomain' attribute set). With `app.config['SERVER_NAME']` set to `None`, subdomained url would also properly resolve to non-subdomained Blueprints.\n\nIn other words, the presence of `app.config['SERVER_NAME']` effectively serves as an _implicit_",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "flask/app.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 998,
+        "issue_url": "https://github.com/pallets/flask/issues/998",
+        "pr_number": 2635,
+        "pr_url": "https://github.com/pallets/flask/pull/2635",
+        "difficulty": null,
+        "issue_created_at": "2014-03-13T06:28:07Z",
+        "pr_created_at": "2018-02-19T20:29:27Z",
+        "pr_merged_at": "2018-02-23T16:47:20Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "1de16abb",
+      "repo_id": "pandas-dev/pandas",
+      "commit_hash": "ba61f5562f47b6466eb05b6aae0aa817ed92f558",
+      "query": "API: always treat tuples as object-dtype-scalars for arithmetic?\n\nFor arithmetic-like ops when we see a list we cast it to ndarray, while with tuple we _sometimes_ cast to ndarray, sometimes treat it as scalar-like.  We should be consistent about this.\r\n\r\nI lean towards always-scalar-like, but would be fine either way.",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "pandas/core/arrays/arrow/array.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "pandas/core/arrays/boolean.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "pandas/core/arrays/datetimelike.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC3",
+        "issue_number": 33807,
+        "issue_url": "https://github.com/pandas-dev/pandas/issues/33807",
+        "pr_number": 62560,
+        "pr_url": "https://github.com/pandas-dev/pandas/pull/62560",
+        "difficulty": null,
+        "issue_created_at": "2020-04-26T16:48:16Z",
+        "pr_created_at": "2025-10-03T15:10:19Z",
+        "pr_merged_at": "2026-02-24T16:42:03Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "5bd99e69",
+      "repo_id": "pandas-dev/pandas",
+      "commit_hash": "fde14399126a9cbee4b3f2623040af677a6ff804",
+      "query": "Groupby with multiple aggregations doesn't pass through positional or keyword arguments.\n\nWe pass positional `*args` through to the aggfunc for a single grouper.\r\n\r\n```python\r\nIn [1]: import pandas as pd\r\n\r\nIn [2]: df = pd.DataFrame({\"A\": [1, 2]})\r\n\r\nIn [3]: def f(x, y):\r\n   ...:     return x.sum() + y\r\n   ...:\r\n\r\nIn [4]: df.groupby([0, 0]).agg(f, 10)\r\nOut[4]:\r\n    A\r\n0  13\r\n```\r\n\r\nBut not for multiple.\r\n\r\n```pytb\r\nIn [5]: df.groupby([0, 0]).agg([f], 10)\r\n---------------------------------------------------------------------------\r\nValueError                                Traceback (",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "pandas/core/groupby/generic.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 26611,
+        "issue_url": "https://github.com/pandas-dev/pandas/issues/26611",
+        "pr_number": 64113,
+        "pr_url": "https://github.com/pandas-dev/pandas/pull/64113",
+        "difficulty": null,
+        "issue_created_at": "2019-06-01T20:45:39Z",
+        "pr_created_at": "2026-02-11T04:04:21Z",
+        "pr_merged_at": "2026-02-13T17:24:03Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "873922fc",
+      "repo_id": "pandas-dev/pandas",
+      "commit_hash": "a6ff9e6082ce9e3ef7ad68b02bffd3a413d11bf8",
+      "query": "DOC: general discussion of our docstring sharing system\n\nCurrently in many places we write docstrings as string values inside a `_shared_docs` dictionary, and then add this docstring to the method with a decorator like `@Appender(_shared_docs['where'])`, or possibly with substitution of variables in the template docstring with `@Appender(_shared_docs['where'] % _shared_doc_kwargs)`. \r\nApart from that, we have some other custom ways to generate them, typically for a specific set of methods (eg all statistical methods like mean, sum, median, ..).\r\n\r\nThi",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "pandas/core/frame.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "pandas/core/generic.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "pandas/core/panel.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 19932,
+        "issue_url": "https://github.com/pandas-dev/pandas/issues/19932",
+        "pr_number": 20016,
+        "pr_url": "https://github.com/pandas-dev/pandas/pull/20016",
+        "difficulty": null,
+        "issue_created_at": "2018-02-27T23:15:21Z",
+        "pr_created_at": "2018-03-06T16:41:54Z",
+        "pr_merged_at": "2018-03-28T07:49:48Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "22e6d786",
+      "repo_id": "pandas-dev/pandas",
+      "commit_hash": "143b0118ca75c2eed3663e6c480cb07afb9fe578",
+      "query": "DOC: general discussion of our docstring sharing system\n\nCurrently in many places we write docstrings as string values inside a `_shared_docs` dictionary, and then add this docstring to the method with a decorator like `@Appender(_shared_docs['where'])`, or possibly with substitution of variables in the template docstring with `@Appender(_shared_docs['where'] % _shared_doc_kwargs)`. \r\nApart from that, we have some other custom ways to generate them, typically for a specific set of methods (eg all statistical methods like mean, sum, median, ..).\r\n\r\nThi",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "pandas/core/accessor.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "pandas/core/algorithms.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "pandas/core/base.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 19932,
+        "issue_url": "https://github.com/pandas-dev/pandas/issues/19932",
+        "pr_number": 31060,
+        "pr_url": "https://github.com/pandas-dev/pandas/pull/31060",
+        "difficulty": null,
+        "issue_created_at": "2018-02-27T23:15:21Z",
+        "pr_created_at": "2020-01-16T02:13:33Z",
+        "pr_merged_at": "2020-02-12T16:01:46Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "fc3fcbd4",
+      "repo_id": "pandas-dev/pandas",
+      "commit_hash": "6016b984154f2c84c92aea998aba2e19280f29ae",
+      "query": "CI: failing timedelta64 test on Linux py37_locale build\n\nThis is seen on a few PRs (eg https://dev.azure.com/pandas-dev/pandas/_build/results?buildId=34508&view=logs&jobId=c4100758-acc4-5cd0-72d8-90828968cf00&j=c4100758-acc4-5cd0-72d8-90828968cf00)\r\n\r\n```\r\n=================================== FAILURES ===================================\r\n___ TestSeriesDtypes.test_astype_generic_timestamp_no_frequency[timedelta64] ___\r\n[gw0] linux -- Python 3.7.6 /home/vsts/miniconda3/envs/pandas-dev/bin/python\r\n\r\nself = <pandas.tests.series.test_dtypes.TestSeriesDtypes",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "pandas/plotting/_matplotlib/converter.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 33890,
+        "issue_url": "https://github.com/pandas-dev/pandas/issues/33890",
+        "pr_number": 33881,
+        "pr_url": "https://github.com/pandas-dev/pandas/pull/33881",
+        "difficulty": null,
+        "issue_created_at": "2020-04-30T07:06:39Z",
+        "pr_created_at": "2020-04-29T22:28:49Z",
+        "pr_merged_at": "2020-04-30T07:04:46Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "fba48acb",
+      "repo_id": "psf/requests",
+      "commit_hash": "42c5a4f62268dd6e0499aac02a2ef481286e5798",
+      "query": "Timeout in session chunked requests lead to subsequent request timeout\n\n\r\n## Expected Result\r\n\r\nRequests in same session don't interfere with one another.\r\n\r\n## Actual Result\r\n\r\nA slow response from a chunked request causes the subsequent request to fail with a timeout even if the server responded before the timeout was reached.\r\n\r\n## Reproduction Steps\r\n\r\nRun a test server that accepts GET and POST requests. When responding to POST requests it waits 10 seconds before responding:\r\n\r\n```python\r\nimport time\r\n\r\nfrom http.server import BaseHTTPRequestHandler, HTTPServer",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "requests/adapters.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 4894,
+        "issue_url": "https://github.com/psf/requests/issues/4894",
+        "pr_number": 5128,
+        "pr_url": "https://github.com/psf/requests/pull/5128",
+        "difficulty": null,
+        "issue_created_at": "2018-12-06T19:10:09Z",
+        "pr_created_at": "2019-07-02T10:13:18Z",
+        "pr_merged_at": "2019-08-20T04:15:45Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "7d5aaaea",
+      "repo_id": "psf/requests",
+      "commit_hash": "949c8111439e0210a6a40c823b3fdf9beffce9ca",
+      "query": "Document threading contract for Session class\n\nRight now, it's quite difficult to figure out if the Session class is threadsafe or not. The docs don't say, apart from a \"thread-safe\" bullet on the home page. Google led me to http://stackoverflow.com/questions/18188044/is-the-session-object-from-pythons-requests-library-thread-safe, whose first answer boils down to \"be very careful\".\n\nInspired by that SO author, I've been auditing the code myself, and have come to the conclusion that Session is probably not threadsafe. (The use of `self.redir",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "requests/api.py",
+            "function_name": null,
+            "span": null
+          },
+          {
+            "file_path": "requests/config.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 2766,
+        "issue_url": "https://github.com/psf/requests/issues/2766",
+        "pr_number": 100,
+        "pr_url": "https://github.com/fauna/faunadb-python/pull/100",
+        "difficulty": null,
+        "issue_created_at": "2015-09-10T13:44:25Z",
+        "pr_created_at": "2011-08-09T08:06:15Z",
+        "pr_merged_at": "2011-08-09T10:37:58Z",
+        "era": "pre_ai"
+      }
+    },
+    {
+      "sample_id": "d894b424",
+      "repo_id": "psf/requests",
+      "commit_hash": "42c5a4f62268dd6e0499aac02a2ef481286e5798",
+      "query": "Connection timeout doesn't work for chunk-encoded requests\n\nOriginal issue was #1422, but I was able to reproduce in 2.18.4.\r\n\r\n## Expected Result\r\n\r\nChunk-encoded requests timeout after the specified timeout if the server does not respond.\r\n\r\n## Actual Result\r\n\r\nRequest holds connection open and never times out.\r\n\r\n## Reproduction Steps\r\n\r\nFirst, run a test server that accepts POST requests and waits 10 seconds before responding:\r\n```python\r\nfrom http.server import BaseHTTPRequestHandler, HTTPServer\r\nimport time\r\n\r\nclass Handler(BaseHTTPRequestHandler):",
+      "ground_truth": {
+        "targets": [
+          {
+            "file_path": "requests/adapters.py",
+            "function_name": null,
+            "span": null
+          }
+        ]
+      },
+      "metadata": {
+        "test_case_type": "TC1",
+        "issue_number": 4402,
+        "issue_url": "https://github.com/psf/requests/issues/4402",
+        "pr_number": 5128,
+        "pr_url": "https://github.com/psf/requests/pull/5128",
+        "difficulty": null,
+        "issue_created_at": "2017-11-27T18:19:03Z",
+        "pr_created_at": "2019-07-02T10:13:18Z",
+        "pr_merged_at": "2019-08-20T04:15:45Z",
+        "era": "pre_ai"
+      }
+    }
+  ]
+}

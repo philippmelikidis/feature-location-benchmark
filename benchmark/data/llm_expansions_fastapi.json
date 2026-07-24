@@ -1,0 +1,1404 @@
+{
+  "repo": "fastapi",
+  "created_at": "2026-06-25T08:10:01.046312",
+  "llm_url": "http://localhost:11434/v1",
+  "num_samples": 16,
+  "expansions": {
+    "a2d49b23": {
+      "title": "Using pydantic Json Type as Form data type doesn't work",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"parse_form\",\n    \"create_response\",\n    \"get_request_data\"\n  ],\n  \"classes\": [\n    \"Request\",\n    \"Response\",\n    \"Form\"\n  ],\n  \"files\": [\n    \"fastapi/dependencies/utils.py\",\n    \"fastapi/routing.py\",\n    \"fastapi/form.py\"\n  ],\n  \"imports\": [\n    \"from pydantic import BaseModel, Json\",\n    \"from fastapi import FastAPI, Form\"\n  ],\n  \"keywords\": [\n    \"pydantic\",\n    \"form\",\n    \"json\",\n    \"request\",\n    \"response\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "parse_form",
+          "create_response",
+          "get_request_data"
+        ],
+        "classes": [
+          "Request",
+          "Response",
+          "Form"
+        ],
+        "files": [
+          "fastapi/dependencies/utils.py",
+          "fastapi/routing.py",
+          "fastapi/form.py"
+        ],
+        "imports": [
+          "from pydantic import BaseModel, Json",
+          "from fastapi import FastAPI, Form"
+        ],
+        "keywords": [
+          "pydantic",
+          "form",
+          "json",
+          "request",
+          "response"
+        ]
+      },
+      "flat_terms": "parse_form create_response get_request_data Request Response Form fastapi/dependencies/utils.py fastapi/routing.py fastapi/form.py from pydantic import BaseModel, Json from fastapi import FastAPI, Form pydantic form json request response",
+      "combined_query": "Using pydantic Json Type as Form data type doesn't work parse_form create_response get_request_data Request Response Form fastapi/dependencies/utils.py fastapi/routing.py fastapi/form.py from pydantic import BaseModel, Json from fastapi import FastAPI, Form pydantic form json request response",
+      "expansion_time_s": 27.6
+    },
+    "49da1b94": {
+      "title": "`Annotated` dependencies are interpreted incorrectly when using `PEP 695`-style type alias.",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"create_instance\",\n    \"solve_dependencies\",\n    \"parse_annotation\"\n  ],\n  \"classes\": [\n    \"Annotated\",\n    \"DependencyModel\",\n    \"TypeAlias\"\n  ],\n  \"files\": [\n    \"fastapi/dependencies/utils.py\",\n    \"fastapi/openapi/models.py\",\n    \"fastapi/types.py\"\n  ],\n  \"imports\": [\n    \"from typing import Annotated, TypeAlias\",\n    \"from fastapi.dependencies.models import DependencyModel\",\n    \"from fastapi.openapi.models import Schema\"\n  ],\n  \"keywords\": [\n    \"PEP695\",\n    \"type_alias\",\n    \"dependency_injection\",\n    \"annotation_parsing\",\n    \"fastapi_version\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "create_instance",
+          "solve_dependencies",
+          "parse_annotation"
+        ],
+        "classes": [
+          "Annotated",
+          "DependencyModel",
+          "TypeAlias"
+        ],
+        "files": [
+          "fastapi/dependencies/utils.py",
+          "fastapi/openapi/models.py",
+          "fastapi/types.py"
+        ],
+        "imports": [
+          "from typing import Annotated, TypeAlias",
+          "from fastapi.dependencies.models import DependencyModel",
+          "from fastapi.openapi.models import Schema"
+        ],
+        "keywords": [
+          "PEP695",
+          "type_alias",
+          "dependency_injection",
+          "annotation_parsing",
+          "fastapi_version"
+        ]
+      },
+      "flat_terms": "create_instance solve_dependencies parse_annotation Annotated DependencyModel TypeAlias fastapi/dependencies/utils.py fastapi/openapi/models.py fastapi/types.py from typing import Annotated, TypeAlias from fastapi.dependencies.models import DependencyModel from fastapi.openapi.models import Schema PEP695 type_alias dependency_injection annotation_parsing fastapi_version",
+      "combined_query": "`Annotated` dependencies are interpreted incorrectly when using `PEP 695`-style type alias. create_instance solve_dependencies parse_annotation Annotated DependencyModel TypeAlias fastapi/dependencies/utils.py fastapi/openapi/models.py fastapi/types.py from typing import Annotated, TypeAlias from fastapi.dependencies.models import DependencyModel from fastapi.openapi.models import Schema PEP695 type_alias dependency_injection annotation_parsing fastapi_version",
+      "expansion_time_s": 17.7
+    },
+    "7f1290de": {
+      "title": "Cannot use `Response` type hint as dependency annotation",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"create_response\", \"add_dependency\"],\n  \"classes\": [\"Response\", \"Depends\"],\n  \"files\": [\"fastapi/dependencies.py\", \"fastapi/applications.py\"],\n  \"imports\": [\n    \"from fastapi import Response, Depends\",\n    \"from typing import Annotated\"\n  ],\n  \"keywords\": [\"Annotated\", \"Dependency\", \"Response\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "create_response",
+          "add_dependency"
+        ],
+        "classes": [
+          "Response",
+          "Depends"
+        ],
+        "files": [
+          "fastapi/dependencies.py",
+          "fastapi/applications.py"
+        ],
+        "imports": [
+          "from fastapi import Response, Depends",
+          "from typing import Annotated"
+        ],
+        "keywords": [
+          "Annotated",
+          "Dependency",
+          "Response"
+        ]
+      },
+      "flat_terms": "create_response add_dependency Response Depends fastapi/dependencies.py fastapi/applications.py from fastapi import Response, Depends from typing import Annotated Annotated Dependency Response",
+      "combined_query": "Cannot use `Response` type hint as dependency annotation create_response add_dependency Response Depends fastapi/dependencies.py fastapi/applications.py from fastapi import Response, Depends from typing import Annotated Annotated Dependency Response",
+      "expansion_time_s": 9.7
+    },
+    "8e3cd9a3": {
+      "title": "Execute dependencies in parallel instead of sequentially awaiting them",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"Depends\",\n    \"FastAPI\",\n    \"get_big_data\",\n    \"compute_pi\"\n  ],\n  \"classes\": [\n    \"FastAPI\"\n  ],\n  \"files\": [\n    \"fastapi/dependencies.py\",\n    \"fastapi/applications.py\"\n  ],\n  \"imports\": [\n    \"from fastapi import Depends, FastAPI\",\n    \"from asyncio import sleep as async_sleep\"\n  ],\n  \"keywords\": [\n    \"Dependency injection\",\n    \"asyncio\",\n    \"parallel execution\",\n    \"await\",\n    \"sleep\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Depends",
+          "FastAPI",
+          "get_big_data",
+          "compute_pi"
+        ],
+        "classes": [
+          "FastAPI"
+        ],
+        "files": [
+          "fastapi/dependencies.py",
+          "fastapi/applications.py"
+        ],
+        "imports": [
+          "from fastapi import Depends, FastAPI",
+          "from asyncio import sleep as async_sleep"
+        ],
+        "keywords": [
+          "Dependency injection",
+          "asyncio",
+          "parallel execution",
+          "await",
+          "sleep"
+        ]
+      },
+      "flat_terms": "Depends FastAPI get_big_data compute_pi FastAPI fastapi/dependencies.py fastapi/applications.py from fastapi import Depends, FastAPI from asyncio import sleep as async_sleep Dependency injection asyncio parallel execution await sleep",
+      "combined_query": "Execute dependencies in parallel instead of sequentially awaiting them Depends FastAPI get_big_data compute_pi FastAPI fastapi/dependencies.py fastapi/applications.py from fastapi import Depends, FastAPI from asyncio import sleep as async_sleep Dependency injection asyncio parallel execution await sleep",
+      "expansion_time_s": 14.2
+    },
+    "51927afc": {
+      "title": "RequestValidationError is **not** a sub-class of Pydantic's ValidationError",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"__init__\",\n    \"handle_request_validation_error\"\n  ],\n  \"classes\": [\n    \"RequestValidationError\",\n    \"HTTPException\"\n  ],\n  \"files\": [\n    \"fastapi/exceptions.py\",\n    \"fastapi/routing.py\"\n  ],\n  \"imports\": [\n    \"from pydantic import ValidationError\",\n    \"from fastapi.exceptions import HTTPException\"\n  ],\n  \"keywords\": [\n    \"RequestValidationError\",\n    \"Pydantic\",\n    \"HTTPException\",\n    \"validation_error_handler\",\n    \"exception_handlers\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__init__",
+          "handle_request_validation_error"
+        ],
+        "classes": [
+          "RequestValidationError",
+          "HTTPException"
+        ],
+        "files": [
+          "fastapi/exceptions.py",
+          "fastapi/routing.py"
+        ],
+        "imports": [
+          "from pydantic import ValidationError",
+          "from fastapi.exceptions import HTTPException"
+        ],
+        "keywords": [
+          "RequestValidationError",
+          "Pydantic",
+          "HTTPException",
+          "validation_error_handler",
+          "exception_handlers"
+        ]
+      },
+      "flat_terms": "__init__ handle_request_validation_error RequestValidationError HTTPException fastapi/exceptions.py fastapi/routing.py from pydantic import ValidationError from fastapi.exceptions import HTTPException RequestValidationError Pydantic HTTPException validation_error_handler exception_handlers",
+      "combined_query": "RequestValidationError is **not** a sub-class of Pydantic's ValidationError __init__ handle_request_validation_error RequestValidationError HTTPException fastapi/exceptions.py fastapi/routing.py from pydantic import ValidationError from fastapi.exceptions import HTTPException RequestValidationError Pydantic HTTPException validation_error_handler exception_handlers",
+      "expansion_time_s": 15.8
+    },
+    "fec5890e": {
+      "title": "OpenAPI servers not being returned according how the docs say they should be",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"generate_openapi\",\n    \"get_openapi_data\",\n    \"add_server\"\n  ],\n  \"classes\": [\n    \"FastAPI\",\n    \"OpenAPIServer\"\n  ],\n  \"files\": [\n    \"fastapi/applications.py\",\n    \"fastapi/openapi/utils.py\",\n    \"fastapi/openapi/models.py\"\n  ],\n  \"imports\": [\n    \"from fastapi.openapi.utils import get_openapi_data\",\n    \"from fastapi.openapi.models import OpenAPIServer\"\n  ],\n  \"keywords\": [\n    \"openapi\",\n    \"server\",\n    \"generate\",\n    \"add_server\",\n    \"FastAPI\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "generate_openapi",
+          "get_openapi_data",
+          "add_server"
+        ],
+        "classes": [
+          "FastAPI",
+          "OpenAPIServer"
+        ],
+        "files": [
+          "fastapi/applications.py",
+          "fastapi/openapi/utils.py",
+          "fastapi/openapi/models.py"
+        ],
+        "imports": [
+          "from fastapi.openapi.utils import get_openapi_data",
+          "from fastapi.openapi.models import OpenAPIServer"
+        ],
+        "keywords": [
+          "openapi",
+          "server",
+          "generate",
+          "add_server",
+          "FastAPI"
+        ]
+      },
+      "flat_terms": "generate_openapi get_openapi_data add_server FastAPI OpenAPIServer fastapi/applications.py fastapi/openapi/utils.py fastapi/openapi/models.py from fastapi.openapi.utils import get_openapi_data from fastapi.openapi.models import OpenAPIServer openapi server generate add_server FastAPI",
+      "combined_query": "OpenAPI servers not being returned according how the docs say they should be generate_openapi get_openapi_data add_server FastAPI OpenAPIServer fastapi/applications.py fastapi/openapi/utils.py fastapi/openapi/models.py from fastapi.openapi.utils import get_openapi_data from fastapi.openapi.models import OpenAPIServer openapi server generate add_server FastAPI",
+      "expansion_time_s": 16.8
+    },
+    "0b1f3e95": {
+      "title": "Add section to docs about configuration",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"add_section_to_docs\", \"generate_config_section\"],\n  \"classes\": [\"FastAPI\", \"BaseSettings\", \"Config\"],\n  \"files\": [\n    \"docs/tutorial/configuration.md\",\n    \"fastapi/applications.py\",\n    \"pydantic/main.py\",\n    \"starlette/config.py\"\n  ],\n  \"imports\": [\n    \"from fastapi import FastAPI\",\n    \"from pydantic import BaseSettings\",\n    \"from starlette.config import Config\"\n  ],\n  \"keywords\": [\"configuration\", \"docs\", \"BaseSettings\", \"Config\", \"FastAPI\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "add_section_to_docs",
+          "generate_config_section"
+        ],
+        "classes": [
+          "FastAPI",
+          "BaseSettings",
+          "Config"
+        ],
+        "files": [
+          "docs/tutorial/configuration.md",
+          "fastapi/applications.py",
+          "pydantic/main.py",
+          "starlette/config.py"
+        ],
+        "imports": [
+          "from fastapi import FastAPI",
+          "from pydantic import BaseSettings",
+          "from starlette.config import Config"
+        ],
+        "keywords": [
+          "configuration",
+          "docs",
+          "BaseSettings",
+          "Config",
+          "FastAPI"
+        ]
+      },
+      "flat_terms": "add_section_to_docs generate_config_section FastAPI BaseSettings Config docs/tutorial/configuration.md fastapi/applications.py pydantic/main.py starlette/config.py from fastapi import FastAPI from pydantic import BaseSettings from starlette.config import Config configuration docs BaseSettings Config FastAPI",
+      "combined_query": "Add section to docs about configuration add_section_to_docs generate_config_section FastAPI BaseSettings Config docs/tutorial/configuration.md fastapi/applications.py pydantic/main.py starlette/config.py from fastapi import FastAPI from pydantic import BaseSettings from starlette.config import Config configuration docs BaseSettings Config FastAPI",
+      "expansion_time_s": 16.6
+    },
+    "025cd584": {
+      "title": "Using PEP 649 annotations with status code `204 No Content` and return type `None` raises `AssertionError`",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"add_api_route\", \"validate_response_field\"],\n  \"classes\": [\"FastAPI\", \"HTTPException\"],\n  \"files\": [\"fastapi/applications.py\", \"fastapi/routing.py\", \"fastapi/dependencies/utils.py\"],\n  \"imports\": [\n    \"from fastapi import FastAPI\",\n    \"from fastapi.responses import Response\",\n    \"from typing import Any, Optional\"\n  ],\n  \"keywords\": [\"status_code\", \"NoneType\", \"annotations\", \"response_model\", \"HTTPStatus\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "add_api_route",
+          "validate_response_field"
+        ],
+        "classes": [
+          "FastAPI",
+          "HTTPException"
+        ],
+        "files": [
+          "fastapi/applications.py",
+          "fastapi/routing.py",
+          "fastapi/dependencies/utils.py"
+        ],
+        "imports": [
+          "from fastapi import FastAPI",
+          "from fastapi.responses import Response",
+          "from typing import Any, Optional"
+        ],
+        "keywords": [
+          "status_code",
+          "NoneType",
+          "annotations",
+          "response_model",
+          "HTTPStatus"
+        ]
+      },
+      "flat_terms": "add_api_route validate_response_field FastAPI HTTPException fastapi/applications.py fastapi/routing.py fastapi/dependencies/utils.py from fastapi import FastAPI from fastapi.responses import Response from typing import Any, Optional status_code NoneType annotations response_model HTTPStatus",
+      "combined_query": "Using PEP 649 annotations with status code `204 No Content` and return type `None` raises `AssertionError` add_api_route validate_response_field FastAPI HTTPException fastapi/applications.py fastapi/routing.py fastapi/dependencies/utils.py from fastapi import FastAPI from fastapi.responses import Response from typing import Any, Optional status_code NoneType annotations response_model HTTPStatus",
+      "expansion_time_s": 13.4
+    },
+    "92789a99": {
+      "title": "Use TestClient in an async fashion",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"run_in_threadpool\", \"asyncio.run\"],\n  \"classes\": [\"TestClient\"],\n  \"files\": [\"testclient.py\", \"utils.py\"],\n  \"imports\": [\n    \"from starlette.testclient import TestClient\",\n    \"import asyncio\"\n  ],\n  \"keywords\": [\"asyncio\", \"event_loop\", \"threadpool\", \"coroutine\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "run_in_threadpool",
+          "asyncio.run"
+        ],
+        "classes": [
+          "TestClient"
+        ],
+        "files": [
+          "testclient.py",
+          "utils.py"
+        ],
+        "imports": [
+          "from starlette.testclient import TestClient",
+          "import asyncio"
+        ],
+        "keywords": [
+          "asyncio",
+          "event_loop",
+          "threadpool",
+          "coroutine"
+        ]
+      },
+      "flat_terms": "run_in_threadpool asyncio.run TestClient testclient.py utils.py from starlette.testclient import TestClient import asyncio asyncio event_loop threadpool coroutine",
+      "combined_query": "Use TestClient in an async fashion run_in_threadpool asyncio.run TestClient testclient.py utils.py from starlette.testclient import TestClient import asyncio asyncio event_loop threadpool coroutine",
+      "expansion_time_s": 9.8
+    },
+    "76fee4d1": {
+      "title": "Traceback stack does not show exact place of error",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"create_app\", \"add_route\", \"handle_request\"],\n  \"classes\": [\"FastAPI\", \"Request\", \"Response\"],\n  \"files\": [\"fastapi/applications.py\", \"fastapi/routing.py\", \"fastapi/requests.py\"],\n  \"imports\": [\n    \"from fastapi import FastAPI\",\n    \"from starlette.requests import Request\",\n    \"from starlette.responses import Response\"\n  ],\n  \"keywords\": [\"exception_handler\", \"middleware\", \"traceback\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "create_app",
+          "add_route",
+          "handle_request"
+        ],
+        "classes": [
+          "FastAPI",
+          "Request",
+          "Response"
+        ],
+        "files": [
+          "fastapi/applications.py",
+          "fastapi/routing.py",
+          "fastapi/requests.py"
+        ],
+        "imports": [
+          "from fastapi import FastAPI",
+          "from starlette.requests import Request",
+          "from starlette.responses import Response"
+        ],
+        "keywords": [
+          "exception_handler",
+          "middleware",
+          "traceback"
+        ]
+      },
+      "flat_terms": "create_app add_route handle_request FastAPI Request Response fastapi/applications.py fastapi/routing.py fastapi/requests.py from fastapi import FastAPI from starlette.requests import Request from starlette.responses import Response exception_handler middleware traceback",
+      "combined_query": "Traceback stack does not show exact place of error create_app add_route handle_request FastAPI Request Response fastapi/applications.py fastapi/routing.py fastapi/requests.py from fastapi import FastAPI from starlette.requests import Request from starlette.responses import Response exception_handler middleware traceback",
+      "expansion_time_s": 12.8
+    },
+    "9d13bf17": {
+      "title": "tags at APIRouter level",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"add_api_route\", \"include_router\"],\n  \"classes\": [\"APIRoute\", \"APIRouter\"],\n  \"files\": [\"fastapi/routing.py\", \"fastapi/applications.py\"],\n  \"imports\": [\n    \"from fastapi.routing import APIRoute, APIRouter\",\n    \"from fastapi.applications import FastAPI\"\n  ],\n  \"keywords\": [\"tags\", \"route\", \"router\", \"inheritance\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "add_api_route",
+          "include_router"
+        ],
+        "classes": [
+          "APIRoute",
+          "APIRouter"
+        ],
+        "files": [
+          "fastapi/routing.py",
+          "fastapi/applications.py"
+        ],
+        "imports": [
+          "from fastapi.routing import APIRoute, APIRouter",
+          "from fastapi.applications import FastAPI"
+        ],
+        "keywords": [
+          "tags",
+          "route",
+          "router",
+          "inheritance"
+        ]
+      },
+      "flat_terms": "add_api_route include_router APIRoute APIRouter fastapi/routing.py fastapi/applications.py from fastapi.routing import APIRoute, APIRouter from fastapi.applications import FastAPI tags route router inheritance",
+      "combined_query": "tags at APIRouter level add_api_route include_router APIRoute APIRouter fastapi/routing.py fastapi/applications.py from fastapi.routing import APIRoute, APIRouter from fastapi.applications import FastAPI tags route router inheritance",
+      "expansion_time_s": 12.7
+    },
+    "a34d60aa": {
+      "title": "How to define custom objects as query parameters in FastAPI (using PydanticV2 annotations)?",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"create_query_params\",\n    \"parse_query_params\",\n    \"register_custom_type\"\n  ],\n  \"classes\": [\n    \"QueryParams\",\n    \"CustomType\",\n    \"FastAPI\"\n  ],\n  \"files\": [\n    \"fastapi/params.py\",\n    \"fastapi/query.py\",\n    \"fastapi/applications.py\"\n  ],\n  \"imports\": [\n    \"from pydantic import BaseModel\",\n    \"from fastapi import FastAPI, Query\",\n    \"from typing import Any, Dict\"\n  ],\n  \"keywords\": [\n    \"query_params\",\n    \"custom_types\",\n    \"pydantic_v2\",\n    \"FastAPI_route\",\n    \"endpoint_definition\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "create_query_params",
+          "parse_query_params",
+          "register_custom_type"
+        ],
+        "classes": [
+          "QueryParams",
+          "CustomType",
+          "FastAPI"
+        ],
+        "files": [
+          "fastapi/params.py",
+          "fastapi/query.py",
+          "fastapi/applications.py"
+        ],
+        "imports": [
+          "from pydantic import BaseModel",
+          "from fastapi import FastAPI, Query",
+          "from typing import Any, Dict"
+        ],
+        "keywords": [
+          "query_params",
+          "custom_types",
+          "pydantic_v2",
+          "FastAPI_route",
+          "endpoint_definition"
+        ]
+      },
+      "flat_terms": "create_query_params parse_query_params register_custom_type QueryParams CustomType FastAPI fastapi/params.py fastapi/query.py fastapi/applications.py from pydantic import BaseModel from fastapi import FastAPI, Query from typing import Any, Dict query_params custom_types pydantic_v2 FastAPI_route endpoint_definition",
+      "combined_query": "How to define custom objects as query parameters in FastAPI (using PydanticV2 annotations)? create_query_params parse_query_params register_custom_type QueryParams CustomType FastAPI fastapi/params.py fastapi/query.py fastapi/applications.py from pydantic import BaseModel from fastapi import FastAPI, Query from typing import Any, Dict query_params custom_types pydantic_v2 FastAPI_route endpoint_definition",
+      "expansion_time_s": 20.9
+    },
+    "d86a5bfc": {
+      "title": "Update JWT docs with python-jose",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"update_jwt_docs\",\n    \"generate_documentation\"\n  ],\n  \"classes\": [\n    \"JWTConfig\",\n    \"FastAPIDocumentation\"\n  ],\n  \"files\": [\n    \"docs/jwt.md\",\n    \"fastapi/security/oauth2.py\",\n    \"fastapi/docs/utils.py\"\n  ],\n  \"imports\": [\n    \"from fastapi.security import OAuth2PasswordBearer\",\n    \"import python_jose as jose\"\n  ],\n  \"keywords\": [\n    \"jwt\",\n    \"python-jose\",\n    \"documentation\",\n    \"security\",\n    \"oauth2\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "update_jwt_docs",
+          "generate_documentation"
+        ],
+        "classes": [
+          "JWTConfig",
+          "FastAPIDocumentation"
+        ],
+        "files": [
+          "docs/jwt.md",
+          "fastapi/security/oauth2.py",
+          "fastapi/docs/utils.py"
+        ],
+        "imports": [
+          "from fastapi.security import OAuth2PasswordBearer",
+          "import python_jose as jose"
+        ],
+        "keywords": [
+          "jwt",
+          "python-jose",
+          "documentation",
+          "security",
+          "oauth2"
+        ]
+      },
+      "flat_terms": "update_jwt_docs generate_documentation JWTConfig FastAPIDocumentation docs/jwt.md fastapi/security/oauth2.py fastapi/docs/utils.py from fastapi.security import OAuth2PasswordBearer import python_jose as jose jwt python-jose documentation security oauth2",
+      "combined_query": "Update JWT docs with python-jose update_jwt_docs generate_documentation JWTConfig FastAPIDocumentation docs/jwt.md fastapi/security/oauth2.py fastapi/docs/utils.py from fastapi.security import OAuth2PasswordBearer import python_jose as jose jwt python-jose documentation security oauth2",
+      "expansion_time_s": 19.1
+    },
+    "2d6a3202": {
+      "title": "OpenAPI fails when forcing query params to be body and multiple params in each",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"generate_openapi\",\n    \"add_api_route\",\n    \"create_body_params\"\n  ],\n  \"classes\": [\n    \"FastAPI\",\n    \"Body\",\n    \"Query\"\n  ],\n  \"files\": [\n    \"fastapi/applications.py\",\n    \"fastapi/params.py\",\n    \"fastapi/openapi/utils.py\"\n  ],\n  \"imports\": [\n    \"from fastapi import FastAPI, Body\",\n    \"from fastapi.openapi.utils import get_openapi\"\n  ],\n  \"keywords\": [\n    \"OpenAPI\",\n    \"body_params\",\n    \"query_params\",\n    \"endpoint\",\n    \"route\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "generate_openapi",
+          "add_api_route",
+          "create_body_params"
+        ],
+        "classes": [
+          "FastAPI",
+          "Body",
+          "Query"
+        ],
+        "files": [
+          "fastapi/applications.py",
+          "fastapi/params.py",
+          "fastapi/openapi/utils.py"
+        ],
+        "imports": [
+          "from fastapi import FastAPI, Body",
+          "from fastapi.openapi.utils import get_openapi"
+        ],
+        "keywords": [
+          "OpenAPI",
+          "body_params",
+          "query_params",
+          "endpoint",
+          "route"
+        ]
+      },
+      "flat_terms": "generate_openapi add_api_route create_body_params FastAPI Body Query fastapi/applications.py fastapi/params.py fastapi/openapi/utils.py from fastapi import FastAPI, Body from fastapi.openapi.utils import get_openapi OpenAPI body_params query_params endpoint route",
+      "combined_query": "OpenAPI fails when forcing query params to be body and multiple params in each generate_openapi add_api_route create_body_params FastAPI Body Query fastapi/applications.py fastapi/params.py fastapi/openapi/utils.py from fastapi import FastAPI, Body from fastapi.openapi.utils import get_openapi OpenAPI body_params query_params endpoint route",
+      "expansion_time_s": 19.8
+    },
+    "77e841d2": {
+      "title": "I need a way to specify servers in the openapi spec",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"add_server\", \"update_openapi\"],\n  \"classes\": [\"FastAPI\", \"OpenAPI\"],\n  \"files\": [\"fastapi/applications.py\", \"fastapi/openapi/utils.py\"],\n  \"imports\": [\n    \"from fastapi import FastAPI\",\n    \"from fastapi.openapi.utils import get_openapi\"\n  ],\n  \"keywords\": [\"servers\", \"openapi\", \"base_url\", \"specification\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "add_server",
+          "update_openapi"
+        ],
+        "classes": [
+          "FastAPI",
+          "OpenAPI"
+        ],
+        "files": [
+          "fastapi/applications.py",
+          "fastapi/openapi/utils.py"
+        ],
+        "imports": [
+          "from fastapi import FastAPI",
+          "from fastapi.openapi.utils import get_openapi"
+        ],
+        "keywords": [
+          "servers",
+          "openapi",
+          "base_url",
+          "specification"
+        ]
+      },
+      "flat_terms": "add_server update_openapi FastAPI OpenAPI fastapi/applications.py fastapi/openapi/utils.py from fastapi import FastAPI from fastapi.openapi.utils import get_openapi servers openapi base_url specification",
+      "combined_query": "I need a way to specify servers in the openapi spec add_server update_openapi FastAPI OpenAPI fastapi/applications.py fastapi/openapi/utils.py from fastapi import FastAPI from fastapi.openapi.utils import get_openapi servers openapi base_url specification",
+      "expansion_time_s": 14.2
+    },
+    "00afdc3f": {
+      "title": "Support starlette \"lifespan\" context for application",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"lifespan\", \"startup_handler\", \"shutdown_handler\"],\n  \"classes\": [\"FastAPI\", \"LifespanContext\"],\n  \"files\": [\"fastapi/applications.py\", \"fastapi/lifespan.py\"],\n  \"imports\": [\n    \"from starlette.lifespan import Lifespan\",\n    \"from fastapi import FastAPI\"\n  ],\n  \"keywords\": [\"lifespan\", \"startup\", \"shutdown\", \"context\", \"Starlette\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "lifespan",
+          "startup_handler",
+          "shutdown_handler"
+        ],
+        "classes": [
+          "FastAPI",
+          "LifespanContext"
+        ],
+        "files": [
+          "fastapi/applications.py",
+          "fastapi/lifespan.py"
+        ],
+        "imports": [
+          "from starlette.lifespan import Lifespan",
+          "from fastapi import FastAPI"
+        ],
+        "keywords": [
+          "lifespan",
+          "startup",
+          "shutdown",
+          "context",
+          "Starlette"
+        ]
+      },
+      "flat_terms": "lifespan startup_handler shutdown_handler FastAPI LifespanContext fastapi/applications.py fastapi/lifespan.py from starlette.lifespan import Lifespan from fastapi import FastAPI lifespan startup shutdown context Starlette",
+      "combined_query": "Support starlette \"lifespan\" context for application lifespan startup_handler shutdown_handler FastAPI LifespanContext fastapi/applications.py fastapi/lifespan.py from starlette.lifespan import Lifespan from fastapi import FastAPI lifespan startup shutdown context Starlette",
+      "expansion_time_s": 15.3
+    },
+    "b5b6a0da": {
+      "title": "OAuth2 security schemes duplicated in OpenAPI, with and without scopes, when used at the router level",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"OAuth2PasswordBearer.__init__\",\n    \"SecurityDependency.__call__\",\n    \"APIRouter.include_router\"\n  ],\n  \"classes\": [\n    \"OAuth2PasswordBearer\",\n    \"SecurityDependency\",\n    \"APIRouter\"\n  ],\n  \"files\": [\n    \"fastapi/security.py\",\n    \"fastapi/routing.py\"\n  ],\n  \"imports\": [\n    \"from fastapi.security import OAuth2PasswordBearer, SecurityDependency\",\n    \"from fastapi.routing import APIRouter\"\n  ],\n  \"keywords\": [\n    \"OAuth2\",\n    \"security schemes\",\n    \"OpenAPI\",\n    \"scopes\",\n    \"router level\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "OAuth2PasswordBearer.__init__",
+          "SecurityDependency.__call__",
+          "APIRouter.include_router"
+        ],
+        "classes": [
+          "OAuth2PasswordBearer",
+          "SecurityDependency",
+          "APIRouter"
+        ],
+        "files": [
+          "fastapi/security.py",
+          "fastapi/routing.py"
+        ],
+        "imports": [
+          "from fastapi.security import OAuth2PasswordBearer, SecurityDependency",
+          "from fastapi.routing import APIRouter"
+        ],
+        "keywords": [
+          "OAuth2",
+          "security schemes",
+          "OpenAPI",
+          "scopes",
+          "router level"
+        ]
+      },
+      "flat_terms": "OAuth2PasswordBearer.__init__ SecurityDependency.__call__ APIRouter.include_router OAuth2PasswordBearer SecurityDependency APIRouter fastapi/security.py fastapi/routing.py from fastapi.security import OAuth2PasswordBearer, SecurityDependency from fastapi.routing import APIRouter OAuth2 security schemes OpenAPI scopes router level",
+      "combined_query": "OAuth2 security schemes duplicated in OpenAPI, with and without scopes, when used at the router level OAuth2PasswordBearer.__init__ SecurityDependency.__call__ APIRouter.include_router OAuth2PasswordBearer SecurityDependency APIRouter fastapi/security.py fastapi/routing.py from fastapi.security import OAuth2PasswordBearer, SecurityDependency from fastapi.routing import APIRouter OAuth2 security schemes OpenAPI scopes router level",
+      "expansion_time_s": 16.5
+    },
+    "bd7400d7": {
+      "title": "functools.partial() does not work on an async dependable",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"functools.partial\"],\n  \"classes\": [],\n  \"files\": [\"fastapi/dependencies/utils.py\", \"fastapi/dependencies/dependable.py\"],\n  \"imports\": [\"from functools import partial\"],\n  \"keywords\": [\"async\", \"dependable\", \"partial\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "functools.partial"
+        ],
+        "classes": [],
+        "files": [
+          "fastapi/dependencies/utils.py",
+          "fastapi/dependencies/dependable.py"
+        ],
+        "imports": [
+          "from functools import partial"
+        ],
+        "keywords": [
+          "async",
+          "dependable",
+          "partial"
+        ]
+      },
+      "flat_terms": "functools.partial fastapi/dependencies/utils.py fastapi/dependencies/dependable.py from functools import partial async dependable partial",
+      "combined_query": "functools.partial() does not work on an async dependable functools.partial fastapi/dependencies/utils.py fastapi/dependencies/dependable.py from functools import partial async dependable partial",
+      "expansion_time_s": 6.9
+    },
+    "137dfc29": {
+      "title": "Multiple regressions in the handling of forms & form validation",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"Form\",\n    \"parse_form_data\",\n    \"validate_form\"\n  ],\n  \"classes\": [\n    \"Request\",\n    \"FormModel\"\n  ],\n  \"files\": [\n    \"fastapi/dependencies/utils.py\",\n    \"fastapi/datastructures.py\",\n    \"fastapi/routing.py\"\n  ],\n  \"imports\": [\n    \"from fastapi import Form\",\n    \"from pydantic import BaseModel, validator\"\n  ],\n  \"keywords\": [\n    \"form handling\",\n    \"default values\",\n    \"x-form-urlencoded\",\n    \"multipart forms\",\n    \"validation\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Form",
+          "parse_form_data",
+          "validate_form"
+        ],
+        "classes": [
+          "Request",
+          "FormModel"
+        ],
+        "files": [
+          "fastapi/dependencies/utils.py",
+          "fastapi/datastructures.py",
+          "fastapi/routing.py"
+        ],
+        "imports": [
+          "from fastapi import Form",
+          "from pydantic import BaseModel, validator"
+        ],
+        "keywords": [
+          "form handling",
+          "default values",
+          "x-form-urlencoded",
+          "multipart forms",
+          "validation"
+        ]
+      },
+      "flat_terms": "Form parse_form_data validate_form Request FormModel fastapi/dependencies/utils.py fastapi/datastructures.py fastapi/routing.py from fastapi import Form from pydantic import BaseModel, validator form handling default values x-form-urlencoded multipart forms validation",
+      "combined_query": "Multiple regressions in the handling of forms & form validation Form parse_form_data validate_form Request FormModel fastapi/dependencies/utils.py fastapi/datastructures.py fastapi/routing.py from fastapi import Form from pydantic import BaseModel, validator form handling default values x-form-urlencoded multipart forms validation",
+      "expansion_time_s": 12.2
+    },
+    "4397ab96": {
+      "title": "HTTPBearer security scheme is returning 403 instead or 401",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"HTTPBearer.__call__\", \"SecurityScopes.get\"],\n  \"classes\": [\"HTTPBearer\"],\n  \"files\": [\"fastapi/security.py\"],\n  \"imports\": [\"from fastapi.security import HTTPBearer, SecurityScopes\"],\n  \"keywords\": [\"security\", \"authentication\", \"authorization\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "HTTPBearer.__call__",
+          "SecurityScopes.get"
+        ],
+        "classes": [
+          "HTTPBearer"
+        ],
+        "files": [
+          "fastapi/security.py"
+        ],
+        "imports": [
+          "from fastapi.security import HTTPBearer, SecurityScopes"
+        ],
+        "keywords": [
+          "security",
+          "authentication",
+          "authorization"
+        ]
+      },
+      "flat_terms": "HTTPBearer.__call__ SecurityScopes.get HTTPBearer fastapi/security.py from fastapi.security import HTTPBearer, SecurityScopes security authentication authorization",
+      "combined_query": "HTTPBearer security scheme is returning 403 instead or 401 HTTPBearer.__call__ SecurityScopes.get HTTPBearer fastapi/security.py from fastapi.security import HTTPBearer, SecurityScopes security authentication authorization",
+      "expansion_time_s": 8.1
+    },
+    "66f4f980": {
+      "title": "Query fields with numeric types appear not to enforce allow_inf_nan=False, whereas gt=0, etc are enforced",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate_query_field\", \"parse_numeric_type\"],\n  \"classes\": [\"QueryField\"],\n  \"files\": [\"fastapi/queries.py\", \"fastapi/types.py\"],\n  \"imports\": [\"from fastapi import Query\", \"import numpy as np\"],\n  \"keywords\": [\"query validation\", \"numeric types\", \"allow_inf_nan\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate_query_field",
+          "parse_numeric_type"
+        ],
+        "classes": [
+          "QueryField"
+        ],
+        "files": [
+          "fastapi/queries.py",
+          "fastapi/types.py"
+        ],
+        "imports": [
+          "from fastapi import Query",
+          "import numpy as np"
+        ],
+        "keywords": [
+          "query validation",
+          "numeric types",
+          "allow_inf_nan"
+        ]
+      },
+      "flat_terms": "validate_query_field parse_numeric_type QueryField fastapi/queries.py fastapi/types.py from fastapi import Query import numpy as np query validation numeric types allow_inf_nan",
+      "combined_query": "Query fields with numeric types appear not to enforce allow_inf_nan=False, whereas gt=0, etc are enforced validate_query_field parse_numeric_type QueryField fastapi/queries.py fastapi/types.py from fastapi import Query import numpy as np query validation numeric types allow_inf_nan",
+      "expansion_time_s": 8.9
+    },
+    "7c092273": {
+      "title": "Inconsistent add_api_route types",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"add_api_route\", \"_register_route\"],\n  \"classes\": [\"FastAPI\"],\n  \"files\": [\"fastapi/app.py\"],\n  \"imports\": [\"from fastapi import FastAPI\"],\n  \"keywords\": [\"route registration\", \"type inconsistency\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "add_api_route",
+          "_register_route"
+        ],
+        "classes": [
+          "FastAPI"
+        ],
+        "files": [
+          "fastapi/app.py"
+        ],
+        "imports": [
+          "from fastapi import FastAPI"
+        ],
+        "keywords": [
+          "route registration",
+          "type inconsistency"
+        ]
+      },
+      "flat_terms": "add_api_route _register_route FastAPI fastapi/app.py from fastapi import FastAPI route registration type inconsistency",
+      "combined_query": "Inconsistent add_api_route types add_api_route _register_route FastAPI fastapi/app.py from fastapi import FastAPI route registration type inconsistency",
+      "expansion_time_s": 5.8
+    },
+    "7c594f13": {
+      "title": "Support PEP 593 `Annotated` for specifying dependencies and parameters",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"create_dependency\", \"parse_dependencies\", \"validate_parameters\"],\n  \"classes\": [\"Dependency\", \"Parameter\"],\n  \"files\": [\"fastapi/dependencies.py\", \"fastapi/params.py\"],\n  \"imports\": [\"from typing import Annotated\"],\n  \"keywords\": [\"PEP 593\", \"dependency injection\", \"parameter validation\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "create_dependency",
+          "parse_dependencies",
+          "validate_parameters"
+        ],
+        "classes": [
+          "Dependency",
+          "Parameter"
+        ],
+        "files": [
+          "fastapi/dependencies.py",
+          "fastapi/params.py"
+        ],
+        "imports": [
+          "from typing import Annotated"
+        ],
+        "keywords": [
+          "PEP 593",
+          "dependency injection",
+          "parameter validation"
+        ]
+      },
+      "flat_terms": "create_dependency parse_dependencies validate_parameters Dependency Parameter fastapi/dependencies.py fastapi/params.py from typing import Annotated PEP 593 dependency injection parameter validation",
+      "combined_query": "Support PEP 593 `Annotated` for specifying dependencies and parameters create_dependency parse_dependencies validate_parameters Dependency Parameter fastapi/dependencies.py fastapi/params.py from typing import Annotated PEP 593 dependency injection parameter validation",
+      "expansion_time_s": 8.6
+    },
+    "0049b4f4": {
+      "title": "FastAPI does not respect __wrapped__ attribute, causing NameError for forward references in decorated functions.",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"__call__\", \"__wrapped__\"],\n  \"classes\": [\"Depends\"],\n  \"files\": [\"fastapi/deps.py\"],\n  \"imports\": [\"from fastapi import Depends\"],\n  \"keywords\": [\"dependency injection\", \"forward references\", \"__wrapped__\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "__call__",
+          "__wrapped__"
+        ],
+        "classes": [
+          "Depends"
+        ],
+        "files": [
+          "fastapi/deps.py"
+        ],
+        "imports": [
+          "from fastapi import Depends"
+        ],
+        "keywords": [
+          "dependency injection",
+          "forward references",
+          "__wrapped__"
+        ]
+      },
+      "flat_terms": "__call__ __wrapped__ Depends fastapi/deps.py from fastapi import Depends dependency injection forward references __wrapped__",
+      "combined_query": "FastAPI does not respect __wrapped__ attribute, causing NameError for forward references in decorated functions. __call__ __wrapped__ Depends fastapi/deps.py from fastapi import Depends dependency injection forward references __wrapped__",
+      "expansion_time_s": 6.7
+    },
+    "2806f51d": {
+      "title": "Defect: Dependency scope propagation is broken",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"create_dependency\", \"propagate_dependency_scope\"],\n  \"classes\": [\"Dependency\", \"Request\"],\n  \"files\": [\"fastapi/dependencies.py\", \"fastapi/routing.py\"],\n  \"imports\": [\"from fastapi import Depends, Request\"],\n  \"keywords\": [\"dependency\", \"scope\", \"propagation\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "create_dependency",
+          "propagate_dependency_scope"
+        ],
+        "classes": [
+          "Dependency",
+          "Request"
+        ],
+        "files": [
+          "fastapi/dependencies.py",
+          "fastapi/routing.py"
+        ],
+        "imports": [
+          "from fastapi import Depends, Request"
+        ],
+        "keywords": [
+          "dependency",
+          "scope",
+          "propagation"
+        ]
+      },
+      "flat_terms": "create_dependency propagate_dependency_scope Dependency Request fastapi/dependencies.py fastapi/routing.py from fastapi import Depends, Request dependency scope propagation",
+      "combined_query": "Defect: Dependency scope propagation is broken create_dependency propagate_dependency_scope Dependency Request fastapi/dependencies.py fastapi/routing.py from fastapi import Depends, Request dependency scope propagation",
+      "expansion_time_s": 8.3
+    },
+    "a1e80a99": {
+      "title": "Headers should be typed as Optional",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"add_header\"],\n  \"classes\": [\"Header\"],\n  \"files\": [\"fastapi/headers.py\", \"fastapi/routing.py\"],\n  \"imports\": [\"from typing import Optional\"],\n  \"keywords\": [\"header\", \"optional\", \"typing\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "add_header"
+        ],
+        "classes": [
+          "Header"
+        ],
+        "files": [
+          "fastapi/headers.py",
+          "fastapi/routing.py"
+        ],
+        "imports": [
+          "from typing import Optional"
+        ],
+        "keywords": [
+          "header",
+          "optional",
+          "typing"
+        ]
+      },
+      "flat_terms": "add_header Header fastapi/headers.py fastapi/routing.py from typing import Optional header optional typing",
+      "combined_query": "Headers should be typed as Optional add_header Header fastapi/headers.py fastapi/routing.py from typing import Optional header optional typing",
+      "expansion_time_s": 5.9
+    },
+    "9ed9e692": {
+      "title": "Trio -  Python library for async concurrency and I/O",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"run\", \"serve\"],\n  \"classes\": [\"Server\"],\n  \"files\": [\"hypercorn/main.py\", \"hypercorn/asyncio.py\"],\n  \"imports\": [\"import trio\"],\n  \"keywords\": [\"asyncio\", \"trio\", \"uvloop\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "run",
+          "serve"
+        ],
+        "classes": [
+          "Server"
+        ],
+        "files": [
+          "hypercorn/main.py",
+          "hypercorn/asyncio.py"
+        ],
+        "imports": [
+          "import trio"
+        ],
+        "keywords": [
+          "asyncio",
+          "trio",
+          "uvloop"
+        ]
+      },
+      "flat_terms": "run serve Server hypercorn/main.py hypercorn/asyncio.py import trio asyncio trio uvloop",
+      "combined_query": "Trio -  Python library for async concurrency and I/O run serve Server hypercorn/main.py hypercorn/asyncio.py import trio asyncio trio uvloop",
+      "expansion_time_s": 5.0
+    },
+    "df77181b": {
+      "title": "DeepLinking in swagger-ui is broken",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"get_swagger_ui_html\"],\n  \"classes\": [\"FastAPI\", \"SwaggerUIOptions\"],\n  \"files\": [\"fastapi/app.py\", \"fastapi/swagger/__init__.py\"],\n  \"imports\": [\n    \"from fastapi.openapi.docs import get_swagger_ui_html\",\n    \"from starlette.responses import HTMLResponse\"\n  ],\n  \"keywords\": [\"swagger-ui\", \"deepLinking\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "get_swagger_ui_html"
+        ],
+        "classes": [
+          "FastAPI",
+          "SwaggerUIOptions"
+        ],
+        "files": [
+          "fastapi/app.py",
+          "fastapi/swagger/__init__.py"
+        ],
+        "imports": [
+          "from fastapi.openapi.docs import get_swagger_ui_html",
+          "from starlette.responses import HTMLResponse"
+        ],
+        "keywords": [
+          "swagger-ui",
+          "deepLinking"
+        ]
+      },
+      "flat_terms": "get_swagger_ui_html FastAPI SwaggerUIOptions fastapi/app.py fastapi/swagger/__init__.py from fastapi.openapi.docs import get_swagger_ui_html from starlette.responses import HTMLResponse swagger-ui deepLinking",
+      "combined_query": "DeepLinking in swagger-ui is broken get_swagger_ui_html FastAPI SwaggerUIOptions fastapi/app.py fastapi/swagger/__init__.py from fastapi.openapi.docs import get_swagger_ui_html from starlette.responses import HTMLResponse swagger-ui deepLinking",
+      "expansion_time_s": 8.1
+    },
+    "d459aae1": {
+      "title": "JSON output reordered by pydantic @validator",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"@validator\", \"valid_units_only\"],\n  \"classes\": [\"BaseIngredientMixin\", \"IngredientBase\"],\n  \"files\": [\"models/ingredient.py\"],\n  \"imports\": [\"from pydantic import validator\", \"from decimal import Decimal\"],\n  \"keywords\": [\"pydantic\", \"validator\", \"decimal\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "@validator",
+          "valid_units_only"
+        ],
+        "classes": [
+          "BaseIngredientMixin",
+          "IngredientBase"
+        ],
+        "files": [
+          "models/ingredient.py"
+        ],
+        "imports": [
+          "from pydantic import validator",
+          "from decimal import Decimal"
+        ],
+        "keywords": [
+          "pydantic",
+          "validator",
+          "decimal"
+        ]
+      },
+      "flat_terms": "@validator valid_units_only BaseIngredientMixin IngredientBase models/ingredient.py from pydantic import validator from decimal import Decimal pydantic validator decimal",
+      "combined_query": "JSON output reordered by pydantic @validator @validator valid_units_only BaseIngredientMixin IngredientBase models/ingredient.py from pydantic import validator from decimal import Decimal pydantic validator decimal",
+      "expansion_time_s": 6.3
+    },
+    "7b58566f": {
+      "title": "Pydantic __root__ model - incorrect handling",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"Response\", \"Request\"],\n  \"classes\": [\"FastAPI\", \"PydanticModel\"],\n  \"files\": [\"fastapi/app.py\", \"pydantic/main.py\"],\n  \"imports\": [\n    \"from fastapi import FastAPI\",\n    \"from pydantic import BaseModel, Field\"\n  ],\n  \"keywords\": [\"response\", \"request\", \"model\", \"root\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Response",
+          "Request"
+        ],
+        "classes": [
+          "FastAPI",
+          "PydanticModel"
+        ],
+        "files": [
+          "fastapi/app.py",
+          "pydantic/main.py"
+        ],
+        "imports": [
+          "from fastapi import FastAPI",
+          "from pydantic import BaseModel, Field"
+        ],
+        "keywords": [
+          "response",
+          "request",
+          "model",
+          "root"
+        ]
+      },
+      "flat_terms": "Response Request FastAPI PydanticModel fastapi/app.py pydantic/main.py from fastapi import FastAPI from pydantic import BaseModel, Field response request model root",
+      "combined_query": "Pydantic __root__ model - incorrect handling Response Request FastAPI PydanticModel fastapi/app.py pydantic/main.py from fastapi import FastAPI from pydantic import BaseModel, Field response request model root",
+      "expansion_time_s": 9.9
+    },
+    "6326e6ea": {
+      "title": "`jsonable_encoder` function not working as expected with different type of variables",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"jsonable_encoder\"],\n  \"classes\": [],\n  \"files\": [\"fastapi/encoders.py\"],\n  \"imports\": [\"from fastapi.encoders import jsonable_encoder\"],\n  \"keywords\": [\"serialization\", \"data conversion\", \"JSON\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "jsonable_encoder"
+        ],
+        "classes": [],
+        "files": [
+          "fastapi/encoders.py"
+        ],
+        "imports": [
+          "from fastapi.encoders import jsonable_encoder"
+        ],
+        "keywords": [
+          "serialization",
+          "data conversion",
+          "JSON"
+        ]
+      },
+      "flat_terms": "jsonable_encoder fastapi/encoders.py from fastapi.encoders import jsonable_encoder serialization data conversion JSON",
+      "combined_query": "`jsonable_encoder` function not working as expected with different type of variables jsonable_encoder fastapi/encoders.py from fastapi.encoders import jsonable_encoder serialization data conversion JSON",
+      "expansion_time_s": 7.3
+    },
+    "5dab94d8": {
+      "title": "make swagger_ui_html, redoc_html and openapi.json handled by async function?",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"get_swagger_ui_html\",\n    \"get_redoc_html\",\n    \"get_openapi_json\"\n  ],\n  \"classes\": [],\n  \"files\": [\n    \"fastapi/applications.py\"\n  ],\n  \"imports\": [\n    \"from fastapi import FastAPI\"\n  ],\n  \"keywords\": [\n    \"async\",\n    \"router\",\n    \"handler\",\n    \"performance\",\n    \"coroutine\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "get_swagger_ui_html",
+          "get_redoc_html",
+          "get_openapi_json"
+        ],
+        "classes": [],
+        "files": [
+          "fastapi/applications.py"
+        ],
+        "imports": [
+          "from fastapi import FastAPI"
+        ],
+        "keywords": [
+          "async",
+          "router",
+          "handler",
+          "performance",
+          "coroutine"
+        ]
+      },
+      "flat_terms": "get_swagger_ui_html get_redoc_html get_openapi_json fastapi/applications.py from fastapi import FastAPI async router handler performance coroutine",
+      "combined_query": "make swagger_ui_html, redoc_html and openapi.json handled by async function? get_swagger_ui_html get_redoc_html get_openapi_json fastapi/applications.py from fastapi import FastAPI async router handler performance coroutine",
+      "expansion_time_s": 9.7
+    },
+    "93f0b95f": {
+      "title": "Add support for Pydantic's dataclasses",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"create_response_model\"],\n  \"classes\": [\"FastAPI\", \"dataclass\"],\n  \"files\": [\"fastapi/__init__.py\", \"pydantic/dataclasses.py\"],\n  \"imports\": [\"from pydantic.dataclasses import dataclass\"],\n  \"keywords\": [\"Pydantic\", \"dataclasses\", \"response_model\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "create_response_model"
+        ],
+        "classes": [
+          "FastAPI",
+          "dataclass"
+        ],
+        "files": [
+          "fastapi/__init__.py",
+          "pydantic/dataclasses.py"
+        ],
+        "imports": [
+          "from pydantic.dataclasses import dataclass"
+        ],
+        "keywords": [
+          "Pydantic",
+          "dataclasses",
+          "response_model"
+        ]
+      },
+      "flat_terms": "create_response_model FastAPI dataclass fastapi/__init__.py pydantic/dataclasses.py from pydantic.dataclasses import dataclass Pydantic dataclasses response_model",
+      "combined_query": "Add support for Pydantic's dataclasses create_response_model FastAPI dataclass fastapi/__init__.py pydantic/dataclasses.py from pydantic.dataclasses import dataclass Pydantic dataclasses response_model",
+      "expansion_time_s": 7.7
+    },
+    "ec0db96b": {
+      "title": "Generic typehints causing mypy errors",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"admin_dependencies\"],\n  \"classes\": [\"FastAPI\", \"Dependency\"],\n  \"files\": [\"fastapi/app.py\", \"fastapi/dependencies.py\"],\n  \"imports\": [\"from fastapi import FastAPI, Depends\"],\n  \"keywords\": [\"dependencies\", \"typehints\", \"mypy\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "admin_dependencies"
+        ],
+        "classes": [
+          "FastAPI",
+          "Dependency"
+        ],
+        "files": [
+          "fastapi/app.py",
+          "fastapi/dependencies.py"
+        ],
+        "imports": [
+          "from fastapi import FastAPI, Depends"
+        ],
+        "keywords": [
+          "dependencies",
+          "typehints",
+          "mypy"
+        ]
+      },
+      "flat_terms": "admin_dependencies FastAPI Dependency fastapi/app.py fastapi/dependencies.py from fastapi import FastAPI, Depends dependencies typehints mypy",
+      "combined_query": "Generic typehints causing mypy errors admin_dependencies FastAPI Dependency fastapi/app.py fastapi/dependencies.py from fastapi import FastAPI, Depends dependencies typehints mypy",
+      "expansion_time_s": 8.3
+    },
+    "5282c286": {
+      "title": "Possible bug in `routing` module L#49",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"Field.validate\"],\n  \"classes\": [\"Field\", \"Response\"],\n  \"files\": [\"fastapi/routing.py\"],\n  \"imports\": [],\n  \"keywords\": [\"routing\", \"validation\", \"response\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Field.validate"
+        ],
+        "classes": [
+          "Field",
+          "Response"
+        ],
+        "files": [
+          "fastapi/routing.py"
+        ],
+        "imports": [],
+        "keywords": [
+          "routing",
+          "validation",
+          "response"
+        ]
+      },
+      "flat_terms": "Field.validate Field Response fastapi/routing.py routing validation response",
+      "combined_query": "Possible bug in `routing` module L#49 Field.validate Field Response fastapi/routing.py routing validation response",
+      "expansion_time_s": 6.3
+    },
+    "cea896db": {
+      "title": "OpenAPI: response keys are limited to be status codes",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"_validate_responses\",\n    \"get_response_description\",\n    \"parse_openapi\"\n  ],\n  \"classes\": [\n    \"OpenAPI\",\n    \"ResponseModel\"\n  ],\n  \"files\": [\n    \"fastapi/openapi.py\",\n    \"fastapi/dependencies/utils.py\"\n  ],\n  \"imports\": [\n    \"from fastapi.exceptions import HTTPException\",\n    \"import jsonschema\"\n  ],\n  \"keywords\": [\n    \"openapi\",\n    \"responses\",\n    \"status codes\",\n    \"validation\",\n    \"crash\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_validate_responses",
+          "get_response_description",
+          "parse_openapi"
+        ],
+        "classes": [
+          "OpenAPI",
+          "ResponseModel"
+        ],
+        "files": [
+          "fastapi/openapi.py",
+          "fastapi/dependencies/utils.py"
+        ],
+        "imports": [
+          "from fastapi.exceptions import HTTPException",
+          "import jsonschema"
+        ],
+        "keywords": [
+          "openapi",
+          "responses",
+          "status codes",
+          "validation",
+          "crash"
+        ]
+      },
+      "flat_terms": "_validate_responses get_response_description parse_openapi OpenAPI ResponseModel fastapi/openapi.py fastapi/dependencies/utils.py from fastapi.exceptions import HTTPException import jsonschema openapi responses status codes validation crash",
+      "combined_query": "OpenAPI: response keys are limited to be status codes _validate_responses get_response_description parse_openapi OpenAPI ResponseModel fastapi/openapi.py fastapi/dependencies/utils.py from fastapi.exceptions import HTTPException import jsonschema openapi responses status codes validation crash",
+      "expansion_time_s": 12.0
+    },
+    "7af0479d": {
+      "title": "OpenAPI: HTTP_422 response does not use custom media_type",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"_get_response\",\n    \"add_exception_handler\",\n    \"create_response\"\n  ],\n  \"classes\": [\n    \"HTTPException\",\n    \"Response\",\n    \"APIRouter\"\n  ],\n  \"files\": [\n    \"fastapi/exceptions.py\",\n    \"fastapi/routing.py\",\n    \"fastapi/applications.py\"\n  ],\n  \"imports\": [\n    \"from fastapi import HTTPException, Response\",\n    \"from fastapi.routing import APIRoute, APIRouter\"\n  ],\n  \"keywords\": [\n    \"HTTP_422\",\n    \"response_class\",\n    \"media_type\",\n    \"error_object\",\n    \"custom_exception_handler\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_get_response",
+          "add_exception_handler",
+          "create_response"
+        ],
+        "classes": [
+          "HTTPException",
+          "Response",
+          "APIRouter"
+        ],
+        "files": [
+          "fastapi/exceptions.py",
+          "fastapi/routing.py",
+          "fastapi/applications.py"
+        ],
+        "imports": [
+          "from fastapi import HTTPException, Response",
+          "from fastapi.routing import APIRoute, APIRouter"
+        ],
+        "keywords": [
+          "HTTP_422",
+          "response_class",
+          "media_type",
+          "error_object",
+          "custom_exception_handler"
+        ]
+      },
+      "flat_terms": "_get_response add_exception_handler create_response HTTPException Response APIRouter fastapi/exceptions.py fastapi/routing.py fastapi/applications.py from fastapi import HTTPException, Response from fastapi.routing import APIRoute, APIRouter HTTP_422 response_class media_type error_object custom_exception_handler",
+      "combined_query": "OpenAPI: HTTP_422 response does not use custom media_type _get_response add_exception_handler create_response HTTPException Response APIRouter fastapi/exceptions.py fastapi/routing.py fastapi/applications.py from fastapi import HTTPException, Response from fastapi.routing import APIRoute, APIRouter HTTP_422 response_class media_type error_object custom_exception_handler",
+      "expansion_time_s": 14.6
+    },
+    "ed21b0c4": {
+      "title": "OpenAPI: media_types of Body parameters and requestBody do not match",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\n    \"create_route_handler\",\n    \"parse_request_body\",\n    \"get_openapi_schema\"\n  ],\n  \"classes\": [\n    \"Request\",\n    \"Body\",\n    \"OpenAPISchemaGenerator\"\n  ],\n  \"files\": [\n    \"fastapi/app.py\",\n    \"fastapi/dependencies/utils.py\",\n    \"fastapi/openapi/generate.py\"\n  ],\n  \"imports\": [\n    \"from starlette.requests import Request\",\n    \"from fastapi.dependencies.utils import get_parameterless_body_field\",\n    \"from fastapi.openapi.generate import OpenAPISchemaGenerator\"\n  ],\n  \"keywords\": [\n    \"media_type\",\n    \"request_body\",\n    \"openapi.json\",\n    \"FastAPI default\",\n    \"Body parameter\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [
+          "create_route_handler",
+          "parse_request_body",
+          "get_openapi_schema"
+        ],
+        "classes": [
+          "Request",
+          "Body",
+          "OpenAPISchemaGenerator"
+        ],
+        "files": [
+          "fastapi/app.py",
+          "fastapi/dependencies/utils.py",
+          "fastapi/openapi/generate.py"
+        ],
+        "imports": [
+          "from starlette.requests import Request",
+          "from fastapi.dependencies.utils import get_parameterless_body_field",
+          "from fastapi.openapi.generate import OpenAPISchemaGenerator"
+        ],
+        "keywords": [
+          "media_type",
+          "request_body",
+          "openapi.json",
+          "FastAPI default",
+          "Body parameter"
+        ]
+      },
+      "flat_terms": "create_route_handler parse_request_body get_openapi_schema Request Body OpenAPISchemaGenerator fastapi/app.py fastapi/dependencies/utils.py fastapi/openapi/generate.py from starlette.requests import Request from fastapi.dependencies.utils import get_parameterless_body_field from fastapi.openapi.generate import OpenAPISchemaGenerator media_type request_body openapi.json FastAPI default Body parameter",
+      "combined_query": "OpenAPI: media_types of Body parameters and requestBody do not match create_route_handler parse_request_body get_openapi_schema Request Body OpenAPISchemaGenerator fastapi/app.py fastapi/dependencies/utils.py fastapi/openapi/generate.py from starlette.requests import Request from fastapi.dependencies.utils import get_parameterless_body_field from fastapi.openapi.generate import OpenAPISchemaGenerator media_type request_body openapi.json FastAPI default Body parameter",
+      "expansion_time_s": 17.2
+    },
+    "2eced6d3": {
+      "title": "FastAPI exceptions module mistakenly references the 'requests' package",
+      "raw_llm_output": "```json\n{\n  \"functions\": [],\n  \"classes\": [],\n  \"files\": [\n    \"fastapi/__init__.py\",\n    \"fastapi/applications.py\",\n    \"fastapi/routing.py\"\n  ],\n  \"imports\": [\n    \"from fastapi import routing\"\n  ],\n  \"keywords\": [\n    \"FastAPI\",\n    \"exceptions\",\n    \"requests\",\n    \"applications\",\n    \"routing\"\n  ]\n}\n```",
+      "parsed": {
+        "functions": [],
+        "classes": [],
+        "files": [
+          "fastapi/__init__.py",
+          "fastapi/applications.py",
+          "fastapi/routing.py"
+        ],
+        "imports": [
+          "from fastapi import routing"
+        ],
+        "keywords": [
+          "FastAPI",
+          "exceptions",
+          "requests",
+          "applications",
+          "routing"
+        ]
+      },
+      "flat_terms": "fastapi/__init__.py fastapi/applications.py fastapi/routing.py from fastapi import routing FastAPI exceptions requests applications routing",
+      "combined_query": "FastAPI exceptions module mistakenly references the 'requests' package fastapi/__init__.py fastapi/applications.py fastapi/routing.py from fastapi import routing FastAPI exceptions requests applications routing",
+      "expansion_time_s": 8.7
+    },
+    "08f7bb43": {
+      "title": "route_class not preserved when calling APIRouter.include_router",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"include_router\", \"_add_route\"],\n  \"classes\": [\"APIRouter\", \"Route\"],\n  \"files\": [\"fastapi/routing.py\"],\n  \"imports\": [\"from fastapi.routing import Route\"],\n  \"keywords\": [\"router\", \"route_class\", \"include_router\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "include_router",
+          "_add_route"
+        ],
+        "classes": [
+          "APIRouter",
+          "Route"
+        ],
+        "files": [
+          "fastapi/routing.py"
+        ],
+        "imports": [
+          "from fastapi.routing import Route"
+        ],
+        "keywords": [
+          "router",
+          "route_class",
+          "include_router"
+        ]
+      },
+      "flat_terms": "include_router _add_route APIRouter Route fastapi/routing.py from fastapi.routing import Route router route_class include_router",
+      "combined_query": "route_class not preserved when calling APIRouter.include_router include_router _add_route APIRouter Route fastapi/routing.py from fastapi.routing import Route router route_class include_router",
+      "expansion_time_s": 6.8
+    },
+    "3f0a1ec2": {
+      "title": "Invalid Constrained Decimals (condecimal) cause 500 response code, rather than a 422 with explanation of what was invalid.",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"validate\", \"parse_raw\"],\n  \"classes\": [\"ConDecimal\", \"HTTPException\"],\n  \"files\": [\"fastapi/dependencies/utils.py\", \"fastapi/exceptions.py\"],\n  \"imports\": [\"from fastapi import HTTPException\", \"from pydantic import validate_arguments\"],\n  \"keywords\": [\"FastAPI\", \"Pydantic\", \"condecimal\", \"validation\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "validate",
+          "parse_raw"
+        ],
+        "classes": [
+          "ConDecimal",
+          "HTTPException"
+        ],
+        "files": [
+          "fastapi/dependencies/utils.py",
+          "fastapi/exceptions.py"
+        ],
+        "imports": [
+          "from fastapi import HTTPException",
+          "from pydantic import validate_arguments"
+        ],
+        "keywords": [
+          "FastAPI",
+          "Pydantic",
+          "condecimal",
+          "validation"
+        ]
+      },
+      "flat_terms": "validate parse_raw ConDecimal HTTPException fastapi/dependencies/utils.py fastapi/exceptions.py from fastapi import HTTPException from pydantic import validate_arguments FastAPI Pydantic condecimal validation",
+      "combined_query": "Invalid Constrained Decimals (condecimal) cause 500 response code, rather than a 422 with explanation of what was invalid. validate parse_raw ConDecimal HTTPException fastapi/dependencies/utils.py fastapi/exceptions.py from fastapi import HTTPException from pydantic import validate_arguments FastAPI Pydantic condecimal validation",
+      "expansion_time_s": 8.9
+    },
+    "f38dbf7d": {
+      "title": "asyncpg uuid implementation not recognized by fastapi because of too strict typechecking",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"serialize_type\", \"get_serializer\"],\n  \"classes\": [\"UUIDType\"],\n  \"files\": [\"fastapi/serialization.py\", \"fastapi/types.py\"],\n  \"imports\": [\"from typing import Type, Any\", \"import uuid\"],\n  \"keywords\": [\"typechecking\", \"serialization\", \"asyncpg\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "serialize_type",
+          "get_serializer"
+        ],
+        "classes": [
+          "UUIDType"
+        ],
+        "files": [
+          "fastapi/serialization.py",
+          "fastapi/types.py"
+        ],
+        "imports": [
+          "from typing import Type, Any",
+          "import uuid"
+        ],
+        "keywords": [
+          "typechecking",
+          "serialization",
+          "asyncpg"
+        ]
+      },
+      "flat_terms": "serialize_type get_serializer UUIDType fastapi/serialization.py fastapi/types.py from typing import Type, Any import uuid typechecking serialization asyncpg",
+      "combined_query": "asyncpg uuid implementation not recognized by fastapi because of too strict typechecking serialize_type get_serializer UUIDType fastapi/serialization.py fastapi/types.py from typing import Type, Any import uuid typechecking serialization asyncpg",
+      "expansion_time_s": 7.3
+    },
+    "ffa879fa": {
+      "title": "Support repeated key=value in form data",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"Form\", \"parse_query_params\"],\n  \"classes\": [\"Request\"],\n  \"files\": [\"fastapi/requests.py\", \"fastapi/datastructures.py\"],\n  \"imports\": [\"from fastapi import Form\"],\n  \"keywords\": [\"form data\", \"repeated keys\", \"request parsing\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "Form",
+          "parse_query_params"
+        ],
+        "classes": [
+          "Request"
+        ],
+        "files": [
+          "fastapi/requests.py",
+          "fastapi/datastructures.py"
+        ],
+        "imports": [
+          "from fastapi import Form"
+        ],
+        "keywords": [
+          "form data",
+          "repeated keys",
+          "request parsing"
+        ]
+      },
+      "flat_terms": "Form parse_query_params Request fastapi/requests.py fastapi/datastructures.py from fastapi import Form form data repeated keys request parsing",
+      "combined_query": "Support repeated key=value in form data Form parse_query_params Request fastapi/requests.py fastapi/datastructures.py from fastapi import Form form data repeated keys request parsing",
+      "expansion_time_s": 7.8
+    },
+    "3848febc": {
+      "title": "Sending incorrect data cause 500 error",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"_validate_body\", \"_get_request_data\"],\n  \"classes\": [\"Request\", \"Response\"],\n  \"files\": [\"fastapi/app.py\", \"fastapi/datastructures.py\"],\n  \"imports\": [\"from fastapi.exceptions import HTTPException\"],\n  \"keywords\": [\"validation\", \"request body\", \"error handling\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "_validate_body",
+          "_get_request_data"
+        ],
+        "classes": [
+          "Request",
+          "Response"
+        ],
+        "files": [
+          "fastapi/app.py",
+          "fastapi/datastructures.py"
+        ],
+        "imports": [
+          "from fastapi.exceptions import HTTPException"
+        ],
+        "keywords": [
+          "validation",
+          "request body",
+          "error handling"
+        ]
+      },
+      "flat_terms": "_validate_body _get_request_data Request Response fastapi/app.py fastapi/datastructures.py from fastapi.exceptions import HTTPException validation request body error handling",
+      "combined_query": "Sending incorrect data cause 500 error _validate_body _get_request_data Request Response fastapi/app.py fastapi/datastructures.py from fastapi.exceptions import HTTPException validation request body error handling",
+      "expansion_time_s": 7.9
+    },
+    "f2b0fc7e": {
+      "title": "Add imports of Starlette datastructures for type annotating Request",
+      "raw_llm_output": "```json\n{\n  \"functions\": [],\n  \"classes\": [],\n  \"files\": [\"fastapi/types.py\"],\n  \"imports\": [\"from starlette.datastructures import Headers, QueryParams\"],\n  \"keywords\": [\"Starlette\", \"datastructures\", \"Request\"]\n}\n```",
+      "parsed": {
+        "functions": [],
+        "classes": [],
+        "files": [
+          "fastapi/types.py"
+        ],
+        "imports": [
+          "from starlette.datastructures import Headers, QueryParams"
+        ],
+        "keywords": [
+          "Starlette",
+          "datastructures",
+          "Request"
+        ]
+      },
+      "flat_terms": "fastapi/types.py from starlette.datastructures import Headers, QueryParams Starlette datastructures Request",
+      "combined_query": "Add imports of Starlette datastructures for type annotating Request fastapi/types.py from starlette.datastructures import Headers, QueryParams Starlette datastructures Request",
+      "expansion_time_s": 6.4
+    },
+    "5145fe28": {
+      "title": "Dependency override websocket broken",
+      "raw_llm_output": "```json\n{\n  \"functions\": [\"add_api_websocket_route\"],\n  \"classes\": [\"APIWebSocketRoute\", \"DependencyOverridesProvider\"],\n  \"files\": [\"fastapi/routing.py\"],\n  \"imports\": [\"from fastapi.routing import APIWebSocketRoute\", \"from fastapi.dependencies.utils import DependencyOverridesProvider\"],\n  \"keywords\": [\"websockets\", \"dependency overrides\", \"route\"]\n}\n```",
+      "parsed": {
+        "functions": [
+          "add_api_websocket_route"
+        ],
+        "classes": [
+          "APIWebSocketRoute",
+          "DependencyOverridesProvider"
+        ],
+        "files": [
+          "fastapi/routing.py"
+        ],
+        "imports": [
+          "from fastapi.routing import APIWebSocketRoute",
+          "from fastapi.dependencies.utils import DependencyOverridesProvider"
+        ],
+        "keywords": [
+          "websockets",
+          "dependency overrides",
+          "route"
+        ]
+      },
+      "flat_terms": "add_api_websocket_route APIWebSocketRoute DependencyOverridesProvider fastapi/routing.py from fastapi.routing import APIWebSocketRoute from fastapi.dependencies.utils import DependencyOverridesProvider websockets dependency overrides route",
+      "combined_query": "Dependency override websocket broken add_api_websocket_route APIWebSocketRoute DependencyOverridesProvider fastapi/routing.py from fastapi.routing import APIWebSocketRoute from fastapi.dependencies.utils import DependencyOverridesProvider websockets dependency overrides route",
+      "expansion_time_s": 7.8
+    }
+  },
+  "last_updated": "2026-07-09T09:54:59.191189"
+}

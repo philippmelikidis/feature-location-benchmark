@@ -1,0 +1,1025 @@
+[
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 7442,
+    "issue_title": "mypy warns about invalid types for headers",
+    "issue_body": "<!-- Summary. -->\n\nUsing requests with types-requests 2.33 I had no warnings, but now using requests 2.34.1's in-built type hints I have this new warning in multiple places:\n\n```\nerror: Argument \"headers\" to \"post\" has incompatible type \"dict[str, str]\"; expected \"MutableMapping[str, str | bytes] | None\"  [arg-type]\n```\n\nThis did not issue a warning in v2.34.0.\n\n## Expected Result\n\nNo warning.\n\n## Actual Result\n\nWarning issued.\n\n## Reproduction Steps\n\n```python\nimport requests\n\ndef x() -> None:\n    headers = {\"hi\": \"there\"}\n    requests.post(\"https://google.com\", headers=headers)\n```\n\n## System Information\n\n    $ python -m requests.help\n\n```json\n{\n  \"chardet\": {\n    \"version\": null\n  },\n  \"charset_normalizer\": {\n    \"version\": \"3.4.7\"\n  },\n  \"cryptography\": {\n    \"version\": \"\"\n  },\n  \"idna\": {\n    \"version\": \"3.15\"\n  },\n  \"implementation\": {\n    \"name\": \"CPython\",\n    \"version\": \"3.13.5\"\n  },\n  \"platform\": {\n    \"release\": \"6.12.74+deb13+1-amd64\",\n    \"system\": \"Linux\"\n  },\n  \"pyOpenSSL\": {\n    \"openssl_version\": \"\",\n    \"version\": null\n  },\n  \"requests\": {\n    \"version\": \"2.34.1\"\n  },\n  \"system_ssl\": {\n    \"version\": \"30500050\"\n  },\n  \"urllib3\": {\n    \"version\": \"2.7.0\"\n  },\n  \"using_charset_normalizer\": true,\n  \"using_pyopenssl\": false\n}\n```\n\n<!-- This command is only available on Requests v2.16.4 and greater. Otherwise,\nplease provide some basic information about your system (Python version,\noperating system, &c). -->\n",
+    "pr_number": 7441,
+    "pr_title": "Move Request.headers back to Mapping",
+    "commit_hash": "84d10f0be83e8f6aeca8a05230c52216431c4d0b",
+    "changed_files": [
+      "src/requests/_types.py",
+      "src/requests/models.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/7442",
+    "pr_url": "https://github.com/psf/requests/pull/7441",
+    "issue_created_at": "2026-05-14T01:31:37Z",
+    "pr_created_at": "2026-05-13T21:23:44Z",
+    "pr_merged_at": "2026-05-14T16:16:26Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 7434,
+    "issue_title": "Inline annotations in 2.34.0 cause mypy error for Request json payloads",
+    "issue_body": "requests version 2.34.0 added inline type annotations. This is causing some issues with mypy, specifically building a `Request` with a `json` argument.\n\nThe MR (https://github.com/psf/requests/pull/7272) that introduced the feature  notes that `mypy` support is not currently a goal, but I think it's worth sharing this issue.\n\n## Expected Result\nPassing a JSON-compatible dictionary to the `json` argument of `requests.Request` should type-check successfully.\n\nFor example, a value typed as:\n\n```python\ndict[str, None | bool | int | float | str]\n```\nor the narrower:\n```python\ndict[str, str]\n```\nshould be accepted as a valid JSON payload.\n\n## Actual Result\n`mypy` reports an incompatible argument type error when a dictionary is passed to the json argument.\n\n## Reproduction Steps\nCreate a file named `test.py`:\n\n```python\nfrom requests import Request\n\npayload: dict[str, str] = {\"test\": \"test\"}\n\nrequest = Request(json=payload)\n```\nThen run mypy (used 2.1.0) against the python code:\n```bash\npython -m mypy test.py\ntest.py:5: error: Argument \"json\" to \"Request\" has incompatible type \"dict[str, str]\"; expected \"JsonType\"  [arg-type]\ntest.py:5: note: \"dict\" is invariant -- see https://mypy.readthedocs.io/en/stable/common_issues.html#variance\ntest.py:5: note: Consider using \"Mapping\" instead, which is covariant in the value type\nFound 1 error in 1 file (checked 1 source file)\n```\n\n## System Information\n\n    $ python -m requests.help\n\n```json\n{\n  \"chardet\": {\n    \"version\": null\n  },\n  \"charset_normalizer\": {\n    \"version\": \"3.4.7\"\n  },\n  \"cryptography\": {\n    \"version\": \"\"\n  },\n  \"idna\": {\n    \"version\": \"3.14\"\n  },\n  \"implementation\": {\n    \"name\": \"CPython\",\n    \"version\": \"3.13.13\"\n  },\n  \"platform\": {\n    \"release\": \"24.6.0\",\n    \"system\": \"Darwin\"\n  },\n  \"pyOpenSSL\": {\n    \"openssl_version\": \"\",\n    \"version\": null\n  },\n  \"requests\": {\n    \"version\": \"2.34.0\"\n  },\n  \"system_ssl\": {\n    \"version\": \"30600020\"\n  },\n  \"urllib3\": {\n    \"version\": \"2.7.0\"\n  },\n  \"using_charset_normalizer\": true,\n  \"using_pyopenssl\": false\n}\n```\n",
+    "pr_number": 7436,
+    "pr_title": "Update JsonType containers to read-based collections",
+    "commit_hash": "5691f596134c2feb121e595c77a0178921fcce61",
+    "changed_files": [
+      "src/requests/_types.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/7434",
+    "pr_url": "https://github.com/psf/requests/pull/7436",
+    "issue_created_at": "2026-05-12T15:25:34Z",
+    "pr_created_at": "2026-05-12T16:53:40Z",
+    "pr_merged_at": "2026-05-13T14:43:17Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 7432,
+    "issue_title": "`prepare_body` stream detection regression",
+    "issue_body": "<!-- Summary. -->\nRequests 2.34.0 changed the stream detection in PreparedRequest.prepare_body() from `hasattr(data, \"__iter__\")` to `isinstance(data, Iterable)`. This breaks file-like wrappers that expose `__iter__/read/tell/seek` via `__getattr__ delegation` (e.g. tqdm.wrapattr), because `isinstance(..., Iterable)` only checks the class MRO, not dynamic attribute delegation. As a result, `_body_position` is never recorded and the body cannot be rewound on 307/308 redirects.\n## Expected Result\n\nUpload completes successfully through the redirect, as it did in 2.33.1.\n\n## Actual Result\n\nThe redirected request sends an empty/consumed body. The server receives no data and the request times out:\n```\nrequests.exceptions.ReadTimeout: HTTPSConnectionPool(...): Read timed out. (read timeout=30)\n```\n\n## Reproduction Steps\n\n```python\nimport os\nimport requests\nfrom tqdm import tqdm\n\nwith open(\"testfile.txt\", \"wb\") as f:\n    f.write(b\"hello world \" * 1000)\n\nwith open(\"testfile.txt\", \"rb\") as f:\n    with tqdm.wrapattr(f, \"read\", total=os.path.getsize(\"testfile.txt\")) as wrapped:\n        # Any endpoint that 307 redirects to a presigned S3 URL\n        requests.put(\"https://your-api.example.com/upload\", data=wrapped, timeout=30)\n\n```\n\n## System Information\n\n    $ python -m requests.help\n\n```json\n{\n  \"chardet\": {\n    \"version\": null\n  },\n  \"charset_normalizer\": {\n    \"version\": \"3.4.7\"\n  },\n  \"cryptography\": {\n    \"version\": \"\"\n  },\n  \"idna\": {\n    \"version\": \"3.13\"\n  },\n  \"implementation\": {\n    \"name\": \"CPython\",\n    \"version\": \"3.13.5\"\n  },\n  \"platform\": {\n    \"release\": \"24.6.0\",\n    \"system\": \"Darwin\"\n  },\n  \"pyOpenSSL\": {\n    \"openssl_version\": \"\",\n    \"version\": null\n  },\n  \"requests\": {\n    \"version\": \"2.34.0\"\n  },\n  \"system_ssl\": {\n    \"version\": \"30000120\"\n  },\n  \"urllib3\": {\n    \"version\": \"2.5.0\"\n  },\n  \"using_charset_normalizer\": true,\n  \"using_pyopenssl\": false\n}\n```\n\n<!-- This command is only available on Requests v2.16.4 and greater. Otherwise,\nplease provide some basic information about your system (Python version,\noperating system, &c). -->\n",
+    "pr_number": 7433,
+    "pr_title": "Fix `prepare_body` stream detection for `__getattr__`-based file wrappers",
+    "commit_hash": "6404f345e562d962abe6700a1c357ec1e7e18232",
+    "changed_files": [
+      "src/requests/models.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/7432",
+    "pr_url": "https://github.com/psf/requests/pull/7433",
+    "issue_created_at": "2026-05-12T13:42:12Z",
+    "pr_created_at": "2026-05-12T13:46:08Z",
+    "pr_merged_at": "2026-05-12T17:51:02Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 4795,
+    "issue_title": "`no_proxy` implementation is too greedy",
+    "issue_body": "The implementation of `no_proxy` environment just checks that the hostname ends with some host present in the `no_proxy` variable. Although there is no clear specification for `no_proxy`, this behavior is very unexpected and even dangerous.\r\n\r\n- It prevents you from bypassing only one domain and not its subdomains.\r\n- If `no_proxy` is set for `requests.com`, `attacker-requests.com` is also whitelisted. Not sure it's really really bad, but huh, it's definitely not good.\r\n\r\n## Expected Result\r\n\r\n- `no_proxy=gle.com` should bypass ONLY the domain `gle.com` (optionally its subdomains, but I don't think it's desirable)\r\n- `no_proxy=www.gle.com` should bypass ONLY the domain `www.gle.com` (optionally its subdomains, but I don't think it's desirable)\r\n- `no_proxy=.google.com` should bypass ONLY subdomains of `google.com` (and optionally `google.com`, but I don't think it's desirable)\r\n\r\n## Actual Result\r\n\r\n`no_proxy=gle.com` bypasses any domain that ends with `gle.com`, including:\r\n- `google.com`\r\n- `www.google.com`\r\n- `foo.gle.com`\r\n- `foo.bar.gle.com`\r\n\r\n## Reproduction Steps\r\n\r\n```\r\n$ http_proxy=http://no-proxy-here/ no_proxy=gle.com python -c \"import requests; print(requests.get('http://www.google.com'))\"     \r\n<Response [200]>\r\n```\r\n\r\n## System Information\r\n\r\n    $ python -m requests.help\r\n\r\n```\r\n{\r\n  \"chardet\": {\r\n    \"version\": \"3.0.4\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"\"\r\n  },\r\n  \"idna\": {\r\n    \"version\": \"2.7\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"3.7.0\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"4.18.7-arch1-1-ARCH\",\r\n    \"system\": \"Linux\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"\",\r\n    \"version\": null\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.19.1\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"1010100f\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"1.23\"\r\n  },\r\n  \"using_pyopenssl\": false\r\n}\r\n```\r\n\r\nI can prepare a PR if needed.",
+    "pr_number": 7427,
+    "pr_title": "Port bpo-39057 to Requests",
+    "commit_hash": "a4f9a5999bdb9bf2d6e7c8aa973b28cacb17134f",
+    "changed_files": [
+      "src/requests/utils.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/4795",
+    "pr_url": "https://github.com/psf/requests/pull/7427",
+    "issue_created_at": "2018-09-17T20:59:31Z",
+    "pr_created_at": "2026-05-11T16:43:07Z",
+    "pr_merged_at": "2026-05-11T19:24:21Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 6643,
+    "issue_title": "Leading slash in uri followed by column fails",
+    "issue_body": "Leading slash in uri followed by column fails.\r\n\r\n## Expected Result\r\n\r\n```python\r\nrequests.get('http://127.0.0.1:10000//v:h')\r\n<Response [200]>\r\n```\r\n\r\n## Actual Result\r\n\r\n```python\r\nTraceback (most recent call last):\r\n  File \"/usr/local/lib/python3.11/site-packages/urllib3/util/url.py\", line 425, in parse_url\r\n    host, port = _HOST_PORT_RE.match(host_port).groups()  # type: ignore[union-attr]\r\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nAttributeError: 'NoneType' object has no attribute 'groups'\r\n\r\nThe above exception was the direct cause of the following exception:\r\n\r\nTraceback (most recent call last):\r\n  File \"<stdin>\", line 1, in <module>\r\n  File \"/usr/local/lib/python3.11/site-packages/requests/api.py\", line 73, in get\r\n    return request(\"get\", url, params=params, **kwargs)\r\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"/usr/local/lib/python3.11/site-packages/requests/api.py\", line 59, in request\r\n    return session.request(method=method, url=url, **kwargs)\r\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"/usr/local/lib/python3.11/site-packages/requests/sessions.py\", line 589, in request\r\n    resp = self.send(prep, **send_kwargs)\r\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"/usr/local/lib/python3.11/site-packages/requests/sessions.py\", line 703, in send\r\n    r = adapter.send(request, **kwargs)\r\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"/usr/local/lib/python3.11/site-packages/requests/adapters.py\", line 486, in send\r\n    resp = conn.urlopen(\r\n           ^^^^^^^^^^^^^\r\n  File \"/usr/local/lib/python3.11/site-packages/urllib3/connectionpool.py\", line 711, in urlopen\r\n    parsed_url = parse_url(url)\r\n                 ^^^^^^^^^^^^^^\r\n  File \"/usr/local/lib/python3.11/site-packages/urllib3/util/url.py\", line 451, in parse_url\r\n    raise LocationParseError(source_url) from e\r\nurllib3.exceptions.LocationParseError: Failed to parse: //v:h\r\n```\r\n\r\n## Reproduction Steps\r\n\r\n```python\r\nimport requests\r\nrequests.get('http://127.0.0.1:10000//v:h')\r\n\r\n```\r\n\r\n## System Information\r\n\r\n    $ python -m requests.help\r\n\r\n```json\r\n{\r\n  \"chardet\": {\r\n    \"version\": null\r\n  },\r\n  \"charset_normalizer\": {\r\n    \"version\": \"3.3.2\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"\"\r\n  },\r\n  \"idna\": {\r\n    \"version\": \"3.6\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"3.11.8\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"5.10.209-198.812.amzn2.x86_64\",\r\n    \"system\": \"Linux\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"\",\r\n    \"version\": null\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.31.0\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"300000b0\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"2.2.1\"\r\n  },\r\n  \"using_charset_normalizer\": true,\r\n  \"using_pyopenssl\": false\r\n}\r\n```\r\n\r\n<!-- This command is only available on Requests v2.16.4 and greater. Otherwise,\r\nplease provide some basic information about your system (Python version,\r\noperating system, &c). -->\r\n",
+    "pr_number": 6644,
+    "pr_title": "Trim excess leading path separators",
+    "commit_hash": "3587a5f869ea7ae2ba6b20d281d810b65aa2418e",
+    "changed_files": [
+      "src/requests/adapters.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/6643",
+    "pr_url": "https://github.com/psf/requests/pull/6644",
+    "issue_created_at": "2024-02-21T21:47:35Z",
+    "pr_created_at": "2024-02-22T01:11:15Z",
+    "pr_merged_at": "2024-02-23T00:49:42Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 7375,
+    "issue_title": "Tweak urllib3 version checker",
+    "issue_body": "Hello,\n\nTiny corner case issue: building urllib3 on my side, I append a marker in the version string to distinguish theses builds, eg.: 2.6.3.build1\n\nWould you consider a small change in requests and split the version string the same way it is done for chardet or charset normalizer ? It would prevent the check from failing on the `major, minor, patch = urllib3_version` line.\n\n```diff\ndiff --git a/src/requests/__init__.py b/src/requests/__init__.py\n@@ -56,7 +56,7 @@ except ImportError:\n \n \n def check_compatibility(urllib3_version, chardet_version, charset_normalizer_version):\n-    urllib3_version = urllib3_version.split(\".\")\n+    urllib3_version = urllib3_version.split(\".\")[:3]\n     assert urllib3_version != [\"dev\"]  # Verify urllib3 isn't installed from git.\n \n     # Sometimes, urllib3 only reports its version as 16.1.\n```\n\nRegards.",
+    "pr_number": 7376,
+    "pr_title": "Consider urllib3 version has 3 numbers at most (#7375)",
+    "commit_hash": "b294b08fe3b08df9f646f64d1250f96193dab066",
+    "changed_files": [
+      "src/requests/__init__.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/7375",
+    "pr_url": "https://github.com/psf/requests/pull/7376",
+    "issue_created_at": "2026-04-20T13:22:54Z",
+    "pr_created_at": "2026-04-20T13:24:54Z",
+    "pr_merged_at": "2026-04-20T16:24:32Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 6810,
+    "issue_title": "Change auth.py to be used in a FIPS system",
+    "issue_body": "<!-- Summary. -->\r\n\r\n## Expected Result\r\n\r\nUsing the requests to perform a HTTPS action is working in a FIPS environment\r\n \r\n\r\n<!-- What you expected. -->\r\n\r\n## Actual Result\r\n\r\nIn UNIX environment with fips enabled the MD5 can't be used.\r\nIt provides this error\r\n\r\nValueError: [digital envelope routines: EVP_DigestInit_ex] disabled for FIPS\r\n\r\n## Solution\r\nApply this patch in auth.py\r\n\r\n`\r\n\r\n*** 145,151 ****\r\n                def md5_utf8(x):\r\n                    if isinstance(x, str):\r\n                        x = x.encode(\"utf-8\")\r\n  !                 return hashlib.md5(x).hexdigest()    \r\n                hash_utf8 = md5_utf8\r\n            elif _algorithm == \"SHA\":\r\n--- 145,151 ----\r\n                def md5_utf8(x):\r\n                    if isinstance(x, str):\r\n                        x = x.encode(\"utf-8\")\r\n  !                 return hashlib.md5(x,usedforsecurity=False).hexdigest()\r\n                hash_utf8 = md5_utf8\r\n            elif _algorithm == \"SHA\":\r\n\r\n`\r\n",
+    "pr_number": 7310,
+    "pr_title": "Move DigestAuth hash algorithms to use usedforsecurity=False",
+    "commit_hash": "a044b020dea43230585126901684a0f30ec635a8",
+    "changed_files": [
+      "src/requests/auth.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/6810",
+    "pr_url": "https://github.com/psf/requests/pull/7310",
+    "issue_created_at": "2024-10-18T10:32:43Z",
+    "pr_created_at": "2026-03-30T15:46:26Z",
+    "pr_merged_at": "2026-04-15T14:56:38Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 7219,
+    "issue_title": "chardet 6 triggers RequestsDependencyWarning on stderr",
+    "issue_body": "<!-- Summary. -->\n\nchardet 6.0.0 was just released, but requests only supports < 6.\n\nThis just broke our CI with:\n\n```\n/opt/hostedtoolcache/Python/3.12.12/x64/lib/python3.12/site-packages/requests/__init__.py:113:\n\nRequestsDependencyWarning: urllib3 (2.6.3) or chardet (6.0.0dev0)/charset_normalizer (3.4.4) doesn't match a supported version!\\n\"\n```\n\nI also reported that strange \"dev0\" to the chardet project, that shouldn't be there when just doing \"pip install chardet\".\n\nCI log: https://github.com/borgbackup/borg/actions/runs/22275930673/job/64439274108?pr=9397\n\n## Reproduction Steps\n\nNot sure, we do not directly use requests, it is just pulled in by some stuff we use.\n\nAnd something installs the latest chardet and requests stumbles over it, spilling out unexpected output on stderr.\n",
+    "pr_number": 7220,
+    "pr_title": "Increase chardet upper limit to 7",
+    "commit_hash": "4bd79e397304d46dfccd76f36c07f66c0295ff82",
+    "changed_files": [
+      "src/requests/__init__.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/7219",
+    "pr_url": "https://github.com/psf/requests/pull/7220",
+    "issue_created_at": "2026-02-22T13:29:04Z",
+    "pr_created_at": "2026-02-22T16:08:41Z",
+    "pr_merged_at": "2026-02-22T22:02:38Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 6859,
+    "issue_title": "Documentation: Session docstring for verify attribute should note that it supports a string value.",
+    "issue_body": "<!-- Summary. -->\r\n\r\n`Session` docstring for `verify` attribute should note that it supports a string value.\r\n\r\n<!-- What you expected. -->\r\n\r\n## Actual Result\r\n\r\nCurrently, the `Session` docstring notes that its `verify` attribute only supports a bool.\r\n\r\nHowever, `session.request` supports a string for its `verify` arg: https://github.com/psf/requests/blob/main/src/requests/sessions.py#L550\r\n\r\nand when a `verify` arg isn't passed to `session.request`, then `session.verify` is used instead: \r\n\r\nhttps://github.com/psf/requests/blob/main/src/requests/sessions.py#L776\r\nhttps://github.com/psf/requests/blob/main/src/requests/sessions.py#L70\r\n\r\n## Reproduction Steps\r\n\r\nN/A\r\n\r\n## System Information\r\nN/A\r\n\r\n",
+    "pr_number": 6865,
+    "pr_title": "Update docstring for Session.verify to include string support (#6859)",
+    "commit_hash": "5f338446f9eabd956e7e132668f330d9de4fc368",
+    "changed_files": [
+      "src/requests/sessions.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/6859",
+    "pr_url": "https://github.com/psf/requests/pull/6865",
+    "issue_created_at": "2024-12-16T22:20:10Z",
+    "pr_created_at": "2025-01-01T16:05:50Z",
+    "pr_merged_at": "2026-02-13T02:52:04Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 6813,
+    "issue_title": "`Session.request` documentation does not specify what unit of time the `timeout` argument uses",
+    "issue_body": "[the documentation for `requests.request`](https://requests.readthedocs.io/en/latest/api/#requests.request) says this: \r\n\r\n> - **timeout** (_[float](https://docs.python.org/3/library/functions.html#float) or [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)_) – (optional) How many seconds to wait for the server to send data before giving up, as a float, or a [(connect timeout, read timeout)](https://requests.readthedocs.io/en/latest/user/advanced/#timeouts) tuple.\r\n\r\nhowever [the documentation for the same argument in `Session.request`](https://requests.readthedocs.io/en/latest/api/#requests.Session.request) does not clarify that it uses seconds: \r\n\r\n> - **timeout** (_[float](https://docs.python.org/3/library/functions.html#float) or [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)_) – (optional) How long to wait for the server to send data before giving up, as a float, or a [(connect timeout, read timeout)](https://requests.readthedocs.io/en/latest/user/advanced/#timeouts) tuple.",
+    "pr_number": 6994,
+    "pr_title": "docs: clarify timeout parameter uses seconds in Session.request",
+    "commit_hash": "d58d8aa2f45c3575268d6d5250745ef69f9cf8b7",
+    "changed_files": [
+      "src/requests/sessions.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/6813",
+    "pr_url": "https://github.com/psf/requests/pull/6994",
+    "issue_created_at": "2024-10-21T05:02:29Z",
+    "pr_created_at": "2025-07-18T01:14:36Z",
+    "pr_merged_at": "2025-07-18T02:09:20Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 6715,
+    "issue_title": "SSLV3_ALERT_HANDSHAKE_FAILURE after upgrade from 2.31.0 to 2.32.2",
+    "issue_body": "After upgrading to requests 2.32.* our custom SSL adapter doesn't seem to working anymore. This is how it looks like\r\n\r\n```\r\nclass CustomSSLAdapter(HTTPAdapter):\r\n    def __init__(self):\r\n        self.context = ssl.create_default_context()\r\n\r\n        certfile = ...\r\n        keyfile = ...\r\n        password = ...\r\n        self.context.load_cert_chain(certfile=certfile, keyfile=keyfile, password=password)\r\n        \r\n        super().__init__()\r\n\r\n    def init_poolmanager(self, *args, **kwargs):\r\n        kwargs['ssl_context'] = self.context\r\n        return super().init_poolmanager(*args, **kwargs)\r\n```\r\n\r\nWe have tried to mount this only for the target url but also for \"http://\". The code was working find with version 2.31.0.\r\n\r\n## Expected Result\r\n\r\nThe adapter should still work.\r\n\r\n## Actual Result\r\n\r\nWe got the following error:\r\n\r\n```\r\nSSLError: HTTPSConnectionPool(host=..., port=543): Max retries exceeded with url: ... (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1007)')))\r\n```\r\n",
+    "pr_number": 6716,
+    "pr_title": "Allow for overriding of specific pool key params",
+    "commit_hash": "145b5399486b56e00250204f033441f3fdf2f3c9",
+    "changed_files": [
+      "src/requests/adapters.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/6715",
+    "pr_url": "https://github.com/psf/requests/pull/6716",
+    "issue_created_at": "2024-05-22T10:12:14Z",
+    "pr_created_at": "2024-05-22T11:53:49Z",
+    "pr_merged_at": "2024-05-24T21:37:06Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 6159,
+    "issue_title": "Breaking change in 2.28.0 when using string enums as Headers (working in v2.27.1)",
+    "issue_body": "When using string enums as key values for the `headers` dict parameter with `requests.get()` function in `v2.28.0` it raises an `InvalidHeader` error but using previous version `v2.27.1` works well without any error. It seems there was an unexpected breaking change with that release. \r\n\r\n## Expected Result\r\n\r\nDict keys for the headers parameter when using `requests.get()` are still valid if a string enum is used.\r\n\r\n## Actual Result\r\n\r\nInstead it raises an `InvalidHeader` error stating that: \r\n\r\n> Header must be of type `str` or `bytes`, not `enum`.\r\n\r\n```python\r\nTraceback (most recent call last):\r\n  File \"/home/yair/PycharmProjects/tests/requests_error.py\", line 9, in <module>\r\n    requests.get(\"http://URL\", headers={CustomEnum.TRACE_ID: \"90e85293-afd1-4b48-adf0-fa6daf02359e\"})\r\n  File \"/home/yair/.local/lib/python3.8/site-packages/requests/api.py\", line 73, in get\r\n    return request(\"get\", url, params=params, **kwargs)\r\n  File \"/home/yair/.local/lib/python3.8/site-packages/requests/api.py\", line 59, in request\r\n    return session.request(method=method, url=url, **kwargs)\r\n  File \"/home/yair/.local/lib/python3.8/site-packages/requests/sessions.py\", line 573, in request\r\n    prep = self.prepare_request(req)\r\n  File \"/home/yair/.local/lib/python3.8/site-packages/requests/sessions.py\", line 484, in prepare_request\r\n    p.prepare(\r\n  File \"/home/yair/.local/lib/python3.8/site-packages/requests/models.py\", line 369, in prepare\r\n    self.prepare_headers(headers)\r\n  File \"/home/yair/.local/lib/python3.8/site-packages/requests/models.py\", line 491, in prepare_headers\r\n    check_header_validity(header)\r\n  File \"/home/yair/.local/lib/python3.8/site-packages/requests/utils.py\", line 1037, in check_header_validity\r\n    raise InvalidHeader(\r\nrequests.exceptions.InvalidHeader: Header part (<CustomEnum.TRACE_ID: 'X-B3-TraceId'>) from {<CustomEnum.TRACE_ID: 'X-B3-TraceId'>: '90e85293-afd1-4b48-adf0-fa6daf02359e'} must be of type str or bytes, not <enum 'CustomEnum'>\r\n```\r\n\r\n## Reproduction Steps\r\n\r\n```python\r\nfrom enum import Enum\r\nimport requests\r\n\r\n\r\nclass CustomEnum(str, Enum):\r\n    TRACE_ID = \"X-B3-TraceId\"\r\n\r\n\r\nrequests.get(\"http://URL\", headers={CustomEnum.TRACE_ID: \"90e85293-afd1-4b48-adf0-fa6daf02359e\"})\r\n```\r\n\r\n## System Information\r\n\r\n    $ python -m requests.help\r\n\r\n```json\r\n{\r\n  \"chardet\": {\r\n    \"version\": \"3.0.4\"\r\n  },\r\n  \"charset_normalizer\": {\r\n    \"version\": \"2.0.4\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"2.8\"\r\n  },\r\n  \"idna\": {\r\n    \"version\": \"3.2\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"3.8.10\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"5.13.0-48-generic\",\r\n    \"system\": \"Linux\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"1010106f\",\r\n    \"version\": \"19.0.0\"\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.28.0\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"1010106f\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"1.26.6\"\r\n  },\r\n  \"using_charset_normalizer\": false,\r\n  \"using_pyopenssl\": true\r\n}\r\n```\r\n\r\n<!-- This command is only available on Requests v2.16.4 and greater. Otherwise,\r\nplease provide some basic information about your system (Python version,\r\noperating system, &c). -->\r\n",
+    "pr_number": 6356,
+    "pr_title": "Allow str/bytes subclasses to be used as header parts",
+    "commit_hash": "7f694b79e114c06fac5ec06019cada5a61e5570f",
+    "changed_files": [
+      "requests/_internal_utils.py",
+      "requests/utils.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/6159",
+    "pr_url": "https://github.com/psf/requests/pull/6356",
+    "issue_created_at": "2022-06-09T20:00:51Z",
+    "pr_created_at": "2023-02-17T16:19:43Z",
+    "pr_merged_at": "2023-03-03T20:39:03Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 6071,
+    "issue_title": "CURL_CA_BUNDLE= disables certificate verification",
+    "issue_body": "<!-- Summary. -->\r\n\r\nI'm not the first to notice this, see:\r\n \r\n https://stackoverflow.com/questions/48391750/disable-python-requests-ssl-validation-for-an-imported-module\r\n\r\nWhich implies people have even relied on the current behavior as a hack ... but I think it's pretty clear that the current behavior is an accidental bug, which should be fixed (for requests 3?)\r\n\r\nVaguely related to #3829\r\n\r\n## Expected Result\r\n\r\nAn empty-string CURL_CA_BUNDLE should use default system verification, the same way as:\r\n\r\n * An unset CURL_CA_BUNDLE\r\n * An empty-string or unset REQUESTS_CA_BUNDLE\r\n * Behavior of curl/libcurl with an empty-string or unset CURL_CA_BUNDLE\r\n\r\n## Actual Result\r\n\r\nEmpty CURL_CA_BUNDLE disables certificate verification\r\n\r\n## Reproduction Steps\r\n\r\n * Set CURL_CA_BUNDLE to an empty value, try to fetch a self-signed or invalid HTTPS endpoint => success",
+    "pr_number": 6074,
+    "pr_title": "Fix environment CA Bundle resolution",
+    "commit_hash": "79f60274f7e461b8fd2f579e741f748438d7eadb",
+    "changed_files": [
+      "requests/sessions.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/6071",
+    "pr_url": "https://github.com/psf/requests/pull/6074",
+    "issue_created_at": "2022-02-23T21:54:42Z",
+    "pr_created_at": "2022-02-25T18:36:12Z",
+    "pr_merged_at": "2022-02-26T13:39:28Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 6027,
+    "issue_title": "Proxy authentication bug",
+    "issue_body": "<!-- Summary. -->\r\n\r\nWhen using proxies in python 3.8.12, I get an error 407. Using any other version of python works fine. I am assuming it could be to do with this https://docs.python.org/3/whatsnew/3.8.html#notable-changes-in-python-3-8-12.\r\n\r\n<!-- What you expected. -->\r\n\r\nI should get a status of 200.\r\n\r\n<!-- What happened instead. -->\r\n\r\nI get a status code of 407.\r\n\r\n```python\r\nimport requests\r\n\r\n\r\nr = requests.get('https://example.org/', proxies=proxies) # You will need a proxy to test with, I am using a paid service.\r\nprint(r.status_code)\r\n\r\n```\r\n\r\n## System Information\r\n\r\n```json\r\n{\r\n  \"chardet\": {\r\n    \"version\": null\r\n  },\r\n  \"charset_normalizer\": {\r\n    \"version\": \"2.0.9\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"\"\r\n  },\r\n  \"idna\": {\r\n    \"version\": \"3.3\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"3.8.12\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"5.13.0-7620-generic\",\r\n    \"system\": \"Linux\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"\",\r\n    \"version\": null\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.27.0\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"101010cf\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"1.26.7\"\r\n  },\r\n  \"using_charset_normalizer\": true,\r\n  \"using_pyopenssl\": false\r\n}\r\n```",
+    "pr_number": 6028,
+    "pr_title": "Fix auth parsing for proxies",
+    "commit_hash": "8fa9724398c4f44090997ff430a1dd3e935a9057",
+    "changed_files": [
+      "requests/utils.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/6027",
+    "pr_url": "https://github.com/psf/requests/pull/6028",
+    "issue_created_at": "2022-01-03T22:12:00Z",
+    "pr_created_at": "2022-01-04T15:32:52Z",
+    "pr_merged_at": "2022-01-04T16:04:25Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 5367,
+    "issue_title": "Getting http://.example.com raises UnicodeError",
+    "issue_body": "Attempting to get e.g. `http://.example.com` results in a `UnicodeError`. It seems like the intention so far has been to raise `InvalidUrl` instead (see e.g. [this line](https://github.com/psf/requests/blob/ca6f9af5dba09591007b15a7368bc0f006b7cc50/requests/models.py#L401)).\r\n\r\nI see there was some hesitation in fixing a similar issue (#4168) and would like to add that even catching the error just to rethrow as a requests exception would be beneficial.\r\n\r\n## Expected Result\r\n\r\nBased on PR #774: `InvalidUrl: URL has an invalid label.`\r\n\r\n## Actual Result\r\n\r\n`UnicodeError: encoding with 'idna' codec failed (UnicodeError: label empty or too long)`\r\n\r\n## Reproduction Steps\r\n\r\n```python3\r\nimport requests\r\nrequests.get(\"http://.example.com\")\r\n```\r\n\r\n## System Information\r\n\r\n    $ python -m requests.help\r\n\r\n```\r\n{\r\n  \"chardet\": {\r\n    \"version\": \"3.0.4\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"2.8\"\r\n  },\r\n  \"idna\": {\r\n    \"version\": \"2.8\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"3.8.0\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"5.3.0-40-generic\",\r\n    \"system\": \"Linux\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"1010104f\",\r\n    \"version\": \"19.1.0\"\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.23.0\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"1010103f\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"1.25.8\"\r\n  },\r\n  \"using_pyopenssl\": true\r\n}\r\n```",
+    "pr_number": 5414,
+    "pr_title": "Raise InvalidUrl if host starts with '.' character.",
+    "commit_hash": "d09659997cd1e3eca49a07c59ece5557071c0ab9",
+    "changed_files": [
+      "requests/models.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/5367",
+    "pr_url": "https://github.com/psf/requests/pull/5414",
+    "issue_created_at": "2020-02-25T10:00:19Z",
+    "pr_created_at": "2020-04-05T16:52:04Z",
+    "pr_merged_at": "2021-12-29T01:39:36Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 5984,
+    "issue_title": "url \"schema\" should be \"scheme\"",
+    "issue_body": "https://github.com/psf/requests/blob/590350f8d094c216051510ed1dd18fe871b53b72/requests/models.py#L388-L392\r\n\r\nI don't believe the first part of a URL is ever called a \"schema.\" Exceptions and error messages referring to an incorrect schema are confusing, especially in contexts where actual schema errors are possible. If it isn't possible to change the `MissingSchema` exception (it looks like it is slated to be fixed in 3.x) please consider at least changing the error message.\r\n\r\nReferences:\r\nhttps://www.w3.org/Addressing/URL/url-spec.txt\r\nhttps://github.com/psf/requests/issues/4495",
+    "pr_number": 6017,
+    "pr_title": "Fix erroneous use of 'schema' instead of 'scheme'",
+    "commit_hash": "2b06a952a9e6e23e9eda2c8759adb62739730a75",
+    "changed_files": [
+      "requests/exceptions.py",
+      "requests/models.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/5984",
+    "pr_url": "https://github.com/psf/requests/pull/6017",
+    "issue_created_at": "2021-11-23T23:49:06Z",
+    "pr_created_at": "2021-12-29T00:46:24Z",
+    "pr_merged_at": "2021-12-29T01:39:08Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 5274,
+    "issue_title": "Two Host header are being sent when doing chunk transfer with Session",
+    "issue_body": "Two Host header are being sent when doing chunk transfer with Session\r\n---------------\r\n>>> import requests\r\n>>> requests.__version__\r\n'2.22.0'\r\n```\r\nimport requests\r\nimport time\r\nfrom requests.packages import urllib3\r\n\r\n#Disable https insecure warnings for verify=False\r\nurllib3.disable_warnings()\r\n\r\nwith open('1.ts','rb') as fh:\r\n    file_data = fh.read()\r\n\r\ndef chunk_trans():\r\n    for i in range(0, 3):\r\n        time.sleep(0.1)\r\n        yield file_data\r\n\r\nreq = requests.Request('POST', 'http://192.168.123.151/1.ts', data=chunk_trans(), headers={'Host':'a.b.c.d'})\r\nprep = req.prepare()\r\ns = requests.Session()\r\ns.send(prep, timeout=2, verify=False, allow_redirects=False)\r\n\r\n```\r\n\r\nActual Output: Two host headers are seen on server side.\r\n```\r\nHost: 192.168.123.151\r\nHost: a.b.c.d\r\nTransfer-Encoding: chunked\r\n```\r\n-------------\r\n\r\nonly \"a.b.c.d\" host header should come.",
+    "pr_number": 5391,
+    "pr_title": "Send only one Host header in chunked request",
+    "commit_hash": "7556ea421387e7738464b88e0a8c67e0d953ea11",
+    "changed_files": [
+      "requests/adapters.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/5274",
+    "pr_url": "https://github.com/psf/requests/pull/5391",
+    "issue_created_at": "2019-11-26T01:27:43Z",
+    "pr_created_at": "2020-03-17T22:01:53Z",
+    "pr_merged_at": "2021-11-29T15:58:32Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 5229,
+    "issue_title": "requests.utils.super_len() can't cope with tarfile members",
+    "issue_body": "## Expected Result\r\n\r\nPOSTing a large file that I have extracted from a tarfile.  I expect that `requests` should be able to determine the length of that file, set the `Content-Length` header, and upload it efficiently.\r\n\r\n## Actual Result\r\n\r\n`requests` fails to determine the file length, goes with `Transfer-Encoding: chunked`, and the upload is much slower than desired.\r\n\r\n## Reproduction Steps\r\n\r\nStart with a small tarfile, say\r\n\r\n```bash\r\necho foo > file1\r\ntar cf tarfile.tar file1\r\n```\r\n\r\nThen use `requests.utils.super_len` to try and get the length of `file1` in the tarfile:\r\n\r\n```python\r\n#!/usr/bin/env python\r\nimport tarfile\r\nimport requests\r\n\r\ntar = tarfile.open(\"tarfile.tar\")\r\nmember = tar.extractfile(\"file1\")\r\nprint(f\"super_length of member is {requests.utils.super_len(member)}\")\r\n```\r\n\r\nresult:\r\n\r\n```\r\nTraceback (most recent call last):\r\n  File \"./demo.py\", line 7, in <module>\r\n    print(f\"super_length of member is {requests.utils.super_len(member)}\")\r\n  File \"/data/developer/.virtualenvs/req-tar/lib/python3.6/site-packages/requests/utils.py\", line 119, in super_len\r\n    fileno = o.fileno()\r\nAttributeError: '_FileInFile' object has no attribute 'fileno'\r\n```\r\n\r\nThe behavior of the member is quite strange here: `hasattr(member, fileno)` is true, but trying to call `member.fileno()` results in an `AttributeError`.\r\n\r\nI expect that a sensible fix might be for [this exception](https://github.com/psf/requests/blob/fab1fd10d0b115e635b9ef1364f8444089725000/requests/utils.py#L121) to catch a broader range of errors.  \r\n\r\nOne can get the length of the member by seeking, so I expect that `super_len()` should then succeed.\r\n\r\n## System Information\r\n\r\n    $ python -m requests.help\r\n\r\n```\r\n{\r\n  \"chardet\": {\r\n    \"version\": \"3.0.4\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"\"\r\n  },\r\n  \"idna\": {\r\n    \"version\": \"2.8\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"3.6.8\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"3.10.0-1062.1.1.el7.x86_64\",\r\n    \"system\": \"Linux\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"\",\r\n    \"version\": null\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.22.0\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"100020bf\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"1.25.6\"\r\n  },\r\n  \"using_pyopenssl\": false\r\n}\r\n```",
+    "pr_number": 5239,
+    "pr_title": "Catch AttributeError in utils.super_len",
+    "commit_hash": "232a5596424c98d11c3cf2e29b2f6a6c591c2ff3",
+    "changed_files": [
+      "requests/utils.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/5229",
+    "pr_url": "https://github.com/psf/requests/pull/5239",
+    "issue_created_at": "2019-10-16T09:27:08Z",
+    "pr_created_at": "2019-10-21T11:55:23Z",
+    "pr_merged_at": "2021-11-28T20:03:31Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 5850,
+    "issue_title": "Infinite loop when verify is invalid UNC path",
+    "issue_body": "When an invalid UNC path is passed to `requests.utils.extract_zipped_paths` it results in an infinite loop\r\n\r\n## Expected Result\r\n\r\nFor `extract_zipped_paths` to return the path and an Exception to be thrown when the cert path is checked prior to verification being attempted.\r\n\r\n## Actual Result\r\n\r\nCode gets stuck looping here \r\nhttps://github.com/psf/requests/blob/5855dd711f0ab9c9c4782574b8814b1e4c7f98cc/requests/utils.py#L245-L248\r\n\r\n## Reproduction Steps\r\n\r\n```python\r\nimport requests.utils\r\nrequests.utils.extract_zipped_paths(r\"\\\\localhost\\a\\b\\c\")  # Assumes this path is invalid on testing machine\r\n\r\n```\r\n\r\n## System Information\r\n\r\n    $ python -m requests.help\r\n\r\n```\r\n{\r\n  \"chardet\": {\r\n    \"version\": \"4.0.0\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"3.4.7\"\r\n  },\r\n  \"idna\": {\r\n    \"version\": \"2.10\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"3.8.10\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"10\",\r\n    \"system\": \"Windows\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"101010bf\",\r\n    \"version\": \"20.0.1\"\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.25.1\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"101010bf\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"1.26.4\"\r\n  },\r\n  \"using_pyopenssl\": true\r\n}\r\n\r\n```\r\n\r\nThis command is only available on Requests v2.16.4 and greater. Otherwise,\r\nplease provide some basic information about your system (Python version,\r\noperating system, &c).\r\n",
+    "pr_number": 5851,
+    "pr_title": "Fix extract_zipped_paths infinite loop when provided invalid unc path",
+    "commit_hash": "d8829f9f242149174e50f45e021ffb81fbbced70",
+    "changed_files": [
+      "requests/utils.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/5850",
+    "pr_url": "https://github.com/psf/requests/pull/5851",
+    "issue_created_at": "2021-06-29T19:49:07Z",
+    "pr_created_at": "2021-06-30T21:29:35Z",
+    "pr_merged_at": "2021-08-03T00:40:34Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 5794,
+    "issue_title": "response.json() raises inconsistent exception type",
+    "issue_body": "There are some comments about this on https://github.com/psf/requests/issues/4842 but I think it warrants its own issue.\r\n\r\nIf `simplejson` is present in the environment, the library uses it so `.json()` returns `simplejson.errors.JSONDecodeError` rather than `json.decoder.JSONDecodeError`\r\n\r\nIf I'm writing a library that uses `requests` I don't know what other libraries will be present in an environment. I expect that a method returns a consistent exception type that I can handle. As it stands, anyone writing a library (e.g. https://github.com/conda-forge/conda-smithy/pull/1369, https://github.com/Vonage/vonage-python-sdk/issues/197) has to check themselves if `simplejson` is present to know what exception type will be thrown.",
+    "pr_number": 5856,
+    "pr_title": "Fix inconsistent exception type in response.json() method",
+    "commit_hash": "db575eeedcfdb03bf31285afd3033e301df8b685",
+    "changed_files": [
+      "requests/__init__.py",
+      "requests/compat.py",
+      "requests/exceptions.py",
+      "requests/models.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/5794",
+    "pr_url": "https://github.com/psf/requests/pull/5856",
+    "issue_created_at": "2021-04-16T14:32:24Z",
+    "pr_created_at": "2021-07-03T21:08:32Z",
+    "pr_merged_at": "2021-07-26T15:56:44Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 5223,
+    "issue_title": "Running requests in parallel from a zip archive can create race condition when unpacking the cacerts.pem file",
+    "issue_body": "We ran into a really crazy case and I understand this is a edge case but it might be worth fixing.\r\n\r\nWe started to see this backtrace in our CI:\r\n\r\n```\r\n[2019-10-08T08:01:13.655Z]   File \"/data/jenkins/postproc-asustor/204934530/conan/lib/conan-1.4.4-66-linux-py36.pyz/requests/api.py\", line 75, in get\r\n[2019-10-08T08:01:13.655Z]   File \"/data/jenkins/postproc-asustor/204934530/conan/lib/conan-1.4.4-66-linux-py36.pyz/requests/api.py\", line 60, in request\r\n[2019-10-08T08:01:13.655Z]   File \"/data/jenkins/postproc-asustor/204934530/conan/lib/conan-1.4.4-66-linux-py36.pyz/requests/sessions.py\", line 533, in request\r\n[2019-10-08T08:01:13.655Z]   File \"/data/jenkins/postproc-asustor/204934530/conan/lib/conan-1.4.4-66-linux-py36.pyz/requests/sessions.py\", line 646, in send\r\n[2019-10-08T08:01:13.655Z]   File \"/data/jenkins/postproc-asustor/204934530/conan/lib/conan-1.4.4-66-linux-py36.pyz/requests/adapters.py\", line 416, in send\r\n[2019-10-08T08:01:13.655Z]   File \"/data/jenkins/postproc-asustor/204934530/conan/lib/conan-1.4.4-66-linux-py36.pyz/requests/adapters.py\", line 224, in cert_verify\r\n[2019-10-08T08:01:13.655Z]   File \"/data/jenkins/postproc-asustor/204934530/conan/lib/conan-1.4.4-66-linux-py36.pyz/requests/utils.py\", line 254, in extract_zipped_paths\r\n[2019-10-08T08:01:13.655Z]   File \"/usr/local/pyenv/versions/3.6.4/lib/python3.6/zipfile.py\", line 1484, in extract\r\n[2019-10-08T08:01:13.655Z]     return self._extract_member(member, path, pwd)\r\n[2019-10-08T08:01:13.655Z]   File \"/usr/local/pyenv/versions/3.6.4/lib/python3.6/zipfile.py\", line 1547, in _extract_member\r\n[2019-10-08T08:01:13.655Z]     os.makedirs(upperdirs)\r\n[2019-10-08T08:01:13.655Z]   File \"/usr/local/pyenv/versions/3.6.4/lib/python3.6/os.py\", line 220, in makedirs\r\n[2019-10-08T08:01:13.655Z]     mkdir(name, mode)\r\n[2019-10-08T08:01:13.655Z] FileExistsError: [Errno 17] File exists: '/data/jenkins/postproc-asustor/204934530/_temp/certifi'\r\n```\r\n\r\nAfter a lot of confusion I think I understand this bug now. We distribute our python dependencies (including requests) as a pyz (created with zipapp) and the consumer in this case calls request inside a `ThreadPool`. requests then have logic to unpack `cacerts.pem` into the temp directory, but there is no race protection. So our parallel threads stepped on each other toes here when unpacking this file.\r\n\r\nWe solved this by a simple get call before starting the parallel invocation. But I think it might be worth fixing because it's very confusing.\r\n\r\n## Expected Result\r\n\r\nNot having the cacert being overwritten :)\r\n\r\n## Actual Result\r\n\r\nException above\r\n\r\n## Reproduction Steps\r\n\r\ncreate a pyz with zipapp of requests and it's dependencies (certifi)\r\n\r\n```python\r\nimport requests                                                                                                                                                                                         from concurrent.futures import ThreadPoolExecutor\r\n\r\nurls = (\"https://github.com\", \"https://github.com\", \"https://github.com\", \"https://github.com\")\r\n\r\ndef get(url):\r\n    print(f\"Getting {url}\")\r\n    requests.get(url)\r\n\r\nwith ThreadPoolExecutor(5) as pool:\r\n      pool.map(get, urls)\r\n```\r\n\r\nnote that since it's a race it can trigger or not trigger a lot.\r\n\r\n## System Information\r\n\r\n    $ python -m requests.help\r\n\r\n```\r\n{\r\n  \"chardet\": {\r\n    \"version\": \"3.0.4\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"2.1.4\"\r\n  },\r\n  \"idna\": {\r\n    \"version\": \"2.8\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"3.6.8\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"4.19.72-microsoft-standard\",\r\n    \"system\": \"Linux\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"1010100f\",\r\n    \"version\": \"17.5.0\"\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.22.0\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"1010100f\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"1.25.6\"\r\n  },\r\n  \"using_pyopenssl\": true\r\n}\r\n```\r\n\r\nThis command is only available on Requests v2.16.4 and greater. Otherwise,\r\nplease provide some basic information about your system (Python version,\r\noperating system, &c).\r\n",
+    "pr_number": 5707,
+    "pr_title": "Avoid zip extract racing condition by using read+write instead extract",
+    "commit_hash": "24630743cecd3d0e9db7bee7e47381dbadf2d789",
+    "changed_files": [
+      "requests/utils.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/5223",
+    "pr_url": "https://github.com/psf/requests/pull/5707",
+    "issue_created_at": "2019-10-08T09:34:58Z",
+    "pr_created_at": "2020-12-24T19:20:04Z",
+    "pr_merged_at": "2021-07-07T00:14:52Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1000,
+    "issue_title": "requests.auth has an orphaned reference to ._oauth",
+    "issue_body": "Symptom:\n\n```\nTraceback (most recent call last):\n  ...\n  File \"/Users/mlm/.virtualenvs/mlm/src/requests/requests/auth.py\", line 68, in __init__\n    self.client = Client(client_key, client_secret, resource_owner_key,\nNameError: global name 'Client' is not defined\n```\n\nUsing:\n\n```\n(mlm)\n(mlm)(master) mlm@matt-mmf-macbook.local:~/.virtualenvs/mlm/src/requests\n$ git show \ncommit d74bd7e1a28eb80cd9dba1a0d149f35dd35ab3e0\nMerge: a7344a0 500dc78\nAuthor: Kenneth Reitz <me@kennethreitz.com>\nDate:   Wed Dec 12 00:09:43 2012 -0800\n\n    Merge pull request #998 from jamshid/master\n\n    Issue #996 Location should not be followed unless 30X response\n\n(mlm)\n(mlm)(master) mlm@matt-mmf-macbook.local:~/.virtualenvs/mlm/src/requests\n$ \n```\n",
+    "pr_number": 1001,
+    "pr_title": "Import oauthlib without the obsolete wrapper.",
+    "commit_hash": "ac5ec9e2447273f65c11d9977a4b11b34aa87f16",
+    "changed_files": [
+      "requests/auth.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1000",
+    "pr_url": "https://github.com/psf/requests/pull/1001",
+    "issue_created_at": "2012-12-12T15:43:38Z",
+    "pr_created_at": "2012-12-12T15:47:21Z",
+    "pr_merged_at": "2012-12-15T04:07:18Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1027,
+    "issue_title": "Requests 1.0.2 doesn't appear to set session cookies on POST requests",
+    "issue_body": "I can confirm that the example using httpbin.org still works. However, my similar code that sends a POST request (to login) the response object contains the cookie, however the session object is not updated to contain the cookie thus making the session useless unless I manually do the following for POST requests:\n\n```\nsession.cookies = response.cookies\n```\n\nWhat's also odd is in the httpbin.org example using the `GET` request, while the session's cookies are updated, the response's cookie attribute is empty:\n\n```\n>>> import requests\n>>> s = requests.session()\n>>> r = s.get('http://httpbin.org/cookies/set/sessioncookie/123456789')\n>>> s.cookies\n<<class 'requests.cookies.RequestsCookieJar'>[Cookie(version=0, name='sessioncookie', value='123456789', port=None, port_specified=False, domain='httpbin.org', domain_specified=False, domain_initial_dot=False, path='/', path_specified=True, secure=False, expires=None, discard=True, comment=None, comment_url=None, rest={}, rfc2109=False)]>\n>>> r.cookies\n<<class 'requests.cookies.RequestsCookieJar'>[]>\n```\n",
+    "pr_number": 1030,
+    "pr_title": "Fix issue 1027. Always persist cookies.",
+    "commit_hash": "d83425df483f5b25c3cf391dbfc3b6d09b1e8fb8",
+    "changed_files": [
+      "requests/sessions.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1027",
+    "pr_url": "https://github.com/psf/requests/pull/1030",
+    "issue_created_at": "2012-12-18T00:23:15Z",
+    "pr_created_at": "2012-12-18T01:14:24Z",
+    "pr_merged_at": "2012-12-18T05:45:49Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1051,
+    "issue_title": "requests.get is ALWAYS sending content length",
+    "issue_body": "Hi,\n\nIt seems like that request.get always adds 'content-length' header to the request.\nI think that the right behavior is not to add this header automatically in GET requests or add the possibility to not send it.\n\nFor example http://amazon.com returns 503 for every get request that contains 'content-length' header.\n\nThanks,\n\nOren\n",
+    "pr_number": 1142,
+    "pr_title": "Remove default Content-Length from GET requests.",
+    "commit_hash": "f52d7824a7ea437683550d4a1e94b155ce55bfb0",
+    "changed_files": [
+      "requests/models.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1051",
+    "pr_url": "https://github.com/psf/requests/pull/1142",
+    "issue_created_at": "2012-12-20T12:38:48Z",
+    "pr_created_at": "2013-01-25T05:19:16Z",
+    "pr_merged_at": "2013-01-26T04:58:20Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1133,
+    "issue_title": "Pluggable Request objects?",
+    "issue_body": "It would be super cool if it were possible to plug a custom Request object over a Session object. However it looks as though the Request object is hardcoded into the request method, e.g. https://github.com/kennethreitz/requests/blob/1a87f15e6f8d22be6855424b46b80f66d178fe40/requests/sessions.py#L264\n\nAny thoughts on this?\n",
+    "pr_number": 1151,
+    "pr_title": "Move redirect handling from Session.request to Session.send",
+    "commit_hash": "85e29ea2493377f6bedf6454236dfc7b5a6ee5e6",
+    "changed_files": [
+      "requests/sessions.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1133",
+    "pr_url": "https://github.com/psf/requests/pull/1151",
+    "issue_created_at": "2013-01-23T23:04:09Z",
+    "pr_created_at": "2013-01-30T18:17:08Z",
+    "pr_merged_at": "2013-02-05T19:42:51Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1183,
+    "issue_title": "No means of authenticating redirects",
+    "issue_body": "In `requests/requests-kerberos` we use GSSAPI to not only authenticate to the server, but also authenticate the server as well. It's called mutual authentication. The way that `Session.send` resolves redirects doesn't allow us to authenticate the redirects. \n\nThis is a problem because if a user sends a request to `host_a` which redirects us to `host_b` and we authenticate `host_b` successfully, that really doesn't mean anything to the user if he can't actually trust that the process which issued the redirect was actually `host_a`.\n\nThis means that if we want to require mutual authentication, we cannot follow redirects at all, even if the servers are capable of authenticating their redirects.\n\nWould it be possible to either:\n1. Dispatch the `response` hook on redirects\n2. Create a new kind of hook which authentication mechanisms can install specifically for handling redirects?\n\nI see problems with option 1. If we'd be amenable to option 2, I'll work on a pull request for it. Unless someone says otherwise I'd call the hook `redirect`.\n",
+    "pr_number": 1185,
+    "pr_title": "Dispatch hooks before following redirects",
+    "commit_hash": "e4e89f49c122e79175e73e0ae7c33d33834dbd0d",
+    "changed_files": [
+      "requests/sessions.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1183",
+    "pr_url": "https://github.com/psf/requests/pull/1185",
+    "issue_created_at": "2013-02-11T20:50:17Z",
+    "pr_created_at": "2013-02-13T04:05:15Z",
+    "pr_merged_at": "2013-02-13T10:13:31Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1207,
+    "issue_title": "URL-encoding not handled for proxy username and password",
+    "issue_body": "Proxy authentication information is specified by the `proxies` dictionary passed to `requests.get()` and other methods, like so:\n\n```\nrequests.get(..., proxies = {'http': 'http://user:pass@myproxy.mydomain.com'})\n```\n\nBecause the username and password are specified as part of a URL, they _must_ be URL-encoded by the caller; otherwise consider what would happen if the user's password or username contained an `@` or a `:`, etc.\n\nSo, for example, if my proxy password is `p@ssword!!!`, I need to write my call like this:\n\n```\nrequests.get(..., proxies = {'http': 'http://user:p%40ssword%21%21%21@myproxy.mydomain.com'})\n```\n\nHowever, this functionality is currently broken, because `utils.get_auth_from_url` does not _decode_ the URL-encoded username and password. The result is that the raw URL-encoded username and password are sent in the `Proxy-Authorization` header to the proxy, but of course the proxy expects the _actual_, decoded username and password, so authentication fails.\n\nIt is a one-line fix to perform URL decoding in `utils.get_auth_from_url`. It would also be a good idea to add this to the `test_get_auth_from_url` test case.\n\nI would submit a pull request myself, but the fix I developed was written on company time, so I would need like 7 signatures to release it you. Argh.\n",
+    "pr_number": 1210,
+    "pr_title": "Unquote proxy usernames and passwords.",
+    "commit_hash": "4cfa940236f4ace5b6fa142d0341c4f096408259",
+    "changed_files": [
+      "requests/adapters.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1207",
+    "pr_url": "https://github.com/psf/requests/pull/1210",
+    "issue_created_at": "2013-02-21T16:38:09Z",
+    "pr_created_at": "2013-02-22T00:39:45Z",
+    "pr_merged_at": "2013-02-25T10:31:01Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 649,
+    "issue_title": "CaseInsensitiveDict __setitem__ faulty for differing-case keys",
+    "issue_body": "I think I figured out the cause of the issue described here: https://github.com/kennethreitz/requests/pull/59\n\nIt appears that if one isn't careful to use a common case convention when assigning a header after it has been assigned before, the header will fail to work. The request will use the old header value... I think I know why, too. Here's an example:\n\ntest.py\n\n``` python\n\nfrom requests.structures import CaseInsensitiveDict\n\nprint \"Initializing CID = CaseInsensitiveDict()\"\nCID = CaseInsensitiveDict()\n\nprint \"Setting 'spam': 'eggs'\"\nCID['spam'] = 'eggs'\nprint \"Setting 'Spam': 'Eggs'\"\nCID['Spam'] = 'Eggs'\nprint \"Setting 'sPAM': 'eGGS'\"\nCID['sPAM'] = 'eGGS'\n\nprint \"Contents of CID:\", CID\nprint \"CID['spam']: '%s'\" % CID['spam']\nprint \"CID['Spam']: '%s'\" % CID['Spam']\nprint \"CID['sPAM']: '%s'\" % CID['sPAM']\n\nprint \"\\n\\n\\n\"\n\nprint \"Initializing CID = CaseInsensitiveDict()\"\nCID = CaseInsensitiveDict()\n\nprint \"Setting 'sPAM': 'eGGS'\"\nCID['sPAM'] = 'eGGS'\nprint \"Setting 'Spam': 'Eggs'\"\nCID['Spam'] = 'Eggs'\nprint \"Setting 'spam': 'eggs'\"\nCID['spam'] = 'eggs'\n\nprint \"Contents of CID:\", CID\nprint \"CID['spam']: '%s'\" % CID['spam']\nprint \"CID['Spam']: '%s'\" % CID['Spam']\nprint \"CID['sPAM']: '%s'\" % CID['sPAM']\n```\n\nThe output:\n\n```\nInitializing CID = CaseInsensitiveDict()\nSetting 'spam': 'eggs'\nSetting 'Spam': 'Eggs'\nSetting 'sPAM': 'eGGS'\nContents of CID: {'sPAM': 'eGGS', 'Spam': 'Eggs', 'spam': 'eggs'}\nCID['spam']: 'eggs'\nCID['Spam']: 'eggs'\nCID['sPAM']: 'eggs'\n\nInitializing CID = CaseInsensitiveDict()\nSetting 'sPAM': 'eGGS'\nSetting 'Spam': 'Eggs'\nSetting 'spam': 'eggs'\nContents of CID: {'spam': 'eggs', 'Spam': 'Eggs', 'sPAM': 'eGGS'}\nCID['spam']: 'eGGS'\nCID['Spam']: 'eGGS'\nCID['sPAM']: 'eGGS'\n```\n\nNotice how in both passes, only the first assignment actually \"works\". It stores the data for all three assignments, but will only return the value set by the initial key.\n\nI believe the only change necessary would be to the **setitem** method on CaseInsensitiveDict:\n\nBroken:\n\n``` python\n    def __setitem__(self, key, value):\n        dict.__setitem__(self, key, value)\n        self._clear_lower_keys()\n```\n\nFixed:\n\n``` python\n    def __setitem__(self, key, value):\n        dict.__setitem__(self, key.lower(), value)\n        self._clear_lower_keys()\n```\n\nWhen I use the corrected module, the CaseInsensitiveDict behaves as I believe it should:\n\n```\nInitializing CID = CaseInsensitiveDict()\nSetting 'spam': 'eggs'\nSetting 'Spam': 'Eggs'\nSetting 'sPAM': 'eGGS'\nContents of CID: {'spam': 'eGGS'}\nCID['spam']: 'eGGS'\nCID['Spam']: 'eGGS'\nCID['sPAM']: 'eGGS'\n\nInitializing CID = CaseInsensitiveDict()\nSetting 'sPAM': 'eGGS'\nSetting 'Spam': 'Eggs'\nSetting 'spam': 'eggs'\nContents of CID: {'spam': 'eggs'}\nCID['spam']: 'eggs'\nCID['Spam']: 'eggs'\nCID['sPAM']: 'eggs'\n```\n\nNote that the value for that key is the last one assigned, instead of the first.\n\nIf needed, I can put together a pull request for this, but it might take some time since I've never done it before :)\n",
+    "pr_number": 1339,
+    "pr_title": "Rewrite CaseInsensitiveDict to work correctly/sanely",
+    "commit_hash": "b8d9833bc65231c82c44ff5a76035741529afb9f",
+    "changed_files": [
+      "requests/structures.py",
+      "requests/utils.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/649",
+    "pr_url": "https://github.com/psf/requests/pull/1339",
+    "issue_created_at": "2012-06-03T00:59:23Z",
+    "pr_created_at": "2013-04-30T20:05:30Z",
+    "pr_merged_at": "2013-05-01T17:27:58Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1360,
+    "issue_title": "Problem with 301-redirect",
+    "issue_body": "I have a problem with downloading a file, when the server returns the 301 code:\n\n``` python\nr = requests.get('http://servag.rupsy.ru/track.php?url=2013-04-11/Haatzumaniak_-_Dark_Sadhu_[2013]/03.%20Haatzumaniak_-_777_Dark%20Sadhu%202013.mp3&arj=Haatzumaniak_-_Dark_Sadhu_[2013].ZIP')\nprint(r)\n```\n\nIf you do redirect manually - it works fine:\n\n``` python\nr = requests.get('http://servag.rupsy.ru/track.php?url=2013-04-11/Haatzumaniak_-_Dark_Sadhu_[2013]/03.%20Haatzumaniak_-_777_Dark%20Sadhu%202013.mp3&arj=Haatzumaniak_-_Dark_Sadhu_[2013].ZIP', allow_redirects=False)\nr = requests.get(r.headers['Location'])\nprint(r)\n```\n\nThe problem appears to Python 3.3 and python-requests-1.2.0/python-requests-dev\n\n```\nTraceback (most recent call last):\n  File \"C:\\Dropbox\\projects\\Helpers\\ph\\.envwin32\\lib\\site-packages\\requests\\packages\\urllib3\\connectionpool.py\", line 428, in urlopen\n    body=body, headers=headers)\n  File \"C:\\Dropbox\\projects\\Helpers\\ph\\.envwin32\\lib\\site-packages\\requests\\packages\\urllib3\\connectionpool.py\", line 290, in _make_request\n    httplib_response = conn.getresponse()\n  File \"c:\\Python33\\lib\\http\\client.py\", line 1143, in getresponse\n    response.begin()\n  File \"c:\\Python33\\lib\\http\\client.py\", line 354, in begin\n    version, status, reason = self._read_status()\n  File \"c:\\Python33\\lib\\http\\client.py\", line 324, in _read_status\n    raise BadStatusLine(line)\nhttp.client.BadStatusLine: ''\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Dropbox\\projects\\Helpers\\ph\\.envwin32\\lib\\site-packages\\requests\\adapters.py\", line 283, in send\n    timeout=timeout\n  File \"C:\\Dropbox\\projects\\Helpers\\ph\\.envwin32\\lib\\site-packages\\requests\\packages\\urllib3\\connectionpool.py\", line 474, in urlopen\n    raise MaxRetryError(self, url, e)\nrequests.packages.urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='servag.rupsy.ru', port=80): Max retries exceeded with url: /media/2/Haatzumaniak_-_Dark_Sadhu_[2013]/03. Haatzumaniak_-_777_Dark Sadhu 2013.mp3 (Caused by <class 'http.client.BadStatusLine'>: '')\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:/Dropbox/projects/InfoStreams/test.py\", line 25, in <module>\n    allow_redirects=True)\n  File \"C:\\Dropbox\\projects\\Helpers\\ph\\.envwin32\\lib\\site-packages\\requests\\api.py\", line 55, in get\n    return request('get', url, **kwargs)\n  File \"C:\\Dropbox\\projects\\Helpers\\ph\\.envwin32\\lib\\site-packages\\requests\\api.py\", line 44, in request\n    return session.request(method=method, url=url, **kwargs)\n  File \"C:\\Dropbox\\projects\\Helpers\\ph\\.envwin32\\lib\\site-packages\\requests\\sessions.py\", line 345, in request\n    resp = self.send(prep, **send_kwargs)\n  File \"C:\\Dropbox\\projects\\Helpers\\ph\\.envwin32\\lib\\site-packages\\requests\\sessions.py\", line 464, in send\n    history = [resp for resp in gen] if allow_redirects else []\n  File \"C:\\Dropbox\\projects\\Helpers\\ph\\.envwin32\\lib\\site-packages\\requests\\sessions.py\", line 464, in <listcomp>\n    history = [resp for resp in gen] if allow_redirects else []\n  File \"C:\\Dropbox\\projects\\Helpers\\ph\\.envwin32\\lib\\site-packages\\requests\\sessions.py\", line 154, in resolve_redirects\n    allow_redirects=False,\n  File \"C:\\Dropbox\\projects\\Helpers\\ph\\.envwin32\\lib\\site-packages\\requests\\sessions.py\", line 448, in send\n    r = adapter.send(request, **kwargs)\n  File \"C:\\Dropbox\\projects\\Helpers\\ph\\.envwin32\\lib\\site-packages\\requests\\adapters.py\", line 318, in send\n    raise ConnectionError(e)\nrequests.exceptions.ConnectionError: HTTPConnectionPool(host='servag.rupsy.ru', port=80): Max retries exceeded with url: /media/2/Haatzumaniak_-_Dark_Sadhu_[2013]/03. Haatzumaniak_-_777_Dark Sadhu 2013.mp3 (Caused by <class 'http.client.BadStatusLine'>: '')\n```\n",
+    "pr_number": 1361,
+    "pr_title": "Always percent-encode location headers.",
+    "commit_hash": "a487e2b4c06620464d37db9356f33d843cecbe74",
+    "changed_files": [
+      "requests/sessions.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1360",
+    "pr_url": "https://github.com/psf/requests/pull/1361",
+    "issue_created_at": "2013-05-16T09:16:48Z",
+    "pr_created_at": "2013-05-16T11:05:44Z",
+    "pr_merged_at": "2013-05-20T20:04:08Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1371,
+    "issue_title": "Python 3 encoded form parameters in post request with files",
+    "issue_body": "I believe due to pull request #1279 the field parameters (along with values) are encoded to bytes in python3 which makes parameters in post requests that have use encode_multipart_formdata from urllib3/filepost.py show up as <code>\"b'stuff'\"</code> instead of <code>\"stuff\"</code> as reported by httpbin.org/post. I've written a quick gist which shows what I'm talking about. It's a modified version of one of the tests in test_requests.py, https://gist.github.com/trblae/5617488.\n\nI've traced the cause of this issue to the dependent package in urllib3/filepost.py. As you can see at line 80 form-data is built via a string format with the field name. It seems in python 3 this produces the bytes representation of the fields. This only happens in specific cases with files or more generally when encode_multipart_formdata is used.\n\nI'm not exactly familiar enough with the differences between python2 and python3 strings to really know how to tackle this issue in order to solve it for both python2 and python3. This is kind of my first rodeo so please let me know if I'm doing something wrong or how I can help.\n",
+    "pr_number": 1373,
+    "pr_title": "Only pass unicode multipart fieldnames to urllib3.",
+    "commit_hash": "06ae1e64c1b826f2e151f8b561c07726711cbb4e",
+    "changed_files": [
+      "requests/models.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1371",
+    "pr_url": "https://github.com/psf/requests/pull/1373",
+    "issue_created_at": "2013-05-21T04:38:08Z",
+    "pr_created_at": "2013-05-21T08:52:21Z",
+    "pr_merged_at": "2013-05-21T13:19:48Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1280,
+    "issue_title": "Session.request doesn't have parameter return_response, contrary to what the docs say.",
+    "issue_body": "```\ndef request(self, method, url,\n    params=None,\n    data=None,\n    headers=None,\n    cookies=None,\n    files=None,\n    auth=None,\n    timeout=None,\n    allow_redirects=True,\n    proxies=None,\n    hooks=None,\n    stream=None,\n    verify=None,\n    cert=None):\n    \"\"\"Constructs a :class:`Request <Request>`, prepares it and sends it.\n    Returns :class:`Response <Response>` object.\n\n    :param method: method for the new :class:`Request` object.\n    :param url: URL for the new :class:`Request` object.\n    :param params: (optional) Dictionary or bytes to be sent in the query\n        string for the :class:`Request`.\n    :param data: (optional) Dictionary or bytes to send in the body of the\n        :class:`Request`.\n    :param headers: (optional) Dictionary of HTTP Headers to send with the\n        :class:`Request`.\n    :param cookies: (optional) Dict or CookieJar object to send with the\n        :class:`Request`.\n    :param files: (optional) Dictionary of 'filename': file-like-objects\n        for multipart encoding upload.\n    :param auth: (optional) Auth tuple or callable to enable\n        Basic/Digest/Custom HTTP Auth.\n    :param timeout: (optional) Float describing the timeout of the\n        request.\n    :param allow_redirects: (optional) Boolean. Set to True by default.\n    :param proxies: (optional) Dictionary mapping protocol to the URL of\n        the proxy.\n    :param return_response: (optional) If False, an un-sent Request object\n        will returned.\n    :param config: (optional) A configuration dictionary. See\n        ``request.defaults`` for allowed keys and their default values.\n    :param prefetch: (optional) whether to immediately download the response\n        content. Defaults to ``True``.\n    :param verify: (optional) if ``True``, the SSL cert will be verified.\n        A CA_BUNDLE path can also be provided.\n    :param cert: (optional) if String, path to ssl client cert file (.pem).\n        If Tuple, ('cert', 'key') pair.\n    \"\"\"\n```\n",
+    "pr_number": 1283,
+    "pr_title": "Closes #1280",
+    "commit_hash": "967d24167f28e0d5e957a57abf024eb7b95e0775",
+    "changed_files": [
+      "requests/sessions.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1280",
+    "pr_url": "https://github.com/psf/requests/pull/1283",
+    "issue_created_at": "2013-04-02T11:24:21Z",
+    "pr_created_at": "2013-04-02T13:23:09Z",
+    "pr_merged_at": "2013-04-04T01:04:40Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1369,
+    "issue_title": "Cannot fetch \"http://www.google.com/\"?",
+    "issue_body": "```\nimport requests\nr = requests.get('http://www.google.com/')\n\nTraceback (most recent call last):\n  File \"<pyshell#6>\", line 1, in <module>\n    r = requests.get('http://www.google.com/')\n  File \"C:\\Python33\\lib\\site-packages\\requests\\api.py\", line 55, in get\n    return request('get', url, **kwargs)\n  File \"C:\\Python33\\lib\\site-packages\\requests\\api.py\", line 44, in request\n    return session.request(method=method, url=url, **kwargs)\n  File \"C:\\Python33\\lib\\site-packages\\requests\\sessions.py\", line 354, in request\n    resp = self.send(prep, **send_kwargs)\n  File \"C:\\Python33\\lib\\site-packages\\requests\\sessions.py\", line 460, in send\n    r = adapter.send(request, **kwargs)\n  File \"C:\\Python33\\lib\\site-packages\\requests\\adapters.py\", line 256, in send\n    r = self.build_response(request, resp)\n  File \"C:\\Python33\\lib\\site-packages\\requests\\adapters.py\", line 125, in build_response\n    extract_cookies_to_jar(response.cookies, req, resp)\n  File \"C:\\Python33\\lib\\site-packages\\requests\\cookies.py\", line 105, in extract_cookies_to_jar\n    jar.extract_cookies(res, req)\n  File \"C:\\Python33\\lib\\http\\cookiejar.py\", line 1647, in extract_cookies\n    if self._policy.set_ok(cookie, request):\n  File \"C:\\Python33\\lib\\http\\cookiejar.py\", line 931, in set_ok\n    if not fn(cookie, request):\n  File \"C:\\Python33\\lib\\http\\cookiejar.py\", line 952, in set_ok_verifiability\n    if request.unverifiable and is_third_party(request):\n  File \"C:\\Python33\\lib\\http\\cookiejar.py\", line 707, in is_third_party\n    if not domain_match(req_host, reach(request.origin_req_host)):\nAttributeError: 'MockRequest' object has no attribute 'origin_req_host'\n```\n\nUsing official CPython 3.3.2 binary on Windows 7 x64.\n",
+    "pr_number": 1370,
+    "pr_title": "Add an extra property for Python 3.3",
+    "commit_hash": "a0c696bd22f39d6da312d3571646ae680c65cd8c",
+    "changed_files": [
+      "requests/cookies.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1369",
+    "pr_url": "https://github.com/psf/requests/pull/1370",
+    "issue_created_at": "2013-05-20T19:19:44Z",
+    "pr_created_at": "2013-05-20T19:23:02Z",
+    "pr_merged_at": "2013-05-20T19:57:39Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1499,
+    "issue_title": "Reset hooks after registering them?",
+    "issue_body": "In `models.py` line 200, hooks is registered, which is actually copying `hooks` to `self.hooks`:\n\n``` python\nself.hooks = default_hooks()\nfor (k, v) in list(hooks.items()):\n     self.register_hook(event=k, hook=v)\n```\n\nThen in line 212, `self.hooks` is reset again:\n\n``` python\nself.hooks = hooks\n```\n",
+    "pr_number": 1501,
+    "pr_title": "Fix duplication of efforts caught by @dofelw",
+    "commit_hash": "13b95bebd3a8caf1adb66ba1921be90ff4408664",
+    "changed_files": [
+      "requests/models.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1499",
+    "pr_url": "https://github.com/psf/requests/pull/1501",
+    "issue_created_at": "2013-07-29T08:06:48Z",
+    "pr_created_at": "2013-07-29T13:15:40Z",
+    "pr_merged_at": "2013-08-01T01:22:59Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1502,
+    "issue_title": "AttributeError: 'MockRequest' object has no attribute 'host'",
+    "issue_body": "This issue appears to be specific to Python 3 (with requests 1.2.3), and I believe it only occurs with cookies that specify port numbers.  It looks to me like the \"MockRequest\" object defined in cookies.py provides a get_host() method that would work here, but the code inside cookiejar.py tries to go directly to the host attribute, bypassing the mock.  Below is a stack trace showing the issue:\n\nPython 3.3.1 (v3.3.1:d9893d13c628, Apr  6 2013, 20:30:21) [MSC v.1600 64 bit (AMD64)] on win32\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n\n> > > import requests\n> > > request = requests.head('https://cloudsquid.redewt.net:2083/')\n> > > Traceback (most recent call last):\n> > >   File \"<stdin>\", line 1, in <module>\n> > >   File \"C:\\Python33\\lib\\site-packages\\requests\\api.py\", line 77, in head\n> > >     return request('head', url, *_kwargs)\n> > >   File \"C:\\Python33\\lib\\site-packages\\requests\\api.py\", line 44, in request\n> > >     return session.request(method=method, url=url, *_kwargs)\n> > >   File \"C:\\Python33\\lib\\site-packages\\requests\\sessions.py\", line 335, in request\n> > >     resp = self.send(prep, *_send_kwargs)\n> > >   File \"C:\\Python33\\lib\\site-packages\\requests\\sessions.py\", line 438, in send\n> > >     r = adapter.send(request, *_kwargs)\n> > >   File \"C:\\Python33\\lib\\site-packages\\requests\\adapters.py\", line 337, in send\n> > >     r = self.build_response(request, resp)\n> > >   File \"C:\\Python33\\lib\\site-packages\\requests\\adapters.py\", line 176, in build_response\n> > >     extract_cookies_to_jar(response.cookies, req, resp)\n> > >   File \"C:\\Python33\\lib\\site-packages\\requests\\cookies.py\", line 109, in extract_cookies_to_jar\n> > >     jar.extract_cookies(res, req)\n> > >   File \"C:\\Python33\\lib\\http\\cookiejar.py\", line 1647, in extract_cookies\n> > >     if self._policy.set_ok(cookie, request):\n> > >   File \"C:\\Python33\\lib\\http\\cookiejar.py\", line 931, in set_ok\n> > >     if not fn(cookie, request):\n> > >   File \"C:\\Python33\\lib\\http\\cookiejar.py\", line 1044, in set_ok_port\n> > >     req_port = request_port(request)\n> > >   File \"C:\\Python33\\lib\\http\\cookiejar.py\", line 628, in request_port\n> > >     host = request.host\n> > > AttributeError: 'MockRequest' object has no attribute 'host'\n",
+    "pr_number": 1506,
+    "pr_title": "Provide 'host' parameter to MockRequest.",
+    "commit_hash": "8f765ea2927acd6081d696b2cbcde0c8e573b4ae",
+    "changed_files": [
+      "requests/cookies.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1502",
+    "pr_url": "https://github.com/psf/requests/pull/1506",
+    "issue_created_at": "2013-07-29T13:53:32Z",
+    "pr_created_at": "2013-07-30T17:22:20Z",
+    "pr_merged_at": "2013-08-01T01:22:03Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 997,
+    "issue_title": "Requests v0.14.2 - requests.session() fails on post() with KeyError exception",
+    "issue_body": "Hello All,\n\nI am a _big_ fan of Requests, and have just upgraded from v0.14.0 on Python 3.2.3 to v0.14.2 on Python 3.3.0. I think that the upgrade to Requests broke my code when using a `requests.session()` object. I use Fiddler for some transport debugging, which is why I'm using the loopback address on port 8888.\n\n_Please note_ that everything works as expected if I use a `requests.post()` object instead of using a `requests.session()` object for the request (obviously bypassing the proxy).\n\nMy code looks as follows:\n\n``` python\ns = requests.session(proxies={'http': '127.0.0.1:8888'})\nr = s.post(url, data=soap_req, headers=headers)\n```\n\nThe call to `s.post()` results in a `KeyError: None` exception in `connection_from_host()` in `class PoolManager` in poolmanager.py. \n\nThe offending line is: \n\n``` python\n    pool_cls = pool_classes_by_scheme[scheme]\n```\n\nDebugging shows `pool_key = (None, '127.0.0.1', 8888)`\n\nWhat puzzles me is that scheme shows up as _None_ (as shown in the 1st element in the tuple above). Debugging indeed verifies scheme is NoneType, which makes no sense, since it has a default value of 'http' when it enters the method.\n\nI would appreciate anyone who can shed light and/or provide a fix for the above. I'm at the limit of my debugging skills. Please advise if you need more info from my side for further troubleshooting.\n\nThanks in advance,\n\nJean-Marc\n",
+    "pr_number": 1071,
+    "pr_title": "Proxies should have schemes.",
+    "commit_hash": "621b6180f78af6b5d22ef7181264f3a3fb24b589",
+    "changed_files": [
+      "requests/adapters.py",
+      "requests/utils.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/997",
+    "pr_url": "https://github.com/psf/requests/pull/1071",
+    "issue_created_at": "2012-12-12T03:44:58Z",
+    "pr_created_at": "2012-12-27T13:39:40Z",
+    "pr_merged_at": "2012-12-28T15:41:55Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1800,
+    "issue_title": "Move off of charade to erikrose/chardet",
+    "issue_body": "@dan-blanchard has taken over maintenance of [chardet](erikrose/chardet). We've merged charade into chardet so that chardet will now work on python2 and python3 without needing separate versions. I'd like to get rid of charade since it's been a responsibility that I had neglected and has been more trouble than it has been worth.\n\nWe should start using chardet proper again when they have it ready. (In all candor it should already be ready)\n",
+    "pr_number": 1810,
+    "pr_title": "Swap charade for chardet",
+    "commit_hash": "19dbb3e1a78467aad142402680c5b9a52aa59425",
+    "changed_files": [
+      "requests/compat.py",
+      "requests/models.py",
+      "requests/packages/charade/__main__.py",
+      "requests/packages/chardet/__init__.py",
+      "requests/packages/chardet/big5freq.py",
+      "requests/packages/chardet/big5prober.py",
+      "requests/packages/chardet/chardetect.py",
+      "requests/packages/chardet/chardistribution.py",
+      "requests/packages/chardet/charsetgroupprober.py",
+      "requests/packages/chardet/charsetprober.py",
+      "requests/packages/chardet/codingstatemachine.py",
+      "requests/packages/chardet/compat.py",
+      "requests/packages/chardet/constants.py",
+      "requests/packages/chardet/cp949prober.py",
+      "requests/packages/chardet/escprober.py",
+      "requests/packages/chardet/escsm.py",
+      "requests/packages/chardet/eucjpprober.py",
+      "requests/packages/chardet/euckrfreq.py",
+      "requests/packages/chardet/euckrprober.py",
+      "requests/packages/chardet/euctwfreq.py",
+      "requests/packages/chardet/euctwprober.py",
+      "requests/packages/chardet/gb2312freq.py",
+      "requests/packages/chardet/gb2312prober.py",
+      "requests/packages/chardet/hebrewprober.py",
+      "requests/packages/chardet/jisfreq.py",
+      "requests/packages/chardet/jpcntx.py",
+      "requests/packages/chardet/langbulgarianmodel.py",
+      "requests/packages/chardet/langcyrillicmodel.py",
+      "requests/packages/chardet/langgreekmodel.py",
+      "requests/packages/chardet/langhebrewmodel.py",
+      "requests/packages/chardet/langhungarianmodel.py",
+      "requests/packages/chardet/langthaimodel.py",
+      "requests/packages/chardet/latin1prober.py",
+      "requests/packages/chardet/mbcharsetprober.py",
+      "requests/packages/chardet/mbcsgroupprober.py",
+      "requests/packages/chardet/mbcssm.py",
+      "requests/packages/chardet/sbcharsetprober.py",
+      "requests/packages/chardet/sbcsgroupprober.py",
+      "requests/packages/chardet/sjisprober.py",
+      "requests/packages/chardet/universaldetector.py",
+      "requests/packages/chardet/utf8prober.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1800",
+    "pr_url": "https://github.com/psf/requests/pull/1810",
+    "issue_created_at": "2013-12-15T03:16:53Z",
+    "pr_created_at": "2013-12-18T14:47:36Z",
+    "pr_merged_at": "2013-12-18T15:52:55Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1922,
+    "issue_title": "The documentation does not tell you what units timeout is specified in",
+    "issue_body": "I correctly assumed seconds, but not with enough confidence that I didn't have to dig about in the source until I found [this](https://github.com/kennethreitz/requests/blob/a5b3719967e685afe9e96359e69177fda0a10d44/requests/packages/urllib3/util.py#L108) to be sure, and even that isn't explicit.\n",
+    "pr_number": 1923,
+    "pr_title": "The timeout is in seconds.",
+    "commit_hash": "27c92c97878961db3b9c108d7eb4f20e74085ab4",
+    "changed_files": [
+      "requests/api.py",
+      "requests/sessions.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1922",
+    "pr_url": "https://github.com/psf/requests/pull/1923",
+    "issue_created_at": "2014-02-16T18:56:17Z",
+    "pr_created_at": "2014-02-16T19:01:11Z",
+    "pr_merged_at": "2014-02-16T19:02:05Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1249,
+    "issue_title": "stream_decompress corrupts output in case of decompress error",
+    "issue_body": "A `zlib.Decompress` object consumes at least one byte without raising an error and without returning any output:\n\n```\n>>> zlib_mode = 16 + zlib.MAX_WBITS\n>>> any(zlib.decompressobj(zlib_mode).decompress(chr(i)) for i in xrange(256))\nFalse\n```\n\nSo if there is an zlib.error in `stream_decompress`, there will be at least one byte missing in the output string.\n\nAdditionally, there are two variations of the deflate compression in urllib3, while requests is only handling one of them: https://github.com/shazow/urllib3/blob/master/urllib3/response.py#L25\n",
+    "pr_number": 1299,
+    "pr_title": "Use streaming decompression feature of urllib3.",
+    "commit_hash": "01e460c7de590f641f98b88ae4e1dec3a0d17d91",
+    "changed_files": [
+      "requests/models.py",
+      "requests/packages/urllib3/filepost.py",
+      "requests/packages/urllib3/response.py",
+      "requests/utils.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1249",
+    "pr_url": "https://github.com/psf/requests/pull/1299",
+    "issue_created_at": "2013-03-19T13:11:24Z",
+    "pr_created_at": "2013-04-10T06:13:18Z",
+    "pr_merged_at": "2013-04-14T03:27:47Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 2077,
+    "issue_title": "PreparedRequest.copy fails if headers or _cookies are None",
+    "issue_body": "Try the following:\n\n```\nfrom requests import PreparedRequest\nPreparedRequest().copy()\n```\n\nIt will raise `AttributeError: 'NoneType' object has no attribute 'copy'` because `self.headers` is `None`. The same will happen on `_cookies` if `headers` isn't `None`.\n",
+    "pr_number": 2078,
+    "pr_title": "Allow copying of PreparedRequests without headers/cookies",
+    "commit_hash": "54452f76c74af853895148400446231709ae7f77",
+    "changed_files": [
+      "requests/models.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/2077",
+    "pr_url": "https://github.com/psf/requests/pull/2078",
+    "issue_created_at": "2014-05-30T16:48:40Z",
+    "pr_created_at": "2014-05-30T17:13:51Z",
+    "pr_merged_at": "2014-05-30T17:33:29Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1859,
+    "issue_title": "Brittle test",
+    "issue_body": "The test `test_expires_valid_str` fails on my OS X box, in Python 2.7:\n\n``` python\n============================= test session starts ==============================\nplatform darwin -- Python 2.7.5 -- pytest-2.3.4\nplugins: cov\ncollected 116 items \n\ntest_requests.py .................................................................................................................F..\n\n=================================== FAILURES ===================================\n_______________ TestMorselToCookieExpires.test_expires_valid_str _______________\n\nself = <test_requests.TestMorselToCookieExpires testMethod=test_expires_valid_str>\n\n    def test_expires_valid_str(self):\n        \"\"\"Test case where we convert expires from string time.\"\"\"\n\n        morsel = Morsel()\n        morsel['expires'] = 'Thu, 01-Jan-1970 00:00:01 GMT'\n        cookie = morsel_to_cookie(morsel)\n>       assert cookie.expires == 1\nE       AssertionError: assert -3599 == 1\nE        +  where -3599 = Cookie(version=0, name=None, value=None, port=None, port_specified=False, domain='', domain_specified=False, domain_in...False, secure=False, expires=-3599, discard=False, comment='', comment_url=False, rest={'HttpOnly': ''}, rfc2109=False).expires\n\ntest_requests.py:1111: AssertionError\n==================== 1 failed, 115 passed in 23.32 seconds =====================\n```\n\nI've not yet got a good theory for this, though I think it's telling that the error is one hour. I don't know _what_ it's telling though, because time is complicated.\n\nAnyway, this test needs to be rewritten to be more accepting of breakage. It's also possible that the intermittent failure of this test represents a problem with the `morsel_to_cookie` function itself, in which case that needs rewriting.\n",
+    "pr_number": 1860,
+    "pr_title": "Use calendar.timegm when calculating cookie expiration",
+    "commit_hash": "c7b05e0328d7652d6bc376ddaf0ecbb62ef96fa7",
+    "changed_files": [
+      "requests/cookies.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1859",
+    "pr_url": "https://github.com/psf/requests/pull/1860",
+    "issue_created_at": "2014-01-12T09:52:49Z",
+    "pr_created_at": "2014-01-12T20:28:11Z",
+    "pr_merged_at": "2015-12-18T09:18:26Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1887,
+    "issue_title": "301 redirect broken with latest pyopenssl/SNI",
+    "issue_body": "With the latest pyopenssl on Windows 64bit:\n\n```\ncryptography==0.2.dev1\nndg-httpsclient==0.3.2\npyOpenSSL==0.13\npyasn1==0.1.7\n```\n\nI get an exception raised when `GET`ing a `301` response to a HTTPS request. I see that after the redirect is received the returned URL is [decoded to a Unicode string](https://github.com/kennethreitz/requests/blob/master/requests/adapters.py#L181). Then requests passes the response to `resolve_redirects` which uses the url to make a new request. This leads to a Unicode string being passed to urllib3 and eventually pyopenssl. And because in pyopenssl they now check that the data is of type bytes, an exception is thrown. \n\nI Wrote this test:\n\n```\n    def test_pyopenssl_redirect(self):\n        requests.get('https://httpbin.org/status/301')\n```\n\nand this is the result of py.test:\n\n```\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <OpenSSL.SSL.Connection object at 0x000000000345CC50>\nbuf = u'GET /redirect/1 HTTP/1.1\\r\\nHost: httpbin.org\\r\\nAccept-Encoding: gzip, defl...cept: */*\\r\\nUser-Agent: python-r\nequests/2.2.1 CPython/2.7.6 Windows/8\\r\\n\\r\\n'\nflags = 0\n\n    def sendall(self, buf, flags=0):\n        \"\"\"\n            Send \"all\" data on the connection. This calls send() repeatedly until\n            all data is sent. If an error occurs, it's impossible to tell how much\n            data has been sent.\n\n            :param buf: The string to send\n            :param flags: (optional) Included for compatibility with the socket\n                          API, the value is ignored\n            :return: The number of bytes written\n            \"\"\"\n        if isinstance(buf, _memoryview):\n            buf = buf.tobytes()\n        if not isinstance(buf, bytes):\n>           raise TypeError(\"buf must be a byte string\")\nE           TypeError: buf must be a byte string\n\n..\\testreq\\lib\\site-packages\\OpenSSL\\SSL.py:968: TypeError\n=================================== 117 tests deselected by '-kpyopenssl_redirect' ====================================\n====================================== 1 failed, 117 deselected in 4.47 seconds =======================================\n```\n",
+    "pr_number": 1888,
+    "pr_title": "Fix for 301 redirect and latest PyOpenSSL.",
+    "commit_hash": "4fef3b5586e16c2a744178d3082a30ab9cb0f876",
+    "changed_files": [
+      "requests/sessions.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1887",
+    "pr_url": "https://github.com/psf/requests/pull/1888",
+    "issue_created_at": "2014-01-28T17:07:07Z",
+    "pr_created_at": "2014-01-28T17:18:12Z",
+    "pr_merged_at": "2014-01-28T20:14:38Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 2231,
+    "issue_title": "Endless loop in sessions.py",
+    "issue_body": "> (gdb) py-list\n>  544            # Guard against that specific failure case.\n>  545            if not isinstance(request, PreparedRequest):\n>  546                raise ValueError('You can only send PreparedRequests.')\n>  547  \n>  548            while request.url in self.redirect_cache:\n> -549                request.url = self.redirect_cache.get(request.url)\n>  550  \n>  551            # Set up variables needed for resolve_redirects and dispatching of hooks\n>  552            allow_redirects = kwargs.pop('allow_redirects', True)\n>  553            stream = kwargs.get('stream')\n>  554            timeout = kwargs.get('timeout')\n\nredirect_cache dict could have complementary key/values that forces and enless loop.\n\n> (gdb) py-down\n> # 2 Frame 0x7f645c00acd0, for file /test/libs/requests/sessions.py, line 549, in send (self=<Session(cookies=<RequestsCookieJar(_now=1410944130, _policy=<DefaultCookiePolicy(strict_rfc2965_unverifiable=True, strict_ns_domain=0, _allowed_domains=None, rfc2109_as_netscape=None, rfc2965=False, strict_domain=False, _now=1410944130, strict_ns_set_path=False, strict_ns_unverifiable=False, strict_ns_set_initial_dollar=False, hide_cookie2=False, _blocked_domains=(), netscape=True) at remote 0x7f651070c4d0>, _cookies={}, _cookies_lock=<_RLock(_Verbose__verbose=False, _RLock__owner=None, _RLock__block=<thread.lock at remote 0x7f6530772dd0>, _RLock__count=0) at remote 0x7f65105a5450>) at remote 0x7f65105a5e10>, stream=False, hooks={'response': []}, redirect_cache={'http://www.hent aiwe blog.com/': 'http://hent aiwe blog.com/', 'http://hent aiwe blog.com/': 'http://www.hent aiwe blog.com/'}, auth=None, trust_env=True, headers=<CaseInsensitiveDict(_store={'accept-encoding': ('Accept-Encoding', 'gzip, deflate'), 'accep...(truncated)\n> \n> ```\n> request.url = self.redirect_cache.get(request.url)\n> ```\n\nCurrent request chain with wget:\n\n> $ wget www.hent aiwe blog.com\n> --2014-09-18 11:52:20--  http://www.hent aiwe blog.com/\n> Resolving www.hent aiwe blog.com (www.hent aiwe blog.com)... 109.72.81.172\n> Connecting to www.hent aiwe blog.com (www.hent aiwe blog.com)|109.72.81.172|:80... connected.\n> HTTP request sent, awaiting response... 301 Moved Permanently\n> Location: http://hent aiwe blog.com/ [following]\n> --2014-09-18 11:52:20--  http://hent aiwe blog.com/\n> Resolving hent aiwe blog.com (hent aiwe blog.com)... 109.72.81.172\n> Reusing existing connection to www.hent aiwe blog.com:80.\n> HTTP request sent, awaiting response... 301 Moved Permanently\n> Location: http://www.hent aiwe blog.com/ [following]\n> --2014-09-18 11:52:20--  http://www.hent aiwe blog.com/\n> Reusing existing connection to www.hent aiwe blog.com:80.\n> HTTP request sent, awaiting response... 301 Moved Permanently\n> Location: http://hent aiwe blog.com/ [following]\n> ...\n\nSuggested resolution:\n\n> ```\n>     redirect_count = 0\n>     while request.url in self.redirect_cache:\n>         redirect_count += 1\n>         if redirect_count > self.max_redirects:\n>             raise TooManyRedirects\n>         request.url = self.redirect_cache.get(request.url)\n> ```\n",
+    "pr_number": 2244,
+    "pr_title": "Avoid getting stuck in a loop",
+    "commit_hash": "d35470374ba43f5f453c3c3b4350c022f63eef20",
+    "changed_files": [
+      "requests/sessions.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/2231",
+    "pr_url": "https://github.com/psf/requests/pull/2244",
+    "issue_created_at": "2014-09-18T10:08:51Z",
+    "pr_created_at": "2014-09-23T02:04:04Z",
+    "pr_merged_at": "2014-09-25T02:57:38Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 2316,
+    "issue_title": "method = builtin_str(method) problem",
+    "issue_body": "In requests/sessions.py is a command:\n\nmethod = builtin_str(method)\nConverts method from\nb’GET’\nto\n\"b'GET’\"\n\nWhich is the literal string, no longer a binary string.  When requests tries to use the method \"b'GET’”, it gets a 404 Not Found response.\n\nI am using python3.4 and python-neutronclient (2.3.9) with requests (2.4.3).  neutronclient is broken because it uses this \"args = utils.safe_encode_list(args)\" command which converts all the values to binary string, including method.\n\nI'm not sure if this is a bug with neutronclient or a bug with requests, but I'm starting here.  Seems if requests handled the method value being a binary string, we wouldn't have any problem.\n\nAlso, I tried in python2.6 and this bug doesn't exist there. Some difference between 2.6 and 3.4 makes this not work right.\n",
+    "pr_number": 2317,
+    "pr_title": "Use to_native_string instead of builtin_str",
+    "commit_hash": "de2494d36f53aaaf32f6b387c1112f2e37325533",
+    "changed_files": [
+      "requests/sessions.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/2316",
+    "pr_url": "https://github.com/psf/requests/pull/2317",
+    "issue_created_at": "2014-10-31T22:13:00Z",
+    "pr_created_at": "2014-11-01T02:20:16Z",
+    "pr_merged_at": "2014-11-01T14:04:09Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 2408,
+    "issue_title": "Wrong digest header creation when server has qop=\"auth,auth-int\"",
+    "issue_body": "I always get \"401 unauthorized\" when trying to log in to a server which writes qop=\"auth,auth-int\" in its answer. The problem doesn't exist with Curl.\nI debugged the requests code and probably found the problem in auth.py. The function build_digest_header in class HTTPDigestAuth calculates\n    noncebit = \"%s:%s:%s:%s:%s\" % (nonce, ncvalue, cnonce, qop, HA2)\nand gives back\n    base += ', qop=\"auth\", nc=%s, cnonce=\"%s\"' % (ncvalue, cnonce)\nto the server.\n\nSo in our client digest calculation we use qop=\"auth,auth-int\", which we take from the server response, and make the server use qop=\"auth\" in its calculation by giving back this header.\n\nWhile debugging I can log in correctly if I change noncebit on the fly to\n    noncebit = \"%s:%s:%s:%s:%s\" % (nonce, ncvalue, cnonce, \"auth\", HA2)\nThis would be my suggestion for the solution. Theqop for the calculation should be the same as we give back in our header.\n",
+    "pr_number": 2415,
+    "pr_title": "Move noncebit to the only place it is used",
+    "commit_hash": "961ce084c86ebecee6a547290f815f263d5aff25",
+    "changed_files": [
+      "requests/auth.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/2408",
+    "pr_url": "https://github.com/psf/requests/pull/2415",
+    "issue_created_at": "2015-01-14T11:21:32Z",
+    "pr_created_at": "2015-01-20T00:51:27Z",
+    "pr_merged_at": "2015-01-27T18:22:53Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 3461,
+    "issue_title": "Closing streams before complete read leaks connections",
+    "issue_body": "``` python\nimport requests\ns = requests.Session()\nadp = requests.adapters.HTTPAdapter(pool_maxsize=3,\n    pool_connections=3,\n    pool_block=True)\ns.mount('http://', adp)\n\nfor _ in range(5):\n    resp = s.get('http://google.com', stream=True)\n#    resp.content\n#    resp.raw.release_conn()\n    resp.close()\n    print \"closed\"\n```\n\nThis hangs after the 3rd close, as the connection pool is depleted. `resp.close()` just closes the connection, when the data is not read completely, but no connection is returned to the pool:\nhttps://github.com/kennethreitz/requests/blob/master/requests/models.py#L871\n",
+    "pr_number": 3462,
+    "pr_title": "Close and then release the connection",
+    "commit_hash": "be12b27d7120b9f3e56dbaa889661abf6f5ff7f2",
+    "changed_files": [
+      "requests/models.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/3461",
+    "pr_url": "https://github.com/psf/requests/pull/3462",
+    "issue_created_at": "2016-07-30T07:40:12Z",
+    "pr_created_at": "2016-07-30T12:18:14Z",
+    "pr_merged_at": "2016-07-30T17:18:14Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 3659,
+    "issue_title": "URL proxy auth with empty passwords doesn't emit auth header.",
+    "issue_body": "I'm using a proxy that requires authentication to send request that receives 302 response with Location header. I would like python.requests to follow this redirect and make request via proxy with specified credentials. But it seems like this doesn't happen, if I provide credentials in HTTPProxyAuth they will work ok for 200 responses but will fail for 302. See below code sample:\r\n\r\n```python\r\n\r\nimport requests\r\nfrom requests.auth import HTTPProxyAuth\r\n\r\nsess = requests.Session()\r\nurl1 = 'http://httpbin.org/'\r\nurl2 = 'http://httpbin.org/redirect/2'\r\nauth = HTTPProxyAuth('frank', 'hunter2')\r\nproxies = {\r\n    \"http\": \"http://localhost:9000\"\r\n}\r\nresponse1 = sess.get(url1, proxies=proxies, auth=auth)\r\nresponse1.raise_for_status()\r\nresponse2 = sess.get(url2, proxies=proxies, auth=auth)\r\nresponse2.raise_for_status()\r\n```\r\nNow launch MITM proxy on localhost\r\n\r\n```\r\n> mitmproxy -p 9000 --singleuser=frank:hunter2\r\n```\r\n\r\nThis fails with 407 for me, and proxy logs only two requests\r\n\r\n```\r\n    response2.raise_for_status()\r\n  File \"----------\", line 862, in raise_for_status\r\n    raise HTTPError(http_error_msg, response=self)\r\nrequests.exceptions.HTTPError: 407 Client Error: Proxy Authentication Required for url: http://httpbin.org/relative-redirect/1\r\n```\r\n\r\n```\r\n>> GET http://httpbin.org/\r\n       ← 200 text/html 11.87kB 3.57MB/s\r\n   GET http://httpbin.org/redirect/2\r\n       ← 302 text/html 247B 76.59kB/s\r\n\r\n```\r\nit does not log request to `Location`. \r\n\r\nI see that putting credentials in proxies dictionary somehow fixes this issue when I use MITM proxy but it doesn't fix it for my production proxy (can't share code or proxy details here, need to check closer why it doesn't work for my proxy). I guess some details in setup of proxies might vary.\r\n\r\nIs this a bug? I see some issues for proxy auth but they are mostly about HTTPS, not sure if someone reported this thing I describe here. Should this be fixed?\r\n\r\nEDIT:\r\n\r\nIt looks like this always fails if proxy password is empty string.\r\n\r\nchange auth to \r\n\r\n```python\r\nauth = HTTPProxyAuth('frank', '')\r\n\r\nproxies = {\r\n    \"http\": \"http://frank:@localhost:9000\"\r\n}\r\n```\r\n\r\nwill now always fail on redirect.\r\n\r\n```python\r\nauth = HTTPProxyAuth('frank', 'hunter2')\r\nproxies = {\r\n    \"http\": \"http://frank:hunter2@localhost:9000\"\r\n}\r\n```\r\nworks fine on redirects, but seems somewhat duplicated.\r\n\r\nI noticed this on Ubuntu 14.04, requests 2.11.1, python 2.7.6, mitmproxy 0.10.1",
+    "pr_number": 3660,
+    "pr_title": "[httpAdapter] allow empty password in proxy credentials",
+    "commit_hash": "bf19750c0a27fdc6283fa2a00cb5390a7c2d2d54",
+    "changed_files": [
+      "requests/adapters.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/3659",
+    "pr_url": "https://github.com/psf/requests/pull/3660",
+    "issue_created_at": "2016-10-31T11:40:37Z",
+    "pr_created_at": "2016-10-31T13:45:59Z",
+    "pr_merged_at": "2016-10-31T13:59:16Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 3698,
+    "issue_title": "AttributeError: 'NoneType' object has no attribute 'read'",
+    "issue_body": "Hello :)\r\n\r\nAfter a recent upgrade for our [coala](https://github.com/coala/coala) project to `requests` 2.12.1 we encounter an exception in our test suites which seems to be caused by `requests`.\r\n\r\nBuild: https://ci.appveyor.com/project/coala/coala-bears/build/1.0.3537/job/1wm7b4u9yhgkxkgn\r\n\r\nRelevant part:\r\n```\r\n================================== FAILURES ===================================\r\n_________________ InvalidLinkBearTest.test_redirect_threshold _________________\r\nself = <tests.general.InvalidLinkBearTest.InvalidLinkBearTest testMethod=test_redirect_threshold>\r\n    def test_redirect_threshold(self):\r\n    \r\n        long_url_redirect = \"\"\"\r\n            https://bitbucket.org/api/301\r\n            https://bitbucket.org/api/302\r\n            \"\"\".splitlines()\r\n    \r\n        short_url_redirect = \"\"\"\r\n            http://httpbin.org/status/301\r\n            \"\"\".splitlines()\r\n    \r\n        self.assertResult(valid_file=long_url_redirect,\r\n                          invalid_file=short_url_redirect,\r\n>                         settings={'follow_redirects': 'yeah'})\r\ntests\\general\\InvalidLinkBearTest.py:157: \r\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\ntests\\general\\InvalidLinkBearTest.py:75: in assertResult\r\n    out = list(uut.run(\"valid\", valid_file, **settings))\r\nbears\\general\\InvalidLinkBear.py:80: in run\r\n    file, timeout, link_ignore_regex):\r\nbears\\general\\InvalidLinkBear.py:53: in find_links_in_file\r\n    code = InvalidLinkBear.get_status_code(link, timeout)\r\nbears\\general\\InvalidLinkBear.py:37: in get_status_code\r\n    timeout=timeout).status_code\r\nC:\\Python34\\lib\\site-packages\\requests\\api.py:96: in head\r\n    return request('head', url, **kwargs)\r\nC:\\Python34\\lib\\site-packages\\requests\\api.py:56: in request\r\n    return session.request(method=method, url=url, **kwargs)\r\nC:\\Python34\\lib\\site-packages\\requests\\sessions.py:488: in request\r\n    resp = self.send(prep, **send_kwargs)\r\nC:\\Python34\\lib\\site-packages\\requests_mock\\mocker.py:69: in _fake_send\r\n    return self._real_send(session, request, **kwargs)\r\nC:\\Python34\\lib\\site-packages\\requests\\sessions.py:641: in send\r\n    r.content\r\nC:\\Python34\\lib\\site-packages\\requests\\models.py:772: in content\r\n    self._content = bytes().join(self.iter_content(CONTENT_CHUNK_SIZE)) or bytes()\r\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\r\n    def generate():\r\n        # Special case for urllib3.\r\n        if hasattr(self.raw, 'stream'):\r\n            try:\r\n                for chunk in self.raw.stream(chunk_size, decode_content=True):\r\n                    yield chunk\r\n            except ProtocolError as e:\r\n                raise ChunkedEncodingError(e)\r\n            except DecodeError as e:\r\n                raise ContentDecodingError(e)\r\n            except ReadTimeoutError as e:\r\n                raise ConnectionError(e)\r\n        else:\r\n            # Standard file-like object.\r\n            while True:\r\n>               chunk = self.raw.read(chunk_size)\r\nE               AttributeError: 'NoneType' object has no attribute 'read'\r\nC:\\Python34\\lib\\site-packages\\requests\\models.py:705: AttributeError\r\n```\r\nhappens on Windows and Linux.\r\n\r\nThanks in advance :)",
+    "pr_number": 3718,
+    "pr_title": "Make Response.content() return None for an empty response",
+    "commit_hash": "36c9c8c3de87db42295f68ee72503238895e7dfe",
+    "changed_files": [
+      "requests/models.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/3698",
+    "pr_url": "https://github.com/psf/requests/pull/3718",
+    "issue_created_at": "2016-11-16T19:44:20Z",
+    "pr_created_at": "2016-11-23T21:26:30Z",
+    "pr_merged_at": "2016-11-24T13:35:37Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 4275,
+    "issue_title": "Requests tries to resolve `user:pass@host` on OS X",
+    "issue_body": "If you have proxy bypass settings, requests tries to resolve the hostname before stripping credentials from the URL.\r\n\r\nIt looks like this happens because the [proxy bypass](https://github.com/requests/requests/blob/4bda7b66e7ece5be51b459edd046a70915b4792c/requests/utils.py#L78) logic is called before [urldefragauth](https://github.com/requests/requests/blob/b9638ec7be9134786e28684ca17f3d161297ac5e/requests/utils.py#L879) strips the credentials from the URL.\r\n\r\n## Expected Result\r\n\r\nShould not try to resolve an invalid hostname.\r\n\r\n## Actual Result\r\n\r\nDNS resolution for `user:pass@host` is made:\r\n\r\n![screenshot 2017-09-05 11 04 11](https://user-images.githubusercontent.com/107611/30056277-0279af7a-922a-11e7-9223-ef66b5bd2af6.png)\r\n\r\n## Reproduction Steps\r\n\r\nOn OS X with proxy bypass hosts configured:\r\n\r\n![screenshot 2017-09-04 18 08 46](https://user-images.githubusercontent.com/107611/30056416-864198b8-922a-11e7-9448-f2e702c95927.png)\r\n\r\n\r\n```python\r\nimport requests\r\nrequests.get('http://user:pass@localhost')\r\n```\r\n\r\n## System Information\r\n\r\n    $ python -m requests.help\r\n\r\n```\r\n{\r\n  \"chardet\": {\r\n    \"version\": \"3.0.4\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"\"\r\n  },\r\n  \"idna\": {\r\n    \"version\": \"2.6\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"2.7.10\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"15.6.0\",\r\n    \"system\": \"Darwin\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"\",\r\n    \"version\": null\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.18.4\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"100020cf\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"1.22\"\r\n  },\r\n  \"using_pyopenssl\": false\r\n}\r\n```",
+    "pr_number": 4427,
+    "pr_title": "Use hostname not netloc",
+    "commit_hash": "07372dc058b2948f8657b827977d333f9faf7746",
+    "changed_files": [
+      "requests/utils.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/4275",
+    "pr_url": "https://github.com/psf/requests/pull/4427",
+    "issue_created_at": "2017-09-05T10:13:27Z",
+    "pr_created_at": "2017-12-12T15:08:10Z",
+    "pr_merged_at": "2018-01-16T14:07:26Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 4158,
+    "issue_title": "Making requests to URLs with username and password does not respect no_proxy evironment settings",
+    "issue_body": "## Summary\r\n\r\nWhen determining whether proxies should be bypassed or not, netloc is considered, however it contains the username and password separated by a colon, thus proxy settings cannot be applied, as the either username or host[:port] is checked among the no_proxy hosts.\r\n\r\n## Expected Result\r\n\r\nProxy settings are respected\r\n\r\n## Actual Result\r\n\r\nFollowing errors are thrown:\r\n```\r\nOSError: Tunnel connection failed: 504 Gateway Timeout\r\nurllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='localhost', port=8080): Max retries exceeded with url: / (Caused by ProxyError('Cannot connect to proxy.', OSError('Tunnel connection failed: 504 Gateway Timeout',)))\r\n\r\n```\r\n## Reproduction Steps\r\n\r\n```python\r\nimport requests\r\nimport os\r\n\r\nos.environ['https_proxy'] = #insert your proxy here\r\nos.environ['no_proxy'] = 'localhost,127.0.0.1'\r\n\r\nrequests.get('https://username:password@localhost:8080/')\r\n```\r\n\r\n## System Information\r\n\r\n    $ python -m requests.help\r\n\r\n```\r\n{\r\n  \"chardet\": {\r\n    \"version\": \"3.0.3\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"3.6.0\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"3.16.0-4-amd64\",\r\n    \"system\": \"Linux\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"\",\r\n    \"version\": null\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.17.3\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"1000114f\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"1.21.1\"\r\n  },\r\n  \"using_pyopenssl\": false\r\n}\r\n```\r\n\r\n## Workaround\r\nproxies kwarg can be used to bypass this issue, e.g. by setting {'https': None}. Should be used with caution.\r\n\r\n### Problem in my opinion:\r\nshould_bypass_proxies(url, no_proxy) function in utils.py:\r\n\r\nnetwork location is used, which matches the following pattern: [user[:password]@]host[:port]\r\n\r\n- ip is determined based on ':' position, which is not valid in this case, as ip will be the username: `ip = netloc.split(':')[0]`\r\n- when checking if proxy should be applied, two things are checked: `if netloc.endswith(host) or netloc.split(':')[0].endswith(host):`, neither of which will be true, as host may not contain port, and username surely does not end with the host.\r\n\r\nI propose to use `domain = urlparse(url).hostname` instead of `netloc = urlparse(url).netloc` when checking against the no_proxy environment variable.",
+    "pr_number": 4427,
+    "pr_title": "Use hostname not netloc",
+    "commit_hash": "07372dc058b2948f8657b827977d333f9faf7746",
+    "changed_files": [
+      "requests/utils.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/4158",
+    "pr_url": "https://github.com/psf/requests/pull/4427",
+    "issue_created_at": "2017-06-14T11:08:55Z",
+    "pr_created_at": "2017-12-12T15:08:10Z",
+    "pr_merged_at": "2018-01-16T14:07:26Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1882,
+    "issue_title": "ResourceWarning in python 3.2+",
+    "issue_body": "Requests issues a ResourceWarning in python 3.2+ as sockets are not explicitly closed before garbage collection occurs. While ResourceWarnings are not displayed by default, it can be a distraction to some developers when working with warnings enabled.\n\nFile: test.py\n\n``` python\nimport requests\n\ndef make_request():\n    resp = requests.get('http://google.com')\n    resp.close()  # this appears to have no effect, even though the function exists\n\nmake_request()\n```\n\n```\n$ python -Wall test.py \ntest.py:7: ResourceWarning: unclosed <socket.socket object, fd=4, family=2, type=1, proto=6>\n  make_request()\ntest.py:7: ResourceWarning: unclosed <socket.socket object, fd=3, family=2, type=1, proto=6>\n  make_request()\n```\n\nIt would be great if there was a way to prevent the ResourceWarning from occurring, without issuing a `Connection:close` header.\n",
+    "pr_number": 2326,
+    "pr_title": "Close sessions created in the functional API",
+    "commit_hash": "f5013d47373a292493d49ce6be492c5af3838bc2",
+    "changed_files": [
+      "requests/api.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1882",
+    "pr_url": "https://github.com/psf/requests/pull/2326",
+    "issue_created_at": "2014-01-25T19:31:08Z",
+    "pr_created_at": "2014-11-07T15:27:05Z",
+    "pr_merged_at": "2014-11-12T17:34:14Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 1685,
+    "issue_title": "Possible Memory Leak",
+    "issue_body": "I have a very simple program that periodically retrieves an image from an IP camera. I've noticed that the working set of this program grows monotonically. I've written a small program that reproduces the issue.\n\n``` python\nimport requests\nfrom memory_profiler import profile\n\n\n@profile\ndef lol():\n    print \"sending request\"\n    r = requests.get('http://cachefly.cachefly.net/10mb.test')\n    print \"reading..\"\n    with open(\"test.dat\", \"wb\") as f:\n        f.write(r.content)\n    print \"Finished...\"\n\nif __name__==\"__main__\":\n    for i in xrange(100):\n        print \"Iteration\", i\n        lol()\n```\n\nThe memory usage is printed at the end of each iteration. This is the sample output.\n*\\* Iteration 0 **\n\n```\nIteration 0\nsending request\nreading..\nFinished...\nFilename: test.py\n\nLine #    Mem usage    Increment   Line Contents\n================================================\n     5     12.5 MiB      0.0 MiB   @profile\n     6                             def lol():\n     7     12.5 MiB      0.0 MiB       print \"sending request\"\n     8     35.6 MiB     23.1 MiB       r = requests.get('http://cachefly.cachefly.net/10mb.test')\n     9     35.6 MiB      0.0 MiB       print \"reading..\"\n    10     35.6 MiB      0.0 MiB       with open(\"test.dat\", \"wb\") as f:\n    11     35.6 MiB      0.0 MiB        f.write(r.content)\n    12     35.6 MiB      0.0 MiB       print \"Finished...\"\n```\n\n*\\* Iteration 1 **\n\n```\nIteration 1\nsending request\nreading..\nFinished...\nFilename: test.py\n\nLine #    Mem usage    Increment   Line Contents\n================================================\n     5     35.6 MiB      0.0 MiB   @profile\n     6                             def lol():\n     7     35.6 MiB      0.0 MiB       print \"sending request\"\n     8     36.3 MiB      0.7 MiB       r = requests.get('http://cachefly.cachefly.net/10mb.test')\n     9     36.3 MiB      0.0 MiB       print \"reading..\"\n    10     36.3 MiB      0.0 MiB       with open(\"test.dat\", \"wb\") as f:\n    11     36.3 MiB      0.0 MiB        f.write(r.content)\n    12     36.3 MiB      0.0 MiB       print \"Finished...\"\n```\n\nThe memory usage does not grow with every iteration, but it does continue to creep up with `requests.get` being the culprit that increases memory usage.\n\nBy *\\* Iteration 99 *\\* this is what the memory profile looks like.\n\n```\nIteration 99\nsending request\nreading..\nFinished...\nFilename: test.py\n\nLine #    Mem usage    Increment   Line Contents\n================================================\n     5     40.7 MiB      0.0 MiB   @profile\n     6                             def lol():\n     7     40.7 MiB      0.0 MiB       print \"sending request\"\n     8     40.7 MiB      0.0 MiB       r = requests.get('http://cachefly.cachefly.net/10mb.test')\n     9     40.7 MiB      0.0 MiB       print \"reading..\"\n    10     40.7 MiB      0.0 MiB       with open(\"test.dat\", \"wb\") as f:\n    11     40.7 MiB      0.0 MiB        f.write(r.content)\n    12     40.7 MiB      0.0 MiB       print \"Finished...\"\n```\n\nMemory usage doesn't drop unless the program is terminated.\n\nIs there a bug or is it user error? \n",
+    "pr_number": 2326,
+    "pr_title": "Close sessions created in the functional API",
+    "commit_hash": "f5013d47373a292493d49ce6be492c5af3838bc2",
+    "changed_files": [
+      "requests/api.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/1685",
+    "pr_url": "https://github.com/psf/requests/pull/2326",
+    "issue_created_at": "2013-10-17T17:03:10Z",
+    "pr_created_at": "2014-11-07T15:27:05Z",
+    "pr_merged_at": "2014-11-12T17:34:14Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 5212,
+    "issue_title": "URL in readme (https://2.python-requests.org/) is http only",
+    "issue_body": "The URL `//2.python-requests.org/` (which is in the readme) automatically resolves to `https://2.python-requests.org` which is down (there is no HTTPS version of the site). The HTTP version of the site, `http://2.python-requests.org`, is fine.\r\n\r\n## Expected Result\r\n\r\nI expect that when I click the link in the readme, it goes to a page that exists.\r\n\r\n## Actual Result\r\n\r\nWhen I click the link in the readme, the `//` prefix resolves to `https://`, but there is no HTTPS version of `2.python-requests.org`, so the page does not load.\r\n\r\n## Reproduction Steps\r\n\r\n```\r\n>>> import requests\r\n\r\n>>> requests.get('https://2.python-requests.org/')\r\nTraceback (most recent call last):\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/urllib3/contrib/pyopenssl.py\", line 472, in wrap_socket\r\n    cnx.do_handshake()\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/OpenSSL/SSL.py\", line 1716, in do_handshake\r\n    self._raise_ssl_error(self._ssl, result)\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/OpenSSL/SSL.py\", line 1456, in _raise_ssl_error\r\n    _raise_current_error()\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/OpenSSL/_util.py\", line 54, in exception_from_error_queue\r\n    raise exception_type(errors)\r\nOpenSSL.SSL.Error: [('SSL routines', 'ssl3_read_bytes', 'tlsv1 alert internal error')]\r\n\r\nDuring handling of the above exception, another exception occurred:\r\n\r\nTraceback (most recent call last):\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/urllib3/connectionpool.py\", line 603, in urlopen\r\n    chunked=chunked)\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/urllib3/connectionpool.py\", line 344, in _make_request\r\n    self._validate_conn(conn)\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/urllib3/connectionpool.py\", line 843, in _validate_conn\r\n    conn.connect()\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/urllib3/connection.py\", line 370, in connect\r\n    ssl_context=context)\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/urllib3/util/ssl_.py\", line 355, in ssl_wrap_socket\r\n    return context.wrap_socket(sock, server_hostname=server_hostname)\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/urllib3/contrib/pyopenssl.py\", line 478, in wrap_socket\r\n    raise ssl.SSLError('bad handshake: %r' % e)\r\nssl.SSLError: (\"bad handshake: Error([('SSL routines', 'ssl3_read_bytes', 'tlsv1 alert internal error')],)\",)\r\n\r\nDuring handling of the above exception, another exception occurred:\r\n\r\nTraceback (most recent call last):\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/requests/adapters.py\", line 449, in send\r\n    timeout=timeout\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/urllib3/connectionpool.py\", line 641, in urlopen\r\n    _stacktrace=sys.exc_info()[2])\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/urllib3/util/retry.py\", line 399, in increment\r\n    raise MaxRetryError(_pool, url, error or ResponseError(cause))\r\nurllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='2.python-requests.org', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLError(\"bad handshake: Error([('SSL routines', 'ssl3_read_bytes', 'tlsv1 alert internal error')],)\",),))\r\n\r\nDuring handling of the above exception, another exception occurred:\r\n\r\nTraceback (most recent call last):\r\n  File \"<stdin>\", line 1, in <module>\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/requests/api.py\", line 75, in get\r\n    return request('get', url, params=params, **kwargs)\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/requests/api.py\", line 60, in request\r\n    return session.request(method=method, url=url, **kwargs)\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/requests/sessions.py\", line 533, in request\r\n    resp = self.send(prep, **send_kwargs)\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/requests/sessions.py\", line 646, in send\r\n    r = adapter.send(request, **kwargs)\r\n  File \"/Users/charles/.pyenv/versions/miniconda3-4.3.30/lib/python3.6/site-packages/requests/adapters.py\", line 514, in send\r\n    raise SSLError(e, request=request)\r\nrequests.exceptions.SSLError: HTTPSConnectionPool(host='2.python-requests.org', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLError(\"bad handshake: Error([('SSL routines', 'ssl3_read_bytes', 'tlsv1 alert internal error')],)\",),))\r\n\r\n>>> requests.get('http://2.python-requests.org/')\r\n<Response [200]>\r\n```\r\n\r\n## System Information\r\n\r\nN/A",
+    "pr_number": 5236,
+    "pr_title": "Change documentation website to requests.readthedocs.io",
+    "commit_hash": "d2590ee46c0641958b6d4792a206bd5171cb247d",
+    "changed_files": [
+      "requests/__init__.py",
+      "requests/__version__.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/5212",
+    "pr_url": "https://github.com/psf/requests/pull/5236",
+    "issue_created_at": "2019-09-25T00:19:36Z",
+    "pr_created_at": "2019-10-18T16:29:33Z",
+    "pr_merged_at": "2019-10-25T03:02:55Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 5504,
+    "issue_title": "Preparing a request body without headers throws a TypeError",
+    "issue_body": "I have a usecase where I need to generate the body of a `PreparedRequest` without anything else known about the request. If I run `PreparedRequest.prepare_body` without any headers, it fails, citing the headers are `None`. It seems like `prepare_body` is attempting to set the `Content-Length` header. It likely shouldn't, if there are no headers. One possible solution is to create the `headers` object as needed. It would also probably work to skip this step when headers aren't present, and then when `prepare_headers` is called, analyze the `body` to insert a content length, using `prepare_content_length`. \r\n\r\n## Expected Result\r\n\r\nI should be able to generate the body of a request on its own, without preparing headers. \r\n\r\n## Actual Result\r\n\r\nWhen running the below snippet, I get\r\n```\r\n$ python3 main.py\r\nTraceback (most recent call last):\r\n  File \"main.py\", line 5, in <module>\r\n    req.prepare_body(data=\"hello world!\", files=None)\r\n  File \"/Users/nkrichevsky/.local/lib/python3.6/site-packages/requests/models.py\", line 514, in prepare_body\r\n    self.prepare_content_length(body)\r\n  File \"/Users/nkrichevsky/.local/lib/python3.6/site-packages/requests/models.py\", line 529, in prepare_content_length\r\n    self.headers['Content-Length'] = builtin_str(length)\r\nTypeError: 'NoneType' object does not support item assignment\r\n```\r\n\r\nI can work around this by doing `req.prepare_headers(None)` before preparing the body, but this isn't documented as being required in the API reference.\r\n\r\n## Reproduction Steps\r\n\r\n```python\r\nimport requests\r\n\r\nif __name__ == \"__main__\":\r\n    req = requests.PreparedRequest()\r\n    req.prepare_body(data=\"hello world!\", files=None)\r\n    print(req.body)\r\n```\r\n\r\n## System Information\r\n\r\n    $ python -m requests.help\r\n\r\n```\r\n{\r\n  \"chardet\": {\r\n    \"version\": \"3.0.4\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"\"\r\n  },\r\n  \"idna\": {\r\n    \"version\": \"2.9\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"3.6.5\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"19.5.0\",\r\n    \"system\": \"Darwin\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"\",\r\n    \"version\": null\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.24.0\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"1010107f\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"1.25.9\"\r\n  },\r\n  \"using_pyopenssl\": false\r\n}\r\n\r\n```\r\n",
+    "pr_number": 5505,
+    "pr_title": "Clarify that PreparedRequests should not be manually created",
+    "commit_hash": "8149e9fe54c36951290f198e90d83c8a0498289c",
+    "changed_files": [
+      "requests/models.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/5504",
+    "pr_url": "https://github.com/psf/requests/pull/5505",
+    "issue_created_at": "2020-06-18T17:47:10Z",
+    "pr_created_at": "2020-06-19T02:08:33Z",
+    "pr_merged_at": "2020-06-19T16:04:22Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 4437,
+    "issue_title": "Add bearer token to requests.auth?",
+    "issue_body": "in `request.auth` there is `HTTPBasicAuth` , `HTTPProxyAuth`, and `HTTPDigestAuth`, but no `HTTPBearerAuth` - for bearer authentication.\r\n\r\nIt would look something like this:\r\n\r\n```\r\nclass HTTPBearerAuth(requests.auth.AuthBase):\r\n    def __init__(self, token):\r\n        self.token = token\r\n\r\n    def __eq__(self, other):\r\n        return self.token == getattr(other, 'token', None)\r\n\r\n    def __ne__(self, other):\r\n        return not self == other\r\n\r\n    def __call__(self, r):\r\n        r.headers['Authorization'] = 'Bearer ' + self.token\r\n        return r\r\n```\r\n\r\nIs there a reason to not add bearer auth to the codebase?",
+    "pr_number": 370,
+    "pr_title": "Add HTTP Bearer Auth",
+    "commit_hash": "c62d9774a3b1469f609bdc5a213f86c714e059bf",
+    "changed_files": [
+      "requests_toolbelt/auth/http_bearer.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/4437",
+    "pr_url": "https://github.com/requests/toolbelt/pull/370",
+    "issue_created_at": "2017-12-22T16:49:08Z",
+    "pr_created_at": "2023-10-03T19:06:16Z",
+    "pr_merged_at": "2023-10-12T10:44:52Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 4318,
+    "issue_title": "netrc reading does not respect NETRC environment variable",
+    "issue_body": "As described [here](https://www.gnu.org/software/inetutils/manual/html_node/The-_002enetrc-file.html), there is an environment variable `NETRC` which one can use to control where `.netrc` file is. Requests always searches in user's home directory.\r\n\r\n## System Information\r\n\r\n```\r\n{\r\n  \"chardet\": {\r\n    \"version\": \"3.0.4\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"\"\r\n  },\r\n  \"idna\": {\r\n    \"version\": \"2.6\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"3.5.2\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"14.5.0\",\r\n    \"system\": \"Darwin\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"\",\r\n    \"version\": null\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.18.4\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"100020cf\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"1.22\"\r\n  },\r\n  \"using_pyopenssl\": false\r\n}\r\n```",
+    "pr_number": 5643,
+    "pr_title": "Respect the NETRC environment variable",
+    "commit_hash": "2f70990cd3fabf7b05cb9a69b3dab1a43bbf0096",
+    "changed_files": [
+      "requests/utils.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/4318",
+    "pr_url": "https://github.com/psf/requests/pull/5643",
+    "issue_created_at": "2017-10-01T08:56:47Z",
+    "pr_created_at": "2020-10-30T17:20:32Z",
+    "pr_merged_at": "2020-11-01T16:52:02Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 5667,
+    "issue_title": "r.text and r.json() return different results *in some cases*",
+    "issue_body": "This might be an interesting one... I found that `r.text` and `r.json()` _can_ return different results in some specific cases. I don't understand why the difference between the two cases is changing the result of `r.text`.\r\n\r\nMaybe `r.text` should always default to using `utf-8` as the decoding if `application/json` is set as the response's content type, following https://www.ietf.org/rfc/rfc4627.txt (ctrl+f for `JSON text SHALL be encoded in Unicode.`).\r\n\r\nI'm using the latest version of requests.\r\n\r\n## Expected Result\r\n\r\nI would expect `r.text` and `r.json()` to return ~ the same thing. More specifically, I would expect `json.loads(r.text)` and `r.json()` to return the same thing, but the issue seems to be with `r.text`'s decoding specifically.\r\n\r\n## Actual Result\r\n\r\nIn the following code, I am making a sample request and replacing the request's response with custom content so we have full control over it. The custom content is utf-8 encoded. In the next version of this code, you'll see the `name` change  when it shouldn't.\r\n```python\r\nimport requests\r\nimport json\r\n\r\nr = requests.get(\"https://api.covidtracking.com/v1/us/current.json\")\r\nr._content = b'{\"name\":\"rd\\xce\\xba\"}'  # This is utf-8\r\nr.headers = {\r\n    \"Content-Type\": \"application/json\",\r\n}\r\nprint(r.json())\r\nprint(json.loads(r.text))\r\n```\r\n\r\nThe above code prints:\r\n```\r\n{'name': 'rdκ'}\r\n{'name': 'rdκ'}\r\n```\r\nwhich is fantastic.\r\n\r\nReplacing the request's content with `b'{\"name\":\"rd\\xce\\xba\",\"uuid\":\"1234\"}'`, which simply adds a `uuid` field to the JSON, and running the code again prints:\r\n```\r\n{'name': 'rdκ', 'uuid': '1234'}\r\n{'name': 'rdÎº', 'uuid': '1234'}\r\n```\r\n\r\nThe `name` is different even though it did not change at all! The existence of `\"uuid\":\"1234\"` in the response's contents somehow changes the decoding. I have no clue why.\r\n\r\n## Reproduction Steps\r\n\r\nRun this code:\r\n```python\r\nimport requests\r\nimport json\r\n\r\nr = requests.get(\"https://api.covidtracking.com/v1/us/current.json\")\r\nr._content = b'{\"name\":\"rd\\xce\\xba\",\"uuid\":\"1234\"}'\r\nr.headers = {\r\n    \"Content-Type\": \"application/json\",\r\n}\r\nprint(r.json())\r\nprint(json.loads(r.text))\r\n```\r\n\r\nThe issue should be fixed when the two print statements match... I think.\r\n\r\n## System Information\r\n\r\n    $ python -m requests.help\r\n\r\n```\r\n{\r\n  \"chardet\": {\r\n    \"version\": \"3.0.4\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"2.7\"\r\n  },\r\n  \"idna\": {\r\n    \"version\": \"2.8\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"3.7.4\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"10\",\r\n    \"system\": \"Windows\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"1010103f\",\r\n    \"version\": \"19.0.0\"\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.25.0\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"1010104f\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"1.24.2\"\r\n  },\r\n  \"using_pyopenssl\": true\r\n}",
+    "pr_number": 5673,
+    "pr_title": "updated `get_encoding_from_headers` to return utf-8 if the content type is set to application/json",
+    "commit_hash": "589c4547338b592b1fb77c65663d8aa6fbb7e38b",
+    "changed_files": [
+      "requests/utils.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/5667",
+    "pr_url": "https://github.com/psf/requests/pull/5673",
+    "issue_created_at": "2020-11-24T02:47:03Z",
+    "pr_created_at": "2020-11-29T18:00:53Z",
+    "pr_merged_at": "2020-11-29T18:19:16Z"
+  },
+  {
+    "repo_name": "psf/requests",
+    "issue_number": 5767,
+    "issue_title": "Invalid JSON serialization of data with NaNs when using `json` request argument",
+    "issue_body": "When passing data to `json` argument in a `requests.post()` (or comparable) request and data contains \"nan\" floats (`float(\"nan\")`), the data payload will be invalid JSON (in strict sense). Example:\r\n\r\n    >>> import requests\r\n    >>> requests.__version__\r\n    '2.25.1'\r\n    >>> data = {\"foo\": float(\"nan\")}\r\n    >>> resp = requests.post(\"https://httpbin.org/post\", json=data)\r\n    >>> resp.json()[\"data\"]\r\n    '{\"foo\": NaN}'\r\n\r\nWhile the `NaN` in this result (the JSON serialized data payload that is sent) is valid JavaScript, it is not valid JSON.\r\n\r\nThe reason is that stdlib's `json.dumps` has `allow_nan` option which is `True` by default and consequently generates invalid JSON by default:\r\n\r\n    >>> json.dumps(data)\r\n    '{\"foo\": NaN}'\r\n\r\n\r\n## Expected Result\r\n\r\nA ValueError should be raised (at least by default). E.g.:\r\n\r\n    >>> json.dumps(data, allow_nan=False)\r\n    ...\r\n    ValueError: Out of range float values are not JSON compliant\r\n\r\n## Actual Result\r\n\r\nlibrary silently sends invalid JSON\r\n\r\n\r\n",
+    "pr_number": 5810,
+    "pr_title": "Throw value error when serializing JSON object with NaN value",
+    "commit_hash": "05a1a21593c9c8e79393d35fae12c9c27a6f7605",
+    "changed_files": [
+      "requests/exceptions.py",
+      "requests/models.py"
+    ],
+    "issue_url": "https://github.com/psf/requests/issues/5767",
+    "pr_url": "https://github.com/psf/requests/pull/5810",
+    "issue_created_at": "2021-03-05T11:28:28Z",
+    "pr_created_at": "2021-05-04T10:37:03Z",
+    "pr_merged_at": "2021-05-06T18:18:58Z"
+  }
+]

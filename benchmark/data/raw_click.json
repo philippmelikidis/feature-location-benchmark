@@ -1,0 +1,927 @@
+[
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2939,
+    "issue_title": "Click 8.2.1 CliRunner raises SystemExit(1) when using click.File's stdin support",
+    "issue_body": "In Click 8.2.1, when testing the behavior of a command-line which uses `click.File`'s stdin as an argument, `CliRunner.invoke()` always throws a `SystemExit(1)` with `Aborted !` on stderr.\n\nSeems like a regression introduced by the change in #2934, as this `Aborted!` is generated when the main Click endpoint raises an `EofError`.\n\nReproducer :\n\n```python\n#!/usr/bin/env python3\n\nimport click\nfrom click.testing import CliRunner\n\n\n@click.command()\n@click.argument(\"file_input\", type=click.File(\"r\"))\ndef cli(file_input):\n    for line in file_input.readlines():\n        print(line.rstrip())\n\n\ndef test_cli():\n    result = CliRunner().invoke(cli, [\"-\"], input=\"test\\n\")\n    assert result.exit_code == 0, str(result)\n    assert result.output == \"test\\n\"\n\n\nif __name__ == \"__main__\":\n    cli()\n```\n\n``` shell\nnicolasd@pythagore:~/tmp/repro$ uv venv -p python3.13 venv\nUsing CPython 3.13.3 interpreter at: /usr/bin/python3\nCreating virtual environment at: venv\nActivate with: source venv/bin/activate\nnicolasd@pythagore:~/tmp/repro$ . ./venv/bin/activate\n(venv) nicolasd@pythagore:~/tmp/repro$ uv pip install pytest Click==8.2.1\nResolved 5 packages in 5ms\nInstalled 5 packages in 6ms\n + click==8.2.1\n + iniconfig==2.1.0\n + packaging==25.0\n + pluggy==1.6.0\n + pytest==8.3.5\n(venv) nicolasd@pythagore:~/tmp/repro$ echo foo | python3 test_repro.py -\nfoo\n(venv) nicolasd@pythagore:~/tmp/repro$ pytest test_repro.py \n===================================================================== test session starts =====================================================================\nplatform linux -- Python 3.13.3, pytest-8.3.5, pluggy-1.6.0\nrootdir: /home/nicolasd/tmp/repro\ncollected 1 item                                                                                                                                              \n\ntest_repro.py F                                                                                                                                         [100%]\n\n========================================================================== FAILURES ===========================================================================\n__________________________________________________________________________ test_cli ___________________________________________________________________________\n\n    def test_cli():\n        result = CliRunner().invoke(cli, [\"-\"], input=\"test\\n\")\n>       assert result.exit_code == 0, str(result)\nE       AssertionError: <Result SystemExit(1)>\nE       assert 1 == 0\nE        +  where 1 = <Result SystemExit(1)>.exit_code\n\ntest_repro.py:16: AssertionError\n=================================================================== short test summary info ===================================================================\nFAILED test_repro.py::test_cli - AssertionError: <Result SystemExit(1)>\n====================================================================== 1 failed in 0.09s ======================================================================\n(venv) nicolasd@pythagore:~/tmp/repro$ uv pip install Click==8.2.0\nResolved 1 package in 3ms\nUninstalled 1 package in 1ms\nInstalled 1 package in 1ms\n - click==8.2.1\n + click==8.2.0\n(venv) nicolasd@pythagore:~/tmp/repro$ pytest test_repro.py \n===================================================================== test session starts =====================================================================\nplatform linux -- Python 3.13.3, pytest-8.3.5, pluggy-1.6.0\nrootdir: /home/nicolasd/tmp/repro\ncollected 1 item                                                                                                                                              \n\ntest_repro.py .                                                                                                                                         [100%]\n\n====================================================================== 1 passed in 0.09s ======================================================================\n```\n\nEnvironment:\n\n- Python version: 3.13\n- Click version: 8.2.1",
+    "pr_number": 2940,
+    "pr_title": "testing/CliRunner: Fix regression related to EOF introduced in 262bdf0",
+    "commit_hash": "2a0e3ba907927ade6951d5732b775f11b54cb766",
+    "changed_files": [
+      "src/click/testing.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2939",
+    "pr_url": "https://github.com/pallets/click/pull/2940",
+    "issue_created_at": "2025-05-22T15:00:22Z",
+    "pr_created_at": "2025-05-22T20:43:08Z",
+    "pr_merged_at": "2025-09-13T04:36:16Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2939,
+    "issue_title": "Click 8.2.1 CliRunner raises SystemExit(1) when using click.File's stdin support",
+    "issue_body": "In Click 8.2.1, when testing the behavior of a command-line which uses `click.File`'s stdin as an argument, `CliRunner.invoke()` always throws a `SystemExit(1)` with `Aborted !` on stderr.\n\nSeems like a regression introduced by the change in #2934, as this `Aborted!` is generated when the main Click endpoint raises an `EofError`.\n\nReproducer :\n\n```python\n#!/usr/bin/env python3\n\nimport click\nfrom click.testing import CliRunner\n\n\n@click.command()\n@click.argument(\"file_input\", type=click.File(\"r\"))\ndef cli(file_input):\n    for line in file_input.readlines():\n        print(line.rstrip())\n\n\ndef test_cli():\n    result = CliRunner().invoke(cli, [\"-\"], input=\"test\\n\")\n    assert result.exit_code == 0, str(result)\n    assert result.output == \"test\\n\"\n\n\nif __name__ == \"__main__\":\n    cli()\n```\n\n``` shell\nnicolasd@pythagore:~/tmp/repro$ uv venv -p python3.13 venv\nUsing CPython 3.13.3 interpreter at: /usr/bin/python3\nCreating virtual environment at: venv\nActivate with: source venv/bin/activate\nnicolasd@pythagore:~/tmp/repro$ . ./venv/bin/activate\n(venv) nicolasd@pythagore:~/tmp/repro$ uv pip install pytest Click==8.2.1\nResolved 5 packages in 5ms\nInstalled 5 packages in 6ms\n + click==8.2.1\n + iniconfig==2.1.0\n + packaging==25.0\n + pluggy==1.6.0\n + pytest==8.3.5\n(venv) nicolasd@pythagore:~/tmp/repro$ echo foo | python3 test_repro.py -\nfoo\n(venv) nicolasd@pythagore:~/tmp/repro$ pytest test_repro.py \n===================================================================== test session starts =====================================================================\nplatform linux -- Python 3.13.3, pytest-8.3.5, pluggy-1.6.0\nrootdir: /home/nicolasd/tmp/repro\ncollected 1 item                                                                                                                                              \n\ntest_repro.py F                                                                                                                                         [100%]\n\n========================================================================== FAILURES ===========================================================================\n__________________________________________________________________________ test_cli ___________________________________________________________________________\n\n    def test_cli():\n        result = CliRunner().invoke(cli, [\"-\"], input=\"test\\n\")\n>       assert result.exit_code == 0, str(result)\nE       AssertionError: <Result SystemExit(1)>\nE       assert 1 == 0\nE        +  where 1 = <Result SystemExit(1)>.exit_code\n\ntest_repro.py:16: AssertionError\n=================================================================== short test summary info ===================================================================\nFAILED test_repro.py::test_cli - AssertionError: <Result SystemExit(1)>\n====================================================================== 1 failed in 0.09s ======================================================================\n(venv) nicolasd@pythagore:~/tmp/repro$ uv pip install Click==8.2.0\nResolved 1 package in 3ms\nUninstalled 1 package in 1ms\nInstalled 1 package in 1ms\n - click==8.2.1\n + click==8.2.0\n(venv) nicolasd@pythagore:~/tmp/repro$ pytest test_repro.py \n===================================================================== test session starts =====================================================================\nplatform linux -- Python 3.13.3, pytest-8.3.5, pluggy-1.6.0\nrootdir: /home/nicolasd/tmp/repro\ncollected 1 item                                                                                                                                              \n\ntest_repro.py .                                                                                                                                         [100%]\n\n====================================================================== 1 passed in 0.09s ======================================================================\n```\n\nEnvironment:\n\n- Python version: 3.13\n- Click version: 8.2.1",
+    "pr_number": 258,
+    "pr_title": "fix: pin click to 8.2.0",
+    "commit_hash": "d5dcd986cfc267ae8a564f3cbe5a8baefe4cce00",
+    "changed_files": [
+      "click/parser.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2939",
+    "pr_url": "https://github.com/deepset-ai/deepset-cloud-sdk/pull/258",
+    "issue_created_at": "2025-05-22T15:00:22Z",
+    "pr_created_at": "2014-11-24T18:06:34Z",
+    "pr_merged_at": null
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2939,
+    "issue_title": "Click 8.2.1 CliRunner raises SystemExit(1) when using click.File's stdin support",
+    "issue_body": "In Click 8.2.1, when testing the behavior of a command-line which uses `click.File`'s stdin as an argument, `CliRunner.invoke()` always throws a `SystemExit(1)` with `Aborted !` on stderr.\n\nSeems like a regression introduced by the change in #2934, as this `Aborted!` is generated when the main Click endpoint raises an `EofError`.\n\nReproducer :\n\n```python\n#!/usr/bin/env python3\n\nimport click\nfrom click.testing import CliRunner\n\n\n@click.command()\n@click.argument(\"file_input\", type=click.File(\"r\"))\ndef cli(file_input):\n    for line in file_input.readlines():\n        print(line.rstrip())\n\n\ndef test_cli():\n    result = CliRunner().invoke(cli, [\"-\"], input=\"test\\n\")\n    assert result.exit_code == 0, str(result)\n    assert result.output == \"test\\n\"\n\n\nif __name__ == \"__main__\":\n    cli()\n```\n\n``` shell\nnicolasd@pythagore:~/tmp/repro$ uv venv -p python3.13 venv\nUsing CPython 3.13.3 interpreter at: /usr/bin/python3\nCreating virtual environment at: venv\nActivate with: source venv/bin/activate\nnicolasd@pythagore:~/tmp/repro$ . ./venv/bin/activate\n(venv) nicolasd@pythagore:~/tmp/repro$ uv pip install pytest Click==8.2.1\nResolved 5 packages in 5ms\nInstalled 5 packages in 6ms\n + click==8.2.1\n + iniconfig==2.1.0\n + packaging==25.0\n + pluggy==1.6.0\n + pytest==8.3.5\n(venv) nicolasd@pythagore:~/tmp/repro$ echo foo | python3 test_repro.py -\nfoo\n(venv) nicolasd@pythagore:~/tmp/repro$ pytest test_repro.py \n===================================================================== test session starts =====================================================================\nplatform linux -- Python 3.13.3, pytest-8.3.5, pluggy-1.6.0\nrootdir: /home/nicolasd/tmp/repro\ncollected 1 item                                                                                                                                              \n\ntest_repro.py F                                                                                                                                         [100%]\n\n========================================================================== FAILURES ===========================================================================\n__________________________________________________________________________ test_cli ___________________________________________________________________________\n\n    def test_cli():\n        result = CliRunner().invoke(cli, [\"-\"], input=\"test\\n\")\n>       assert result.exit_code == 0, str(result)\nE       AssertionError: <Result SystemExit(1)>\nE       assert 1 == 0\nE        +  where 1 = <Result SystemExit(1)>.exit_code\n\ntest_repro.py:16: AssertionError\n=================================================================== short test summary info ===================================================================\nFAILED test_repro.py::test_cli - AssertionError: <Result SystemExit(1)>\n====================================================================== 1 failed in 0.09s ======================================================================\n(venv) nicolasd@pythagore:~/tmp/repro$ uv pip install Click==8.2.0\nResolved 1 package in 3ms\nUninstalled 1 package in 1ms\nInstalled 1 package in 1ms\n - click==8.2.1\n + click==8.2.0\n(venv) nicolasd@pythagore:~/tmp/repro$ pytest test_repro.py \n===================================================================== test session starts =====================================================================\nplatform linux -- Python 3.13.3, pytest-8.3.5, pluggy-1.6.0\nrootdir: /home/nicolasd/tmp/repro\ncollected 1 item                                                                                                                                              \n\ntest_repro.py .                                                                                                                                         [100%]\n\n====================================================================== 1 passed in 0.09s ======================================================================\n```\n\nEnvironment:\n\n- Python version: 3.13\n- Click version: 8.2.1",
+    "pr_number": 1149,
+    "pr_title": "deps - exclude click version that breaks tests",
+    "commit_hash": "6942dadf7bbdbb1815936f2dce04983c962000e2",
+    "changed_files": [
+      "click/core.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2939",
+    "pr_url": "https://github.com/planetlabs/planet-client-python/pull/1149",
+    "issue_created_at": "2025-05-22T15:00:22Z",
+    "pr_created_at": "2018-10-16T02:50:36Z",
+    "pr_merged_at": null
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 1992,
+    "issue_title": "Binary flags vs `default=None`: semantics and issue with prompt",
+    "issue_body": "The current behavior is:\r\n- if `default` is not provided, the option default is set to `False`\r\n- if `default` is set to `None`, default is set to `None`.\r\n\r\nI think this may be accidental behavior but it's not senseless: settings `default=None` you can force the prompt to require an explicit value to be provided (it'll be `[y/n]` rather than `[y/N]`). \r\n\r\nNonetheless, I noticed that if you provide `default=None` to a flag not having a secondary option, the prompt message is broken: it won't include \"[y/n]\" at the end.\r\n\r\n_Originally posted by @janluke in https://github.com/pallets/click/issues/1965#issuecomment-873600435_",
+    "pr_number": 3030,
+    "pr_title": "Differentiate absence of value and value of absence for `default` and `flag_value` arguments",
+    "commit_hash": "2170eecdfd69bbda55e160ae9212848e1ec33525",
+    "changed_files": [
+      "src/click/_utils.py",
+      "src/click/core.py",
+      "src/click/parser.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/1992",
+    "pr_url": "https://github.com/pallets/click/pull/3030",
+    "issue_created_at": "2021-07-06T11:40:46Z",
+    "pr_created_at": "2025-08-06T08:33:07Z",
+    "pr_merged_at": "2025-08-24T06:56:13Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 1992,
+    "issue_title": "Binary flags vs `default=None`: semantics and issue with prompt",
+    "issue_body": "The current behavior is:\r\n- if `default` is not provided, the option default is set to `False`\r\n- if `default` is set to `None`, default is set to `None`.\r\n\r\nI think this may be accidental behavior but it's not senseless: settings `default=None` you can force the prompt to require an explicit value to be provided (it'll be `[y/n]` rather than `[y/N]`). \r\n\r\nNonetheless, I noticed that if you provide `default=None` to a flag not having a secondary option, the prompt message is broken: it won't include \"[y/n]\" at the end.\r\n\r\n_Originally posted by @janluke in https://github.com/pallets/click/issues/1965#issuecomment-873600435_",
+    "pr_number": 3049,
+    "pr_title": "Tone-down the case of `default=True` for flags in documentation",
+    "commit_hash": "10b77f98f2b2334943cd80b14717a935650cb3d6",
+    "changed_files": [
+      "src/click/core.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/1992",
+    "pr_url": "https://github.com/pallets/click/pull/3049",
+    "issue_created_at": "2021-07-06T11:40:46Z",
+    "pr_created_at": "2025-08-25T03:57:04Z",
+    "pr_merged_at": "2025-08-28T05:45:29Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2164,
+    "issue_title": "Support default for arguments with multiple values",
+    "issue_body": "I'd like to be able to specify a default for arguments with multiple values.\r\n\r\nA currently failing test case:\r\n```\r\nimport pytest\r\nimport click\r\nfrom click.testing import CliRunner\r\n\r\n@pytest.fixture(scope=\"function\")\r\ndef runner(request):\r\n    return CliRunner()\r\n\r\ndef test_multivalue_args_with_default(runner):\r\n    @click.command()\r\n    @click.argument('files', nargs=-1, default=['arg1'])\r\n    def cmd(files):\r\n        for filename in files:\r\n            click.echo(filename)\r\n\r\n    result = runner.invoke(cmd, ['--'])\r\n    assert result.output == 'arg1\\n'\r\n```\r\n\r\nFails with:\r\n\r\n```\r\nTypeError: 'default' is not supported for nargs=-1.\r\n```\r\n\r\nI'm using click 8.0.3",
+    "pr_number": 3030,
+    "pr_title": "Differentiate absence of value and value of absence for `default` and `flag_value` arguments",
+    "commit_hash": "2170eecdfd69bbda55e160ae9212848e1ec33525",
+    "changed_files": [
+      "src/click/_utils.py",
+      "src/click/core.py",
+      "src/click/parser.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2164",
+    "pr_url": "https://github.com/pallets/click/pull/3030",
+    "issue_created_at": "2021-12-31T01:44:27Z",
+    "pr_created_at": "2025-08-06T08:33:07Z",
+    "pr_merged_at": "2025-08-24T06:56:13Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2610,
+    "issue_title": "The `flag_value` shadows `default` in `click.option()`",
+    "issue_body": "<!--\r\nThis issue tracker is a tool to address bugs in Click itself. Please use\r\nPallets Discord or Stack Overflow for questions about your own code.\r\n\r\nReplace this comment with a clear outline of what the bug is.\r\n-->\r\n\r\nThere are two problems:\r\n\r\n1. The `flag_value` shadows `default` in `click.option()`\r\n2. The default type is omitted, the option converts to `str` anyway.\r\n\r\nAbout 2., The click docs says in the option section: \"If no type is provided, the type of the default value is used.\"\r\nBut it is not True. I have to use type=frozenset to make the option's value not be \"frozenset()\", which breaks my function iterating it.\r\n\r\nAnd the 1. is the big deal.\r\nI provide my option code below and a [minimal reproducer script.](https://github.com/mojopaa/menv/blob/main/notes/reproducer.py)\r\nI'm making a venv for Mojo language, and looking at new venv code on [cpython.](https://github.com/python/cpython/blob/main/Lib/venv/__init__.py)\r\n\r\nIf click can not fix this, it can not do things like Brett Cannon does in venv cli design. That's not good.\r\nI want `scm_ignore_files` to be `frozenset()` if the flag is provided, else it is default to `frozenset([\"git\"])`.\r\n\r\nWhy is default not useful and the flag_value is always used?\r\n\r\n```\r\n@click.option(\r\n    \"--without-scm-ignore-files\",\r\n    \"scm_ignore_files\",\r\n    is_flag=True,\r\n    type=frozenset,\r\n    flag_value=frozenset(),\r\n    default=frozenset([\"git\"]),\r\n    help=\"Skips adding SCM ignore files to the environment \"\r\n    \"directory (Git is supported by default).\",\r\n)\r\n```\r\n\r\n<!--\r\nDescribe how to replicate the bug.\r\n\r\nInclude a minimal reproducible example that demonstrates the bug.\r\nInclude the full traceback if there was an exception.\r\n-->\r\n\r\n<!--\r\nDescribe the expected behavior that should have happened but didn't.\r\n-->\r\n\r\nThanks for watching!\r\n\r\nEnvironment:\r\n\r\n- Python version: Python 3.10.12\r\n- Click version: 8.1.7\r\n",
+    "pr_number": 3030,
+    "pr_title": "Differentiate absence of value and value of absence for `default` and `flag_value` arguments",
+    "commit_hash": "2170eecdfd69bbda55e160ae9212848e1ec33525",
+    "changed_files": [
+      "src/click/_utils.py",
+      "src/click/core.py",
+      "src/click/parser.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2610",
+    "pr_url": "https://github.com/pallets/click/pull/3030",
+    "issue_created_at": "2023-09-17T05:52:05Z",
+    "pr_created_at": "2025-08-06T08:33:07Z",
+    "pr_merged_at": "2025-08-24T06:56:13Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2514,
+    "issue_title": "make `flag_value=None` actually set flag value to `None`",
+    "issue_body": "Right now, click uses `None` as a sentinel for the `flag_value` keyword in the `@click.option` decorator, which triggers the default behavior where click tries to figure out the flag value by itself (either `True` or `False`). This has the unfortunate effect that you cannot tell click to use `None` as a flag value.\r\n\r\nMy command function has a keyword with the type `bool | None`, and I want my CLI to offer three flags, where one of them sets it to `True`, a second sets it to `False`, and a third sets it to `None` (which is also the default). Right now, there does not seem to be a straightforward way to do this in click.\r\n\r\nSupporting `None` as a value can be implemented trivially by using some other sentinel that is guaranteed to be unique and unused by outsiders, which is a fairly common pattern in libraries where `None` is accepted as a possible/meaningful value for some keyword rather than to mean \"this keyword was not specified\". Example:\r\n\r\n```python\r\n_unspecified = object()\r\n\r\n# The `@click.option` decorator definition\r\ndef option(..., flag_value=_unspecified, ...):\r\n    # ....\r\n    if flag_value is _unspecified:\r\n        # figure out flag value\r\n    else:\r\n        # accept flag value as-is (including if it's None)\r\n```\r\n\r\nEven better, the sentinel can be made a public feature by giving it a more meaningful name like this:\r\n\r\n```python\r\nAUTO = object()\r\n\r\n# The `@click.option` decorator definition\r\ndef option(..., flag_value=AUTO, ...):\r\n    # ....\r\n    if flag_value is AUTO:\r\n        # figure out flag value\r\n    else:\r\n        # accept flag value as-is (including if it's None)\r\n```\r\n\r\nThen, users of the library can explicitly request an automatic value for the flag like this:\r\n\r\n```python\r\nimport click\r\n\r\n@click.command\r\n@click.option('-x', flag_value=click.AUTO)\r\ndef cmd(x: bool) -> None:\r\n    ...\r\n```\r\n\r\nNote that I know I can make a non-flag option that accepts an argument and converts it to one of `True`, `False` or `None`, but the three flags approach is far more preferred and more appropriate for this use case. (And I suppose many other people's use cases as well.)\r\n\r\nAlso, while there might be some workarounds for this, like using any other arbitrary three constants as flag values, but having to do so instead of simply being able to supply `None` as a flag value is kind of awkward (especially when you take type annotations into account), so I think that in the grand scheme of things, it would probably be much better if click supported something elementary like this, rather than forcing the user to come up with awkward workarounds.\r\n\r\nIn any case, thank you in advance.",
+    "pr_number": 3030,
+    "pr_title": "Differentiate absence of value and value of absence for `default` and `flag_value` arguments",
+    "commit_hash": "2170eecdfd69bbda55e160ae9212848e1ec33525",
+    "changed_files": [
+      "src/click/_utils.py",
+      "src/click/core.py",
+      "src/click/parser.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2514",
+    "pr_url": "https://github.com/pallets/click/pull/3030",
+    "issue_created_at": "2023-05-13T11:53:45Z",
+    "pr_created_at": "2025-08-06T08:33:07Z",
+    "pr_merged_at": "2025-08-24T06:56:13Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2995,
+    "issue_title": "Incorrect handling of quoted & escaped parameters for Fish completions",
+    "issue_body": "Completions for parameters in quotes, partially quoted or with escaped characters (e.g. whitespace) don't work properly for Fish shell.\n\nI believe the issue is that for fish completion, the incomplete paramater is passed through the `COMP_CWORD` environment variable and it's expected that it will be contained in `COMP_WORDS` as the last parameter. However, before doing this match `COMP_WORDS` is parsed, which quotes and unescapes the parameters, while `COMP_CWORD` is not causing the match to fail. See code [here](https://github.com/pallets/click/blob/91ac02718af3a0b88dbe282501c06642da0785fe/src/click/shell_completion.py#L392).\n\n## How to replicate\n\nConsider the following command\n\n```python\n@click.command()\n@click.argument('bar', type=click.Choice(('hello world',)))\ndef main(bar: str):\n    pass\n```\n\nTrying to complete `foo hello` in Fish will correctly return completion for `foo hello\\ world`.\n\nThe following incomplete commands will not return any completions\n- `foo hello\\ `\n- `foo \"hello`\n- `foo \"hello\"`\n\nEnvironment:\n\n- Python version: 3.13.5\n- Click version: 8.2.1",
+    "pr_number": 3013,
+    "pr_title": "Fix completions for quoted/escaped parameters in Fish",
+    "commit_hash": "701b313160be12752e49b3f7cea32402c0969a69",
+    "changed_files": [
+      "src/click/shell_completion.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2995",
+    "pr_url": "https://github.com/pallets/click/pull/3013",
+    "issue_created_at": "2025-07-05T23:01:31Z",
+    "pr_created_at": "2025-07-24T07:03:30Z",
+    "pr_merged_at": "2025-08-09T13:43:46Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 1884,
+    "issue_title": "version_option doesn't automatically detect version anymore with click 8.0.0",
+    "issue_body": "Hello, I just came across what seems to be a regression with click 8.0.0\r\n\r\n# Bug\r\n\r\nFor a given click command `click-issue-test` installed with setuptools configured with the `click.version_option()` decorator, running `click-issue-test --version` fails with the following error:\r\n\r\n```\r\nTraceback (most recent call last):\r\n  File \"/Users/florian.veaux/go/src/github.com/DataDog/integrations-core/click-issue-test/click-issue-test/lib/python3.9/site-packages/click/decorators.py\", line 384, in callback\r\n    version = metadata.version(package_name)  # type: ignore\r\n  File \"/Users/florian.veaux/.pyenv/versions/3.9.0/Python.framework/Versions/3.9/lib/python3.9/importlib/metadata.py\", line 551, in version\r\n    return distribution(distribution_name).version\r\n  File \"/Users/florian.veaux/.pyenv/versions/3.9.0/Python.framework/Versions/3.9/lib/python3.9/importlib/metadata.py\", line 524, in distribution\r\n    return Distribution.from_name(distribution_name)\r\n  File \"/Users/florian.veaux/.pyenv/versions/3.9.0/Python.framework/Versions/3.9/lib/python3.9/importlib/metadata.py\", line 187, in from_name\r\n    raise PackageNotFoundError(name)\r\nimportlib.metadata.PackageNotFoundError: cli\r\n\r\nDuring handling of the above exception, another exception occurred:\r\n\r\nTraceback (most recent call last):\r\n  File \"/Users/florian.veaux/go/src/github.com/DataDog/integrations-core/click-issue-test/click-issue-test/bin/click-issue-test\", line 33, in <module>\r\n    sys.exit(load_entry_point('click-issue-test', 'console_scripts', 'click-issue-test')())\r\n  File \"/Users/florian.veaux/go/src/github.com/DataDog/integrations-core/click-issue-test/click-issue-test/lib/python3.9/site-packages/click/core.py\", line 1134, in __call__\r\n    return self.main(*args, **kwargs)\r\n  File \"/Users/florian.veaux/go/src/github.com/DataDog/integrations-core/click-issue-test/click-issue-test/lib/python3.9/site-packages/click/core.py\", line 1058, in main\r\n    with self.make_context(prog_name, args, **extra) as ctx:\r\n  File \"/Users/florian.veaux/go/src/github.com/DataDog/integrations-core/click-issue-test/click-issue-test/lib/python3.9/site-packages/click/core.py\", line 927, in make_context\r\n    self.parse_args(ctx, args)\r\n  File \"/Users/florian.veaux/go/src/github.com/DataDog/integrations-core/click-issue-test/click-issue-test/lib/python3.9/site-packages/click/core.py\", line 1376, in parse_args\r\n    value, args = param.handle_parse_result(ctx, opts, args)\r\n  File \"/Users/florian.veaux/go/src/github.com/DataDog/integrations-core/click-issue-test/click-issue-test/lib/python3.9/site-packages/click/core.py\", line 2352, in handle_parse_result\r\n    value = self.process_value(ctx, value)\r\n  File \"/Users/florian.veaux/go/src/github.com/DataDog/integrations-core/click-issue-test/click-issue-test/lib/python3.9/site-packages/click/core.py\", line 2314, in process_value\r\n    value = self.callback(ctx, self, value)\r\n  File \"/Users/florian.veaux/go/src/github.com/DataDog/integrations-core/click-issue-test/click-issue-test/lib/python3.9/site-packages/click/decorators.py\", line 386, in callback\r\n    raise RuntimeError(\r\nRuntimeError: 'cli' is not installed. Try passing 'package_name' instead.\r\n```\r\n\r\n# Replication steps\r\n\r\n*cli.py*:\r\n```\r\nimport click\r\n\r\n@click.command()\r\n@click.version_option()\r\ndef cli():\r\n    print(\"Hello\")\r\n\r\nif __name__ == '__main__':\r\n    cli()\r\n```\r\n\r\n*setup.py*\r\n```\r\nfrom setuptools import setup\r\n\r\nsetup(\r\n    name='click-issue-test',\r\n    version='1.2.3',\r\n    py_modules=['cli'],\r\n    install_requires=[\r\n        'Click',\r\n    ],\r\n    entry_points='''\r\n        [console_scripts]\r\n        click-issue-test=cli:cli\r\n    ''',\r\n)\r\n```\r\n\r\nThen run:\r\n```\r\n$ pip install -e .\r\n$ click-issue-test --version\r\n```\r\n\r\nThe last command was working with click 7.1.2 and was printing `click-issue-test, version 1.2.3`. \r\n\r\nEnvironment:\r\n\r\n- Python version: 3.9\r\n- Click version: 8.0.0\r\n",
+    "pr_number": 1912,
+    "pr_title": "update changelog about version_option",
+    "commit_hash": "b131f71de8bba96e367da7c7e9b5fbf721670e28",
+    "changed_files": [
+      "src/click/decorators.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/1884",
+    "pr_url": "https://github.com/pallets/click/pull/1912",
+    "issue_created_at": "2021-05-12T10:08:36Z",
+    "pr_created_at": "2021-05-19T02:40:31Z",
+    "pr_merged_at": "2021-05-19T02:49:05Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2062,
+    "issue_title": "mypy raises errors when using `click.prompt()` due to `type` argument having incompatible type",
+    "issue_body": "I have a project that uses the latest version of mypy (0.910) and click (8.0.1). I am attempting to use `click.prompt()` and pass in the `type` argument but this is always causing mypy (with default settings) to find errors.\r\n\r\nHere is an example:\r\n```python\r\nimport click\r\nname = click.prompt('What is your name?', type=str)\r\nage = click.prompt('What is your age?', type=int)\r\n```\r\n\r\nWhen I run mypy against this file, I get two errors:\r\n```\r\nmain.py:2: error: Argument \"type\" to \"prompt\" has incompatible type \"Type[str]\"; expected \"Optional[ParamType]\"\r\nmain.py:3: error: Argument \"type\" to \"prompt\" has incompatible type \"Type[int]\"; expected \"Optional[ParamType]\"\r\n```\r\n\r\nTo address these, I tried passing in some different values for `type` but to no avail (same issues all happen for `int` as well):\r\n```python\r\nname = click.prompt('What is your name?', type=Optional[str])\r\n# Returns error: Argument \"type\" to \"prompt\" has incompatible type \"object\"; expected \"Optional[ParamType]\"\r\n\r\nname = click.prompt('What is your name?', type=StringParamType)\r\n# Returns error: Argument \"type\" to \"prompt\" has incompatible type \"Type[StringParamType]\"; expected \"Optional[ParamType]\"\r\n\r\nname = click.prompt('What is your name?', type=Optional[StringParamType])\r\n# Returns error: Argument \"type\" to \"prompt\" has incompatible type \"object\"; expected \"Optional[ParamType]\"\r\n```\r\n\r\nIs this a bug or should I be providing something different to `type`?\r\n\r\nEnvironment:\r\n\r\n- Python version: 3.7.10\r\n- Click version: 8.0.1\r\n- mypy version: 0.910",
+    "pr_number": 2064,
+    "pr_title": "Fix type annotation for `type` arg",
+    "commit_hash": "01e4dac0b1f855a54eb923380d6af64171c66f22",
+    "changed_files": [
+      "src/click/termui.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2062",
+    "pr_url": "https://github.com/pallets/click/pull/2064",
+    "issue_created_at": "2021-09-09T15:23:14Z",
+    "pr_created_at": "2021-09-11T16:48:49Z",
+    "pr_merged_at": "2021-09-26T14:14:51Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2102,
+    "issue_title": "Use flake8 4.0.x",
+    "issue_body": "As discussed [here](https://github.com/pallets/click/pull/1896#discussion_r632668344), `flake8` did not properly detect imports of the `typing` module when aliased like `import typing as t`, which is a pattern used in this repository. Detection of `typing` is needed for `flake8` to understand (and ignore with respect to F811) function redefinitions using the `@typing.overload` decorator, so where this decorator is used, `click` imports the module twice:\r\n\r\n```python\r\nimport typing\r\nimport typing as t\r\n```\r\n\r\nWith PyCQA/pyflakes#632 merged, `pyflakes` 2.4.0 properly detects aliased `typing` imports, and `flake8` 4.0.x uses `pyflakes >= 2.4.0, < 2.5.0`. If we upgrade to using this newer version of `flake8`, we can remove the duplicate imports.\r\n\r\nAs far as I can tell it's as simple as changing one line in `.pre-commit-config.yaml`, but I'm not sure if there's more needed under the hood to update the CI pipeline. I'm ready to open a PR for this if people agree on the update.",
+    "pr_number": 2103,
+    "pr_title": "use alias for `t.overload` with flake8 4.0",
+    "commit_hash": "69dfb1e5fff0e2f88d3a2c4bc375674a9eae5f68",
+    "changed_files": [
+      "src/click/core.py",
+      "src/click/globals.py",
+      "src/click/termui.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2102",
+    "pr_url": "https://github.com/pallets/click/pull/2103",
+    "issue_created_at": "2021-10-13T21:51:24Z",
+    "pr_created_at": "2021-10-14T14:39:31Z",
+    "pr_merged_at": "2021-12-26T22:54:16Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2105,
+    "issue_title": "Usage of allow_dash flag for path parameters is not clear",
+    "issue_body": "The `allow_dash` parameter to the `click.Path` type can be misleading.\r\n\r\n```\r\nallow_dash (bool) – If this is set to True, a single dash to indicate standard streams is permitted.\r\n```\r\n\r\nThis seems to imply that there's some special handling of standard streams. I believe describing this parameter and linking to the `open_file` function might be a good idea in this section:\r\n\r\nhttps://click.palletsprojects.com/en/8.0.x/arguments/#file-path-arguments\r\n\r\n<!--\r\nDescribe how to replicate the bug.\r\n\r\nInclude a minimal reproducible example that demonstrates the bug.\r\nInclude the full traceback if there was an exception.\r\n-->\r\n\r\nRunning `run.sh` will show the behaviour, which is \"correct\" (writes to stdout) when you pass in `/dev/stdout` and \"incorrect\" (writes to a file called `-`) when you pass in `-`.\r\n\r\nhttps://gist.github.com/ls-jad-elkik/6007156d5528f1624729c5c3ecc3e96a\r\n\r\n<!--\r\nDescribe the expected behavior that should have happened but didn't.\r\n-->\r\n\r\nWhen using `-` I would expect behaviour similar to `File` which automatically interprets the `-`. It's not necessarily the \"wrong\" behaviour, just unclear from the docs IMO.\r\n\r\nEnvironment:\r\n\r\n- Python version: 3.9.1\r\n- Click version: 7.1.2\r\n",
+    "pr_number": 2107,
+    "pr_title": "`open_file` handles `pathlib.Path(\"-\")`",
+    "commit_hash": "e415d3a811fda506c8d7917e615b97ae9dcd1194",
+    "changed_files": [
+      "src/click/_compat.py",
+      "src/click/types.py",
+      "src/click/utils.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2105",
+    "pr_url": "https://github.com/pallets/click/pull/2107",
+    "issue_created_at": "2021-10-25T10:06:27Z",
+    "pr_created_at": "2021-10-25T15:42:28Z",
+    "pr_merged_at": "2021-10-25T15:45:29Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2105,
+    "issue_title": "Usage of allow_dash flag for path parameters is not clear",
+    "issue_body": "The `allow_dash` parameter to the `click.Path` type can be misleading.\r\n\r\n```\r\nallow_dash (bool) – If this is set to True, a single dash to indicate standard streams is permitted.\r\n```\r\n\r\nThis seems to imply that there's some special handling of standard streams. I believe describing this parameter and linking to the `open_file` function might be a good idea in this section:\r\n\r\nhttps://click.palletsprojects.com/en/8.0.x/arguments/#file-path-arguments\r\n\r\n<!--\r\nDescribe how to replicate the bug.\r\n\r\nInclude a minimal reproducible example that demonstrates the bug.\r\nInclude the full traceback if there was an exception.\r\n-->\r\n\r\nRunning `run.sh` will show the behaviour, which is \"correct\" (writes to stdout) when you pass in `/dev/stdout` and \"incorrect\" (writes to a file called `-`) when you pass in `-`.\r\n\r\nhttps://gist.github.com/ls-jad-elkik/6007156d5528f1624729c5c3ecc3e96a\r\n\r\n<!--\r\nDescribe the expected behavior that should have happened but didn't.\r\n-->\r\n\r\nWhen using `-` I would expect behaviour similar to `File` which automatically interprets the `-`. It's not necessarily the \"wrong\" behaviour, just unclear from the docs IMO.\r\n\r\nEnvironment:\r\n\r\n- Python version: 3.9.1\r\n- Click version: 7.1.2\r\n",
+    "pr_number": 2108,
+    "pr_title": "Fix typo in docs",
+    "commit_hash": "e48c3916a4585a2455a8ebe8fe379f52671b30ee",
+    "changed_files": [
+      "src/click/types.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2105",
+    "pr_url": "https://github.com/pallets/click/pull/2108",
+    "issue_created_at": "2021-10-25T10:06:27Z",
+    "pr_created_at": "2021-10-25T18:43:49Z",
+    "pr_merged_at": "2021-12-27T00:07:35Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2040,
+    "issue_title": "Shell completion fails for option values that start with symbols",
+    "issue_body": "Running into the same case as #1929, except specific to option values that may start with symbols such as '+', '~', and '!'. Shell completion treats these values as the start of new options, so doesn't complete them.\r\n\r\nReproduction script with the cli command referenced by setuptools:\r\n\r\n```python\r\n@command()\r\n@option(\"-c\", type=Choice([\"+1\", \"+2\", \"!1\", \"!2\"]))\r\ndef cli(c):\r\n    echo(f\"Value is {c}\")\r\n```\r\n\r\nWith shell completion enabled:\r\n\r\n```sh\r\n$ click-bug -c <TAB><TAB>\r\n+1 +2  !1 !2\r\n$ click-bug -c +<TAB><TAB>\r\n# Nothing happens\r\n```\r\n\r\nI was looking at the discussion on #1930, and it makes sense that '+' may be considered the start of an option. I'm wondering if it would be valid for completion to prioritize option values over new option names. As in, within shell_completion.py's _resolve_incomplete function, moving the `_is_incomplete_option` check above the `if \"--\" not in args and _start_of_option(incomplete)` call allows the tab completion in this example to work as expected:\r\n\r\n```sh\r\n$ click-bug -c +<TAB><TAB>\r\n+1 +2\r\n```\r\n\r\nI can look into putting up a PR to do that if it seems valid.\r\n\r\nEnvironment:\r\n\r\n- Python version: 3.6.9\r\n- Click version: 8.0.1\r\n",
+    "pr_number": 2041,
+    "pr_title": "Make shell completion prioritize option values over new options",
+    "commit_hash": "ef11be6e49e19a055fe7e5a89f0f1f4062c68dba",
+    "changed_files": [
+      "src/click/core.py",
+      "src/click/shell_completion.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2040",
+    "pr_url": "https://github.com/pallets/click/pull/2041",
+    "issue_created_at": "2021-08-09T16:36:08Z",
+    "pr_created_at": "2021-08-09T20:40:27Z",
+    "pr_merged_at": "2022-03-28T15:08:28Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 1486,
+    "issue_title": "Not specifying a group's command exits with code 0",
+    "issue_body": "When a group is created with multiple commands, but the script is called without any commands, the exit code is 0. It looks like [this line](https://github.com/pallets/click/blob/466d0add86f48502db9c02c32e30287d39ab866b/click/core.py#L1028) just needs to be changed to have an exit code. But it's not clear if `ctx.fail()` should be used instead.\r\n\r\n### Example Code\r\n\r\n```python\r\nimport click\r\n\r\n@click.group()\r\ndef cli():\r\n    print(\"in group\")\r\n\r\n@cli.command()\r\ndef foo():\r\n    print(\"foo\")\r\n\r\n@cli.command()\r\ndef bar():\r\n    print(\"bar\")\r\n\r\nif __name__ == \"__main__\":\r\n    print(\"before group\")\r\n    cli()\r\n```\r\n\r\n### Expected Behavior\r\n\r\nA non-zero exit code.\r\n\r\n### Actual Behavior\r\n\r\n```shell\r\n$ python click_poc.py \r\nbefore group\r\nUsage: click_poc.py [OPTIONS] COMMAND [ARGS]...\r\n\r\nOptions:\r\n  --help  Show this message and exit.\r\n\r\nCommands:\r\n  bar\r\n  foo\r\n$ echo $?\r\n0\r\n```\r\n\r\n### Environment\r\n\r\n* Python version: Python 3.8.0\r\n* Click version: Click==7.0",
+    "pr_number": 1489,
+    "pr_title": "Help shown via no_args_is_help results in exit code 2, was 0",
+    "commit_hash": "d8763b93021c416549b5f8b4b5497234619410db",
+    "changed_files": [
+      "src/click/core.py",
+      "src/click/exceptions.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/1486",
+    "pr_url": "https://github.com/pallets/click/pull/1489",
+    "issue_created_at": "2020-03-05T16:51:47Z",
+    "pr_created_at": "2020-03-06T22:34:03Z",
+    "pr_merged_at": "2024-11-03T19:56:42Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 1394,
+    "issue_title": "Command w/o args displaying usage should return non-zero",
+    "issue_body": "Try running `git`, and you will see its usage. You will also receive a non-zero return code, indicating failure. This can be vital in case arguments got truncated.\r\n\r\nCurrent behavior of showing usage instructions (`help_text`) is great!\r\n\r\nBut it should also error out with a code `1`.\r\n\r\nExample:\r\n\r\n```\r\n➜  git\r\nusage: git [--version] [--help] [-C <path>] [-c <name>=<value>]\r\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\r\n           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]\r\n           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\r\n           <command> [<args>]\r\n\r\n(snip)\r\n\r\n'git help -a' and 'git help -g' list available subcommands and some\r\nconcept guides. See 'git help <command>' or 'git help <concept>'\r\nto read about a specific subcommand or concept.\r\n➜  echo $?\r\n1\r\n```\r\n\r\nReference: https://github.com/learningequality/kolibri/pull/5937",
+    "pr_number": 1489,
+    "pr_title": "Help shown via no_args_is_help results in exit code 2, was 0",
+    "commit_hash": "d8763b93021c416549b5f8b4b5497234619410db",
+    "changed_files": [
+      "src/click/core.py",
+      "src/click/exceptions.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/1394",
+    "pr_url": "https://github.com/pallets/click/pull/1489",
+    "issue_created_at": "2019-09-13T13:03:13Z",
+    "pr_created_at": "2020-03-06T22:34:03Z",
+    "pr_merged_at": "2024-11-03T19:56:42Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2524,
+    "issue_title": "Click tests fails on Python `3.12.0-beta.1`",
+    "issue_body": "The last test job on `main` branch dates back to a month ago. At that time Python `3.12.0-alpha.7` was used and everything went fine: https://github.com/pallets/click/actions/runs/4874262829/jobs/8694965847#step:3:33\r\n\r\nWith the release of Python `3.12.0-beta.1`, Click tests are failing on the `3.12-dev` job, with the following issue:\r\n```\r\n==================================== ERRORS ====================================\r\n___________________ ERROR collecting tests/test_arguments.py ___________________\r\n/opt/hostedtoolcache/Python/3.12.0-beta.1/x64/lib/python3.12/importlib/__init__.py:90: in import_module\r\n    return _bootstrap._gcd_import(name[level:], package, level)\r\n<frozen importlib._bootstrap>:1293: in _gcd_import\r\n    ???\r\n<frozen importlib._bootstrap>:1266: in _find_and_load\r\n    ???\r\n<frozen importlib._bootstrap>:1237: in _find_and_load_unlocked\r\n    ???\r\n<frozen importlib._bootstrap>:841: in _load_unlocked\r\n    ???\r\n.tox/py312/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:163: in exec_module\r\n    source_stat, co = _rewrite_test(fn, self.config)\r\n.tox/py312/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:346: in _rewrite_test\r\n    rewrite_asserts(tree, source, strfn, config)\r\n.tox/py312/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:407: in rewrite_asserts\r\n    AssertionRewriter(module_path, config, source).run(mod)\r\n.tox/py312/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:965: in visit_Name\r\n    inlocs = ast.Compare(ast.Str(name.id), [ast.In()], [locs])\r\n/opt/hostedtoolcache/Python/3.12.0-beta.1/x64/lib/python3.12/ast.py:584: in _new\r\n    warnings._deprecated(\r\n/opt/hostedtoolcache/Python/3.12.0-beta.1/x64/lib/python3.12/warnings.py:529: in _deprecated\r\n    warn(msg, DeprecationWarning, stacklevel=3)\r\nE   DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead\r\n...\r\n```\r\n\r\nSee for instance my latest #2523 PR: https://github.com/pallets/click/actions/runs/5121540227/jobs/9209435195?pr=2523#step:7:73",
+    "pr_number": 2523,
+    "pr_title": "Keep track of `<stderr>` and `<stdout>` mix in `CliRunner` results",
+    "commit_hash": "0e0c00324a5af35f8995c7ff88df67b0f5594a58",
+    "changed_files": [
+      "src/click/testing.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2524",
+    "pr_url": "https://github.com/pallets/click/pull/2523",
+    "issue_created_at": "2023-05-30T12:49:37Z",
+    "pr_created_at": "2023-05-30T11:02:31Z",
+    "pr_merged_at": "2024-11-03T01:52:09Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2267,
+    "issue_title": "investigate and improve startup speed",
+    "issue_body": "Use `python -X importtime` to analyze the start up time based on the time it takes to import modules. Let's see how much we can move into function-level imports to make the initial startup faster. Tools like `tuna` can analyze the `importtime` output, and there are also other profilers, including memray, that may show additional places for speedup.",
+    "pr_number": 2270,
+    "pr_title": "Delay evaluation of type hint imports",
+    "commit_hash": "56db54650fd083cc35bc4891ffbda6e5e08e2762",
+    "changed_files": [
+      "src/click/__init__.py",
+      "src/click/_compat.py",
+      "src/click/_termui_impl.py",
+      "src/click/_textwrap.py",
+      "src/click/_winconsole.py",
+      "src/click/core.py",
+      "src/click/decorators.py",
+      "src/click/exceptions.py",
+      "src/click/formatting.py",
+      "src/click/globals.py",
+      "src/click/parser.py",
+      "src/click/shell_completion.py",
+      "src/click/termui.py",
+      "src/click/testing.py",
+      "src/click/types.py",
+      "src/click/utils.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2267",
+    "pr_url": "https://github.com/pallets/click/pull/2270",
+    "issue_created_at": "2022-05-02T16:21:14Z",
+    "pr_created_at": "2022-05-02T21:05:51Z",
+    "pr_merged_at": "2023-08-20T18:48:26Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2971,
+    "issue_title": "Error hint shows env var when one doesn't exist",
+    "issue_body": "#2696 added the environment variable to the error hint when `show_envvar` is set. However, it does not check to see if an `envvar` exists.\n\nclick-test.py\n```python\nimport click\n\n@click.command()\n@click.option(\"--foo\", envvar=\"FOO\", show_envvar=True, type=click.types.BOOL)\n@click.option(\"--bar\", show_envvar=True, type=click.types.INT)\ndef main(foo: bool, bar: int) -> None:\n    print(f\"{foo=} {bar=}\")\n\nif __name__ == '__main__':\n    main()\n```\n\nExamples of running this file where each argument is invalid. And one example of the help output.\n```\n$ python ./click-test.py --bar aaa\nUsage: click-test.py [OPTIONS]\nTry 'click-test.py --help' for help.\n\nError: Invalid value for '--bar' (env var: 'None'): 'aaa' is not a valid integer.\n$ python ./click-test.py --foo aaa\nUsage: click-test.py [OPTIONS]\nTry 'click-test.py --help' for help.\n\nError: Invalid value for '--foo' (env var: 'FOO'): 'aaa' is not a valid boolean.\n$ python ./click-test.py --help\nUsage: click-test.py [OPTIONS]\n\nOptions:\n  --foo BOOLEAN  [env var: FOO]\n  --bar INTEGER\n  --help         Show this message and exit.\n```\n\nI would expect the error hint for `--bar` to act like the help output by not displaying any information about an environment variable.\n\nEnvironment:\n\n- Python version: 3.10.12\n- Click version: 8.2.1\n",
+    "pr_number": 2972,
+    "pr_title": "Don't include envvar in error hint when envvar not configured",
+    "commit_hash": "0be2bd385064053bb75f92db317de128db729d52",
+    "changed_files": [
+      "src/click/core.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2971",
+    "pr_url": "https://github.com/pallets/click/pull/2972",
+    "issue_created_at": "2025-06-07T17:11:53Z",
+    "pr_created_at": "2025-06-07T17:38:18Z",
+    "pr_merged_at": "2025-07-23T04:29:00Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2682,
+    "issue_title": "Revisiting stderr flush in CLIRunner",
+    "issue_body": "This bug is described in detail at https://github.com/pallets/click/issues/2647 and https://github.com/pallets/click/issues/2636.  I've read through those issues and am not convinced the current behavior is accurate or beneficial.\r\n\r\nFrom: https://github.com/pallets/click/issues/2636#issuecomment-1826891936\r\n\r\n> This isn't a bug. When using print in general, you have to flush to be sure all output is sent to stderr. That's one of the reasons Click provides echo instead.\r\n\r\nFrom: https://github.com/pallets/click/issues/2647#issuecomment-1846440749\r\n\r\n> Another way to put it is: you need to explain why your suggested behavior is correct. It's certainly different than current, but that doesn't mean it's more correct.\r\n\r\n> What I know is that stdout is flushed, and stderr isn't. I don't know why that's the case, but I do know that this is the behavior I've encountered all over the place, and if I want stderr to show up at a specific time I need to flush manually. This is what click.echo does automatically. If what I know and click's test runner's current behavior is incorrect, then you need to show me sources that explain why. Otherwise, it would just mean we're hiding the actual behavior of the calls you're making.\r\n\r\nI believe the current behavior of not flushing stderr is wrong because it results in semantics during testing that aren't present during a normal run of the command.  Take:\r\n\r\n```python\r\nimport sys\r\n\r\nimport click\r\nfrom click.testing import CliRunner\r\n\r\n\r\n@click.command()\r\ndef cli():\r\n    print(\"to stdout\")\r\n    print(\"to stderr\", file=sys.stderr)\r\n\r\n\r\ndef test_cli():\r\n    runner = CliRunner(mix_stderr=False)\r\n    result = runner.invoke(cli, (), catch_exceptions=False)\r\n\r\n    assert result.stdout.strip() == \"to stdout\"\r\n    assert result.stderr.strip() == \"to stderr\"\r\n\r\n\r\nif __name__ == \"__main__\":\r\n    cli()\r\n```\r\n\r\n\r\nIf you run this through a normal Python execution, you will __always__ get \"to stdout\" and \"to stderr\" on the console.  If there were times when \"to stderr\" were not printed to the console, it would be a bug in Python.  If I don't care when the output comes through, only that it shows up by the time the process has exited, then I don't need to take any extra steps.\r\n\r\nHowever, if I run the test, its possible the second assert fails even though the first assert will always pass.  Additionally, I'd have to add a `sys.stderr.flush()` at the end of cli() but only to get the tests to pass.  It would never be needed when running the program in a normal Python process.  Furthermore, its basically impossible to add the flush only during testing because of where the flush() is needed in the current code.\r\n\r\nFrom: https://github.com/pallets/click/issues/2647#issuecomment-1846430069\r\n\r\n> You're welcome to use print to stderr, you just have to remember to flush in that case. Stdout is flushed, stderr isn't. That's true regardless of if you're using click.\r\n\r\n> If we flush for you during tests, that's hiding the bug, not fixing it.\r\n\r\nAs I demonstrated in the code above, my program works just fine when ran normally.  There is no bug.  The tests only fail because invoke() is not matching the expected semantics of a normal execution of a click command in a Python process.\r\n\r\nIt would only be flushing at the end of an invoke, which matches what Python does at the end of program execution.  Therefore, I'm not sure I grok the resistance to adding this flush.  Its not a performance issue.  Its not a correctness issue.  Its not a backwards compatibility issue.  There are three issues now raised because of the unexpected behavior and countless other people have likely ran into it that didn't comment or raise a new issue.  So why not add it?  What's the downside?\r\n",
+    "pr_number": 2933,
+    "pr_title": "Flush sys.stderr when CliRunner finalizes",
+    "commit_hash": "cfa6f4ad3e0078db43f866246b483544afa33ed3",
+    "changed_files": [
+      "src/click/testing.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2682",
+    "pr_url": "https://github.com/pallets/click/pull/2933",
+    "issue_created_at": "2024-02-29T06:11:47Z",
+    "pr_created_at": "2025-05-20T16:33:06Z",
+    "pr_merged_at": "2025-05-20T22:22:09Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2897,
+    "issue_title": "Boolean flags are always False",
+    "issue_body": "When upgrading from Click 8.1.8 to 8.2.0, I encountered a bug where boolean flags are not parsed correctly.\n\n## Reproduction\nThe below program can reproduce the error \n```python\nfrom sys import exit\nimport click\n\n@click.command(help=\"help\")\n@click.option(\"-v\", \"--version\", type=click.BOOL, default=False, is_flag=True)\n@click.option(\"-h\", \"--help\", type=click.BOOL, default=False, is_flag=True)\n@click.option(\"-n\", \"--name\", type=click.STRING, default=\"John Doe\")\ndef main(help, version, name):\n    print(f\"{help=}, {version=}, {name=}\")\n    if help:\n        print(\"Help\")\n        exit(0)\n    if version:\n        print(\"v1.0.0\")\n        exit(0)\n    print(f\"Hello, {name}\")\n\nif __name__ == \"__main__\":\n    main()\n```\n- When running with click 8.1.8, all flags/options are parsed as expected\n- On 8.2.0, boolean flags are not parsed and remain at their default value\n  - e.g. `python main.py --help --name Robert` will print `help=False, version=False, name='Robert'`\n\nEnvironment:\n- OS: NixOS 24.11\n- Python version: 3.12.8\n- Click version: 8.2.0\n\nI'm unsure if this is a regression in Click, or an issue on my end. Any help would be greatly appreciated. TIA!\n",
+    "pr_number": 1615,
+    "pr_title": "Fix elliott create cli",
+    "commit_hash": "770d2c542538866b7ffb0840e2e5819b550ee88d",
+    "changed_files": [
+      "src/click/core.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2897",
+    "pr_url": "https://github.com/openshift-eng/art-tools/pull/1615",
+    "issue_created_at": "2025-05-11T10:58:06Z",
+    "pr_created_at": "2020-06-30T15:52:41Z",
+    "pr_merged_at": "2020-06-30T17:07:26Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2897,
+    "issue_title": "Boolean flags are always False",
+    "issue_body": "When upgrading from Click 8.1.8 to 8.2.0, I encountered a bug where boolean flags are not parsed correctly.\n\n## Reproduction\nThe below program can reproduce the error \n```python\nfrom sys import exit\nimport click\n\n@click.command(help=\"help\")\n@click.option(\"-v\", \"--version\", type=click.BOOL, default=False, is_flag=True)\n@click.option(\"-h\", \"--help\", type=click.BOOL, default=False, is_flag=True)\n@click.option(\"-n\", \"--name\", type=click.STRING, default=\"John Doe\")\ndef main(help, version, name):\n    print(f\"{help=}, {version=}, {name=}\")\n    if help:\n        print(\"Help\")\n        exit(0)\n    if version:\n        print(\"v1.0.0\")\n        exit(0)\n    print(f\"Hello, {name}\")\n\nif __name__ == \"__main__\":\n    main()\n```\n- When running with click 8.1.8, all flags/options are parsed as expected\n- On 8.2.0, boolean flags are not parsed and remain at their default value\n  - e.g. `python main.py --help --name Robert` will print `help=False, version=False, name='Robert'`\n\nEnvironment:\n- OS: NixOS 24.11\n- Python version: 3.12.8\n- Click version: 8.2.0\n\nI'm unsure if this is a regression in Click, or an issue on my end. Any help would be greatly appreciated. TIA!\n",
+    "pr_number": 2930,
+    "pr_title": "Fix flag value set when is_flag=True and type is provided",
+    "commit_hash": "884af5c20fdc95c9c7352df35c37273391464fb9",
+    "changed_files": [
+      "src/click/core.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2897",
+    "pr_url": "https://github.com/pallets/click/pull/2930",
+    "issue_created_at": "2025-05-11T10:58:06Z",
+    "pr_created_at": "2025-05-19T19:32:27Z",
+    "pr_merged_at": "2025-05-20T14:55:39Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2906,
+    "issue_title": "Completion for commands in nested groups is broken in Click 8.2.0",
+    "issue_body": "## Summary\n\nIn Click 8.2.0, completion for commands in nested groups doesn't work as expected anymore. Instead of completing command options and/or arguments, completion infinitely repeats the command names for the group.\n\n## Example program\n\nInspired by the example in #2847 \n\nSave the following as `bin/nested` in a virtualenv\n\n```python\n#!/usr/bin/env python\n\n# nested\n\nimport click\n\n\ndef _complete_arg(ctx, _, incomplete):\n    values = [\n        \"foo\",\n        \"bar\",\n        \"foobar\",\n        \"baz\",\n    ]\n    return [v for v in values if v.startswith(incomplete)]\n\n@click.group\ndef main():\n    ...\n\n@main.group\ndef subgroup():\n    ...\n\n@subgroup.command\n@click.option(\"--name\", help=\"Name of something.\")\n@click.argument(\"arg\", shell_complete=_complete_arg)\ndef compile(name: str | None, arg: str) -> None:\n    \"\"\"Test argument completion in nested groups.\"\"\"\n    click.echo(f\"{name=} {arg=}\")\n\n\nif __name__ == \"__main__\":\n    main.main()\n```\n\nRun `eval \"$(_NESTED_COMPLETE=bash_source nested)\"` to setup completion (for bash)\n\n## Completion behavior\n\n|Prefix|8.2.0 completion suggestions (unexpected behavior)|8.1.8 completion suggestions (expected behavior)|\n|-|-|-|\n|`nested`|`subgroup`|`subgroup`|\n|`nested subgroup`|`compile`|`compile`|\n|`nested subgroup compile`|`compile`|`foo     bar     foobar  baz`|\n|`nested subgroup compile f`|none|`foo     foobar`|\n|`nested subgroup compile --`|`--help`|`--name  --help`|\n|`nested subgroup compile --name=n`|`compile`|`foo     bar     foobar  baz`|\n\n## Environment\n\n- Python version: Python 3.12.3\n- Click version: 8.2.0\n\n## Initial debugging\n\nReverting 0ef55fda47bb3d0dece21197d81d8d72a4250e73 for `src/click/shell_completion.py` restores the 8.1.8 completion behavior.\n\nLooking at the change, I believe that the bug is actually caused by a simple statement reordering . IMO https://github.com/pallets/click/blob/af73ce4793bf38edf11a16e959ef0d8a0dbf6c1f/src/click/shell_completion.py#L567-L571 should be the following to preserve the 8.1.8 behavior:\n\n```python\n                    with cmd.make_context(\n                        name, args, parent=ctx, resilient_parsing=True\n                    ) as sub_ctx:\n                        ctx = sub_ctx\n                        args = ctx._protected_args + ctx.args\n```\n\nNote that Click 8.1.8 directly assigns `cmd.make_context()` to `ctx` in the equivalent snippet: https://github.com/pallets/click/blob/934813e4d421071a1b3db3973c02fe2721359a6e/src/click/shell_completion.py#L530-L531\n\nIn the same fashion, I believe that lines 589 and 590 should be switched in https://github.com/pallets/click/blob/af73ce4793bf38edf11a16e959ef0d8a0dbf6c1f/src/click/shell_completion.py#L581-L590",
+    "pr_number": 2935,
+    "pr_title": "fix shell completion for nested groups",
+    "commit_hash": "b7cf06970e40a3144eb963ff34ed7c38934afb40",
+    "changed_files": [
+      "src/click/shell_completion.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2906",
+    "pr_url": "https://github.com/pallets/click/pull/2935",
+    "issue_created_at": "2025-05-12T11:02:27Z",
+    "pr_created_at": "2025-05-20T20:12:59Z",
+    "pr_merged_at": "2025-05-20T20:14:37Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2789,
+    "issue_title": "v8.2.0: Release Plan",
+    "issue_body": "_This release follows and is worked on together with the [8.1.8 Release Plan](https://github.com/pallets/click/issues/2793)._\r\n\r\nThis summarises the work still needing to be done for 8.2.0, particularly on the PRs and issues attached to the milestone. The summary is based on the comments and additionally some of my own thoughts. This is an attempt to make the `8.2.0` changes easier to review as there has been a lack of time by contributors. This was following a brief discussion on Discord where I asked what can be done to help contribute even though there is a lack of time by the contributors themselves:\r\n> Coming up with a list of “here’s bug fixes PRs that work, merge the and make a fix release” could be helpful as well\r\n\r\n# Pull Requests & Issues\r\n\r\n- [x] #605 could be resolved by either\r\n\t- ~~#2210~~\r\n\t  - ~~Document `EnumChoice`~~\r\n\t  - I propose we leave the aliasing functionality out of the implementation for now. It can be added and discussed in a separate issue.\r\n  - [x] #2796\r\n- [x] #2263\r\n\t- [x] #2271\r\n\t  - [x] _Better title: add `deprecated` to `Option`._\r\n\t  - [x] This does not add `deprecated` to `Parameter` so it is not available to `@click.argument`.\r\n\t  - [x] Align deprecation implementation between it and `Command(deprecated: bool)` implementation.\r\n\t  - [x] Make it print a deprecated messaged on use.\r\n\t- [x] Move `deprecated` to `Parameter` so both `Option` and `Argument` support it.\r\n- [x] #2365\r\n  - It's ignoring a type error that might be preventable if `param.param_type_name == \"option\"` were to be replaced with `isinstance(param, Option)`. However, that will introduce a circular dependency. I'm not sure it's something that's easily fixable right now.\r\n- [x] #2397\r\n  - The current implementation checks every single time an option is used, whether its name has been used before. I feel like we can move this check elsewhere so it only does this check once per command. If you want to be technical about it, it should make the check O(n) instead of O(n^2) where n is the number of options.\r\n    - [x] Move duplicate option declaration check so it only runs once per command instead of once per option.\r\n  - [x] Document that a `UserWarning` will be logged if an \"option\" declaration is reused.\r\n  - [x] ~~Nit: the warnings import should be moved to the module level.~~\r\n- [x] #2501 can simply be closed because it was fixing #2500 which was resolved by #2724.\r\n- [x] #2509\r\n  - Already reviewed and ready to go, waiting to be merged.\r\n- [x] #2517\r\n  - [x] ~~Document `Option.get_help_extra`~~ Let's not make it entirely public for now.\r\n  - I'm personally not the biggest fan of the untyped implementation. I think it should be typed so it's clear what \"extra items\" are supported.\r\n    - [x] Revamp implementation of `get_help_extra` to add typing instead of relying on untyped dict.\r\n- [x] #2523\r\n  - Good to go, seems agreed upon.\r\n- [x] #2696\r\n  - Good to go.\r\n- [x] #2680\r\n  - Well tested as well.\r\n  - Perhaps the `ctx.call_on_close` documentation should mention the change in behaviour as well? Though I would say it's assumed that an exit actually would call this too and it's not needed.\r\n- [x] #2727\r\n  - Before this PR `ProgressBar.is_hidden` existed. This adds `ProgressBar.hidden` which is the value of the new passed constructor field `hidden`. This was mentioned in the comments as well but then the author faced issues getting it to work in tests. I'm sure we can get this to work however, if not, then we can at least document why it's there.\r\n    - [x] Merge `ProgressBar._is_hidden` and `ProgressBar.hidden` into `ProgressBar.is_hidden`.\r\n\r\n## Potentially Included\r\n\r\n_These are primarily added in this separate section as I classified them as 8.2.0 though haven't necessarily been \"agreed upon\" by others (yet)._\r\n\r\n- [x] #2788 flags enabled with `envvar` will return the `flag_value` if set.\r\n- [x] #2775\r\n\t- Seems good to go, I don't think we should update the utilities documentation for this as they seem like implementation details that shouldn't matter?\r\n- ~~#1572 might be made easier if rebased on #2775. I said they can rebase on #2775 and already start any work as we're aiming to get #2775 in 8.2.0.~~\r\n- ~~#2681~~\r\n\t- Needs checklist completion (tests, changes, etc.)\r\n- [x] #2663\r\n- [x] #2622\r\n\t- [x] Needs checklist completion (tests, changes, etc.)\r\n- [x] #1489\r\n\t- [x] ~~Might need a documentation change.~~\r\n- [x] #2068\r\n\t- Needed some changes to keep `filename` and not introduce `filenames`.\r\n- [x] #2767\r\n\t- Fixed in #2800\r\n- [x] #2630 \r\n\r\n# Next steps\r\n\r\nI propose the following:\r\n1. A contributor with the necessary power to merge all of these PRs into either `main` or another temporary branch, the latter being preferred imo.\r\n2. I will follow up and address all of the openstanding issues highlighted above. Each will be done in a PR and can be commented on further there.\r\n3. Once the openstanding (and other issues that arose during their \"fixing\") are merged, 8.2.0 can be released.\r\n    * Almost all of these PRs have a good amount of tests that should prevent any low hanging issues from rearing their heads.\r\n\r\nThis assumes we do not add any more items to 8.2.0 so we can keep it manageable for now.\r\n\r\nLet me know if this sounds like a good idea. I'm also available on Discord.",
+    "pr_number": 2873,
+    "pr_title": "Merge `stable` into `main`; Release 8.2.0",
+    "commit_hash": "b7c0ab471c339488766d9413349947b2a7b21543",
+    "changed_files": [
+      "src/click/_termui_impl.py",
+      "src/click/core.py",
+      "src/click/shell_completion.py",
+      "src/click/testing.py",
+      "src/click/types.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2789",
+    "pr_url": "https://github.com/pallets/click/pull/2873",
+    "issue_created_at": "2024-10-20T21:26:13Z",
+    "pr_created_at": "2025-03-26T11:15:52Z",
+    "pr_merged_at": "2025-04-24T18:14:11Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2067,
+    "issue_title": "Support for editing multiple files using `click.edit`",
+    "issue_body": "Hello,\r\n\r\nMost of the editors(like nano, vim, vi, vscode etc) have support for multiple tabs. The only editor that I can recall that don't support multiple tabs is notepad. Something like this could be really helpful and also could be easily implemented into click:\r\n```py\r\nimport click\r\nclick.edit(filenames = {'path/to/file1', 'path/to/file2'})\r\n```\r\nInstead of calling editor using single file as argument it provides multiple files as arguments [here](https://github.com/pallets/click/blob/74d1b081f6e666413ee81d68b26d48a793e0a060/src/click/_termui_impl.py#L492).\r\n\r\nSo it calls something like:\r\n```sh\r\nvim \"/path/to/file/1\" \"/path/to/file/2\"\r\n```\r\n\r\nAll editors don't support tabs, but most of them do. \r\n\r\nRight now implementing something like this without changes to click would look like:\r\n```py\r\nfrom click._termui_impl import Editor\r\n\r\nclass CustomEditor(Editor):\r\n    def edit_multiple(self, filenames: Sequence[str]):\r\n        import subprocess\r\n\r\n        editor = self.get_editor()\r\n        filenames = ' '.join(f'\"{name}\"' for name in filenames)\r\n        try:\r\n            c = subprocess.Popen(f'{editor} {filenames}', shell=True)\r\n            exit_code = c.wait()\r\n            if exit_code != 0:\r\n                raise click.ClickException(\r\n                    \"{editor}: Editing failed\".format(editor=editor)\r\n                )\r\n\r\n        except OSError as e:\r\n            raise click.ClickException(\r\n                \"{editor}: Editing failed: {e}\".format(editor=editor, e=e)\r\n            )\r\n\r\n\r\ndef edit_multiple(filenames: Sequence[str], editor: Optional[str] = None):\r\n    ed = CustomEditor(editor=editor)\r\n    ed.edit_multiple(filenames)\r\n```\r\nThis looks really bad because we have to import from protected file and there is a lot of repetitive code.\r\n\r\nThank you\r\n\r\n\r\n\r\n\r\n",
+    "pr_number": 2068,
+    "pr_title": "Adds support for editing multiple files",
+    "commit_hash": "0d69b6ce8b25fe31ea580c608adb8e45df3805bb",
+    "changed_files": [
+      "src/click/_termui_impl.py",
+      "src/click/termui.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2067",
+    "pr_url": "https://github.com/pallets/click/pull/2068",
+    "issue_created_at": "2021-09-14T15:43:28Z",
+    "pr_created_at": "2021-09-15T19:41:05Z",
+    "pr_merged_at": "2024-11-07T22:42:59Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2264,
+    "issue_title": "Unable to properly inherit and hint Group due to use of Dict for parameters",
+    "issue_body": "I am working on updating to Click 8 in https://github.com/Chia-Network/chia-blockchain/pull/11361 and wanted to make `windows_expand_args=True` default for all my uses and have a single place to apply any other adjustments I need at that level.  I wrote a custom subclass of `Group` as below to achieve that, as well as a similar subclass of `Command`.  The issue is that when I hint that only my `_Command` subclass should be passed mypy complains due to the variance of `Dict`.  Modifying `click.Group.__init__()` to accept `Mapping[str, Command]` instead of `Dict[str, Command]` resolves the issue.  I will submit a PR immediately following this.\r\n\r\n```\r\nchia/util/click.py:22: error: Argument \"commands\" to \"__init__\" of \"Group\" has incompatible type \"Union[Dict[str, _Command], Sequence[_Command], None]\"; expected \"Union[Dict[str, Command], Sequence[Command], None]\"  [arg-type]\r\n```\r\n\r\n```python\r\nclass _Group(click.Group):\r\n    def __init__(\r\n        self,\r\n        name: Optional[str] = None,\r\n        commands: Optional[Union[Dict[str, _Command], Sequence[_Command]]] = None,\r\n        **attrs: Any,\r\n    ) -> None:\r\n        # _commands = cast(Optional[Union[Dict[str, click.Command], Sequence[click.Command]]], commands)\r\n        super().__init__(name=name, commands=commands, **attrs)\r\n        self.command_class = _Command\r\n\r\n    def main(\r\n        self,\r\n        args: Optional[Sequence[str]] = None,\r\n        prog_name: Optional[str] = None,\r\n        complete_var: Optional[str] = None,\r\n        standalone_mode: bool = True,\r\n        **extra: Any,\r\n    ) -> Any:\r\n        return super().main(\r\n            args=args,\r\n            prog_name=prog_name,\r\n            complete_var=complete_var,\r\n            standalone_mode=standalone_mode,\r\n            windows_expand_args=True,\r\n            **extra,\r\n        )\r\n```\r\n\r\nEnvironment:\r\n\r\n- Python version: 3.10.1\r\n- Click version: 8.1.3\r\n",
+    "pr_number": 2265,
+    "pr_title": "Use t.Mapping not t.Dict for parameters",
+    "commit_hash": "8473b3ced140296b9dd869957e0026eebd94634b",
+    "changed_files": [
+      "src/click/core.py",
+      "src/click/shell_completion.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2264",
+    "pr_url": "https://github.com/pallets/click/pull/2265",
+    "issue_created_at": "2022-04-29T15:15:44Z",
+    "pr_created_at": "2022-04-29T15:20:17Z",
+    "pr_merged_at": "2023-05-08T15:03:33Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2817,
+    "issue_title": "Set the `catch_exceptions` value for the whole runner",
+    "issue_body": "I always pass `catch_exceptions=False` for all my test suites.\r\nIt would be convenient to configure this value once for all in `CLIRunner` for example.\r\n\r\nFor example, we could add a `CLIRunner.catch_exceptions` parameter, and make `invoke` use that value if not directly passed in parameter of `invoke`. Then I would just have to put the runner in a pytest fixture and that would do the thing for me.\r\n\r\nIf that is OK, I can open a PR for this.\r\n\r\nWhat do you think?",
+    "pr_number": 2818,
+    "pr_title": "Add CliRunner default `catch_exceptions` parameter",
+    "commit_hash": "88328fc8743d43566081d9f17acad5f5552f5a87",
+    "changed_files": [
+      "src/click/testing.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2817",
+    "pr_url": "https://github.com/pallets/click/pull/2818",
+    "issue_created_at": "2024-12-05T14:25:46Z",
+    "pr_created_at": "2024-12-08T22:34:59Z",
+    "pr_merged_at": "2024-12-19T16:54:32Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2674,
+    "issue_title": "echo_via_pager with generators leaves terminal in broken state",
+    "issue_body": "# Steps to reproduce\r\n\r\nRun the following test case:\r\n```\r\nimport click\r\n\r\ndef output_generator():\r\n    counter = 0\r\n    while True:\r\n        yield \"this is a line of output\\n\"\r\n        if counter == 1024:\r\n            click.echo(\"kaboom\", err=True)\r\n            click.get_current_context().exit(0)\r\n        counter += 1\r\n\r\n@click.command\r\ndef kaboom():\r\n    click.echo_via_pager(output_generator)\r\n\r\nif __name__ == \"__main__\":\r\n    kaboom()\r\n```\r\n\r\nAttempt to use the terminal afterwards\r\n\r\n# Expected result\r\n\r\nA working terminal.\r\n\r\n# Actual behavior\r\n\r\nNewlines and output are obscured.  Commands may be entered, but they are not displayed.\r\n\r\n# Workaround\r\n\r\nRun the `reset` command after the command terminates.\r\n\r\nEnvironment:\r\n\r\nReproducible on OS X and Ubuntu (x86_64):\r\n\r\n```\r\n$ sw_vers\r\nProductName:            macOS\r\nProductVersion:         14.3.1\r\nBuildVersion:           23D60\r\n```\r\n- Python version: 3.11.2\r\n- Click version: 8.1.7\r\n\r\n```\r\n# cat /etc/lsb-release\r\nDISTRIB_ID=Ubuntu\r\nDISTRIB_RELEASE=22.04\r\nDISTRIB_CODENAME=jammy\r\nDISTRIB_DESCRIPTION=\"Ubuntu 22.04.3 LTS\"\r\n```\r\n- Python version: 3.10.12\r\n- Click version: 8.1.7\r\n\r\n",
+    "pr_number": 2775,
+    "pr_title": "Improve echo_via_pager behaviour in face of errors",
+    "commit_hash": "3b06e0b75aaa68533c7fbd4f89053309f2e4ed8a",
+    "changed_files": [
+      "src/click/_termui_impl.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2674",
+    "pr_url": "https://github.com/pallets/click/pull/2775",
+    "issue_created_at": "2024-02-12T22:55:05Z",
+    "pr_created_at": "2024-09-07T10:40:48Z",
+    "pr_merged_at": "2024-11-09T00:22:59Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2621,
+    "issue_title": "Allow customizing fail message for invalid choice in `click.types.Choice`",
+    "issue_body": "Move the fail art of `convert()` in the `Choice` class to a new method `get_invalid_choice_fail_message(self)` so in my subclass of `click.Choice` I can customize the way it shows the failing value for the choice\r\n\r\nSome CLI option choices are multi-part meaning they are separated by some value, like a comma separated list for example. Maybe each section of this value represents a different part of a schema and it is nice to show a custom message about the specific part.\r\n\r\nContrived version:\r\nLet says my choices are `[\"maine::goat\", \"maine::themepark\"]` and I give it \"maine::toast\"`, it'd be nice to say the `maine` part was correct and the `toast` part was not.\r\n\r\n\r\n",
+    "pr_number": 2622,
+    "pr_title": "feat: new method for choice fail",
+    "commit_hash": "4271fe283dc9365563aebb369ada8d20eee015a8",
+    "changed_files": [
+      "src/click/types.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2621",
+    "pr_url": "https://github.com/pallets/click/pull/2622",
+    "issue_created_at": "2023-10-04T21:37:46Z",
+    "pr_created_at": "2023-10-04T21:40:39Z",
+    "pr_merged_at": "2024-11-03T14:54:03Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2793,
+    "issue_title": "v8.1.8 Release Plan",
+    "issue_body": "Summary of the status of v8.1.8 included issues and pull requests. I think I'd want to move this to a GitHub project, but this is good enough for now as I don't have access to that.\r\n\r\n# Pull Requests & Issues\r\n\r\n- [x] #2607\r\n\t- [x] Needs an additional CHANGES.rst mention.\r\n- [x] #2563 \r\n- [x] #1477\r\n\t- [x] Mostly ready, awaiting a tiny question before ready to merge.\r\n- [x] #2273\r\n  - Straightforward and includes necessary tests.\r\n- [x] #2453\r\n  - Straightforward, 2 better error messages.\r\n- [x] #2731\r\n\r\n## Potentially Included\r\n\r\n- ~~#2767~~\r\n  - Moved to 8.2.0 because failing tests and not worth delaying 8.1.8 for. \r\n- [x] #2639 \r\n- [x] #2811",
+    "pr_number": 2826,
+    "pr_title": "release version 8.1.8",
+    "commit_hash": "4cef9665faf0bbbec97d8919382e28d16e160f07",
+    "changed_files": [
+      "src/click/__init__.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2793",
+    "pr_url": "https://github.com/pallets/click/pull/2826",
+    "issue_created_at": "2024-10-26T12:55:24Z",
+    "pr_created_at": "2024-12-19T17:16:41Z",
+    "pr_merged_at": "2024-12-21T18:39:32Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2452,
+    "issue_title": "Error message \"Could not determine name for option\" is not descriptive",
+    "issue_body": "The error message \"Could not determine name for option\" from core.py does not tell the use which `@click.option` was at fault. The stacktrace points to the command wrapper itself, not to the decorator since the error is only thrown later.\r\n\r\nAn example for an invalid option is `@click.option('--foo,--bar')`\r\n\r\nThe error message should include the offending declaration.\r\n\r\nMR incoming.\r\n\r\nEnvironment:\r\n\r\n- Python version: 3.10\r\n- Click version: 8.1.3\r\n",
+    "pr_number": 2453,
+    "pr_title": "core.py: Make error messages more verbose",
+    "commit_hash": "8fa833e33599fcb7a8ead3f7d9ce80e5037d906c",
+    "changed_files": [
+      "src/click/core.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2452",
+    "pr_url": "https://github.com/pallets/click/pull/2453",
+    "issue_created_at": "2023-02-16T22:21:06Z",
+    "pr_created_at": "2023-02-16T22:23:37Z",
+    "pr_merged_at": "2024-10-26T15:38:39Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 1476,
+    "issue_title": "Use subprocess instead of os.system",
+    "issue_body": "There are various places, mostly in `_termui_impl`, that use `os.system`. Python has recommended using `subprocess` (`call`, `Popen`) instead for quite some time. Replace all occurrences of `os.system` with `subprocess.call` or `Popen`, passing a list of args (not a string command). This will require a bit of care since there's a few places that write command strings that can't be directly translated to args lists, and we should ensure the expected commands continue to work on Windows, Mac, and Linux.",
+    "pr_number": 1470,
+    "pr_title": "Use shlex.quote for quoting shell arguments",
+    "commit_hash": "37d897069f58f7f2a016c14b0620c6d387430b4b",
+    "changed_files": [
+      "click/_compat.py",
+      "click/_termui_impl.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/1476",
+    "pr_url": "https://github.com/pallets/click/pull/1470",
+    "issue_created_at": "2020-02-22T17:27:31Z",
+    "pr_created_at": "2020-02-15T20:40:43Z",
+    "pr_merged_at": "2020-02-24T03:11:38Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 1476,
+    "issue_title": "Use subprocess instead of os.system",
+    "issue_body": "There are various places, mostly in `_termui_impl`, that use `os.system`. Python has recommended using `subprocess` (`call`, `Popen`) instead for quite some time. Replace all occurrences of `os.system` with `subprocess.call` or `Popen`, passing a list of args (not a string command). This will require a bit of care since there's a few places that write command strings that can't be directly translated to args lists, and we should ensure the expected commands continue to work on Windows, Mac, and Linux.",
+    "pr_number": 1477,
+    "pr_title": "Use subprocess instead of os.system",
+    "commit_hash": "299efb82e1a3d34d870129dc0c677c6efb42d811",
+    "changed_files": [
+      "src/click/_termui_impl.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/1476",
+    "pr_url": "https://github.com/pallets/click/pull/1477",
+    "issue_created_at": "2020-02-22T17:27:31Z",
+    "pr_created_at": "2020-02-22T19:36:57Z",
+    "pr_merged_at": "2024-11-30T19:23:12Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 1476,
+    "issue_title": "Use subprocess instead of os.system",
+    "issue_body": "There are various places, mostly in `_termui_impl`, that use `os.system`. Python has recommended using `subprocess` (`call`, `Popen`) instead for quite some time. Replace all occurrences of `os.system` with `subprocess.call` or `Popen`, passing a list of args (not a string command). This will require a bit of care since there's a few places that write command strings that can't be directly translated to args lists, and we should ensure the expected commands continue to work on Windows, Mac, and Linux.",
+    "pr_number": 1543,
+    "pr_title": "Revert \"Use shlex.quote for quoting shell arguments\"",
+    "commit_hash": "25a3cb272e0afacb5458fffb20c430a863154827",
+    "changed_files": [
+      "src/click/_compat.py",
+      "src/click/_termui_impl.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/1476",
+    "pr_url": "https://github.com/pallets/click/pull/1543",
+    "issue_created_at": "2020-02-22T17:27:31Z",
+    "pr_created_at": "2020-04-27T19:32:20Z",
+    "pr_merged_at": "2020-04-27T19:51:48Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 1476,
+    "issue_title": "Use subprocess instead of os.system",
+    "issue_body": "There are various places, mostly in `_termui_impl`, that use `os.system`. Python has recommended using `subprocess` (`call`, `Popen`) instead for quite some time. Replace all occurrences of `os.system` with `subprocess.call` or `Popen`, passing a list of args (not a string command). This will require a bit of care since there's a few places that write command strings that can't be directly translated to args lists, and we should ensure the expected commands continue to work on Windows, Mac, and Linux.",
+    "pr_number": 1754,
+    "pr_title": "Replaced redundant mktemp() with mkstemp() ",
+    "commit_hash": "2fc486c880eda9fdb746ed8baa49416acab9ea6d",
+    "changed_files": [
+      "src/click/_termui_impl.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/1476",
+    "pr_url": "https://github.com/pallets/click/pull/1754",
+    "issue_created_at": "2020-02-22T17:27:31Z",
+    "pr_created_at": "2021-01-14T11:24:46Z",
+    "pr_merged_at": "2021-01-14T16:00:01Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2193,
+    "issue_title": "`ctx.color` is ignored in `ClickException.show()`",
+    "issue_body": "I have tried to set `ctx.color = True` as suggested in #1090 in order to enable colour output in Gitlab CI. This worked out great for normal `click.secho` but unfortunately it does not work for output generated via raising `ClickException` subclass. Essentially the `echo` inside `ClickException.show()` ignores `ctx.color`.\r\n\r\nAfter some digging, I am almost sure this is because the `get_current_context` returns `None`, there is no context when exceptions are handled:\r\nhttps://github.com/pallets/click/blob/49164faca678dd476f1b11a2584fd0e1c6be70b2/src/click/globals.py#L63\r\n\r\n## Test code\r\n```python\r\nimport click\r\nfrom click import ClickException\r\n\r\n\r\nclass CLIError(ClickException):\r\n    def format_message(self) -> str:\r\n        return click.style(self.message, fg='red')\r\n\r\n\r\n@click.command()\r\n@click.option('--ansi', is_flag=True)\r\n@click.pass_context\r\ndef cli(ctx, ansi):\r\n    if ansi:\r\n        ctx.color = True\r\n\r\n    click.secho('some output', fg='green')\r\n\r\n    raise CLIError('some error')\r\n\r\n\r\nif __name__ == '__main__':\r\n    cli()\r\n```\r\n\r\n## Test cases\r\n1. `python test.py`\r\n2. `python test.py --ansi`\r\n3. `python test.py &> test.log; cat test.log`\r\n4. `python test.py --ansi &> test.log; cat test.log`\r\n\r\n## Expected behaviour\r\nIn all cases except 3) there is a green `some output` and red `some error` in output.\r\n\r\nIn 3) there is no colouring.\r\n\r\n## Actual behaviour\r\nEverything is as expected except 4) where `some error` is not coloured.\r\n\r\n## Environment\r\n- Python version: 3.7.9\r\n- Click version: 8.0.3",
+    "pr_number": 2273,
+    "pr_title": "Pass 'color' explicitly in error echoing",
+    "commit_hash": "8c842a43e884c5e69032223563649f4389e37dd8",
+    "changed_files": [
+      "src/click/exceptions.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2193",
+    "pr_url": "https://github.com/pallets/click/pull/2273",
+    "issue_created_at": "2022-02-14T13:40:21Z",
+    "pr_created_at": "2022-05-02T23:13:00Z",
+    "pr_merged_at": "2024-10-26T15:12:23Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2638,
+    "issue_title": "Shell completion bash version check fail in git-bash on windows",
+    "issue_body": "I'm using windows with git-bash, and trying to set up bash shell completion following the readme.\r\n\r\nI have added the following to my `.bashrc`\r\n\r\n```sh\r\neval \"$(_VREX_COMPLETE=bash_source vrex)\"\r\n```\r\n\r\nBut I get this error in new shell instances:\r\n\r\n```\r\nThe file cannot be accessed by the system.\r\n```\r\n\r\nI have traced this to the subprocess execution of bash to check the version.\r\n\r\nThe problem is that the `bash` executable name is not working from my standard windows python installation.\r\nInstead I need to explicitly add the full path to the git-bash executable, which is `C:\\Program Files\\Git\\bin\\bash.exe`\r\n\r\nI have a working patch locally with using `shutil.which('bash')` to locate bash, which should work on all platforms. PR coming after this issue is submitted.\r\n\r\nThis is somewhat related to https://github.com/pallets/click/issues/2461, but that is a different issue, but both are specific to git-bash in windows.\r\n\r\n<!--\r\nDescribe how to replicate the bug.\r\n\r\nInclude a minimal reproducible example that demonstrates the bug.\r\nInclude the full traceback if there was an exception.\r\n-->\r\n\r\n<!--\r\nDescribe the expected behavior that should have happened but didn't.\r\n-->\r\n\r\nEnvironment:\r\n\r\n- Python version: 3.12.0\r\n- Click version: 8.1.7\r\n",
+    "pr_number": 2639,
+    "pr_title": "More robust check of bash version",
+    "commit_hash": "273fb90106726daa16e1033eca0d677de76345eb",
+    "changed_files": [
+      "src/click/shell_completion.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2638",
+    "pr_url": "https://github.com/pallets/click/pull/2639",
+    "issue_created_at": "2023-11-29T09:41:16Z",
+    "pr_created_at": "2023-11-29T09:47:23Z",
+    "pr_merged_at": "2024-11-09T21:57:12Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2732,
+    "issue_title": "Missing reset on should_strip_ansi causing cascading issues during other tests",
+    "issue_body": "PR #2729 was not resetting `_compat.should_strip_ansi` after replacing it with the mocked version. So the full pytest causes `test_echo_color_flag` to fail for windows machines.\r\n\r\nRun pytest on `test_utils.py` with a Windows machine and observe the test that fails when it shouldn't be.\r\n\r\nThe test should not fail.\r\n\r\nEnvironment:\r\n\r\n- Python version: 3.12.3\r\n- Click version: 8.1.x source code\r\n- OS: Windows",
+    "pr_number": 2733,
+    "pr_title": "Fix missing reset in isolation function",
+    "commit_hash": "fdc6b020465751d26f9e74a707f2c058b0dd251f",
+    "changed_files": [
+      "src/click/testing.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2732",
+    "pr_url": "https://github.com/pallets/click/pull/2733",
+    "issue_created_at": "2024-05-22T23:13:28Z",
+    "pr_created_at": "2024-05-22T23:17:39Z",
+    "pr_merged_at": "2024-12-04T17:39:25Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2263,
+    "issue_title": "Mark parameter as deprecated",
+    "issue_body": "Thanks for this great project!\r\nPerhaps it's just me who feels that it is rather cumbersome mark a single parameter as deprecated (the closet I found was https://stackoverflow.com/a/50402799). Is there perhaps a more official method to mark a single parameter as deprecated?\r\nThat would somewhat be similar to https://github.com/pallets/click/issues/1507.\r\n\r\nPossible scenarios:\r\n- the parameter was renamed (e.g. a previous version was using `--name` as option, but now a dev want's to make sure it's the `--sur-name`.\r\n- the parameter is not needed anymore\r\n\r\nPerhaps as an example consider:\r\n```\r\nimport click\r\n\r\n@click.command()\r\n@click.option('--count', default=1, help='Number of greetings.')\r\n@click.option('--name', prompt='Your name',\r\n              help='The person to greet.')\r\ndef hello(count, name):\r\n    \"\"\"Simple program that greets NAME for a total of COUNT times.\"\"\"\r\n    for x in range(count):\r\n        click.echo(f\"Hello {name}!\")\r\n\r\nif __name__ == '__main__':\r\n    hello()\r\n```\r\nand I want to rename `--count` to `--greetings-count`.\r\nHowever I don't want to remove  `--count`  instantly, instead when users use `--count` prompt a message that they should use the new `--greetings-count`. The usage of `--count` and `--greetings-count` should be forbidden.\r\n\r\nThanks.",
+    "pr_number": 2271,
+    "pr_title": "Introduce Parameter.deprecated + Command.deprecated message customization",
+    "commit_hash": "5961d31fb566f089ad468a5b26a32f1ebfa7f63e",
+    "changed_files": [
+      "src/click/core.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2263",
+    "pr_url": "https://github.com/pallets/click/pull/2271",
+    "issue_created_at": "2022-04-28T18:26:27Z",
+    "pr_created_at": "2022-05-02T21:09:55Z",
+    "pr_merged_at": "2024-11-29T00:31:31Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2606,
+    "issue_title": "click.echo does not force colors on Windows with color=True",
+    "issue_body": "Using `click.echo(click.style(\"Foo\", fg=\"red\"), color=True)` on Windows will not print \"Foo\" in red if the output is not a terminal that supports colors, so it seems that `color=True` is ignored on Windows.\r\n\r\nHere is an example code to reproduce the bug:\r\n```\r\nimport click\r\n\r\n\r\ndef main():\r\n    test_txt = \"click_echo.txt\"\r\n    with open(test_txt, \"w\") as f:\r\n        click.secho(\"Without setting color\", file=f, fg=\"red\")\r\n        click.secho(\"With color=False\", file=f, fg=\"red\", color=False)\r\n        click.secho(\"With color=True\", file=f, fg=\"red\", color=True)\r\n\r\n    click.echo(f\"Check the contents of {test_txt}\")\r\n\r\n\r\nif __name__ == \"__main__\":\r\n    main()\r\n```\r\nAfter running it on Linux the third line of `click_echo.txt` will contain the ANSI color codes but on Windows all three lines will be the same (the behavior is the same if `echo` prints on the console and the script output is redirected to a file)\r\n\r\nEnvironment:\r\n\r\n- Python version: 3.9\r\n- Click version: 8.1.7\r\n",
+    "pr_number": 2607,
+    "pr_title": "Fix colored output on Windows (#2606)",
+    "commit_hash": "afc86c748c214939e2293ec00879d85293bcd9fa",
+    "changed_files": [
+      "src/click/utils.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2606",
+    "pr_url": "https://github.com/pallets/click/pull/2607",
+    "issue_created_at": "2023-09-04T08:57:01Z",
+    "pr_created_at": "2023-09-05T18:10:04Z",
+    "pr_merged_at": "2024-10-26T13:43:32Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2522,
+    "issue_title": "`CliRunner`: restrict `mix_stderr` influence to `<output>`; keep `<stderr>` and `<stdout>` stable",
+    "issue_body": "Let's start with the current behaviour of `CliRunner` regarding [its `mix_stderr` option](https://click.palletsprojects.com/en/8.1.x/api/#click.testing.CliRunner).\r\n\r\nHere is a simple CLI:\r\n```python\r\nfrom click import command, echo\r\nfrom click.testing import CliRunner\r\n\r\n\r\n@command()\r\ndef hello():\r\n    echo(\"1 - Hello world\")\r\n    echo(\"2 - Hello error\", err=True)\r\n    echo(\"3 - Good bye world\")\r\n    echo(\"4 - Good bye error\", err=True)\r\n\r\n\r\nif __name__ == \"__main__\":\r\n\r\n    print(\"\\n*** mix_stderr=True (default) ***\\n\")\r\n    runner = CliRunner(mix_stderr=True)\r\n    result = runner.invoke(hello)\r\n    print(f\"--- <stdout> ---\\n{result.stdout}\")\r\n    print(f\"--- <stderr> ---\\n(raises error)\\n\")\r\n    print(f\"--- <output> ---\\n{result.output}\")\r\n\r\n    print(\"\\n*** mix_stderr=False ***\\n\")\r\n    runner = CliRunner(mix_stderr=False)\r\n    result = runner.invoke(hello)\r\n    print(f\"--- <stdout> ---\\n{result.stdout}\")\r\n    print(f\"--- <stderr> ---\\n{result.stderr}\")\r\n    print(f\"--- <output> ---\\n{result.output}\")\r\n\r\n```\r\n\r\nWhen called, the CLI above produces:\r\n```shell-session\r\n$ python ./cli_runner_stderr_test.py\r\n\r\n*** mix_stderr=True (default) ***\r\n\r\n--- <stdout> ---\r\n1 - Hello world\r\n2 - Hello error\r\n3 - Good bye world\r\n4 - Good bye error\r\n\r\n--- <stderr> ---\r\n(raises error)\r\n\r\n--- <output> ---\r\n1 - Hello world\r\n2 - Hello error\r\n3 - Good bye world\r\n4 - Good bye error\r\n\r\n\r\n*** mix_stderr=False ***\r\n\r\n--- <stdout> ---\r\n1 - Hello world\r\n3 - Good bye world\r\n\r\n--- <stderr> ---\r\n2 - Hello error\r\n4 - Good bye error\r\n\r\n--- <output> ---\r\n1 - Hello world\r\n3 - Good bye world\r\n```\r\n\r\nWhat I'd like to propose is to instead have `CliRunner` produce this result:\r\n```shell-session\r\n$ python ./cli_runner_stderr_test.py\r\n\r\n*** mix_stderr=True (default) ***\r\n\r\n--- <stdout> ---\r\n1 - Hello world\r\n3 - Good bye world\r\n\r\n--- <stderr> ---\r\n2 - Hello error\r\n4 - Good bye error\r\n\r\n--- <output> ---\r\n1 - Hello world\r\n2 - Hello error\r\n3 - Good bye world\r\n4 - Good bye error\r\n\r\n\r\n*** mix_stderr=False ***\r\n\r\n--- <stdout> ---\r\n1 - Hello world\r\n3 - Good bye world\r\n\r\n--- <stderr> ---\r\n2 - Hello error\r\n4 - Good bye error\r\n\r\n--- <output> ---\r\n1 - Hello world\r\n3 - Good bye world\r\n```\r\n\r\nSo what I propose is to streamline the semantics of `result.stdout`, `result.stderr` and `result.output`:\r\n- Let `result.stdout` always contain the pure output to `<stdout>`. Never mangle `<stderr>` in it.\r\n- Let `result.stderr` always contain the pure output to `<stderr>`. Never raise an error.\r\n- Use `result.output` as the content the user is expected to see:\r\n  - let it be a proxy of `<stdout>` if `mix_stderr=False`\r\n  - have it produce a mix of `<stdout>` and `<stderr>` if `mix_stderr=True`\r\n\r\nThe advantage of this is we could properly check the individual `<stdout>` and `<stderr>` streams, and check for the user output by inspecting `<output>`.\r\n\r\nThe raised exception in `<stderr>` has been introduced in `7.0` for backward compatibility, because the code prior to `7.0` wasn't returning the `stderr`/`stderr` split output (see #868). It's from 2017 so we can safely change that behaviour by now.\r\n\r\nNote that I explicitely numbered each `echo()` statement to highlight the print order. If a refactor is attempted, I am anticipating some edge-cases around the preservation of order, so it's good to have simple code to test that.",
+    "pr_number": 2523,
+    "pr_title": "Keep track of `<stderr>` and `<stdout>` mix in `CliRunner` results",
+    "commit_hash": "0e0c00324a5af35f8995c7ff88df67b0f5594a58",
+    "changed_files": [
+      "src/click/testing.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2522",
+    "pr_url": "https://github.com/pallets/click/pull/2523",
+    "issue_created_at": "2023-05-30T06:01:57Z",
+    "pr_created_at": "2023-05-30T11:02:31Z",
+    "pr_merged_at": "2024-11-03T01:52:09Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2609,
+    "issue_title": "`progressbar(hide=True)` option for hiding the progress bar",
+    "issue_body": "Often when I use the Click `progressbar` I find myself wanting to conditionally hide it. Sometimes it's because there's another option in play which means I have output to display in place of it - others it's because I added a `--silent` option (as seen in `curl`) for disabling it entirely.\r\n\r\nIt's actually a bit tricky doing this at the moment, due to its use as a context manager.\r\n\r\nWhat I'd really like to be able to do is this:\r\n\r\n```python\r\nhide = True  # or False depending on various things\r\n\r\nwith click.progressbar(items, show_eta=True, hide=hide):\r\n    for item in items:\r\n        process_item(item)\r\n```\r\n",
+    "pr_number": 2727,
+    "pr_title": "Add functionality to hide the progress bar Issue #2609",
+    "commit_hash": "fcd85032cff78aa536a6d2b455fb83bfcc02b228",
+    "changed_files": [
+      "src/click/_termui_impl.py",
+      "src/click/termui.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2609",
+    "pr_url": "https://github.com/pallets/click/pull/2727",
+    "issue_created_at": "2023-09-12T04:08:49Z",
+    "pr_created_at": "2024-05-20T22:11:49Z",
+    "pr_merged_at": "2024-11-03T13:12:06Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2396,
+    "issue_title": "Issue UserWarning when overriding Parameter name",
+    "issue_body": "When a command is given multiple parameters that use the same name, a UserWarning should be fired to highlight the conflict. Currently, the command will quietly allow one parameter to override the names of another.\r\n\r\n(This is a slightly different problem than https://github.com/pallets/click/issues/1465. In that issue, True and False values were given the same names within a single parameter.)\r\n\r\n**Example of the issue:**\r\n\r\n```python\r\n@click.command()\r\n@click.option(\"-a\", \"--aardvark\", is_flag=True)\r\n@click.option(\"-a\", \"--avocado\", is_flag=True)\r\ndef cli(aardvark: bool = False, avocado: bool = False):\r\n    if aardvark:\r\n        print(\"Animal\")\r\n    if avocado:\r\n        print(\"Fruit\")\r\n```\r\n\r\nIn this scenario, the short-name, `-a`, appears ambiguous. A warning would help the user realize the conflict they've introduced.\r\n\r\nI'll also provide a pull request for consideration.",
+    "pr_number": 2397,
+    "pr_title": "Give a UserWarning when Parameter is overriden by name",
+    "commit_hash": "380008389b32ca2b7de7c73f670a9eee1562004e",
+    "changed_files": [
+      "src/click/core.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2396",
+    "pr_url": "https://github.com/pallets/click/pull/2397",
+    "issue_created_at": "2022-11-07T03:25:48Z",
+    "pr_created_at": "2022-11-07T03:47:35Z",
+    "pr_merged_at": "2024-11-03T14:11:59Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2280,
+    "issue_title": "Documentation of decorators should should show where to look for arguments' reference  ",
+    "issue_body": "I've just started exploring click, and wholeheartedly love it. Thanks!\r\n\r\nOne thing that made the experience a bit frustrating was the API reference. Currently, in some places, it omits descriptions of the arguments of some of the decorators. For example, with [`click.argument`](https://click.palletsprojects.com/en/8.1.x/api/#click.argument), it just says the type is `Any` without telling where to look for the actual description:\r\n\r\n![image](https://user-images.githubusercontent.com/6691643/167310684-18074b81-3932-4bc8-b7e4-5af48cf8f8b2.png)\r\n\r\nI guess it's because the underlying argument class is customizable, but for the default usecase it would be nice to have a reference to the default.\r\n\r\nClicking on the reference to [`click.Argument`](https://click.palletsprojects.com/en/8.1.x/api/#click.Argument) doesn't reveal much either:\r\n\r\n![image](https://user-images.githubusercontent.com/6691643/167310805-d624ec5c-728a-4f73-9f72-43c7a86ee9c9.png)\r\n\r\nIt would be nice if the description of `attrs` pointed to their actual reference: [`click.Parameter`](https://click.palletsprojects.com/en/8.1.x/api/#click.Parameter) in case of `argument` and `option` decorators.\r\n\r\nThere's already a precedent for this in the docs - [`click.Group`](https://click.palletsprojects.com/en/8.1.x/api/#click.Group):\r\n![image](https://user-images.githubusercontent.com/6691643/167312103-295a3eee-42c7-436a-a2e0-cbbaebb001b0.png)\r\n",
+    "pr_number": 2281,
+    "pr_title": "Docs: add references for varargs and kwargs",
+    "commit_hash": "77838f86fa647ca82f53a88d6495dfc009b24c41",
+    "changed_files": [
+      "src/click/core.py",
+      "src/click/decorators.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2280",
+    "pr_url": "https://github.com/pallets/click/pull/2281",
+    "issue_created_at": "2022-05-08T19:38:33Z",
+    "pr_created_at": "2022-05-08T19:43:23Z",
+    "pr_merged_at": "2023-05-09T19:11:00Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2356,
+    "issue_title": "`show_choices=False` seems to have no effect",
+    "issue_body": "I noticed when using Typer that even if you pass `show_choices=False`, the choices still get shown in the help. It seems that this is related to Click.\r\n\r\nExample:\r\n```python\r\nimport click\r\n\r\n@click.command()\r\n@click.option('-s', '--string-to-echo', type=click.Choice(['hello', 'world']), show_choices=False)\r\ndef echo(string):\r\n    click.echo(string)\r\n\r\nif __name__ == \"__main__\":\r\n    echo()\r\n```\r\n```\r\nUsage: ... [OPTIONS]\r\n\r\nOptions:\r\n  -s, --string-to-echo [hello|world]\r\n  --help                          Show this message and exit.\r\n```\r\n\r\nI guess it isn't documented what `show_choices` does for `Option` (if anything) in the non-prompt case, but I expected `show_choices=False` to disable showing the choices in the help.\r\n\r\nEnvironment:\r\n\r\n- Python version: 3.9.13\r\n- Click version: 8.1.3\r\n",
+    "pr_number": 2365,
+    "pr_title": "Fix metavar for Choice options when show_choices=False",
+    "commit_hash": "1a4d8c1bb1e8f8e214ede7223bd2c05dc2ce006a",
+    "changed_files": [
+      "src/click/types.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2356",
+    "pr_url": "https://github.com/pallets/click/pull/2365",
+    "issue_created_at": "2022-09-19T11:40:28Z",
+    "pr_created_at": "2022-10-02T03:14:28Z",
+    "pr_merged_at": "2024-11-02T22:45:04Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2516,
+    "issue_title": "Split extra help item computing with help record rendering",
+    "issue_body": "I maintain [Click Extra, a drop-in replacement for Click which adds colorization](https://github.com/kdeldycke/click-extra/tree/main#readme) of the help screen.\r\n\r\nI am currently relying on finicky regular expressions to identify and match the extra items that are displayed at the end of each option's help. These extra items are rendered in square brackets and looks like:\r\n- `[default: None]`\r\n- `[default: (unlimited)]`\r\n- `[env var: COLOR_CLI8_TIME; default: no-time]`\r\n- and a variety of other formats.\r\n\r\nThe problem is that the generation of these extra items are deeply embedded within Click and are impossible to fetch independently.\r\n\r\nThat's why I propose a simple refactor of the `Option.get_help_record()` method, and split it in two:\r\n- a new method to compute the values of these extra items\r\n- keep the original `get_help_record()` as-is, but dedicated to help message rendering only\r\n\r\nI have a PR that is ready at #2517.",
+    "pr_number": 2517,
+    "pr_title": "Split generation of help extra items and rendering",
+    "commit_hash": "948d7a707a0abda8ce0a1b39ba87390f11ffcd5e",
+    "changed_files": [
+      "src/click/core.py",
+      "src/click/types.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2516",
+    "pr_url": "https://github.com/pallets/click/pull/2517",
+    "issue_created_at": "2023-05-16T14:12:05Z",
+    "pr_created_at": "2023-05-16T14:13:34Z",
+    "pr_merged_at": "2024-11-02T23:35:57Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2632,
+    "issue_title": "Flag option with secondary opts: show_default=True does not show value from default_map in \"help\" output",
+    "issue_body": "I'm setting the `default_map` from a config file, and it seems the values from the `default_map` are not correctly shown in the `--help` output if I set `show_default=True` on my option.\r\n\r\nMy Option looks like this:\r\n\r\n```python\r\n@click.option(\r\n    \"--long/--short\",\r\n    \"-l/-s\",\r\n    is_flag=True,\r\n    show_default=True,\r\n    help=\"show additional information like size and creation date\",\r\n)\r\n```\r\n\r\nI initialize the `default_map` with a custom command class that I attach via the `@click.command` decorator like this `@click.command(cls=ConfigAwareCommand)`\r\n\r\n```python\r\nfrom click import Command as _Command\r\n\r\n\r\nclass ConfigAwareCommand(_Command):\r\n    def __init__(self, *args, **kwargs):\r\n        kwargs[\"context_settings\"] = {\r\n            \"default_map\": CONFIG.get_cli_command_defaults(kwargs[\"name\"])\r\n        }\r\n        super().__init__(*args, **kwargs)\r\n\r\n```\r\n\r\nThe `default_map` value is in my example `{'long': True}`. In the `--help` output, the default value is shown like this\r\n\r\n```\r\n  -l, --long / -s, --short        show additional information like size and\r\n                                  creation date  [default: short]\r\n```\r\n\r\nWhen executing the command, the default value from the `default_map` is used correctly (`long` defaults to `True`).\r\n\r\nDuring debugging, I might have found the culprit inside [src/click/core.py](https://github.com/pallets/click/blob/main/src/click/core.py#L2746)\r\n\r\n```python\r\n            elif self.is_bool_flag and self.secondary_opts:\r\n                # For boolean flags that have distinct True/False opts,\r\n                # use the opt without prefix instead of the value.\r\n                default_string = _split_opt(\r\n                    (self.opts if self.default else self.secondary_opts)[0]\r\n                )[1]\r\n```\r\n\r\nAs you can see, `self.default` is used instead of the `default_value` variable that is initialized [further above](https://github.com/pallets/click/blob/main/src/click/core.py#L2720) this code snippet.\r\n\r\nIf I change the part of the code above and use `default_value` instead of `self.default` the help output shows the correct default values from the `default_map`.\r\n\r\n```python\r\n            elif self.is_bool_flag and self.secondary_opts:\r\n                # For boolean flags that have distinct True/False opts,\r\n                # use the opt without prefix instead of the value.\r\n                default_string = _split_opt(\r\n                    (self.opts if default_value else self.secondary_opts)[0]\r\n                )[1]\r\n```\r\n\r\nI am not sure if I do something wrong or if this is indeed a bug.\r\n\r\nEnvironment:\r\n\r\n- Python version: 3.10.12\r\n- Click version: 8.1.7\r\n",
+    "pr_number": 2730,
+    "pr_title": "fix bug in show defaults when using a flag option and a default map",
+    "commit_hash": "bc16dbf788861266177661b576291a1b264fb5de",
+    "changed_files": [
+      "src/click/core.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2632",
+    "pr_url": "https://github.com/pallets/click/pull/2730",
+    "issue_created_at": "2023-11-11T13:54:13Z",
+    "pr_created_at": "2024-05-21T20:43:18Z",
+    "pr_merged_at": "2024-05-22T21:13:00Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2697,
+    "issue_title": "Broken message about invalid argument value for template \"File ... is a directory\"",
+    "issue_body": "**User Actions**\r\n```sh\r\nmkdir $'my\\ndir'\r\nmy-tool $'my\\ndir'\r\n```\r\n\r\n**Expected Output**\r\n```\r\nInvalid value for 'PATH': File 'my\\ndir' is a directory.\r\n```\r\n\r\n\r\n**Actual Output**\r\n```\r\nInvalid value for 'PATH': File 'my\r\ndir' is a directory.\r\n```\r\n\r\n\r\n**Code**\r\n```python\r\nfrom pathlib import Path\r\nfrom typing import Annotated\r\n\r\nimport typer\r\n\r\n\r\ndef main(path: Annotated[Path, typer.Argument(dir_okay=False)]) -> None:\r\n    pass\r\n\r\n\r\nif __name__ == '__main__':\r\n    typer.run(main)\r\n```\r\n\r\n**Cause**\r\nYou clearly forgot `!r` on [this](https://github.com/pallets/click/blob/f8857cb03268b5b952b88b2acb3e11d9f0f7b6e4/src/click/types.py#L896) line and are using quotes instead.\r\n\r\nJust compare these lines in [click.types](https://github.com/pallets/click/blob/f8857cb03268b5b952b88b2acb3e11d9f0f7b6e4/src/click/types.py#L870-L928):\r\n```python\r\n_(\"{name} {filename!r} does not exist.\").format(\r\n_(\"{name} {filename!r} is a file.\").format(\r\n_(\"{name} '{filename}' is a directory.\").format(\r\n_(\"{name} {filename!r} is not readable.\").format(\r\n_(\"{name} {filename!r} is not writable.\").format(\r\n_(\"{name} {filename!r} is not executable.\").format(\r\n```\r\n",
+    "pr_number": 2728,
+    "pr_title": "Prevent multiline error message on invalid path",
+    "commit_hash": "c021f05c838c1d0401ebc340d1de9b663c7fb578",
+    "changed_files": [
+      "src/click/types.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2697",
+    "pr_url": "https://github.com/pallets/click/pull/2728",
+    "issue_created_at": "2024-03-30T03:16:00Z",
+    "pr_created_at": "2024-05-20T23:23:43Z",
+    "pr_merged_at": "2024-05-21T14:46:21Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2717,
+    "issue_title": "The type hint for the filename parameter to open_file is incomplete",
+    "issue_body": "`click.open_file(filename, …)` happily accepts a `pathlib.Path` object as the filename; it [only passes the value along][open-file-src] to either `click.utils.LazyFile(filename, …)` or `click._compat.open_stream(filename, …)`, both of which accept pathlikes. However, `open_file`'s type hints indicate that `filename` can only be a string, which causes type-checking errors when feeding it a `Path`.\r\n\r\n[open-file-src]: https://github.com/pallets/click/blob/874ca2bc1c30d93a4ac6e36a15ed685eafe89097/src/click/utils.py#L391-L401\r\n\r\n``` python\r\nfrom pathlib import Path\r\n\r\nimport click\r\n\r\nfilename = Path(\"/some/path\")\r\n\r\n# Mypy gives the following error on the line with the call to open_file:\r\n#\r\n# error: Argument 1 to \"open_file\" has incompatible type \"Path\"; expected \"str\"  [arg-type]\r\n\r\nwith click.open_file(filename) as handle:\r\n    pass\r\n```\r\n\r\nBoth `LazyFile` and `open_stream` give their filename parameter the type `types.Union[str, os.PathLike[str]]`, so that should probably be the type accepted by `open_file`, too.\r\n\r\nEnvironment:\r\n\r\n- Python version: 3.12.1\r\n- Click version: 8.1.7\r\n",
+    "pr_number": 2725,
+    "pr_title": "adjust type hint for filename parameter in open_file to also take an os.PathLike",
+    "commit_hash": "74ab60ac623c70cf28a572d0a4943eda90957627",
+    "changed_files": [
+      "src/click/utils.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2717",
+    "pr_url": "https://github.com/pallets/click/pull/2725",
+    "issue_created_at": "2024-05-03T04:33:19Z",
+    "pr_created_at": "2024-05-20T18:48:19Z",
+    "pr_merged_at": "2024-05-20T21:10:45Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2500,
+    "issue_title": "Empty string default values are not displayed",
+    "issue_body": "If an option has a default value of `\"\"`, the `show_default` option does not display anything. \r\n\r\nReproducible example:\r\n```\r\nimport click\r\n\r\n@click.group()\r\ndef test_cli() -> None:\r\n    pass \r\n\r\n\r\n@test_cli.command(help=\"Test CLI\")\r\n@click.option(\"--test_value\", type=str, default=\"\", show_default=True)\r\ndef test_function(\r\n    test_value: str\r\n) -> None:\r\n    print(test_value)\r\n\r\n\r\n@click.group()\r\ndef cli() -> None:\r\n    pass\r\n\r\n\r\ncli.add_command(test_cli)\r\ncli()\r\n```\r\n\r\nExpected to see a default displayed. Actual behavior:\r\n<img width=\"653\" alt=\"image\" src=\"https://user-images.githubusercontent.com/53453358/235223998-5e387b8b-45ac-41bd-af56-59ac177991fc.png\">\r\n\r\nEnvironment:\r\n\r\n- Python version: 3.11.3\r\n- Click version: 8.0.3\r\n",
+    "pr_number": 2724,
+    "pr_title": "Fix printing of default option value to handle empty strings",
+    "commit_hash": "d3e3852eba45a6f7ce0ae5e02ca49106e228add6",
+    "changed_files": [
+      "src/click/core.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2500",
+    "pr_url": "https://github.com/pallets/click/pull/2724",
+    "issue_created_at": "2023-04-28T18:23:25Z",
+    "pr_created_at": "2024-05-20T15:58:34Z",
+    "pr_merged_at": "2024-05-21T22:24:08Z"
+  },
+  {
+    "repo_name": "pallets/click",
+    "issue_number": 2705,
+    "issue_title": "Setting color=True in runner.invoke on windows strips ansi codes",
+    "issue_body": "I am trying to test that a click command uses colors correctly. I've set the `color=True` argument to `runner.invoke` and this keeps the ansi escape codes as expected on Linux. However, on Windows these are completely stripped, as if `color=False` was set.\r\n\r\nI did see #2606 and #2607, but testing the change there isn't enough to fix this for me. I think the problem is that `color=True` isn't set in the `Context` on Windows and therefore `ctx.color` is still `None` in [`resolve_color_default`](https://github.com/pallets/click/blob/f8857cb03268b5b952b88b2acb3e11d9f0f7b6e4/src/click/globals.py#L62-L65), despite `color=True` being passed to `invoke`.\r\n\r\nEnvironment:\r\n\r\n- Python version: 3.8 - 3.12\r\n- Click version: 8.1.7",
+    "pr_number": 2729,
+    "pr_title": "fix color handling in test runner",
+    "commit_hash": "5b1624bf09947d6f10eaffd63d6fb737dfe7656a",
+    "changed_files": [
+      "src/click/testing.py"
+    ],
+    "issue_url": "https://github.com/pallets/click/issues/2705",
+    "pr_url": "https://github.com/pallets/click/pull/2729",
+    "issue_created_at": "2024-04-11T16:32:11Z",
+    "pr_created_at": "2024-05-21T16:11:21Z",
+    "pr_merged_at": "2024-05-21T23:18:10Z"
+  }
+]

@@ -1,0 +1,31 @@
+# Isolierte Umgebung für trust_remote_code-Code-Embeddings (jina, SFR).
+#
+# Warum: Die Basis-Umgebung nutzt ein sehr neues transformers (5.x dev), das
+# Funktionen entfernt/verschoben hat (z. B. find_pruneable_heads_and_indices),
+# die der custom modeling.py von jina-bert / SFR-new-impl importiert → ImportError.
+# Hier auf eine stabile transformers-Version gepinnt, die diese Modelle lädt.
+#
+# Setup: bash scripts/setup_code_env.sh   (legt conda-Env 'benchmark-code' an)
+# Danach: conda activate benchmark-code && python scripts/run_code_embed_v11plus.py --model jina
+
+# --- gepinnt (kritisch) ---
+transformers==4.46.3
+sentence-transformers==3.3.1
+einops                       # von jina-bert benötigt
+
+# --- Rest wie requirements_benchmark.txt ---
+torch
+pydantic>=2.0
+pydantic-settings>=2.0
+elasticsearch>=8.0,<9.0
+elastic-transport>=8.0,<9.0
+rank-bm25>=0.2.2
+faiss-cpu
+numpy
+tree-sitter>=0.24.0
+tree-sitter-python>=0.23.0
+tqdm
+tiktoken
+
+# HTTP (GitHub-API-Extraktion, LLM-Vorberechnung)
+requests

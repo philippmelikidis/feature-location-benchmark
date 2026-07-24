@@ -1,0 +1,28 @@
+# Benchmark dependencies only
+# Install with: pip install -r requirements_benchmark.txt
+
+pydantic>=2.0
+pydantic-settings>=2.0
+
+# Elasticsearch (pin to v8.x – v9 client sends incompatible headers to ES 8.x server)
+elasticsearch>=8.0,<9.0
+elastic-transport>=8.0,<9.0
+
+# Embeddings & Retrieval
+sentence-transformers>=3.0.0
+rank-bm25>=0.2.2
+faiss-cpu
+
+# Numerics
+numpy
+
+# AST chunking
+tree-sitter>=0.24.0
+tree-sitter-python>=0.23.0
+
+# Utilities
+tqdm
+tiktoken
+
+# HTTP (GitHub-API-Extraktion, LLM-Vorberechnung)
+requests

@@ -1,0 +1,295 @@
+[
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 10997,
+    "issue_title": "Using pydantic Json Type as Form data type doesn't work",
+    "issue_body": "### Discussed in https://github.com/tiangolo/fastapi/discussions/9305\r\n\r\n<div type='discussions-op-text'>\r\n\r\n<sup>Originally posted by **harpaj** March 23, 2023</sup>\r\n### First Check\r\n\r\n- [X] I added a very descriptive title here.\r\n- [X] I used the GitHub search to find a similar question and didn't find it.\r\n- [X] I searched the FastAPI documentation, with the integrated search.\r\n- [X] I already searched in Google \"How to X in FastAPI\" and didn't find any information.\r\n- [X] I already read and followed all the tutorial in the docs and didn't find an answer.\r\n- [X] I already checked if it is not related to FastAPI but to [Pydantic](https://github.com/pydantic/pydantic).\r\n- [X] I already checked if it is not related to FastAPI but to [Swagger UI](https://github.com/swagger-api/swagger-ui).\r\n- [X] I already checked if it is not related to FastAPI but to [ReDoc](https://github.com/Redocly/redoc).\r\n\r\n### Commit to Help\r\n\r\n- [X] I commit to help with one of those options 👆\r\n\r\n### Example Code\r\n\r\n```python\r\nfrom typing import Annotated\r\n\r\nfrom fastapi import FastAPI, Form\r\nfrom pydantic import Json, BaseModel\r\n\r\napp = FastAPI()\r\n\r\n\r\nclass JsonListModel(BaseModel):\r\n    json_list: Json[list[str]]\r\n\r\n\r\n@app.post(\"/working\")\r\nasync def working(json_list: Annotated[str, Form()]) -> list[str]:\r\n    model = JsonListModel(json_list=json_list)\r\n    return model.json_list\r\n\r\n\r\n@app.post(\"/broken\")\r\nasync def broken(json_list: Annotated[Json[list[str]], Form()] ) -> list[str]:\r\n    return json_list\r\n```\r\n\r\n\r\n### Description\r\n\r\nIn the example code above, I would expect `working` and `broken` to be approximately equivalent.\r\nHowever, while `working` returns the parsed json_list as expected, `broken` fails with \r\n\r\n```json\r\n{\"detail\":[{\"loc\":[\"body\",\"json_list\"],\"msg\":\"JSON object must be str, bytes or bytearray\",\"type\":\"type_error.json\"}]}\r\n```\r\n\r\n### Operating System\r\n\r\nLinux\r\n\r\n### Operating System Details\r\n\r\n_No response_\r\n\r\n### FastAPI Version\r\n\r\n0.95.0\r\n\r\n### Python Version\r\n\r\nPython 3.10.8\r\n\r\n### Additional Context\r\n\r\nsample request that fails with `broken` and works with `working`:\r\n```python\r\n\r\nimport requests\r\nimport json\r\n\r\nheaders = {\"Content-Type\": \"application/x-www-form-urlencoded\"}\r\nresponse = requests.post(\r\n    \"http://0.0.0.0:8000/broken\",\r\n    data={\"json_list\": json.dumps([\"abc\", \"def\"])},\r\n    headers=headers,\r\n)\r\n```</div>",
+    "pr_number": 14616,
+    "pr_title": "🐛 Fix using `Json[list[str]]` type (issue #10997)",
+    "commit_hash": "c5fd75a321496b1f8212744bde217ec8ea956154",
+    "changed_files": [
+      "fastapi/dependencies/utils.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/10997",
+    "pr_url": "https://github.com/fastapi/fastapi/pull/14616",
+    "issue_created_at": "2024-01-21T11:57:20Z",
+    "pr_created_at": "2025-12-28T10:25:02Z",
+    "pr_merged_at": "2026-02-05T18:41:43Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 10719,
+    "issue_title": "`Annotated` dependencies are interpreted incorrectly when using `PEP 695`-style type alias.",
+    "issue_body": "### Discussed in https://github.com/tiangolo/fastapi/discussions/10662\r\n\r\n<div type='discussions-op-text'>\r\n\r\n<sup>Originally posted by **Rockmizu** November 16, 2023</sup>\r\n### First Check\r\n\r\n- [X] I added a very descriptive title here.\r\n- [X] I used the GitHub search to find a similar question and didn't find it.\r\n- [X] I searched the FastAPI documentation, with the integrated search.\r\n- [X] I already searched in Google \"How to X in FastAPI\" and didn't find any information.\r\n- [X] I already read and followed all the tutorial in the docs and didn't find an answer.\r\n- [X] I already checked if it is not related to FastAPI but to [Pydantic](https://github.com/pydantic/pydantic).\r\n- [X] I already checked if it is not related to FastAPI but to [Swagger UI](https://github.com/swagger-api/swagger-ui).\r\n- [X] I already checked if it is not related to FastAPI but to [ReDoc](https://github.com/Redocly/redoc).\r\n\r\n### Commit to Help\r\n\r\n- [X] I commit to help with one of those options 👆\r\n\r\n### Example Code\r\n\r\n```python\r\nfrom __future__ import annotations\r\n\r\nfrom typing import Annotated, TypeAlias\r\n\r\nfrom fastapi import Depends, FastAPI\r\n\r\napp = FastAPI()\r\n\r\n\r\n# dependency\r\nasync def some_value() -> int:\r\n    return 123\r\n\r\n# This works.\r\nDependedValue: TypeAlias = Annotated[int, Depends(some_value)]\r\n\r\n# This won't work.\r\n# type DependedValue = Annotated[int, Depends(some_value)]\r\n\r\n\r\n@app.get('/')\r\nasync def get_with_dep(value: DependedValue) -> str:\r\n    print(f'{type(value) = !r}')\r\n    print(f'{value = !r}')\r\n\r\n    assert isinstance(value, int), '`value` should be an integer.'\r\n    assert value == 123, '`value` should be 123.'\r\n\r\n    return f'value: {value}'\r\n```\r\n\r\n\r\n### Description\r\n\r\nWhen using the method in line 15:\r\n```python\r\nDependedValue: TypeAlias = Annotated[int, Depends(some_value)]\r\n```\r\nto declare a type alias, FastAPI correctly interprets it and fills the `value` with `123` for `get_with_dep`.\r\n\r\nHowever, when using the new type alias syntax introduced in Python 3.12 (line 18):\r\n```python\r\ntype DependedValue = Annotated[int, Depends(some_value)]\r\n```\r\nFastAPI interprets it as a URL query parameter and responds with HTTP 422 Unprocessable Entity when accessing `/`.\r\n\r\n\r\n## Expected Response\r\n\r\nHTTP 200 OK\r\n\r\n```\r\n\"value: 123\"\r\n```\r\n\r\n\r\n## Actual Response\r\n\r\nHTTP 422 Unprocessable Entity\r\n\r\n```\r\n{\"detail\":[{\"type\":\"missing\",\"loc\":[\"query\",\"value\"],\"msg\":\"Field required\",\"input\":null,\"url\":\"https://errors.pydantic.dev/2.5/v/missing\"}]}\r\n```\r\n\r\n\r\n### Operating System\r\n\r\nWindows\r\n\r\n### Operating System Details\r\n\r\n_No response_\r\n\r\n### FastAPI Version\r\n\r\n0.104.1\r\n\r\n### Pydantic Version\r\n\r\n2.5.1\r\n\r\n### Python Version\r\n\r\nPython 3.12.0\r\n\r\n### Additional Context\r\n\r\n_No response_</div>",
+    "pr_number": 13920,
+    "pr_title": "✨ Add support for PEP695 `TypeAliasType`",
+    "commit_hash": "97145588f5442aa7c3830173813d5d1a2c893521",
+    "changed_files": [
+      "fastapi/dependencies/utils.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/10719",
+    "pr_url": "https://github.com/fastapi/fastapi/pull/13920",
+    "issue_created_at": "2023-11-26T09:17:29Z",
+    "pr_created_at": "2025-07-24T02:13:59Z",
+    "pr_merged_at": "2026-02-05T18:34:34Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 10127,
+    "issue_title": "Cannot use `Response` type hint as dependency annotation",
+    "issue_body": "### Privileged issue\r\n\r\n- [ ] I'm @tiangolo or he asked me directly to create an issue here.\r\n\r\n### Issue Content\r\n\r\nFastAPI `0.95.0` introduced `Annotated` as a way to create dependencies (https://fastapi.tiangolo.com/release-notes/#0950).\r\n\r\nBefore `0.95.0`, it was possible to use `Response` as a type hint for dependencies. After that, it was not possible anymore.\r\n\r\n- See #9897 for more details - Thanks @holyoaks for the report.\r\n\r\nExample that worked before:\r\n\r\n```py\r\nfrom typing import Annotated\r\nfrom fastapi import FastAPI, Response, Depends\r\n\r\napp = FastAPI()\r\n\r\ndef set_no_cache_headers(response: Response) -> Response:\r\n    response.headers[\"Potato\"] = \"potato\"\r\n    return response\r\n\r\n@app.get(\"/\")\r\ndef testing_response(response: Response = Depends(set_no_cache_headers)):\r\n    return {}\r\n```\r\n\r\nAs a workaround today, if you remove the `Response` type hint, it works as expected:\r\n\r\n```py\r\n@app.get(\"/\")\r\ndef testing_response(response = Depends(set_no_cache_headers)):\r\n    return {}\r\n```\r\n\r\nThe `Annotated` way also doesn't work:\r\n\r\n```py\r\n@app.get(\"/\")\r\ndef testing_response(response: Annotated[Response, Depends(set_no_cache_headers)]):\r\n    return {}\r\n```",
+    "pr_number": 14794,
+    "pr_title": "✨ Allow `Response` type hint as dependency annotation",
+    "commit_hash": "b49435becdf53942be248fc2ffc7f53df5ac313c",
+    "changed_files": [
+      "fastapi/dependencies/utils.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/10127",
+    "pr_url": "https://github.com/fastapi/fastapi/pull/14794",
+    "issue_created_at": "2023-08-22T06:26:09Z",
+    "pr_created_at": "2026-02-01T00:16:12Z",
+    "pr_merged_at": "2026-02-05T18:23:16Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 639,
+    "issue_title": "Execute dependencies in parallel instead of sequentially awaiting them",
+    "issue_body": "**Is your feature request related to a problem? Please describe.**\r\nFastAPI's Dependency injection system, while extremely useful, tends to run into a problem when several long-running dependencies are needed for a single route, such as with the example below.\r\n\r\n```py\r\nfrom fastapi import Depends, FastAPI\r\nfrom asyncio import sleep as async_sleep\r\n\r\napp = FastAPI()\r\n\r\nasync def get_big_data():\r\n    await async_sleep(5)\r\n    return \"𝐃𝐀𝐓𝐀\"\r\n\r\nasync def compute_pi():\r\n    await async_sleep(5)\r\n    return \"About 3, I think?\"\r\n\r\nasync def do_nothing_for_a_bit():\r\n    await async_sleep(5)\r\n    return \"Gotta let the CPU spin down for a bit, otherwise it could explode.\"\r\n\r\n@app.get(\"/do_long_thing\")\r\nasync def do_long_thing(\r\n    big_dep1: str = Depends(get_big_data),\r\n    big_dep2: str = Depends(compute_pi),\r\n    big_dep3: str = Depends(do_nothing_for_a_bit)\r\n):\r\n    return {\r\n        'big': big_dep1,\r\n        'pi': big_dep2,\r\n        'sleep': big_dep3,\r\n    }\r\n```\r\n\r\nRunning that application and thentrying to access `/do_long_thing` takes 15 seconds to load, even though none of those dependencies are reliant on each other and could very well be ran in parallel.\r\n\r\n**Describe the solution you'd like**\r\nDon't await coroutines and threadpools here. Collect them into a list instead and gather them.\r\n\r\nhttps://github.com/tiangolo/fastapi/blob/3f9f4a0f8f7f5db50fbdc3157fe692cf4e68e13f/fastapi/dependencies/utils.py#L442-L456\r\n\r\n**Describe alternatives you've considered**\r\nAsking that the user take care of running and gathering those dependencies themselves is pretty much the only solution to this problem available right now (that I can see, anyway, there might be another one), which undermines the usefulness of the dependency injection system.\r\n\r\n",
+    "pr_number": 35,
+    "pr_title": "feat/refactor!: router-level middleware, support for lifespans on mounted apps",
+    "commit_hash": "4bcc41510a11ad5398024f39628a8ac2028fca2a",
+    "changed_files": [
+      "fastapi/__init__.py",
+      "fastapi/applications.py",
+      "fastapi/exceptions.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/639",
+    "pr_url": "https://github.com/adriangb/xpresso/pull/35",
+    "issue_created_at": "2019-10-22T15:54:42Z",
+    "pr_created_at": "2019-02-16T12:58:25Z",
+    "pr_merged_at": "2019-02-16T13:01:30Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 10424,
+    "issue_title": "RequestValidationError is **not** a sub-class of Pydantic's ValidationError",
+    "issue_body": "### Discussed in https://github.com/tiangolo/fastapi/discussions/10421\r\n\r\n<div type='discussions-op-text'>\r\n\r\n<sup>Originally posted by **valentinoli** October 10, 2023</sup>\r\n### First Check\r\n\r\n- [X] I added a very descriptive title here.\r\n- [X] I used the GitHub search to find a similar question and didn't find it.\r\n- [X] I searched the FastAPI documentation, with the integrated search.\r\n- [X] I already searched in Google \"How to X in FastAPI\" and didn't find any information.\r\n- [X] I already read and followed all the tutorial in the docs and didn't find an answer.\r\n- [X] I already checked if it is not related to FastAPI but to [Pydantic](https://github.com/pydantic/pydantic).\r\n- [X] I already checked if it is not related to FastAPI but to [Swagger UI](https://github.com/swagger-api/swagger-ui).\r\n- [X] I already checked if it is not related to FastAPI but to [ReDoc](https://github.com/Redocly/redoc).\r\n\r\n### Commit to Help\r\n\r\n- [X] I commit to help with one of those options 👆\r\n\r\n### Example Code\r\n\r\n```python\r\n@app.exception_handler(ValidationError)\r\nasync def validation_exception_handler(request: Request, exc: ValidationError):\r\n    return PlainTextResponse(\r\n        str(exc), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR\r\n    )\r\n```\r\n\r\n\r\n### Description\r\n\r\nI was trying to handle both `RequestValidationError` and `ValidationError` by writing a custom handler for `ValidationError` but that doesn't work.\r\n\r\n[The docs](https://fastapi.tiangolo.com/tutorial/handling-errors/#override-request-validation-exceptions) state that \r\n\r\n> RequestValidationError is a sub-class of Pydantic's [ValidationError](https://pydantic-docs.helpmanual.io/usage/models/#error-handling)\r\n\r\nHowever, looking at [FastAPI source code](https://github.com/tiangolo/fastapi/blob/c1adce4fe93a0035e69988f7e051cfab97d8acef/fastapi/exceptions.py#L36) reveals that this is not the case.\r\n\r\n\r\n### Operating System\r\n\r\nLinux\r\n\r\n### Operating System Details\r\n\r\n_No response_\r\n\r\n### FastAPI Version\r\n\r\n0.101.0\r\n\r\n### Pydantic Version\r\n\r\n2.1.1\r\n\r\n### Python Version\r\n\r\n3.11.3\r\n\r\n### Additional Context\r\n\r\n_No response_</div>",
+    "pr_number": 14487,
+    "pr_title": "📝 Update docs about re-raising validation errors, do not include string as is to not leak information",
+    "commit_hash": "cd9d093f603b81f34eb2751e9ca4522089fa9696",
+    "changed_files": [
+      "docs_src/handling_errors/tutorial004.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/10424",
+    "pr_url": "https://github.com/fastapi/fastapi/pull/14487",
+    "issue_created_at": "2023-10-11T08:58:02Z",
+    "pr_created_at": "2025-12-10T12:49:04Z",
+    "pr_merged_at": "2025-12-10T12:56:50Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 12246,
+    "issue_title": "OpenAPI servers not being returned according how the docs say they should be",
+    "issue_body": "### Discussed in https://github.com/fastapi/fastapi/discussions/12226\r\n\r\n<div type='discussions-op-text'>\r\n\r\n<sup>Originally posted by **mzealey** September 19, 2024</sup>\r\n### First Check\r\n\r\n- [X] I added a very descriptive title here.\r\n- [X] I used the GitHub search to find a similar question and didn't find it.\r\n- [X] I searched the FastAPI documentation, with the integrated search.\r\n- [X] I already searched in Google \"How to X in FastAPI\" and didn't find any information.\r\n- [X] I already read and followed all the tutorial in the docs and didn't find an answer.\r\n- [X] I already checked if it is not related to FastAPI but to [Pydantic](https://github.com/pydantic/pydantic).\r\n- [X] I already checked if it is not related to FastAPI but to [Swagger UI](https://github.com/swagger-api/swagger-ui).\r\n- [X] I already checked if it is not related to FastAPI but to [ReDoc](https://github.com/Redocly/redoc).\r\n\r\n### Commit to Help\r\n\r\n- [X] I commit to help with one of those options 👆\r\n\r\n### Example Code\r\n\r\n```python\r\nfrom fastapi import FastAPI\r\n\r\napp = FastAPI()\r\n\r\n# you can add a test endpoint here or not - same bug either way\r\n```\r\n\r\n\r\n### Description\r\n\r\n```\r\n$ curl localhost:8$ curl localhost:8000/openapi.json\r\n{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"FastAPI\",\"version\":\"0.1.0\"},\"paths\":{}}\r\n```\r\n\r\nAccording to the documentation of the `servers` parameter in FastAPI:\r\n\r\n> If the servers list is not provided, or is an empty list, the default value would be a dict with a url value of /.\r\n\r\n(assuming that `root_path_in_servers = True` (the default))\r\n\r\nClearly this is not happening.\r\n\r\n### Operating System\r\n\r\nLinux\r\n\r\n### Operating System Details\r\n\r\n_No response_\r\n\r\n### FastAPI Version\r\n\r\n0.110.3 (but according to github code seems to be in latest also)\r\n\r\n### Pydantic Version\r\n\r\n2.5.3\r\n\r\n### Python Version\r\n\r\nPython 3.10.12\r\n\r\n### Additional Context\r\n\r\n_No response_</div>",
+    "pr_number": 14405,
+    "pr_title": "📝 Fix docstring of `servers` parameter",
+    "commit_hash": "dcf0299195c7182b0b0f9d07118a157a05490b8d",
+    "changed_files": [
+      "fastapi/applications.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/12246",
+    "pr_url": "https://github.com/fastapi/fastapi/pull/14405",
+    "issue_created_at": "2024-09-22T10:29:30Z",
+    "pr_created_at": "2025-11-25T16:15:45Z",
+    "pr_merged_at": "2025-12-02T09:11:29Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 190,
+    "issue_title": "Add section to docs about configuration",
+    "issue_body": "It would be useful if you could add a section to the (already excellent) docs on the recommended way to add app configuration. Would you recommend something based on Pydantic's BaseSettings, or on Starlette's Config?\r\nBoth would work I think, but your opinion on the optimal integration in FastAPI would be useful.\r\nTIA",
+    "pr_number": 1118,
+    "pr_title": "Add documentation about configuration and env vars",
+    "commit_hash": "d4d5b21b2e70cdd7e36aedc2e41d7c29b430492b",
+    "changed_files": [
+      "docs_src/metadata/tutorial001.py",
+      "docs_src/metadata/tutorial002.py",
+      "docs_src/metadata/tutorial003.py",
+      "docs_src/settings/app01/__init__.py",
+      "docs_src/settings/app01/config.py",
+      "docs_src/settings/app01/main.py",
+      "docs_src/settings/app02/__init__.py",
+      "docs_src/settings/app02/config.py",
+      "docs_src/settings/app02/main.py",
+      "docs_src/settings/app03/__init__.py",
+      "docs_src/settings/app03/config.py",
+      "docs_src/settings/app03/main.py",
+      "docs_src/settings/tutorial001.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/190",
+    "pr_url": "https://github.com/fastapi/fastapi/pull/1118",
+    "issue_created_at": "2019-04-29T05:54:02Z",
+    "pr_created_at": "2020-03-15T19:59:20Z",
+    "pr_merged_at": "2020-04-02T04:55:21Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 9424,
+    "issue_title": "Using PEP 649 annotations with status code `204 No Content` and return type `None` raises `AssertionError`",
+    "issue_body": "### Privileged issue\r\n\r\n- [X] I'm @tiangolo or he asked me directly to create an issue here.\r\n\r\n### Issue Content\r\n\r\n# Reproduce\r\n\r\n1. create FastAPI app\r\n2. create route with status code `204 No Content`\r\n3. add return type `None` to said route\r\n4. add future annotations ([PEP 649](https://peps.python.org/pep-0649/))\r\n\r\n```py\r\nfrom __future__ import annotations\r\n\r\nimport http\r\nimport logging\r\n\r\nfrom fastapi import FastAPI\r\n\r\n\r\napp = FastAPI()\r\n\r\n\r\n@app.post(\"/\", status_code=http.HTTPStatus.NO_CONTENT)\r\nasync def root() -> None:\r\n    logging.info(\"endpoint called.\")\r\n```\r\n\r\n## Expected\r\n\r\nThe file above should boot up fine when running `uvicorn filename:app --reload`\r\n\r\n## Actual\r\n\r\nThis raises an error: `AssertionError: Status code 204 must not have a response body`\r\n\r\n### full traceback\r\n\r\n```\r\nTraceback (most recent call last):\r\n  File \"/<python_location>/lib/python3.11/multiprocessing/process.py\", line 314, in _bootstrap\r\n    self.run()\r\n  File \"/<python_location>/lib/python3.11/multiprocessing/process.py\", line 108, in run\r\n    self._target(*self._args, **self._kwargs)\r\n  File \"/<project_dir>/venv/lib/python3.11/site-packages/uvicorn/_subprocess.py\", line 76, in subprocess_started\r\n    target(sockets=sockets)\r\n  File \"/<project_dir>/venv/lib/python3.11/site-packages/uvicorn/server.py\", line 59, in run\r\n    return asyncio.run(self.serve(sockets=sockets))\r\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"/<python_location>/lib/python3.11/asyncio/runners.py\", line 190, in run\r\n    return runner.run(main)\r\n           ^^^^^^^^^^^^^^^^\r\n  File \"/<python_location>/lib/python3.11/asyncio/runners.py\", line 118, in run\r\n    return self._loop.run_until_complete(task)\r\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"uvloop/loop.pyx\", line 1517, in uvloop.loop.Loop.run_until_complete\r\n  File \"/<project_dir>/venv/lib/python3.11/site-packages/uvicorn/server.py\", line 66, in serve\r\n    config.load()\r\n  File \"/<project_dir>/venv/lib/python3.11/site-packages/uvicorn/config.py\", line 471, in load\r\n    self.loaded_app = import_from_string(self.app)\r\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"/<project_dir>/venv/lib/python3.11/site-packages/uvicorn/importer.py\", line 21, in import_from_string\r\n    module = importlib.import_module(module_str)\r\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"/<python_location>/lib/python3.11/importlib/__init__.py\", line 126, in import_module\r\n    return _bootstrap._gcd_import(name[level:], package, level)\r\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"<frozen importlib._bootstrap>\", line 1206, in _gcd_import\r\n  File \"<frozen importlib._bootstrap>\", line 1178, in _find_and_load\r\n  File \"<frozen importlib._bootstrap>\", line 1149, in _find_and_load_unlocked\r\n  File \"<frozen importlib._bootstrap>\", line 690, in _load_unlocked\r\n  File \"<frozen importlib._bootstrap_external>\", line 940, in exec_module\r\n  File \"<frozen importlib._bootstrap>\", line 241, in _call_with_frames_removed\r\n  File \"/<project_dir>/main.py\", line 12, in <module>\r\n    @app.post(\"/\", status_code=http.HTTPStatus.NO_CONTENT)\r\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"/<project_dir>/venv/lib/python3.11/site-packages/fastapi/routing.py\", line 661, in decorator\r\n    self.add_api_route(\r\n  File \"/<project_dir>/venv/lib/python3.11/site-packages/fastapi/routing.py\", line 600, in add_api_route\r\n    route = route_class(\r\n            ^^^^^^^^^^^^\r\n  File \"/<project_dir>/venv/lib/python3.11/site-packages/fastapi/routing.py\", line 401, in __init__\r\n    assert is_body_allowed_for_status_code(\r\nAssertionError: Status code 204 must not have a response body\r\n```\r\n\r\n# Current workarounds\r\n\r\n* remove `from __future__ import annotations`\r\n* or remove the return type `None`\r\n\r\n# PRs\r\n\r\nThere was a PR posted in the discussion https://github.com/tiangolo/fastapi/discussions/6060#discussioncomment-5102253\r\n\r\nAfter stepping through the code, I think it might make sense to return early in ~`fastapi.dependencies.utils.get_typed_annotation`~`fastapi.dependencies.utils.get_typed_return_annotation` if `annotation == \"None\"` (PR incoming).",
+    "pr_number": 9425,
+    "pr_title": "✨  Allow `None` as return type for bodiless responses",
+    "commit_hash": "b51ec36f2e442495de5e4c22ae51a8f5c44917eb",
+    "changed_files": [
+      "fastapi/dependencies/utils.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/9424",
+    "pr_url": "https://github.com/fastapi/fastapi/pull/9425",
+    "issue_created_at": "2023-04-21T14:35:49Z",
+    "pr_created_at": "2023-04-21T14:54:47Z",
+    "pr_merged_at": "2025-09-20T18:44:44Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 1273,
+    "issue_title": "Use TestClient in an async fashion",
+    "issue_body": "### Is your feature request related to a problem\n\nUnfortunately, test client runs it's own event loop. This causes an issue when attempting to do other async operations in the background.\nRunning it inside an executor will cause it to run in a different threat, which in turn causes issues with other async libraries a they're calling coroutines from a different thread.\n\n### The solution you would like\n\nMake a TestClient that doesn't create it's own loop. Just have it async. \n\n### Describe alternatives you've considered\n\nOther than executor or partching fastapi, there are no alternatives. \n",
+    "pr_number": 1619,
+    "pr_title": "Add documentation about asynchronous testing (pytest-asyncio and httpx)",
+    "commit_hash": "2fd28434dd506fbdd8d85c17b98e9065042dc7ad",
+    "changed_files": [
+      "docs_src/async_tests/__init__.py",
+      "docs_src/async_tests/main.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/1273",
+    "pr_url": "https://github.com/fastapi/fastapi/pull/1619",
+    "issue_created_at": "2020-04-16T00:15:11Z",
+    "pr_created_at": "2020-06-24T15:07:32Z",
+    "pr_merged_at": "2020-08-08T18:01:19Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 13022,
+    "issue_title": "Traceback stack does not show exact place of error",
+    "issue_body": "### Discussed in https://github.com/fastapi/fastapi/discussions/8428\r\n\r\n<div type='discussions-op-text'>\r\n\r\n<sup>Originally posted by **NewSouthMjos** December  5, 2022</sup>\r\n### First Check\r\n\r\n- [X] I added a very descriptive title to this issue.\r\n- [X] I used the GitHub search to find a similar issue and didn't find it.\r\n- [X] I searched the FastAPI documentation, with the integrated search.\r\n- [X] I already searched in Google \"How to X in FastAPI\" and didn't find any information.\r\n- [X] I already read and followed all the tutorial in the docs and didn't find an answer.\r\n- [X] I already checked if it is not related to FastAPI but to [Pydantic](https://github.com/samuelcolvin/pydantic).\r\n- [X] I already checked if it is not related to FastAPI but to [Swagger UI](https://github.com/swagger-api/swagger-ui).\r\n- [X] I already checked if it is not related to FastAPI but to [ReDoc](https://github.com/Redocly/redoc).\r\n\r\n### Commit to Help\r\n\r\n- [x] I commit to help with one of those options 👆\r\n\r\n### Example Code\r\n\r\n```python\r\nimport uvicorn\r\nfrom fastapi import FastAPI, Depends\r\n\r\n\r\napp = FastAPI()\r\n\r\n\r\ndef get_something_sync():\r\n    yield True\r\n\r\n\r\nasync def get_something_async():\r\n    yield True\r\n\r\n\r\n@app.get('/1')\r\ndef router_func(dependency=Depends(get_something_sync)):\r\n    raise ValueError\r\n    return\r\n\r\n\r\n@app.get('/2')\r\ndef router_func(dependency=Depends(get_something_async)):\r\n    raise ValueError\r\n    return\r\n\r\n\r\nif __name__ == \"__main__\":\r\n    uvicorn.run(\"main:app\", host=\"0.0.0.0\", port=5600, workers=1)\r\n```\r\n\r\n\r\n### Description\r\n\r\nIf dependency function uses yield, injecting dependency with sync def function (get_something_sync), the error traceback will broke - it doesn't locate the place where it was rise (should be \"/app/main.py\", line 24)\r\ncalling endpoint /1:\r\n```\r\nfastapi_dependency  | INFO:     10.77.78.83:60070 - \"GET /1 HTTP/1.1\" 500 Internal Server Error\r\nfastapi_dependency  | ERROR:    Exception in ASGI application\r\nfastapi_dependency  | Traceback (most recent call last):\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py\", line 419, in run_asgi\r\nfastapi_dependency  |     result = await app(  # type: ignore[func-returns-value]\r\nfastapi_dependency  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py\", line 78, in __call__\r\nfastapi_dependency  |     return await self.app(scope, receive, send)\r\nfastapi_dependency  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/fastapi/applications.py\", line 270, in __call__\r\nfastapi_dependency  |     await super().__call__(scope, receive, send)\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/starlette/applications.py\", line 124, in __call__\r\nfastapi_dependency  |     await self.middleware_stack(scope, receive, send)\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py\", line 184, in __call__\r\nfastapi_dependency  |     raise exc\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py\", line 162, in __call__\r\nfastapi_dependency  |     await self.app(scope, receive, _send)\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/starlette/middleware/exceptions.py\", line 79, in __call__\r\nfastapi_dependency  |     raise exc\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/starlette/middleware/exceptions.py\", line 68, in __call__\r\nfastapi_dependency  |     await self.app(scope, receive, sender)\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/contextlib.py\", line 222, in __aexit__\r\nfastapi_dependency  |     await self.gen.athrow(typ, value, traceback)\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/fastapi/concurrency.py\", line 36, in contextmanager_in_threadpool\r\nfastapi_dependency  |     raise e\r\nfastapi_dependency  | ValueError\r\n```\r\n\r\nWhen injecting dependency with async def function (get_something_async), the error traceback seems to be right\r\nendpoint /2:\r\n```\r\nfastapi_dependency  | INFO:     10.77.78.83:60067 - \"GET /2 HTTP/1.1\" 500 Internal Server Error\r\nfastapi_dependency  | ERROR:    Exception in ASGI application\r\nfastapi_dependency  | Traceback (most recent call last):\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py\", line 419, in run_asgi\r\nfastapi_dependency  |     result = await app(  # type: ignore[func-returns-value]\r\nfastapi_dependency  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py\", line 78, in __call__\r\nfastapi_dependency  |     return await self.app(scope, receive, send)\r\nfastapi_dependency  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/fastapi/applications.py\", line 270, in __call__\r\nfastapi_dependency  |     await super().__call__(scope, receive, send)\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/starlette/applications.py\", line 124, in __call__\r\nfastapi_dependency  |     await self.middleware_stack(scope, receive, send)\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py\", line 184, in __call__\r\nfastapi_dependency  |     raise exc\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/starlette/middleware/errors.py\", line 162, in __call__\r\nfastapi_dependency  |     await self.app(scope, receive, _send)\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/starlette/middleware/exceptions.py\", line 79, in __call__\r\nfastapi_dependency  |     raise exc\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/starlette/middleware/exceptions.py\", line 68, in __call__\r\nfastapi_dependency  |     await self.app(scope, receive, sender)\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/contextlib.py\", line 222, in __aexit__\r\nfastapi_dependency  |     await self.gen.athrow(typ, value, traceback)\r\nfastapi_dependency  |   File \"/app/main.py\", line 13, in get_something_async\r\nfastapi_dependency  |     yield True\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/fastapi/middleware/asyncexitstack.py\", line 21, in __call__\r\nfastapi_dependency  |     raise e\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/fastapi/middleware/asyncexitstack.py\", line 18, in __call__\r\nfastapi_dependency  |     await self.app(scope, receive, send)\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/starlette/routing.py\", line 706, in __call__\r\nfastapi_dependency  |     await route.handle(scope, receive, send)\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/starlette/routing.py\", line 276, in handle\r\nfastapi_dependency  |     await self.app(scope, receive, send)\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/starlette/routing.py\", line 66, in app\r\nfastapi_dependency  |     response = await func(request)\r\nfastapi_dependency  |                ^^^^^^^^^^^^^^^^^^^\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/fastapi/routing.py\", line 235, in app\r\nfastapi_dependency  |     raw_response = await run_endpoint_function(\r\nfastapi_dependency  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/fastapi/routing.py\", line 163, in run_endpoint_function\r\nfastapi_dependency  |     return await run_in_threadpool(dependant.call, **values)\r\nfastapi_dependency  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/starlette/concurrency.py\", line 41, in run_in_threadpool\r\nfastapi_dependency  |     return await anyio.to_thread.run_sync(func, *args)\r\nfastapi_dependency  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/anyio/to_thread.py\", line 31, in run_sync\r\nfastapi_dependency  |     return await get_asynclib().run_sync_in_worker_thread(\r\nfastapi_dependency  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py\", line 937, in run_sync_in_worker_thread\r\nfastapi_dependency  |     return await future\r\nfastapi_dependency  |            ^^^^^^^^^^^^\r\nfastapi_dependency  |   File \"/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py\", line 867, in run\r\nfastapi_dependency  |     result = context.run(func, *args)\r\nfastapi_dependency  |              ^^^^^^^^^^^^^^^^^^^^^^^^\r\nfastapi_dependency  |   File \"/app/main.py\", line 24, in router_func\r\nfastapi_dependency  |     raise ValueError\r\nfastapi_dependency  | ValueError\r\n```\r\n\r\nOn python 3.10 there were no such a problem. \r\nCreated repo for reproduce the problem: [https://github.com/NewSouthMjos/fastapi_dependency_test](https://github.com/NewSouthMjos/fastapi_dependency_test)\r\nSo, should the sync way to inject dependecy show exact plase of where is was raised?\r\n\r\n### Operating System\r\n\r\nLinux\r\n\r\n### Operating System Details\r\n\r\nRunning in a docker\r\n\r\n### FastAPI Version\r\n\r\n0.88.0\r\n\r\n### Python Version\r\n\r\n3.11\r\n\r\n### Additional Context\r\n\r\nuvicorn[standard]==0.20.0</div>",
+    "pr_number": 5823,
+    "pr_title": "🐛 Preserve traceback when an exception is raised in sync dependency with `yield`",
+    "commit_hash": "4f8157588e47f909276e0474f6926740a2e55b9c",
+    "changed_files": [
+      "fastapi/concurrency.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/13022",
+    "pr_url": "https://github.com/fastapi/fastapi/pull/5823",
+    "issue_created_at": "2024-12-02T07:48:49Z",
+    "pr_created_at": "2022-12-30T21:46:35Z",
+    "pr_merged_at": "2024-12-03T22:37:12Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 54,
+    "issue_title": "tags at APIRouter level",
+    "issue_body": "**Is your feature request related to a problem? Please describe.**\r\nI have a certain number of APIRouter, with for each of those a certain number of routes.\r\nI want all routes that belong to a given APIRouter to have the same tag, and currently I'm achieving this by adding `tags=['Tag1']`  to each and every route.\r\n\r\n**Describe the solution you'd like**\r\nI got the feeling that I should be able to add the tags keyword directly to APIRouter and that all routes belonging to it inherit the tag.\r\n\r\nNot sure it makes sense though but I feel it would avoid some useless repetition",
+    "pr_number": 55,
+    "pr_title": "APIRouter tags",
+    "commit_hash": "11c755bee34ffa9cd0b28e9e04b944c3c8fd1125",
+    "changed_files": [
+      "fastapi/applications.py",
+      "fastapi/routing.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/54",
+    "pr_url": "https://github.com/fastapi/fastapi/pull/55",
+    "issue_created_at": "2019-02-24T18:33:02Z",
+    "pr_created_at": "2019-02-25T08:54:51Z",
+    "pr_merged_at": "2019-03-16T17:15:08Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 10259,
+    "issue_title": "How to define custom objects as query parameters in FastAPI (using PydanticV2 annotations)?",
+    "issue_body": "### Discussed in https://github.com/tiangolo/fastapi/discussions/10101\r\n\r\n<div type='discussions-op-text'>\r\n\r\n<sup>Originally posted by **DSamuylov** August 17, 2023</sup>\r\n### First Check\r\n\r\n- [X] I added a very descriptive title here.\r\n- [X] I used the GitHub search to find a similar question and didn't find it.\r\n- [X] I searched the FastAPI documentation, with the integrated search.\r\n- [X] I already searched in Google \"How to X in FastAPI\" and didn't find any information.\r\n- [X] I already read and followed all the tutorial in the docs and didn't find an answer.\r\n- [X] I already checked if it is not related to FastAPI but to [Pydantic](https://github.com/pydantic/pydantic).\r\n- [X] I already checked if it is not related to FastAPI but to [Swagger UI](https://github.com/swagger-api/swagger-ui).\r\n- [X] I already checked if it is not related to FastAPI but to [ReDoc](https://github.com/Redocly/redoc).\r\n\r\n### Commit to Help\r\n\r\n- [X] I commit to help with one of those options 👆\r\n\r\n### Example Code\r\n\r\n```python\r\nimport bson\r\nfrom typing import Annotated\r\n\r\nfrom pydantic import (\r\n    field_validator,\r\n    PlainSerializer,\r\n    WithJsonSchema,\r\n    BeforeValidator,\r\n    TypeAdapter,\r\n)\r\nfrom fastapi import FastAPI\r\n\r\n\r\nObjectId = Annotated[\r\n    bson.ObjectId,\r\n    BeforeValidator(lambda x: bson.ObjectId(x) if isinstance(x, str) else x),\r\n    PlainSerializer(lambda x: f\"{x}\", return_type=str),\r\n    WithJsonSchema({\"type\": \"string\"}, mode=\"validation\"),\r\n    WithJsonSchema({\"type\": \"string\"}, mode=\"serialization\"),\r\n]\r\n\r\n# Casting from str to ObjectId - WORKS\r\nta = TypeAdapter(\r\n    ObjectId,\r\n    config=dict(arbitrary_types_allowed=True),\r\n)\r\nta.validate_python(\"5f7f9f0c2a0e0b0001d5b3d0\")\r\nta.json_schema()\r\n\r\n# Use ObjectId as a query parameter in FastAPI - FAILS:\r\napp = FastAPI()\r\n\r\n@app.get(\"/test\")\r\ndef test(id: ObjectId) -> bool:\r\n    return True\r\n```\r\n\r\n\r\n### Description\r\n\r\nI am trying to figure out how to update my FastAPI app after from Pydantic v1 to Pydantic v2.\r\n\r\nBefore I had code that worked perfectly fine:\r\n\r\n\r\n```\r\nclass ObjectId(bson.ObjectId):\r\n    @classmethod\r\n    def __get_validators__(cls):\r\n        yield cls.validate\r\n\r\n    @classmethod\r\n    def validate(cls, value):\r\n        if isinstance(value, str):\r\n            try:\r\n                return bson.ObjectId(value)\r\n            except bson.errors.InvalidId:\r\n                raise ValueError(\"Invalid ObjectId\")\r\n        elif isinstance(value, bson.ObjectId):\r\n            return value\r\n        else:\r\n            raise TypeError(\"ObjectId required\")\r\n\r\n\r\napp = FastAPI()\r\n\r\n@app.get(\"/test\")\r\ndef test(id: ObjectId) -> bool:\r\n    return True\r\n```\r\n\r\nWith the code that I provided above, I get the following error message:\r\n\r\n> fastapi.exceptions.FastAPIError: Invalid args for response field! Hint: check that <class 'bson.objectid.ObjectId'> is a valid Pydantic field type. If you are using a return type annotation that is not a valid Pydantic field (e.g. Union[Response, dict, None]) you can disable generating the response model from the type annotation with the path operation decorator parameter response_model=None. Read more: https://fastapi.tiangolo.com/tutorial/response-model/\r\n\r\nI am a bit confused, because it seems that the problem is not with a response model (which is bool in the example), but with a custom type in query parameter.\r\n\r\nI also checked other suggested approaches, for example:\r\n\r\n- [What is the new way to declare Mongo ObjectId with PyDantic v2.0^?](https://stackoverflow.com/questions/76686267/what-is-the-new-way-to-declare-mongo-objectid-with-pydantic-v2-0)\r\n- [Using bson.ObjectId in Pydantic v2](https://stackoverflow.com/questions/76686888/using-bson-objectid-in-pydantic-v2/76722139#76722139)\r\n\r\nThere, it is suggested an alternative approach to introduce a custom annotation type, however, it still does not work for me.\r\n\r\nI also did not find any relevant in the FastAPI documentation about query parameters and a list of Extra Data Types.\r\n\r\nI would highly appreciate if you could help to find a possible solution.\r\n\r\n\r\n### Operating System\r\n\r\nmacOS\r\n\r\n### Operating System Details\r\n\r\n_No response_\r\n\r\n### FastAPI Version\r\n\r\n0.101.1\r\n\r\n### Pydantic Version\r\n\r\n2.1.1\r\n\r\n### Python Version\r\n\r\nPython 3.11.4\r\n\r\n### Additional Context\r\n\r\n_No response_</div>",
+    "pr_number": 589,
+    "pr_title": "🎨(api) use Annotated instead of Query as the default value",
+    "commit_hash": "b71a0f7685c858b01efcb181762bb69181158ec1",
+    "changed_files": [
+      "fastapi/routing.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/10259",
+    "pr_url": "https://github.com/openfun/ralph/pull/589",
+    "issue_created_at": "2023-09-18T07:49:30Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 1598,
+    "issue_title": "Update JWT docs with python-jose",
+    "issue_body": "### First check\r\n\r\n* [x] I added a very descriptive title to this issue.\r\n* [x] I used the GitHub search to find a similar issue and didn't find it.\r\n* [x] I searched the FastAPI documentation, with the integrated search.\r\n* [x] I already searched in Google \"How to X in FastAPI\" and didn't find any information.\r\n* [x] I already read and followed all the tutorial in the docs and didn't find an answer.\r\n* [x] I already checked if it is not related to FastAPI but to [Pydantic](https://github.com/samuelcolvin/pydantic).\r\n* [x] I already checked if it is not related to FastAPI but to [Swagger UI](https://github.com/swagger-api/swagger-ui).\r\n* [x] I already checked if it is not related to FastAPI but to [ReDoc](https://github.com/Redocly/redoc).\r\n* [x] After submitting this, I commit to:\r\n    * Read open issues with questions until I find 2 issues where I can help someone and add a comment to help there.\r\n    * Or, I already hit the \"watch\" button in this repository to receive notifications and I commit to help at least 2 people that ask questions in the future.\r\n    * Implement a Pull Request for a confirmed bug.\r\n\r\n<!-- \r\n\r\nI'm asking all this because answering questions and solving problems in GitHub issues consumes a lot of time. I end up not being able to add new features, fix bugs, review Pull Requests, etc. as fast as I wish because I have to spend too much time handling issues.\r\n\r\nAll that, on top of all the incredible help provided by a bunch of community members that give a lot of their time to come here and help others.\r\n\r\nThat's a lot of work they are doing, but if more FastAPI users came to help others like them just a little bit more, it would be much less effort for them (and you and me 😅).\r\n\r\n-->\r\n\r\n### Example\r\n\r\nN/A, docs.\r\n\r\n### Description\r\n\r\n<!-- Replace the content below with your own feature request -->\r\n\r\nThe docs should suggest and use https://github.com/mpdavis/python-jose instead of PyJWT as `python-jose` supports the same features plus some more that are required for some OAuth2 use cases.\r\n\r\n### The solution you would like\r\n\r\n<!-- Replace this with your own content -->\r\n\r\nI would like all the docs that deal with security with JWT to suggest and https://github.com/mpdavis/python-jose instead of PyJWT.\r\n\r\n### Describe alternatives you've considered\r\n\r\n<!-- Replace this with your own ideas -->\r\n\r\nTo leave it as is, but I'm already using `python-jose` everywhere and is what I would recommend.\r\n\r\n### Environment\r\n\r\n* OS: [e.g. Linux / Windows / macOS]: All\r\n* FastAPI Version [e.g. 0.3.0]: All\r\n\r\nTo know the FastAPI version use:\r\n\r\n```bash\r\npython -c \"import fastapi; print(fastapi.__version__)\"\r\n```\r\n\r\n* Python version: All\r\n\r\nTo know the Python version use:\r\n\r\n```bash\r\npython --version\r\n```\r\n\r\n### Additional context\r\n\r\n\r\n<!-- Add any other context or screenshots about the question here. -->\r\n",
+    "pr_number": 1610,
+    "pr_title": "Update JWT docs with python-jose",
+    "commit_hash": "921642dc7b4c82735c9691d2c0cace25dc3e34d8",
+    "changed_files": [
+      "docs_src/security/tutorial004.py",
+      "docs_src/security/tutorial005.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/1598",
+    "pr_url": "https://github.com/fastapi/fastapi/pull/1610",
+    "issue_created_at": "2020-06-19T17:18:02Z",
+    "pr_created_at": "2020-06-22T09:08:51Z",
+    "pr_merged_at": "2020-07-10T18:24:38Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 284,
+    "issue_title": "OpenAPI fails when forcing query params to be body and multiple params in each",
+    "issue_body": "**Describe the bug**\r\n\r\nThe OpenAPI spec for my app breaks with the following error (shown in my web browser).\r\n\r\n```\r\nFetch error\r\nInternal Server Error /openapi.json\r\n```\r\n\r\nThis only happens when I have endpoints defined in two separate files, each of which force all their arguments to be body parameters via annotating each parameter with `Body(...)` to force them to be body parameters, as opposed to query parameters.\r\n\r\nCheck this out!\r\n\r\n- If the endpoints are defined in the same file, then the problem does not happen.\r\n- If each endpoint only has a single parameter, the problem does not happen.\r\n- If only one endpoint has multiple parameters, then the problem does not happen.\r\n\r\nIt only happens when both endpoints have *multiple* parameters annotated with `Body(...)`.\r\n\r\n\r\n**To Reproduce**\r\n\r\nSteps to reproduce the behavior:\r\n\r\n1. Create a directory with the following structure.\r\n\r\n```\r\n.\r\n├── foo\r\n│   ├── __init__.py\r\n│   ├── bar.py\r\n│   └── baz.py\r\n└── main.py\r\n```\r\n\r\nmain.py\r\n\r\n```python\r\nfrom fastapi import FastAPI\r\n\r\nimport foo.bar\r\nimport foo.baz\r\n\r\napp = FastAPI()\r\n\r\napp.get('/v1/compute')(foo.bar.compute)\r\napp.get('/v2/compute')(foo.baz.compute)\r\n```\r\n\r\nfoo/bar.py\r\n\r\n```python\r\nfrom fastapi import Body\r\n\r\ndef compute(\r\n        a: int = Body(...),\r\n        b: str = Body(...),\r\n):\r\n    return a + b \r\n```\r\n\r\nfoo/baz.py (identical to foo/bar.py)\r\n\r\n```python\r\nfrom fastapi import Body\r\n\r\ndef compute(\r\n        a: int = Body(...),\r\n        b: str = Body(...),\r\n):\r\n    return a + b\r\n```\r\n\r\n2. Run with `uvicorn main:app --reload`\r\n3. Visit `http://localhost:8000/docs`\r\n\r\n**Expected behavior**\r\n\r\nThe OpenAPI page shows without error.\r\n\r\n**Screenshots**\r\n\r\n![image](https://user-images.githubusercontent.com/2068912/58768563-3e448080-8552-11e9-92b1-cfc1e8040d68.png)\r\n\r\nHere's the exception my app produces when I try to visit `http://localhost:8000`.\r\n\r\n```\r\nip-10-8-0-198% % uvicorn run:app --reload\r\nINFO: Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)\r\nINFO: Started reloader process [77186]\r\nWARNING:root:email-validator not installed, email fields will be treated as str.\r\nTo install, run: pip install email-validator\r\nINFO:uvicorn:Started server process [77188]\r\nINFO:uvicorn:Waiting for application startup.\r\nINFO:uvicorn:('127.0.0.1', 54932) - \"GET /docs HTTP/1.1\" 200\r\nINFO:uvicorn:('127.0.0.1', 54932) - \"GET /openapi.json HTTP/1.1\" 500\r\nERROR:uvicorn:Exception in ASGI application\r\nTraceback (most recent call last):\r\n  File \"/Users/edwardbanner/.anaconda/lib/python3.6/site-packages/uvicorn/protocols/http/httptools_impl.py\", line 368, in run_asgi\r\n    result = await app(self.scope, self.receive, self.send)\r\n  File \"/Users/edwardbanner/.anaconda/lib/python3.6/site-packages/uvicorn/middleware/asgi2.py\", line 7, in __call__\r\n    await instance(receive, send)\r\n  File \"/Users/edwardbanner/.anaconda/lib/python3.6/site-packages/starlette/middleware/errors.py\", line 125, in asgi\r\n    raise exc from None\r\n  File \"/Users/edwardbanner/.anaconda/lib/python3.6/site-packages/starlette/middleware/errors.py\", line 103, in asgi\r\n    await asgi(receive, _send)\r\n  File \"/Users/edwardbanner/.anaconda/lib/python3.6/site-packages/starlette/exceptions.py\", line 74, in app\r\n    raise exc from None\r\n  File \"/Users/edwardbanner/.anaconda/lib/python3.6/site-packages/starlette/exceptions.py\", line 63, in app\r\n    await instance(receive, sender)\r\n  File \"/Users/edwardbanner/.anaconda/lib/python3.6/site-packages/starlette/routing.py\", line 43, in awaitable\r\n    response = await run_in_threadpool(func, request)\r\n  File \"/Users/edwardbanner/.anaconda/lib/python3.6/site-packages/starlette/concurrency.py\", line 24, in run_in_threadpool\r\n    return await loop.run_in_executor(None, func, *args)\r\n  File \"/Users/edwardbanner/.anaconda/lib/python3.6/concurrent/futures/thread.py\", line 56, in run\r\n    result = self.fn(*self.args, **self.kwargs)\r\n  File \"/Users/edwardbanner/.anaconda/lib/python3.6/site-packages/fastapi/applications.py\", line 83, in <lambda>\r\n    lambda req: JSONResponse(self.openapi()),\r\n  File \"/Users/edwardbanner/.anaconda/lib/python3.6/site-packages/fastapi/applications.py\", line 75, in openapi                                                                                            \r\n    openapi_prefix=self.openapi_prefix,\r\n  File \"/Users/edwardbanner/.anaconda/lib/python3.6/site-packages/fastapi/openapi/utils.py\", line 248, in get_openapi                                                                                      \r\n    flat_models=flat_models, model_name_map=model_name_map\r\n  File \"/Users/edwardbanner/.anaconda/lib/python3.6/site-packages/fastapi/utils.py\", line 45, in get_model_definitions                                                                                     \r\n    model_name = model_name_map[model]\r\nKeyError: <class 'Body_compute'>\r\n```\r\n\r\n**Environment:**\r\n - OS: [e.g. macOS]\r\n - FastAPI Version [e.g. 0.27.0], get it with `pip install fastapi`.\r\n\r\n```Python\r\nimport fastapi\r\nprint(fastapi.__version__)\r\n```\r\n\r\n**Additional context**\r\n\r\n- When I only have a single endpoint, the value of `model_name_map` is `{<class 'Body_compute'>: 'Body_compute'}`.\r\n- However, when I have both endpoints take multiple parameters, the value of `model_name_map` is `{<class 'Body_compute'>: 'None__Body_compute'}`.",
+    "pr_number": 347,
+    "pr_title": "Fix same function names in different modules with composite bodies",
+    "commit_hash": "687065509b047a642acd1d281d6d68c6698509b1",
+    "changed_files": [
+      "fastapi/openapi/utils.py",
+      "fastapi/routing.py",
+      "fastapi/utils.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/284",
+    "pr_url": "https://github.com/fastapi/fastapi/pull/347",
+    "issue_created_at": "2019-06-03T01:29:10Z",
+    "pr_created_at": "2019-06-28T17:31:21Z",
+    "pr_merged_at": "2019-06-28T17:35:17Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 872,
+    "issue_title": "I need a way to specify servers in the openapi spec",
+    "issue_body": "### Is your feature request related to a problem\r\n\r\nI want to be able to use the generated openapi.json doc as it is and hook it up with a document publishing flow, but i'm not able to because I have to add in information about `servers` manually.\r\n\r\n### The solution you would like\r\n\r\nSomeway to specify at a global level what the base server url should be.\r\n\r\n### Describe alternatives you've considered\r\n\r\nCurrently I'm doing this manually in the generated openapi.json by adding in something like - \r\n```\r\n    \"servers\": [\r\n        {\r\n            \"url\": \"http://example.com\"\r\n        }\r\n    ]\r\n```\r\n\r\nI don't mind submitting a PR which enables this if someone can guide me about the changes that need to be made. One thing I saw was that the `get_openapi` method in `fastapi.openapi.utils`, doesn't expose a parameter for setting a value for the `servers` key.",
+    "pr_number": 1547,
+    "pr_title": "feat: add servers option for OpenAPI",
+    "commit_hash": "b591de2ace297c1da537e50f64b4066f96553247",
+    "changed_files": [
+      "fastapi/applications.py",
+      "fastapi/openapi/models.py",
+      "fastapi/openapi/utils.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/872",
+    "pr_url": "https://github.com/fastapi/fastapi/pull/1547",
+    "issue_created_at": "2020-01-16T07:08:21Z",
+    "pr_created_at": "2020-06-10T19:32:26Z",
+    "pr_merged_at": "2020-06-14T13:38:30Z"
+  },
+  {
+    "repo_name": "fastapi/fastapi",
+    "issue_number": 2943,
+    "issue_title": "Support starlette \"lifespan\" context for application",
+    "issue_body": "### First check\r\n\r\n* [x] I added a very descriptive title to this issue.\r\n* [x] I used the GitHub search to find a similar issue and didn't find it.\r\n* [x] I searched the FastAPI documentation, with the integrated search.\r\n* [x] I already searched in Google \"How to X in FastAPI\" and didn't find any information.\r\n* [x] I already read and followed all the tutorial in the docs and didn't find an answer.\r\n* [x] I already checked if it is not related to FastAPI but to [Pydantic](https://github.com/samuelcolvin/pydantic).\r\n* [x] I already checked if it is not related to FastAPI but to [Swagger UI](https://github.com/swagger-api/swagger-ui).\r\n* [x] I already checked if it is not related to FastAPI but to [ReDoc](https://github.com/Redocly/redoc).\r\n* [x] After submitting this, I commit to:\r\n    * Read open issues with questions until I find 2 issues where I can help someone and add a comment to help there.\r\n    * Or, I already hit the \"watch\" button in this repository to receive notifications and I commit to help at least 2 people that ask questions in the future.\r\n    * Implement a Pull Request for a confirmed bug.\r\n\r\n<!-- \r\n\r\nI'm asking all this because answering questions and solving problems in GitHub issues consumes a lot of time. I end up not being able to add new features, fix bugs, review Pull Requests, etc. as fast as I wish because I have to spend too much time handling issues.\r\n\r\nAll that, on top of all the incredible help provided by a bunch of community members that give a lot of their time to come here and help others.\r\n\r\nThat's a lot of work they are doing, but if more FastAPI users came to help others like them just a little bit more, it would be much less effort for them (and you and me 😅).\r\n\r\n-->\r\n\r\n### Description\r\n\r\nStarlette added support for the lifespan context function in 0.13.5.  It's not well documented, but the code does [suggest](https://github.com/encode/starlette/blob/ed73b97c9b8f4aa527eed88032c04ce9fe109a3c/starlette/applications.py#L51):\r\n```python\r\n        # The lifespan context function is a newer style that replaces\r\n        # on_startup / on_shutdown handlers. Use one or the other, not both.\r\n```\r\n\r\nFor my purposes, it's much more convenient to use a (async)contextmanager for the startup and shutdown events of my application.  It would be nice to have the option\r\n\r\n### The solution you would like\r\n\r\nI'd like an easier way, and one that's officially supported, to use the lifespan context function.\r\n\r\n```Python\r\nfrom fastapi import FastAPI\r\n\r\nasync def lifespan(app):\r\n    print(\"startup\")\r\n    async with SomeResource():\r\n        yield\r\n    print(\"shutdown\")\r\n\r\napp = FastAPI(lifespan=lifespan)\r\n```\r\n\r\nor\r\n\r\n```Python\r\nfrom fastapi import FastAPI\r\n\r\napp = FastAPI()\r\n\r\n@app.lifespan\r\nasync def lifespan(app):\r\n    print(\"startup\")\r\n    async with SomeResource():\r\n        yield\r\n    print(\"shutdown\")\r\n```\r\n\r\n### Describe alternatives you've considered\r\n\r\nI can already accomplish this simply by doing:\r\n```python\r\nfrom fastapi import FastAPI\r\n\r\nasync def lifespan(app):\r\n    print(\"startup\")\r\n    async with SomeResource():\r\n        yield\r\n    print(\"shutdown\")\r\n\r\napp = FastAPI()\r\napp.router.lifespan_context = lifespan\r\n```\r\nhowever this is not officially supported and would likely break if accidentally using `app.on_event` in addition.\r\n\r\nOne could also do nasty stuff with `__aenter__` and `__aexit__`:\r\n```python\r\nfrom fastapi import FastAPI\r\n\r\napp = FastAPI()\r\n\r\n@app.on_event(\"startup\")\r\nasync def startup()\r\n    print(\"startup\")\r\n    app.state.resource = SomeResource()\r\n    await app.state.resource.__aenter__()\r\n\r\n@app.on_event(\"shutdown\")\r\nasync def startup()\r\n    print(\"shutdown\")\r\n    await app.state.resource.__aexit__(None, None, None)\r\n```\r\nbut that seems quite ugly to me.\r\n\r\n### Environment\r\n\r\n* OS: Linux\r\n* FastAPI Version: 0.63.0\r\n* Python version: 3.8.5",
+    "pr_number": 2944,
+    "pr_title": "✨ Add support for `lifespan` async context managers (superseding `startup` and `shutdown` events)",
+    "commit_hash": "cc9a73c3f83fab4f1d9fcb19dfe5b562869d932c",
+    "changed_files": [
+      "docs_src/events/tutorial003.py",
+      "fastapi/applications.py",
+      "fastapi/routing.py"
+    ],
+    "issue_url": "https://github.com/fastapi/fastapi/issues/2943",
+    "pr_url": "https://github.com/fastapi/fastapi/pull/2944",
+    "issue_created_at": "2021-03-12T23:34:33Z",
+    "pr_created_at": "2021-03-13T05:08:38Z",
+    "pr_merged_at": "2023-03-07T15:46:00Z"
+  }
+]
