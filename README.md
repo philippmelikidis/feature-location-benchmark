@@ -1,5 +1,7 @@
 # Feature Location Benchmark
 
+> Cleaned single-commit snapshot of a university team project; the original repository is private. My contributions and the project context are described [at the bottom](#background).
+
 A benchmark that measures how well different retrieval methods find the correct source file for a given GitHub issue.
 
 The practical problem: given a bug report or feature request, a developer (or an AI coding tool) first has to find the right place in the codebase. This project automates that step and evaluates it rigorously, using 918 real issues from five well-known Python projects where the ground truth is known from the actual fix commits.
@@ -21,6 +23,10 @@ Beyond method comparison, the benchmark answers two research questions:
 
 ## Key results (dataset v2, 918 queries, k=10)
 
+![Recall@10 by method with 95% bootstrap confidence intervals](assets/results.png)
+
+*Chart: pooled over all 918 queries (micro average). The table below weights the five repositories equally (macro average), which is why its values differ slightly.*
+
 | Method | Recall@10 (macro) | MRR@10 (macro) |
 |---|---|---|
 | Hierarchical without expansion (V12b) | 0.698 | 0.562 |
@@ -35,7 +41,7 @@ Selected findings:
 - **Data quality changes conclusions.** Validating the ground truth revealed that the first dataset version contained only 149 unique issues out of 206 entries (duplicates, umbrella issues, deleted target files). After rebuilding the pipeline and re-extracting via the GitHub GraphQL API, the cleaned dataset grew to 918 valid queries, and all methods scored higher than previously measured.
 - **Pre-AI code is easier to retrieve at Recall@10** (about 6 to 8 percentage points across repositories), but the effect size depends on how "era" is defined. Classifying by fix merge date instead of issue creation date moves 21% of the samples and shrinks the gap. Both options are built in.
 
-Full result write-ups are in [docs/](docs/) (German).
+An English summary of all results is in [docs/RESULTS.md](docs/RESULTS.md); the detailed per-experiment write-ups in [docs/](docs/) are in German.
 
 ## How it works
 
@@ -66,9 +72,10 @@ GitHub issues + fix commits          Repositories at HEAD
 
 ## Quickstart
 
-Requirements: Python 3.11+, a running Elasticsearch 8.x on `localhost:9200`, and about 2 GB disk for models.
+Requirements: Python 3.11+, Docker (for Elasticsearch), about 2 GB disk for models.
 
 ```bash
+docker compose up -d          # starts Elasticsearch 8.11 on localhost:9200
 pip install -r requirements_benchmark.txt
 
 # Small smoke run: one method, one repository
